@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curso Java Profesional - Módulo 5</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <style>
+        header {
+            cursor: pointer;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f3f4f6;
+        }
+
+        .code-block {
+            border-radius: 0.5rem;
+            overflow: hidden;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .lesson-section {
+            display: none;
+        }
+
+        .lesson-section.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        h2 {
+            color: #1e3a8a;
+            border-bottom: 2px solid #3b82f6;
+            padding-bottom: 0.5rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        h3 {
+            color: #1f2937;
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            font-size: 1.25rem;
+        }
+
+        .nav-btn {
+            transition: all 0.3s;
+        }
+
+        .nav-btn.active {
+            background-color: #2563eb;
+            color: white;
+            border-left: 4px solid #1e40af;
+        }
+
+        .tip-box {
+            background-color: #eff6ff;
+            border-left: 4px solid #3b82f6;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 0.5rem 0.5rem 0;
+        }
+
+        .warning-box {
+            background-color: #fef2f2;
+            border-left: 4px solid #ef4444;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 0.5rem 0.5rem 0;
+        }
+
+        .best-practice {
+            background-color: #ecfdf5;
+            border: 1px solid #10b981;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .exercise-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            margin-bottom: 1rem;
+            border: 1px solid #e5e7eb;
+            position: relative;
+        }
+
+        .difficulty-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .badge-green {
+            background-color: #dcfce7;
+            color: #166534;
+        }
+
+        .badge-yellow {
+            background-color: #fef9c3;
+            color: #854d0e;
+        }
+
+        .badge-red {
+            background-color: #fee2e2;
+            color: #991b1b;
+        }
+
+        .solution-spoiler {
+            display: none;
+            background: #1f2937;
+            color: #e5e7eb;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-top: 0.5rem;
+            border-left: 4px solid #dc2626;
+        }
+    </style>
+</head>
+
+<body class="flex flex-col h-screen overflow-hidden">
+
+    <!-- Header -->
+    <header onclick="window.location.href='../index.html'"
+        class="bg-slate-900 text-white p-4 shadow-lg flex justify-between items-center z-10 hover:bg-slate-800 transition">
+        <div>
+            <h1 class="text-2xl font-bold tracking-tight">☕ Curso Profesional de Java</h1>
+            <p class="text-slate-400 text-sm">Módulo 5: I/O, Concurrencia y Calidad de Software</p>
+        </div>
+        <div class="text-xs bg-red-600 px-3 py-1 rounded-full font-semibold">Java 21 LTS</div>
+    </header>
+
+    <div class="flex flex-1 overflow-hidden">
+        <!-- Sidebar Navigation -->
+        <nav class="w-64 bg-white shadow-md overflow-y-auto hidden md:block border-r border-gray-200">
+            <div class="p-4">
+                <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-4">Temario del Módulo</h3>
+                <div class="space-y-1">
+                    <button onclick="showLesson(20)" id="btn-20"
+                        class="nav-btn active w-full text-left px-4 py-3 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100">
+                        20: I/O Moderno (NIO.2)
+                    </button>
+                    <button onclick="showLesson(21)" id="btn-21"
+                        class="nav-btn w-full text-left px-4 py-3 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100">
+                        21: Concurrencia Básica
+                    </button>
+                    <button onclick="showLesson(22)" id="btn-22"
+                        class="nav-btn w-full text-left px-4 py-3 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100">
+                        22: Virtual Threads (Loom)
+                    </button>
+                    <button onclick="showLesson(23)" id="btn-23"
+                        class="nav-btn w-full text-left px-4 py-3 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100">
+                        23: Testing con JUnit 5
+                    </button>
+                    <button onclick="showLesson(24)" id="btn-24"
+                        class="nav-btn w-full text-left px-4 py-3 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100">
+                        24: Debugging y Profiling
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="flex-1 overflow-y-auto p-8 relative scroll-smooth">
+
+            <!-- LECCIÓN 20 -->
+            <div id="lesson-20" class="lesson-section active max-w-4xl mx-auto">
+                <div class="mb-6 pb-6 border-b border-gray-200">
+                    <span class="text-red-600 font-bold tracking-wide text-sm uppercase">Lección 20</span>
+                    <h1 class="text-4xl font-extrabold text-gray-900 mt-2">Entrada/Salida (I/O) y NIO.2</h1>
+                </div>
+
+                <div class="bg-red-50 p-6 rounded-lg mb-8 border border-red-100">
+                    <h3 class="text-red-800 font-bold mb-2 !mt-0">🎯 Objetivos de Élite</h3>
+                    <ul class="list-disc list-inside text-gray-700 space-y-1">
+                        <li>Superar `java.io.File`: Por qué `java.nio.file.Path` y `Files` son superiores.</li>
+                        <li>Gestión de Memoria en I/O: Streams (perezosos) vs Lectura completa (voraz).</li>
+                        <li>Manipular el sistema de archivos de forma agnóstica al SO (Windows/Linux/Mac).</li>
+                        <li>Seguridad de recursos: El patrón obligatorio `try-with-resources`.</li>
+                    </ul>
+                </div>
+
+                <h2>1. Teoría Suprema: Hablando con el Disco Duro</h2>
+                <p class="text-gray-700 mb-4">
+                    El disco duro es millones de veces más lento que la CPU. Si tu programa lee archivos mal, toda la
+                    aplicación se congela.
+                    <br>
+                    <strong>NIO.2 (New I/O 2)</strong> introducido en Java 7, modernizó todo. La clase `Files` es tu
+                    navaja suiza estática.
+                </p>
+
+                <h3 class="text-lg font-bold text-gray-800">1.1 El peligro de `readAllLines`</h3>
+                <div class="warning-box">
+                    <strong>¡Cuidado con la RAM!</strong>
+                    <br>Nunca uses `Files.readAllLines()` para archivos cuyo tamaño desconoces. Si el archivo pesa 2GB y
+                    tu JVM tiene 1GB, tu app morirá (`OutOfMemoryError`).
+                    <br>Usa <strong>`Files.lines()`</strong>, que devuelve un `Stream<String>`. Lee línea por línea de
+                        forma perezosa (lazy), consumiendo memoria mínima.
+                </div>
+
+                <h2>2. Laboratorio de Código</h2>
+                <div class="code-block">
+                    <pre><code class="language-java">import java.nio.file.*;
+import java.io.IOException;
+import java.util.stream.Stream;
+
+public class ArchivosModernos {
+    public static void main(String[] args) {
+        // 1. Definir Ruta (Path) - Funciona en Win/Linux/Mac
+        Path ruta = Path.of("datos", "logs", "server.log");
+
+        // 2. Escritura Rápida (Para archivos pequeños de config)
+        try {
+            Files.createDirectories(ruta.getParent()); // Crea carpetas si no existen
+            Files.writeString(ruta, "INFO: Sistema iniciado\nERROR: Fallo DB");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // 3. Lectura Eficiente (Para archivos GIGANTES)
+        // El try-with-resources asegura que el archivo se cierre al terminar.
+        try (Stream<String> lineas = Files.lines(ruta)) {
+            lineas
+                .filter(l -> l.startsWith("ERROR")) // Filtrado Lazy
+                .forEach(System.out::println);      // Solo carga en RAM lo necesario
+        } catch (IOException e) {
+            System.err.println("No se pudo leer el archivo: " + e.getMessage());
+        }
+    }
+}</code></pre>
+                </div>
+
+                <h2>3. Entrenamiento Progresivo</h2>
+
+                <!-- EJERCICIO 1: VERDE -->
+                <div class="exercise-card">
+                    <span class="difficulty-badge badge-green">Nivel Básico</span>
+                    <h4 class="font-bold text-gray-800 pr-20">Verificación de Existencia</h4>
+                    <p class="text-gray-600 mt-2">Usa `Path.of` para apuntar a un archivo `config.properties`. Usa
+                        `Files.exists(path)` para verificar si existe. Si no existe, créalo vacío con
+                        `Files.createFile`.</p>
+                </div>
+
+                <!-- EJERCICIO 2: AMARILLO -->
+                <div class="exercise-card">
+                    <span class="difficulty-badge badge-yellow">Nivel Intermedio</span>
+                    <h4 class="font-bold text-gray-800 pr-20">Backup Seguro</h4>
+                    <p class="text-gray-600 mt-2">Implementa un sistema de backup. Copia un archivo de imagen de una
+                        carpeta a otra llamada `backup`. <br>Usa `Files.copy` con la opción
+                        `StandardCopyOption.REPLACE_EXISTING` para que no falle si ya existe el backup.</p>
+                </div>
+
+                <!-- EJERCICIO 3: ROJO -->
+                <div class="exercise-card">
+                    <span class="difficulty-badge badge-red">Nivel Experto</span>
+                    <h4 class="font-bold text-gray-800 pr-20">Crawler de Archivos</h4>
+                    <p class="text-gray-600 mt-2">Usa `Files.walk(path)` (que devuelve un Stream de Paths) para recorrer
+                        recursivamente una carpeta y todas sus subcarpetas. Encuentra y lista solo los archivos que
+                        terminen en `.java`.</p>
+
+                    <button onclick="toggleSolution('sol-20')"
+                        class="mt-3 text-sm font-semibold text-red-600 hover:text-red-800 underline">
+                        👁️ Ver Solución Guía
+                    </button>
+
+                    <div id="sol-20" class="solution-spoiler">
+                        <pre><code class="language-java">Path inicio = Path.of("src");
+try (Stream<Path> paths = Files.walk(inicio)) {
+    paths
+        .filter(Files::isRegularFile) // Ignorar carpetas
+        .filter(p -> p.toString().endsWith(".java"))
+        .forEach(System.out::println);
+}</code></pre>
+                    </div>
+                </div>
+
+                <h2>4. Evaluación de Conceptos</h2>
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 space-y-4">
+                    <div>
+                        <p class="font-semibold text-gray-800">1. ¿Qué ventaja tiene `Files.lines()` sobre
+                            `readAllLines()`?</p>
+                        <select id="q20-1" class="w-full p-2 border rounded mt-1">
+                            <option value="">Elegir...</option>
+                            <option value="a">Es más rápido en CPU.</option>
+                            <option value="b">Usa Streams para no cargar todo el archivo en RAM.</option>
+                            <option value="c">Permite escribir en el archivo.</option>
+                        </select>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-gray-800">2. ¿Qué hace `try-with-resources`?</p>
+                        <select id="q20-2" class="w-full p-2 border rounded mt-1">
+                            <option value="">Elegir...</option>
+                            <option value="a">Captura excepciones automáticamente.</option>
+                            <option value="b">Cierra automáticamente los recursos (AutoCloseable) al finalizar el
+                                bloque.</option>
+                            <option value="c">Mejora la velocidad de lectura.</option>
+                        </select>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-gray-800">3. ¿Es `Path` dependiente del Sistema Operativo?</p>
+                        <select id="q20-3" class="w-full p-2 border rounded mt-1">
+                            <option value="">Elegir...</option>
+                            <option value="a">Sí, solo funciona en Windows.</option>
+                            <option value="b">No, la interfaz abstrae las diferencias (barras / o \).</option>
+                            <option value="c">Depende de la versión de Java.</option>
+                        </select>
+                    </div>
+                    <button onclick="checkQuiz1()"
+                        class="bg-red-600 text-white px-6 py-2 rounded hover:bg-red-700 w-full font-bold">Validar
+                        Conocimientos</button>
+                </div>
+            </div>
+
+            <!-- LECCIÓN 21 -->
+            <div id="lesson-21" class="lesson-section max-w-4xl mx-auto">
+                <div class="mb-6 pb-6 border-b border-gray-200">
+                    <span class="text-red-600 font-bold tracking-wide text-sm uppercase">Lección 21</span>
+                    <h1 class="text-4xl font-extrabold text-gray-900 mt-2">Concurrencia Básica</h1>
+                </div>
+
+                <div class="bg-red-50 p-6 rounded-lg mb-8 border border-red-100">
+                    <h3 class="text-red-800 font-bold mb-2 !mt-0">🎯 Objetivos de Élite</h3>
+                    <ul class="list-disc list-inside text-gray-700 space-y-1">
+                        <li>Diferenciar Proceso (Memoria aislada) de Hilo (Memoria compartida).</li>
+                        <li>Entender el peligro de las <strong>Race Conditions</strong>: El bug más difícil de
+                            reproducir.</li>
+                        <li>Uso de `synchronized` para crear secciones críticas atómicas.</li>
+                        <li>Por qué evitar el estado mutable compartido es la mejor estrategia.</li>
+                    </ul>
+                </div>
+
+                <h2>1. Teoría Suprema: El Caos de la Cocina</h2>
+                <p class="text-gray-700 mb-4">
+                    Imagina una cocina profesional (Tu CPU). Los Hilos (`Threads`) son los cocineros.
+                    <br>
+                    Si cada cocinero trabaja en su propia tabla de picar (Variables locales/Stack), todo fluye. Pero si
+                    dos cocineros intentan cortar en la <strong>misma</strong> tabla (Objeto en el Heap) al mismo tiempo
+                    sin coordinarse, habrá sangre (Datos corruptos).
+                </p>
+                [Image of race condition diagram]
+                <div class="warning-box">
+                    <strong>Race Condition (Condición de Carrera):</strong> Ocurre cuando el resultado de tu programa
+                    depende del orden aleatorio en que el sistema operativo decide ejecutar los hilos.
+                </div>
+
+                <h2>2. Laboratorio de Código</h2>
+                <div class="code-block">
+                    <pre><code class="language-java">public class ContadorPeligroso {
+    private int cuenta = 0;
+
+    // SIN 'synchronized', dos hilos pueden leer '0', sumar 1 y guardar '1' a la vez.
+    // Resultado: Se pierde un incremento.
+    // CON 'synchronized', solo entra uno a la vez.
+    public synchronized void incrementar() {
+        cuenta++; 
+    }
+
+    public int getCuenta() { return cuenta; }
+
+    public static void main(String[] args) throws InterruptedException {
+        ContadorPeligroso c = new ContadorPeligroso();
+
+        Runnable tarea = () -> {
+            for (int i = 0; i < 1000; i++) c.incrementar();
+        };
+
+        Thread t1 = new Thread(tarea);
+        Thread t2 = new Thread(tarea);
+
+        t1.start(); t2.start();
+        t1.join(); t2.join(); // Esperar a que terminen
+
+        // Si sincronización, esto rara vez da 2000.
+        System.out.println("Total: " + c.getCuenta());
+    }
+}</code></pre>
+                </div>
+
+                <h2>3. Entrenamiento Progresivo</h2>
+
+                <!-- EJERCICIO 1: VERDE -->
+                <div class="exercise-card">
+                    <span class="difficulty-badge badge-green">Nivel Básico</span>
+                    <h4 class="font-bold text-gray-800 pr-20">Hola Hilos</h4>
+                    <p class="text-gray-600 mt-2">Crea una clase que implemente `Runnable` e imprima los números del 1
+                        al 5 con un `Thread.sleep(500)` entre cada uno. Lánzala en 2 hilos distintos y observa cómo se
+                        mezclan los números en la consola.</p>
+                </div>
+
+                <!-- EJERCICIO 2: AMARILLO -->
+                <div class="exercise-card">
+                    <span class="difficulty-badge badge-yellow">Nivel Intermedio</span>
+                    <h4 class="font-bold text-gray-800 pr-20">El Banco Inseguro</h4>
+                    <p class="text-gray-600 mt-2">Simula una cuenta bancaria con saldo 100. Dos hilos intentan retirar
+                        100 al mismo tiempo. <br>Sin sincronización, ambos hilos podrían pasar el chequeo `if (saldo >=
+                        100)` y retirar, dejando el saldo en -100. Implementa la solución con `synchronized`.</p>
+                </div>
+
+                <!-- EJERCICIO 3: ROJO -->
+                <div class="exercise-card">
+                    <span class="difficulty-badge badge-red">Nivel Experto</span>
+                    <h4 class="font-bold text-gray-800 pr-20">Atomicidad sin Bloqueos</h4>
+                    <p class="text-gray-600 mt-2">El uso de `synchronized` es costoso (bloquea hilos). Java tiene el
+                        paquete `java.util.concurrent.atomic`. <br>Reescribe el ejemplo del `ContadorPeligroso` usando
+                        `AtomicInteger` en lugar de `int` y elimina la palabra `synchronized`. Investiga por qué esto es
+                        más rápido (CAS - Compare And Swap).</p>
+
+                    <button onclick="toggleSolution('sol-21')"
+                        class="mt-3 text-sm font-semibold text-red-600 hover:text-red-800 underline">
+                        👁️ Ver Solución Guía
+                    </button>
+
+                    <div id="sol-21" class="solution-spoiler">
+                        <pre><code class="language-java">import java.util.concurrent.atomic.AtomicInteger;
+
+public class ContadorAtomico {
+    private AtomicInteger cuenta = new AtomicInteger(0);
+
+    public void incrementar() {
+        // Operación atómica a nivel de CPU, no necesita bloqueo de software
+        cuenta.incrementAndGet(); 
+    }
+}</code></pre>
+                    </div>
+                </div>
+
+                <h2>4. Evaluación de Conceptos</h2>
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 space-y-4">
+                    <div>
+                        <p class="font-semibold text-gray-800">1. ¿Qué es una Race Condition?</p>
+                        <select id="q21-1" class="w-full p-2 border rounded mt-1">
+                            <option value="">Elegir...</option>
+                            <option value="a">Una carrera de hilos para terminar primero.</option>
+                            <option value="b">Un error donde el resultado depende del orden de ejecución impredecible.
+                            </option>
+                            <option value="c">Cuando la CPU se sobrecalienta.</option>
+                        </select>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-gray-800">2. ¿Qué efecto tiene `synchronized` en un método?</p>
+                        <select id="q21-2" class="w-full p-2 border rounded mt-1">
+                            <option value="">Elegir...</option>
+                            <option value="a">Hace que el método sea más rápido.</option>
+                            <option value="b">Permite acceso múltiple simultáneo.</option>
+                            <option value="c">Garantiza que solo un hilo a la vez pueda ejecutar ese método en esa
+                                instancia.</option>
+                        </select>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-gray-800">3. ¿Qué método detiene el hilo actual hasta que otro
+                            termine?</p>
+                        <select id="q21-3" class="w-full p-2 border rounded mt-1">
+                            <option value="">Elegir...</option>
+                            <option value="a">stop()</option>
+                            <option value="b">join()</option>
+                            <option value="c">yield()</option>
+                        </select>
+                    </div>
+                    <button onclick="checkQuiz1()"
+                        class="bg-red-600 text-white px-6 py-2 rounded hover:bg-red-700 w-full font-bold">Validar
+                        Conocimientos</button>
+                </div>
+            </div>
+
+            <!-- LECCIÓN 22 -->
+            <div id="lesson-22" class="lesson-section max-w-4xl mx-auto">
+                <div class="mb-6 pb-6 border-b border-gray-200">
+                    <span class="text-red-600 font-bold tracking-wide text-sm uppercase">Lección 22</span>
+                    <h1 class="text-4xl font-extrabold text-gray-900 mt-2">Concurrencia Avanzada y Virtual Threads</h1>
+                </div>
+
+                <div class="bg-red-50 p-6 rounded-lg mb-8 border border-red-100">
+                    <h3 class="text-red-800 font-bold mb-2 !mt-0">🎯 Objetivos de Élite</h3>
+                    <ul class="list-disc list-inside text-gray-700 space-y-1">
+                        <li>Dejar de crear hilos manuales: Usar `ExecutorService` y Pools.</li>
+                        <li>Programación Asíncrona moderna con `CompletableFuture`.</li>
+                        <li><strong>Revolución Java 21:</strong> Virtual Threads (Project Loom).</li>
+                        <li>Escalabilidad: De miles a millones de hilos concurrentes.</li>
+                    </ul>
+                </div>
+
+                <h2>1. Teoría Suprema: La Revolución de Loom</h2>
+                <p class="text-gray-700 mb-4">
+                    Tradicionalmente, 1 Hilo Java = 1 Hilo del Sistema Operativo (Platform Thread). Los hilos del SO son
+                    pesados (2MB RAM). Tener 10,000 hilos colapsaba el servidor.
+                </p>
+                <div class="tip-box">
+                    <strong>La Solución Virtual Thread:</strong> Java 21 introdujo hilos gestionados por la JVM, no por
+                    el SO. Son como "Uber rides" (tareas) compartiendo un número limitado de "Coches" (Hilos del SO).
+                    Cuando un Virtual Thread espera (por BD o Red), se baja del coche y deja que otro lo use. ¡Puedes
+                    tener millones!
+                </div>
+
+                <h2>2. Laboratorio de Código</h2>
+                <div class="code-block">
+                    <pre><code class="language-java">import java.util.concurrent.*;
+
+public class LoomDemo {
+    public static void main(String[] args) {
+        // ANTIGUO: Pool limitado (Costoso)
+        // ExecutorService pool = Executors.newFixedThreadPool(200);
+
+        // NUEVO (Java 21): Un hilo virtual por tarea
+        try (var executor = Executors.newVirtualThreadPerTaskExecutor()) {
+            
+            // Lanzar 100,000 tareas es trivial ahora
+            for (int i = 0; i < 100_000; i++) {
+                int id = i;
+                executor.submit(() -> {
+                    // Simular I/O (Dormir)
+                    // El hilo virtual se "desmonta" aquí, liberando el hilo del SO.
+                    try { Thread.sleep(1000); } catch (Exception e) {}
+                    System.out.println("Tarea " + id + " terminada.");
+                });
+            }
+        } // El try-with-resources espera a que terminen todas (Structured Concurrency)
+    }
+}</code></pre>
+                </div>
+
+                <h2>3. Entrenamiento Progresivo</h2>
+
+                <!-- EJERCICIO 1: VERDE -->
+                <div class="exercise-card">
+                    <span class="difficulty-badge badge-green">Nivel Básico</span>
+                    <h4 class="font-bold text-gray-800 pr-20">Futuro Asíncrono</h4>
+                    <p class="text-gray-600 mt-2">Usa `CompletableFuture.supplyAsync` para calcular un número en segundo
+                        plano (ej: retornar 42) y luego usa `thenAccept` para imprimirlo cuando esté listo, sin bloquear
+                        el hilo principal.</p>
+                </div>
+
+                <!-- EJERCICIO 2: AMARILLO -->
+                <div class="exercise-card">
+                    <span class="difficulty-badge badge-yellow">Nivel Intermedio</span>
+                    <h4 class="font-bold text-gray-800 pr-20">Comparativa de Estrés</h4>
+                    <p class="text-gray-600 mt-2">Intenta crear 50,000 hilos tradicionales (`new Thread()`).
+                        Probablemente tu JVM crashee o vaya lentísima. Luego haz lo mismo con
+                        `Executors.newVirtualThreadPerTaskExecutor()`. Mide el tiempo de ejecución.</p>
+                </div>
+
+                <!-- EJERCICIO 3: ROJO -->
+                <div class="exercise-card">
+                    <span class="difficulty-badge badge-red">Nivel Experto</span>
+                    <h4 class="font-bold text-gray-800 pr-20">Combinando Futuros</h4>
+                    <p class="text-gray-600 mt-2">Simula la obtención de datos de dos APIs lentas (sleep 1s y sleep 2s).
+                        Usa `CompletableFuture.supplyAsync` para lanzar ambas a la vez. Luego usa
+                        `CompletableFuture.allOf` o `thenCombine` para esperar a ambas y sumar sus resultados. El tiempo
+                        total debería ser ~2s, no 3s.</p>
+
+                    <button onclick="toggleSolution('sol-22')"
+                        class="mt-3 text-sm font-semibold text-red-600 hover:text-red-800 underline">
+                        👁️ Ver Solución Guía
+                    </button>
+
+                    <div id="sol-22" class="solution-spoiler">
+                        <pre><code class="language-java">CompletableFuture<Integer> f1 = CompletableFuture.supplyAsync(() -> {
+    dormir(1000); return 10;
+});
+CompletableFuture<Integer> f2 = CompletableFuture.supplyAsync(() -> {
+    dormir(2000); return 20;
+});
+
+// Combina cuando ambos terminen
+f1.thenCombine(f2, (res1, res2) -> res1 + res2)
+  .thenAccept(total -> System.out.println("Total: " + total))
+  .join(); // Esperar en main</code></pre>
+                    </div>
+                </div>
+
+                <h2>4. Evaluación de Conceptos</h2>
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 space-y-4">
+                    <div>
+                        <p class="font-semibold text-gray-800">1. ¿Para qué tipo de tareas son ideales los Virtual
+                            Threads?</p>
+                        <select id="q22-1" class="w-full p-2 border rounded mt-1">
+                            <option value="">Elegir...</option>
+                            <option value="a">Cálculo intensivo de CPU (Matemáticas).</option>
+                            <option value="b">Tareas I/O Bound (Esperar BD, Red, Archivos).</option>
+                            <option value="c">Gráficos 3D.</option>
+                        </select>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-gray-800">2. ¿Debes hacer pooling de Virtual Threads?</p>
+                        <select id="q22-2" class="w-full p-2 border rounded mt-1">
+                            <option value="">Elegir...</option>
+                            <option value="a">Sí, para reutilizarlos.</option>
+                            <option value="b">No, son desechables y baratos de crear.</option>
+                            <option value="c">Solo si usas bases de datos.</option>
+                        </select>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-gray-800">3. ¿Qué clase facilita la ejecución de tareas asíncronas
+                            encadenadas?</p>
+                        <select id="q22-3" class="w-full p-2 border rounded mt-1">
+                            <option value="">Elegir...</option>
+                            <option value="a">Thread</option>
+                            <option value="b">Runnable</option>
+                            <option value="c">CompletableFuture</option>
+                        </select>
+                    </div>
+                    <button onclick="checkQuiz1()"
+                        class="bg-red-600 text-white px-6 py-2 rounded hover:bg-red-700 w-full font-bold">Validar
+                        Conocimientos</button>
+                </div>
+            </div>
+
+            <!-- LECCIÓN 23 -->
+            <div id="lesson-23" class="lesson-section max-w-4xl mx-auto">
+                <div class="mb-6 pb-6 border-b border-gray-200">
+                    <span class="text-red-600 font-bold tracking-wide text-sm uppercase">Lección 23</span>
+                    <h1 class="text-4xl font-extrabold text-gray-900 mt-2">Testing Unitario con JUnit 5</h1>
+                </div>
+
+                <div class="bg-red-50 p-6 rounded-lg mb-8 border border-red-100">
+                    <h3 class="text-red-800 font-bold mb-2 !mt-0">🎯 Objetivos de Élite</h3>
+                    <ul class="list-disc list-inside text-gray-700 space-y-1">
+                        <li>Adoptar la mentalidad TDD: El test guía el diseño.</li>
+                        <li>Dominar el ciclo de vida de JUnit 5: `@Test`, `@BeforeEach`, `@DisplayName`.</li>
+                        <li>Aserciones profesionales: `assertEquals`, `assertThrows`, `assertAll`.</li>
+                        <li>Principios FIRST: Fast, Independent, Repeatable, Self-validating, Timely.</li>
+                    </ul>
+                </div>
+
+                <h2>1. Teoría Suprema: La Red de Seguridad</h2>
+                <p class="text-gray-700 mb-4">
+                    Un código sin tests es "Legacy Code" instantáneo. Los tests te permiten refactorizar y mejorar el
+                    sistema con la seguridad de que no rompiste nada.
+                    <br>
+                    <strong>JUnit 5 (Jupiter)</strong> es el estándar moderno. Un Test Unitario aísla la unidad más
+                    pequeña (un método) y prueba todas sus rutas lógicas.
+                </p>
+
+                <h2>2. Laboratorio de Código</h2>
+                <div class="code-block">
+                    <pre><code class="language-java">import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.*;
+
+class CalculadoraTest {
+    
+    private Calculadora calc;
+
+    @BeforeEach // Se ejecuta ANTES de cada @Test
+    void setup() {
+        calc = new Calculadora();
+    }
+
+    @Test
+    @DisplayName("Debe sumar dos positivos correctamente")
+    void testSuma() {
+        int resultado = calc.sumar(2, 3);
+        assertEquals(5, resultado, "2 + 3 debería ser 5");
+    }
+
+    @Test
+    @DisplayName("Debe lanzar excepción al dividir por cero")
+    void testDivisionCero() {
+        // AssertThrows verifica que la excepción ocurra
+        assertThrows(ArithmeticException.class, () -> {
+            calc.dividir(10, 0);
+        });
+    }
+}</code></pre>
+                </div>
+
+                <h2>3. Entrenamiento Progresivo</h2>
+
+                <!-- EJERCICIO 1: VERDE -->
+                <div class="exercise-card">
+                    <span class="difficulty-badge badge-green">Nivel Básico</span>
+                    <h4 class="font-bold text-gray-800 pr-20">Tu Primer Test</h4>
+                    <p class="text-gray-600 mt-2">Crea una clase `Saludo` con método `getMensaje(String nombre)`. Crea
+                        una clase de test y verifica que si pasas "Juan", retorna "Hola Juan".</p>
+                </div>
+
+                <!-- EJERCICIO 2: AMARILLO -->
+                <div class="exercise-card">
+                    <span class="difficulty-badge badge-yellow">Nivel Intermedio</span>
+                    <h4 class="font-bold text-gray-800 pr-20">Probando lo Negativo</h4>
+                    <p class="text-gray-600 mt-2">Añade lógica a `Saludo`: si el nombre es null, lanza
+                        `IllegalArgumentException`. Escribe un test que use `assertThrows` para asegurar que esta regla
+                        se cumple.</p>
+                </div>
+
+                <!-- EJERCICIO 3: ROJO -->
+                <div class="exercise-card">
+                    <span class="difficulty-badge badge-red">Nivel Experto</span>
+                    <h4 class="font-bold text-gray-800 pr-20">Tests Parametrizados</h4>
+                    <p class="text-gray-600 mt-2">No copies y pegues tests. Usa `@ParameterizedTest` y `@CsvSource` para
+                        probar tu método de suma con 5 pares de números diferentes en un solo método de test.</p>
+
+                    <button onclick="toggleSolution('sol-23')"
+                        class="mt-3 text-sm font-semibold text-red-600 hover:text-red-800 underline">
+                        👁️ Ver Solución Guía
+                    </button>
+
+                    <div id="sol-23" class="solution-spoiler">
+                        <pre><code class="language-java">@ParameterizedTest
+@CsvSource({
+    "1, 1, 2",
+    "2, 3, 5",
+    "-1, 1, 0"
+})
+void testSumaMasiva(int a, int b, int esperado) {
+    assertEquals(esperado, calc.sumar(a, b));
+}</code></pre>
+                    </div>
+                </div>
+
+                <h2>4. Evaluación de Conceptos</h2>
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 space-y-4">
+                    <div>
+                        <p class="font-semibold text-gray-800">1. ¿Qué significa la 'I' en los principios FIRST?</p>
+                        <select id="q23-1" class="w-full p-2 border rounded mt-1">
+                            <option value="">Elegir...</option>
+                            <option value="a">Integrado.</option>
+                            <option value="b">Independiente (El test no depende de otros tests).</option>
+                            <option value="c">Inteligente.</option>
+                        </select>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-gray-800">2. ¿Para qué sirve @BeforeEach?</p>
+                        <select id="q23-2" class="w-full p-2 border rounded mt-1">
+                            <option value="">Elegir...</option>
+                            <option value="a">Para ejecutar código una vez antes de toda la clase.</option>
+                            <option value="b">Para preparar el entorno antes de cada método de test individual.</option>
+                            <option value="c">Para limpiar después del test.</option>
+                        </select>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-gray-800">3. ¿Es correcto usar System.out.println en un test?</p>
+                        <select id="q23-3" class="w-full p-2 border rounded mt-1">
+                            <option value="">Elegir...</option>
+                            <option value="a">Sí, para ver qué pasa.</option>
+                            <option value="b">No, los tests deben auto-validarse con Aserciones, no inspección visual.
+                            </option>
+                            <option value="c">A veces.</option>
+                        </select>
+                    </div>
+                    <button onclick="checkQuiz1()"
+                        class="bg-red-600 text-white px-6 py-2 rounded hover:bg-red-700 w-full font-bold">Validar
+                        Conocimientos</button>
+                </div>
+            </div>
+
+            <!-- LECCIÓN 24 -->
+            <div id="lesson-24" class="lesson-section max-w-4xl mx-auto">
+                <div class="mb-6 pb-6 border-b border-gray-200">
+                    <span class="text-red-600 font-bold tracking-wide text-sm uppercase">Lección 24</span>
+                    <h1 class="text-4xl font-extrabold text-gray-900 mt-2">Debugging Avanzado y Profiling</h1>
+                </div>
+
+                <div class="bg-red-50 p-6 rounded-lg mb-8 border border-red-100">
+                    <h3 class="text-red-800 font-bold mb-2 !mt-0">🎯 Objetivos de Aprendizaje</h3>
+                    <ul class="list-disc list-inside text-gray-700 space-y-1">
+                        <li>Ir más allá del `System.out.println`: El poder del Debugger.</li>
+                        <li>Breakpoints Inteligentes: Condicionales y de Excepción.</li>
+                        <li>Evaluación de expresiones en tiempo real (Hot Swapping mental).</li>
+                        <li>Profiling Básico: Detectar qué método está matando tu CPU.</li>
+                    </ul>
+                </div>
+
+                <h2>1. Teoría Suprema: Rayos X para tu Código</h2>
+                <p class="text-gray-700 mb-4">
+                    Imprimir mensajes en consola es la forma prehistórica de depurar. Un <strong>Debugger</strong> te
+                    permite congelar el tiempo, inspeccionar la memoria y modificar variables en vivo. Un
+                    <strong>Profiler</strong> te dice la verdad sobre el rendimiento: dónde se gasta la memoria y el
+                    tiempo de CPU.
+                </p>
+
+                <h2>2. Laboratorio de Herramientas</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div class="bg-white p-5 rounded-lg border-l-4 border-purple-500 shadow-sm">
+                        <h4 class="font-bold text-purple-700 mb-2">Breakpoint Condicional</h4>
+                        <p class="text-sm text-gray-600">No pares en cada vuelta del bucle. Configura el punto rojo para
+                            que solo pare cuando `i == 9999`. (Click derecho en el punto rojo).</p>
+                    </div>
+                    <div class="bg-white p-5 rounded-lg border-l-4 border-blue-500 shadow-sm">
+                        <h4 class="font-bold text-blue-700 mb-2">Exception Breakpoint</h4>
+                        <p class="text-sm text-gray-600">¿Tu app crashea y no sabes dónde? Dile a IntelliJ que pare
+                            automáticamente en cuanto se lance cualquier `NullPointerException`.</p>
+                    </div>
+                </div>
+
+                <h2>3. Entrenamiento Progresivo</h2>
+
+                <!-- EJERCICIO 1: VERDE -->
+                <div class="exercise-card">
+                    <span class="difficulty-badge badge-green">Nivel Básico</span>
+                    <h4 class="font-bold text-gray-800 pr-20">Freeze!</h4>
+                    <p class="text-gray-600 mt-2">Escribe un bucle `for` de 0 a 100. Pon un breakpoint (click en el
+                        margen izquierdo). Ejecuta en modo Debug (bichito). Usa F8 (Step Over) para ver cómo cambia la
+                        variable paso a paso.</p>
+                </div>
+
+                <!-- EJERCICIO 2: AMARILLO -->
+                <div class="exercise-card">
+                    <span class="difficulty-badge badge-yellow">Nivel Intermedio</span>
+                    <h4 class="font-bold text-gray-800 pr-20">Caza del Tesoro</h4>
+                    <p class="text-gray-600 mt-2">Escribe un bucle que itere 10,000 veces. Pon un <strong>Breakpoint
+                            Condicional</strong> que solo detenga la ejecución cuando el índice sea 5,555. Verifica el
+                        valor de las variables en ese momento.</p>
+                </div>
+
+                <!-- EJERCICIO 3: ROJO -->
+                <div class="exercise-card">
+                    <span class="difficulty-badge badge-red">Nivel Experto</span>
+                    <h4 class="font-bold text-gray-800 pr-20">Análisis de Stack Trace</h4>
+                    <p class="text-gray-600 mt-2">Crea un método recursivo sin condición de salida (`metodoA` llama a
+                        `metodoA`). Ejecútalo para provocar un `StackOverflowError`. <br>Ejecuta en modo debug y analiza
+                        la pestaña "Frames" para ver cómo la pila de llamadas creció hasta el infinito.</p>
+                </div>
+
+                <h2>4. Evaluación de Conceptos</h2>
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 space-y-4">
+                    <div>
+                        <p class="font-semibold text-gray-800">1. ¿Qué es un Stack Trace?</p>
+                        <select id="q24-1" class="w-full p-2 border rounded mt-1">
+                            <option value="">Elegir...</option>
+                            <option value="a">Un error de memoria.</option>
+                            <option value="b">La lista de métodos llamados activos en el momento del error.</option>
+                            <option value="c">Una herramienta de compilación.</option>
+                        </select>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-gray-800">2. ¿Para qué sirve "Evaluate Expression" en debug?</p>
+                        <select id="q24-2" class="w-full p-2 border rounded mt-1">
+                            <option value="">Elegir...</option>
+                            <option value="a">Para ejecutar código arbitrario en el contexto actual pausado.</option>
+                            <option value="b">Para compilar la clase.</option>
+                            <option value="c">Para reiniciar la app.</option>
+                        </select>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-gray-800">3. ¿Qué hace "Step Over" (F8)?</p>
+                        <select id="q24-3" class="w-full p-2 border rounded mt-1">
+                            <option value="">Elegir...</option>
+                            <option value="a">Entra dentro del método de la línea actual.</option>
+                            <option value="b">Ejecuta la línea actual y pasa a la siguiente sin entrar en detalles.
+                            </option>
+                            <option value="c">Continúa la ejecución hasta el próximo breakpoint.</option>
+                        </select>
+                    </div>
+                    <button onclick="checkQuiz1()"
+                        class="bg-red-600 text-white px-6 py-2 rounded hover:bg-red-700 w-full font-bold">Validar
+                        Conocimientos</button>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Scripts para interactividad -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+    <script>
+        function showLesson(id) {
+            document.querySelectorAll('.lesson-section').forEach(el => {
+                el.classList.remove('active');
+                el.style.display = 'none';
+            });
+            const selected = document.getElementById('lesson-' + id);
+            selected.style.display = 'block';
+            setTimeout(() => selected.classList.add('active'), 10);
+
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('btn-' + id).classList.add('active');
+            document.querySelector('main').scrollTop = 0;
+        }
+
+        function toggleSolution(id) {
+            const el = document.getElementById(id);
+            if (el.style.display === 'block') el.style.display = 'none';
+            else el.style.display = 'block';
+        }
+
+        // Validación simple para Quiz
+        function checkQuiz1() {
+            alert("¡Respuestas registradas! Asegúrate de practicar el Debugging, es tu mejor habilidad.");
+        }
+
+        // Init
+        showLesson(20);
+    </script>
+</body>
+
+</html>

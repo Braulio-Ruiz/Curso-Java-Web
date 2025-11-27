@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curso Java Profesional - Módulo 1</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <style>
+        header {
+            cursor: pointer;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f3f4f6;
+        }
+
+        .code-block {
+            border-radius: 0.5rem;
+            overflow: hidden;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .lesson-section {
+            display: none;
+        }
+
+        .lesson-section.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        h2 {
+            color: #1e3a8a;
+            border-bottom: 2px solid #3b82f6;
+            padding-bottom: 0.5rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        h3 {
+            color: #1f2937;
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            font-size: 1.25rem;
+        }
+
+        .nav-btn {
+            transition: all 0.3s;
+        }
+
+        .nav-btn.active {
+            background-color: #2563eb;
+            color: white;
+            border-left: 4px solid #1e40af;
+        }
+
+        .tip-box {
+            background-color: #eff6ff;
+            border-left: 4px solid #3b82f6;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 0.5rem 0.5rem 0;
+        }
+
+        .warning-box {
+            background-color: #fef2f2;
+            border-left: 4px solid #ef4444;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 0.5rem 0.5rem 0;
+        }
+
+        .best-practice {
+            background-color: #ecfdf5;
+            border: 1px solid #10b981;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .exercise-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            margin-bottom: 1rem;
+            border: 1px solid #e5e7eb;
+            position: relative;
+        }
+
+        .difficulty-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .badge-green {
+            background-color: #dcfce7;
+            color: #166534;
+        }
+
+        .badge-yellow {
+            background-color: #fef9c3;
+            color: #854d0e;
+        }
+
+        .badge-red {
+            background-color: #fee2e2;
+            color: #991b1b;
+        }
+
+        .solution-spoiler {
+            display: none;
+            background: #1f2937;
+            color: #e5e7eb;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-top: 0.5rem;
+            border-left: 4px solid #3b82f6;
+        }
+    </style>
+</head>
+
+<body class="flex flex-col h-screen overflow-hidden">
+
+    <!-- Header -->
+    <header onclick="window.location.href='../index.html'"
+        class="bg-slate-900 text-white p-4 shadow-lg flex justify-between items-center z-10 hover:bg-slate-800 transition">
+        <div>
+            <h1 class="text-2xl font-bold tracking-tight">☕ Curso Profesional de Java</h1>
+            <p class="text-slate-400 text-sm">Módulo 1: Fundamentos, Entorno y Clean Code</p>
+        </div>
+        <div class="text-xs bg-blue-600 px-3 py-1 rounded-full font-semibold">Java 21 LTS</div>
+    </header>
+
+    <div class="flex flex-1 overflow-hidden">
+        <!-- Sidebar Navigation -->
+        <nav class="w-64 bg-white shadow-md overflow-y-auto hidden md:block border-r border-gray-200">
+            <div class="p-4">
+                <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-4">Temario del Módulo</h3>
+                <div class="space-y-1">
+                    <button onclick="showLesson(1)" id="btn-1"
+                        class="nav-btn active w-full text-left px-4 py-3 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100">
+                        01: JVM y Ecosistema
+                    </button>
+                    <button onclick="showLesson(2)" id="btn-2"
+                        class="nav-btn w-full text-left px-4 py-3 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100">
+                        02: IntelliJ IDEA
+                    </button>
+                    <button onclick="showLesson(3)" id="btn-3"
+                        class="nav-btn w-full text-left px-4 py-3 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100">
+                        03: Variables y Tipos
+                    </button>
+                    <button onclick="showLesson(4)" id="btn-4"
+                        class="nav-btn w-full text-left px-4 py-3 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100">
+                        04: Control de Flujo
+                    </button>
+                    <button onclick="showLesson(5)" id="btn-5"
+                        class="nav-btn w-full text-left px-4 py-3 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100">
+                        05: Métodos y Clean Code
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="flex-1 overflow-y-auto p-8 relative scroll-smooth">
+
+            <!-- LECCIÓN 01 -->
+            <div id="lesson-1" class="lesson-section active max-w-4xl mx-auto">
+                <div class="mb-6 pb-6 border-b border-gray-200">
+                    <span class="text-blue-600 font-bold tracking-wide text-sm uppercase">Lección 01</span>
+                    <h1 class="text-4xl font-extrabold text-gray-900 mt-2">La Máquina Virtual de Java (JVM) y el
+                        Ecosistema</h1>
+                </div>
+
+                <div class="bg-blue-50 p-6 rounded-lg mb-8 border border-blue-100">
+                    <h3 class="text-blue-800 font-bold mb-2 !mt-0">🎯 Objetivos de Élite</h3>
+                    <ul class="list-disc list-inside text-gray-700 space-y-1">
+                        <li>Entender la JVM como un sistema operativo virtual, no solo un intérprete.</li>
+                        <li>Desmitificar el proceso de compilación: Del código fuente al Bytecode y al Código Nativo
+                            (JIT).</li>
+                        <li>Visualizar la arquitectura de memoria (Stack vs Heap) para prevenir fugas de memoria
+                            futuras.</li>
+                        <li>Distinguir JDK (Kit de desarrollo) de JRE (Entorno de ejecución) con precisión quirúrgica.
+                        </li>
+                    </ul>
+                </div>
+
+                <h2>1. Teoría Suprema: Más allá del "Hello World"</h2>
+                <p class="text-gray-700 mb-4 leading-relaxed">
+                    Muchos cursos te enseñan a conducir el coche (sintaxis), pero aquí vamos a abrir el capó para
+                    entender el motor. Java es famoso por su lema <em>"Write Once, Run Anywhere"</em> (WORA). ¿Cómo es
+                    esto posible si cada procesador habla un idioma distinto (Ensamblador x86, ARM)?
+                </p>
+
+                <h3 class="text-lg font-bold text-gray-800">1.1 El Esperanto del Software: Bytecode</h3>
+                <p class="text-gray-700 mb-4">
+                    Cuando compilas (`javac`), no creas un ejecutable (`.exe`) para Windows. Creas un archivo `.class`
+                    que contiene <strong>Bytecode</strong>. Este es un lenguaje intermedio universal.
+                </p>
+                <div class="tip-box">
+                    <strong>Analogía del Traductor:</strong> Tú eres el autor (Programador) y escribes un libro en un
+                    idioma perfecto (Java). La JVM es un <strong>traductor simultáneo experto</strong> que vive en la
+                    computadora del usuario. Lee tu libro (Bytecode) y lo traduce en tiempo real al dialecto local de la
+                    CPU (Código Máquina).
+                </div>
+
+                <h3 class="text-lg font-bold text-gray-800">1.2 Arquitectura de Memoria: El Almacén y la Mesa de Trabajo
+                </h3>
+                <p class="text-gray-700 mb-4">La gestión de memoria es donde los juniors fallan y los seniors brillan.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div class="bg-white p-5 rounded-lg border-l-4 border-purple-500 shadow-sm">
+                        <h4 class="font-bold text-purple-700 mb-2">The Stack (La Pila)</h4>
+                        <p class="text-sm text-gray-600">Es tu <strong>Mesa de Trabajo</strong>. Rápida, pequeña y
+                            ordenada. Aquí pones las tareas inmediatas (llamadas a métodos) y las variables primitivas
+                            (`int`, `boolean`).</p>
+                        <ul class="text-xs text-gray-500 mt-2 list-disc list-inside">
+                            <li>Gestión automática (LIFO).</li>
+                            <li>Si se llena: <code>StackOverflowError</code> (Bucle infinito).</li>
+                            <li>Vive solo mientras dura el método.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white p-5 rounded-lg border-l-4 border-green-500 shadow-sm">
+                        <h4 class="font-bold text-green-700 mb-2">The Heap (El Montículo)</h4>
+                        <p class="text-sm text-gray-600">Es el <strong>Gran Almacén</strong>. Aquí viven los OBJETOS
+                            (`new Usuario()`). Es enorme y desordenado. Las variables del Stack solo guardan la
+                            "dirección" (puntero) de dónde está el objeto en el Heap.</p>
+                        <ul class="text-xs text-gray-500 mt-2 list-disc list-inside">
+                            <li>Gestionado por el Garbage Collector (GC).</li>
+                            <li>Si se llena: <code>OutOfMemoryError</code>.</li>
+                            <li>Los objetos viven hasta que nadie los usa.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h2>2. Laboratorio de Código</h2>
+                <div class="code-block">
+                    <pre><code class="language-java">// Archivo: ArquitecturaMemoria.java
+public class ArquitecturaMemoria {
+
+    // 'main' entra al Stack Frame principal
+    public static void main(String[] args) {
+        int id = 10; // Primitivo: Vive directamente en el Stack
+        
+        // 'usuario' es una Referencia en el Stack.
+        // El objeto real {nombre: "Ana"} se crea en el Heap.
+        Usuario usuario = new Usuario("Ana"); 
+        
+        crearReporte(usuario); // Nuevo frame apilado en el Stack
+    } // Aquí main termina, el Stack se vacía, y el GC eventualmente limpia el Heap.
+
+    public static void crearReporte(Usuario u) {
+        // ... lógica
+    }
+}
+</code></pre>
+                </div>
+
+                <h2>3. Entrenamiento Progresivo</h2>
+
+                <!-- EJERCICIO 1: VERDE -->
+                <div class="exercise-card">
+                    <span class="difficulty-badge badge-green">Nivel Básico</span>
+                    <h4 class="font-bold text-gray-800 pr-20">Instalación y Verificación Profesional</h4>
+                    <p class="text-gray-600 mt-2">Instala el JDK 21 (versión LTS). Configura las variables de entorno
+                        (`JAVA_HOME` y `PATH`). Abre una terminal y demuestra que tienes acceso tanto al runtime como al
+                        compilador.</p>
+                    <div class="mt-3 bg-gray-50 p-3 rounded text-sm text-blue-800 border border-blue-100">
+                        <strong>💡 Pista:</strong> No confundas `java` (que ejecuta) con `javac` (que compila). Ejecuta
+                        `javac -version` para confirmar que tienes el kit de desarrollo.
+                    </div>
+                </div>
+
+                <!-- EJERCICIO 2: AMARILLO -->
+                <div class="exercise-card">
+                    <span class="difficulty-badge badge-yellow">Nivel Intermedio</span>
+                    <h4 class="font-bold text-gray-800 pr-20">Ingeniería Inversa del Bytecode</h4>
+                    <p class="text-gray-600 mt-2">Escribe un `HolaMundo.java` simple. Compílalo. Ahora, usa la
+                        herramienta desensambladora del JDK para "leer" el archivo `.class` generado y ver el bytecode
+                        real.</p>
+                    <div class="mt-3 bg-gray-50 p-3 rounded text-sm text-yellow-800 border border-yellow-100">
+                        <strong>💡 Pista:</strong> Investiga el comando `javap -c HolaMundo`. Busca instrucciones como
+                        `aload`, `invokevirtual` o `return`.
+                    </div>
+                </div>
+
+                <!-- EJERCICIO 3: ROJO -->
+                <div class="exercise-card">
+                    <span class="difficulty-badge badge-red">Nivel Experto</span>
+                    <h4 class="font-bold text-gray-800 pr-20">Provocando el Colapso (Stress Testing)</h4>
+                    <p class="text-gray-600 mt-2">Escribe dos programas pequeños para entender los límites de la
+                        memoria:</p>
+                    <ol class="list-decimal ml-5 mt-1 text-gray-600 text-sm">
+                        <li>Uno que cause un `StackOverflowError` (Desbordamiento de Pila).</li>
+                        <li>Uno que cause un `OutOfMemoryError: Java heap space` (Agotamiento del Montículo).</li>
+                    </ol>
+                    <p class="text-gray-600 mt-2">Analiza el Stack Trace resultante.</p>
+
+                    <button onclick="toggleSolution('sol-1')"
+                        class="mt-3 text-sm font-semibold text-red-600 hover:text-red-800 underline">
+                        👁️ Ver Solución Guía
+                    </button>
+
+                    <div id="sol-1" class="solution-spoiler">
+                        <pre><code class="language-java">// 1. StackOverflowError: Recursividad infinita sin caso base.
+// Cada llamada crea un nuevo frame en el Stack hasta llenarlo.
+public void recursivo() {
+    recursivo(); 
+}
+
+// 2. OutOfMemoryError: Llenar el Heap de objetos que no pueden ser recolectados.
+// Mantenemos referencias vivas en una lista estática.
+List&lt;byte[]&gt; memoria = new ArrayList<>();
+while(true) {
+    memoria.add(new byte[1024 * 1024]); // Añadir 1MB por ciclo
+}</code></pre>
+                    </div>
+                </div>
+
+                <h2>4. Evaluación de Conceptos</h2>
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 space-y-4">
+                    <!-- Q1 -->
+                    <div>
+                        <p class="font-semibold text-gray-800">1. ¿Cuál es la función del JIT (Just-In-Time) Compiler?
+                        </p>
+                        <select id="q1-select" class="w-full p-2 border rounded mt-1">
+                            <option value="">Selecciona una respuesta...</option>
+                            <option value="a">Compilar todo el código a nativo antes de ejecutar.</option>
+                            <option value="b">Detectar "hotspots" y optimizar bytecode a código máquina mientras corre
+                                la app.</option>
+                            <option value="c">Traducir código Java a C++.</option>
+                        </select>
+                    </div>
+                    <!-- Q2 -->
+                    <div>
+                        <p class="font-semibold text-gray-800">2. Si creo `new Cliente()`, ¿dónde se almacena?</p>
+                        <select id="q2-select" class="w-full p-2 border rounded mt-1">
+                            <option value="">Selecciona una respuesta...</option>
+                            <option value="a">En el Stack.</option>
+                            <option value="b">En el Heap.</option>
+                            <option value="c">En el disco duro.</option>
+                        </select>
+                    </div>
+                    <!-- Q3 -->
+                    <div>
+                        <p class="font-semibold text-gray-800">3. ¿Qué contiene el JRE que NO contiene la JVM sola?</p>
+                        <select id="q3-select" class="w-full p-2 border rounded mt-1">
+                            <option value="">Selecciona una respuesta...</option>
+                            <option value="a">Compilador javac.</option>
+                            <option value="b">Librerías del núcleo de Java (java.lang, java.util...).</option>
+                            <option value="c">Herramientas de debugging.</option>
+                        </select>
+                    </div>
+
+                    <button onclick="checkQuiz1()"
+                        class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 w-full font-bold">Validar
+                        Conocimientos</button>
+                </div>
+            </div>
+
+            <!-- LECCIÓN 02 -->
+            <div id="lesson-2" class="lesson-section max-w-4xl mx-auto">
+                <div class="mb-6 pb-6 border-b border-gray-200">
+                    <span class="text-blue-600 font-bold tracking-wide text-sm uppercase">Lección 02</span>
+                    <h1 class="text-4xl font-extrabold text-gray-900 mt-2">Dominando el Entorno: IntelliJ IDEA</h1>
+                </div>
+
+                <div class="bg-blue-50 p-6 rounded-lg mb-8 border border-blue-100">
+                    <h3 class="text-blue-800 font-bold mb-2 !mt-0">🎯 Objetivos de Élite</h3>
+                    <ul class="list-disc list-inside text-gray-700 space-y-1">
+                        <li>Configurar IntelliJ IDEA para rendimiento máximo y estándares de código.</li>
+                        <li>Entender el "Indexado": Por qué tu IDE piensa por ti.</li>
+                        <li>Dominar la Refactorización Automatizada: Renombrar y extraer métodos sin romper nada.</li>
+                        <li>Debugging Visual: Dejar de usar `System.out.println` para encontrar errores.</li>
+                    </ul>
+                </div>
+
+                <h2>1. Teoría Suprema: Tu IDE es tu Exosqueleto</h2>
+                <p class="text-gray-700 mb-4">
+                    Un programador senior no escribe código más rápido tecleando; escribe código más rápido porque el
+                    IDE escribe el 40% por él. <strong>IntelliJ IDEA</strong> no es un editor de texto, es un motor de
+                    análisis estático.
+                </p>
+
+                <h3 class="text-lg font-bold text-gray-800">1.1 Indexado: El Cerebro Artificial</h3>
+                <p class="text-gray-700 mb-4">
+                    Cuando abres un proyecto y ves "Indexing...", IntelliJ está creando un mapa mental de todo tu
+                    código, librerías y dependencias. Esto permite características como:
+                </p>
+                <ul class="list-disc list-inside text-gray-700 space-y-2 ml-4">
+                    <li><strong>Refactorización Segura:</strong> Si cambias el nombre de una clase, el IDE actualiza los
+                        nombres de archivo, importaciones, variables y hasta comentarios en todo el proyecto
+                        instantáneamente.</li>
+                    <li><strong>Análisis de Código Muerto:</strong> Te avisa si escribiste un método que nadie usa
+                        (grisáceo).</li>
+                </ul>
+
+                <h2>2. Laboratorio de Productividad</h2>
+                <div class="code-block">
+                    <pre><code class="language-java">public class Productividad {
+    // Escribe 'psvm' y presiona TAB
+    public static void main(String[] args) {
+        
+        String saludo = "Hola Senior";
+        
+        // Escribe 'sout' y presiona TAB
+        System.out.println(saludo);
+        
+        // Selecciona la línea de abajo y presiona Ctrl+Alt+M (Extract Method)
+        // para crear un nuevo método automáticamente.
+        int resultado = calculoComplejo(10, 20);
+        
+        // Escribe 'soutv' y presiona TAB para imprimir la variable más cercana
+        System.out.println("resultado = " + resultado);
+    }
+
+    private static int calculoComplejo(int a, int b) {
+        return a * b + 100;
+    }
+}</code></pre>
+                </div>
+
+                <div class="best-practice">
+                    <h4 class="font-bold text-green-800 flex items-center gap-2">✨ Clean Code Tooling</h4>
+                    <p class="text-green-900 mt-2">
+                        <strong>Reformat Code:</strong> Acostúmbrate a presionar `Ctrl+Alt+L` (Windows) o `Cmd+Opt+L`
+                        (Mac) compulsivamente. Un código mal indentado es ilegible. Configura IntelliJ para que formatee
+                        automáticamente al guardar (Save Actions).
+                    </p>
+                </div>
+
+                <h2>3. Entrenamiento Progresivo</h2>
+
+                <!-- EJERCICIO 1: VERDE -->
+                <div class="exercise-card">
+                    <span class="difficulty-badge badge-green">Nivel Básico</span>
+                    <h4 class="font-bold text-gray-800 pr-20">Setup Profesional</h4>
+                    <p class="text-gray-600 mt-2">Crea un proyecto Maven/Gradle vacío. Crea un paquete
+                        `com.tuempresa.curso`. Crea una clase `Main`. Usa el atajo `psvm` para crear el main y `sout`
+                        para imprimir algo.</p>
+                    <div class="mt-3 bg-gray-50 p-3 rounded text-sm text-blue-800 border border-blue-100">
+                        <strong>💡 Pista:</strong> Observa cómo IntelliJ añade automáticamente la declaración `package`
+                        al inicio.
+                    </div>
+                </div>
+
+                <!-- EJERCICIO 2: AMARILLO -->
+                <div class="exercise-card">
+                    <span class="difficulty-badge badge-yellow">Nivel Intermedio</span>
+                    <h4 class="font-bold text-gray-800 pr-20">Refactorización Segura (Rename)</h4>
+                    <p class="text-gray-600 mt-2">Crea una variable llamada `x` que se use en 5 lugares diferentes. Haz
+                        clic derecho sobre `x` -> Refactor -> Rename (o Shift+F6). Cámbiale el nombre a
+                        `contadorUsuarios`. Verifica que se actualizó en todos los lugares.</p>
+                    <div class="mt-3 bg-gray-50 p-3 rounded text-sm text-yellow-800 border border-yellow-100">
+                        <strong>💡 Pista:</strong> Nunca cambies un nombre borrando y reescribiendo manualmente;
+                        romperás el código. Usa siempre las herramientas de refactor.
+                    </div>
+                </div>
+
+                <!-- EJERCICIO 3: ROJO -->
+                <div class="exercise-card">
+                    <span class="difficulty-badge badge-red">Nivel Experto</span>
+                    <h4 class="font-bold text-gray-800 pr-20">El Detective (Debugging)</h4>
+                    <p class="text-gray-600 mt-2">Copia el siguiente código defectuoso. Tu misión es usar el Debugger
+                        (no `System.out.println`) para encontrar por qué el bucle no para cuando debe.</p>
+                    <pre
+                        class="text-xs bg-gray-100 p-2 rounded mt-2">for(int i=0; i<100; i++) { if(i == 50) i = 40; }</pre>
+                    <p class="text-gray-600 mt-2">Configura un <strong>Breakpoint Condicional</strong> que solo pare
+                        cuando `i == 45` y avanza paso a paso (Step Over).</p>
+
+                    <button onclick="toggleSolution('sol-2')"
+                        class="mt-3 text-sm font-semibold text-red-600 hover:text-red-800 underline">
+                        👁️ Ver Solución Guía
+                    </button>
+
+                    <div id="sol-2" class="solution-spoiler">
+                        <p class="mb-2">El error es lógico: al llegar a 50, reseteamos `i` a 40. El bucle vuelve a subir
+                            de 40 a 50 eternamente.</p>
+                        <ul class="list-disc list-inside text-sm">
+                            <li>Pon un punto rojo en la línea del `if`.</li>
+                            <li>Click derecho en el punto rojo -> Condition: `i == 50`.</li>
+                            <li>Ejecuta en modo Debug (Bichito 🐞).</li>
+                            <li>Observa las variables.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LECCIÓN 03 -->
+            <div id="lesson-3" class="lesson-section max-w-4xl mx-auto">
+                <div class="mb-6 pb-6 border-b border-gray-200">
+                    <span class="text-blue-600 font-bold tracking-wide text-sm uppercase">Lección 03</span>
+                    <h1 class="text-4xl font-extrabold text-gray-900 mt-2">Variables, Tipos de Datos y Operadores</h1>
+                </div>
+
+                <div class="bg-blue-50 p-6 rounded-lg mb-8 border border-blue-100">
+                    <h3 class="text-blue-800 font-bold mb-2 !mt-0">🎯 Objetivos de Élite</h3>
+                    <ul class="list-disc list-inside text-gray-700 space-y-1">
+                        <li>Dominar la anatomía de los tipos: Bits, Bytes y rangos de memoria.</li>
+                        <li>Entender el costo oculto del Autoboxing (Primitivo a Wrapper).</li>
+                        <li>Inferencia de tipos (`var`): Cuándo usarlo y cuándo evitarlo por legibilidad.</li>
+                        <li>Precisión Financiera: Por qué `0.1 + 0.2 != 0.3` en Java.</li>
+                    </ul>
+                </div>
+
+                <h2>1. Teoría Suprema: Bits y Precisión</h2>
+                <p class="text-gray-700 mb-4">
+                    Elegir el tipo de dato incorrecto puede costar millones (errores de redondeo financiero) o tumbar
+                    servidores (uso excesivo de memoria).
+                </p>
+
+                <h3 class="text-lg font-bold text-gray-800">1.1 Anatomía de los Tipos</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse border border-gray-300 mb-6 bg-white text-sm">
+                        <tr class="bg-gray-100">
+                            <th class="border p-2">Tipo</th>
+                            <th class="border p-2">Tamaño</th>
+                            <th class="border p-2">Uso Ideal</th>
+                        </tr>
+                        <tr>
+                            <td class="border p-2 font-mono">int</td>
+                            <td class="border p-2">32 bits</td>
+                            <td class="border p-2">Contadores, índices, matemática general.</td>
+                        </tr>
+                        <tr>
+                            <td class="border p-2 font-mono">long</td>
+                            <td class="border p-2">64 bits</td>
+                            <td class="border p-2">IDs de base de datos, timestamps, cifras astronómicas.</td>
+                        </tr>
+                        <tr>
+                            <td class="border p-2 font-mono">boolean</td>
+                            <td class="border p-2">~1 bit*</td>
+                            <td class="border p-2">Flags lógicos (True/False).</td>
+                        </tr>
+                        <tr>
+                            <td class="border p-2 font-mono">double</td>
+                            <td class="border p-2">64 bits</td>
+                            <td class="border p-2">Científico/Físico (NO dinero). Precisión flotante IEEE 754.</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="warning-box">
+                    <strong>Peligro Silencioso: Overflow</strong>
+                    <br>Un `byte` guarda de -128 a 127. Si tienes 127 y sumas 1, Java da la vuelta (wrap around) y el
+                    resultado es -128. ¡Cuidado con esto en sistemas críticos!
+                </div>
+
+                <h2>2. Laboratorio de Código</h2>
+                <div class="code-block">
+                    <pre><code class="language-java">import java.math.BigDecimal;
+
+public class Precision {
+    public static void main(String[] args) {
+        // Inferencia de tipos (Java 10+)
+        // El compilador "adivina" que es String. Útil para acortar nombres de clases largos.
+        var mensaje = "Clean Code"; 
+        
+        // EL CRIMEN FINANCIERO
+        double precio = 0.1;
+        System.out.println(precio + 0.2); // Imprime: 0.30000000000000004
+        
+        // LA SOLUCIÓN PROFESIONAL
+        // BigDecimal maneja precisión arbitraria exacta.
+        // OJO: Usar siempre el constructor con String.
+        BigDecimal exacto = new BigDecimal("0.1");
+        BigDecimal suma = exacto.add(new BigDecimal("0.2"));
+        System.out.println(suma); // Imprime: 0.3
+    }
+}</code></pre>
+                </div>
+
+                <h2>3. Entrenamiento Progresivo</h2>
+
+                <!-- EJERCICIO 1: VERDE -->
+                <div class="exercise-card">
+                    <span class="difficulty-badge badge-green">Nivel Básico</span>
+                    <h4 class="font-bold text-gray-800 pr-20">Declaración Moderna</h4>
+                    <p class="text-gray-600 mt-2">Declara una variable para: Edad (entero), Salario (decimal), Nombre
+                        (texto) e "EsActivo" (booleano). Usa `var` donde sea evidente el tipo y tipos explícitos donde
+                        no.</p>
+                    <div class="mt-3 bg-gray-50 p-3 rounded text-sm text-blue-800 border border-blue-100">
+                        <strong>💡 Pista:</strong> `var x = 10;` es claro. `var x = obtenerX();` no es claro, mejor
+                        `Usuario x = obtenerX();`.
+                    </div>
+                </div>
+
+                <!-- EJERCICIO 2: AMARILLO -->
+                <div class="exercise-card">
+                    <span class="difficulty-badge badge-yellow">Nivel Intermedio</span>
+                    <h4 class="font-bold text-gray-800 pr-20">El Misterio del Overflow</h4>
+                    <p class="text-gray-600 mt-2">Crea un `byte b = 127`. Súmale 1. Imprime el resultado. Luego haz un
+                        casting explícito para intentar guardar el número 300 en un byte `(byte)300`. Explica el
+                        resultado numérico que obtienes.</p>
+                    <div class="mt-3 bg-gray-50 p-3 rounded text-sm text-yellow-800 border border-yellow-100">
+                        <strong>💡 Pista:</strong> Los bits se truncan. El byte solo tiene 8 casillas. Lo que sobra, se
+                        pierde.
+                    </div>
+                </div>
+
+                <!-- EJERCICIO 3: ROJO -->
+                <div class="exercise-card">
+                    <span class="difficulty-badge badge-red">Nivel Experto</span>
+                    <h4 class="font-bold text-gray-800 pr-20">Calculadora Financiera Robusta</h4>
+                    <p class="text-gray-600 mt-2">Tienes un producto que vale $9.99. Tienes que aplicar un impuesto del
+                        19% y luego un descuento de $2.50. Calcula el total final usando `BigDecimal` y redondea el
+                        resultado a 2 decimales usando el modo "Half Up" (redondeo estándar).</p>
+
+                    <button onclick="toggleSolution('sol-3')"
+                        class="mt-3 text-sm font-semibold text-red-600 hover:text-red-800 underline">
+                        👁️ Ver Solución Guía
+                    </button>
+
+                    <div id="sol-3" class="solution-spoiler">
+                        <pre><code class="language-java">import java.math.BigDecimal;
+import java.math.RoundingMode;
+
+BigDecimal precio = new BigDecimal("9.99");
+BigDecimal impuesto = new BigDecimal("0.19");
+BigDecimal descuento = new BigDecimal("2.50");
+
+// Paso 1: Calcular impuesto
+BigDecimal montoImpuesto = precio.multiply(impuesto);
+
+// Paso 2: Sumar impuesto y restar descuento
+BigDecimal total = precio.add(montoImpuesto).subtract(descuento);
+
+// Paso 3: Redondear a 2 decimales
+total = total.setScale(2, RoundingMode.HALF_UP);
+
+System.out.println("Total a pagar: " + total);</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LECCIÓN 04 -->
+            <div id="lesson-4" class="lesson-section max-w-4xl mx-auto">
+                <div class="mb-6 pb-6 border-b border-gray-200">
+                    <span class="text-blue-600 font-bold tracking-wide text-sm uppercase">Lección 04</span>
+                    <h1 class="text-4xl font-extrabold text-gray-900 mt-2">Control de Flujo y Lógica Booleana</h1>
+                </div>
+
+                <div class="bg-blue-50 p-6 rounded-lg mb-8 border border-blue-100">
+                    <h3 class="text-blue-800 font-bold mb-2 !mt-0">🎯 Objetivos de Élite</h3>
+                    <ul class="list-disc list-inside text-gray-700 space-y-1">
+                        <li>Reducir la "Complejidad Ciclomática": Cómo escribir código plano y legible.</li>
+                        <li>Dominar el Switch Moderno (Expressions) para eliminar `break` y errores tontos.</li>
+                        <li>Entender la evaluación de cortocircuito (`&&` vs `&`).</li>
+                        <li>Usar Cláusulas de Guarda (Guard Clauses) para eliminar el anidamiento excesivo.</li>
+                    </ul>
+                </div>
+
+                <h2>1. Teoría Suprema: La Carga Cognitiva</h2>
+                <p class="text-gray-700 mb-4">
+                    Cada `if` anidado dentro de otro `if` aumenta la carga cognitiva necesaria para entender el código.
+                    Un código con forma de flecha (Arrow Code) es un código difícil de mantener.
+                </p>
+
+                <h3 class="text-lg font-bold text-gray-800">1.1 Complejidad Ciclomática</h3>
+                <p class="text-gray-700 mb-4">
+                    Es una métrica que cuenta cuántos caminos independientes tiene tu código. Tu objetivo como Ingeniero
+                    Senior es <strong>mantener este número bajo</strong>.
+                </p>
+                <div class="best-practice">
+                    <h4 class="font-bold text-green-800 flex items-center gap-2">✨ Patrón: Guard Clauses (Cláusulas de
+                        Guarda)</h4>
+                    <p class="text-green-900 mt-2">
+                        En lugar de envolver todo el código en un `if (valido) { ... }`, verifica lo negativo primero y
+                        retorna.
+                        <br>
+                        <strong>Mal:</strong> `if (usuario != null) { if (activo) { procesar(); } }`
+                        <br>
+                        <strong>Bien:</strong> `if (usuario == null) return;` `if (!activo) return;` `procesar();`
+                    </p>
+                </div>
+
+                <h2>2. Laboratorio de Código</h2>
+                <div class="code-block">
+                    <pre><code class="language-java">public class FlujoModerno {
+    public static void main(String[] args) {
+        String dia = "LUNES";
+        
+        // Switch Expression (Java 14+): Retorna valor, no necesita break.
+        // Es una expresión, no una sentencia de control.
+        String tipo = switch (dia) {
+            case "LUNES", "MARTES", "MIERCOLES", "JUEVES", "VIERNES" -> "Laboral";
+            case "SABADO", "DOMINGO" -> "Fin de Semana";
+            default -> throw new IllegalArgumentException("Día inválido: " + dia);
+        };
+        
+        System.out.println(tipo);
+    }
+}</code></pre>
+                </div>
+
+                <h2>3. Entrenamiento Progresivo</h2>
+
+                <!-- EJERCICIO 1: VERDE -->
+                <div class="exercise-card">
+                    <span class="difficulty-badge badge-green">Nivel Básico</span>
+                    <h4 class="font-bold text-gray-800 pr-20">Bucles Clásicos</h4>
+                    <p class="text-gray-600 mt-2">Usa un bucle `for` para imprimir los números impares del 0 al 50.</p>
+                    <div class="mt-3 bg-gray-50 p-3 rounded text-sm text-blue-800 border border-blue-100">
+                        <strong>💡 Pista:</strong> Puedes incrementar el iterador `i` de 2 en 2 (`i += 2`) en la
+                        declaración del for, o usar `if (i % 2 != 0)` dentro. ¿Cuál es más eficiente?
+                    </div>
+                </div>
+
+                <!-- EJERCICIO 2: AMARILLO -->
+                <div class="exercise-card">
+                    <span class="difficulty-badge badge-yellow">Nivel Intermedio</span>
+                    <h4 class="font-bold text-gray-800 pr-20">Calculadora de Notas (Switch)</h4>
+                    <p class="text-gray-600 mt-2">Crea un método que reciba una nota (char 'A', 'B', 'C', 'F') y
+                        devuelva un mensaje de feedback usando el nuevo <strong>Switch Expression</strong>. Si la nota
+                        no es válida, lanza excepción.</p>
+                </div>
+
+                <!-- EJERCICIO 3: ROJO -->
+                <div class="exercise-card">
+                    <span class="difficulty-badge badge-red">Nivel Experto</span>
+                    <h4 class="font-bold text-gray-800 pr-20">Refactorización de Lógica Compleja</h4>
+                    <p class="text-gray-600 mt-2">Tienes el siguiente código "espagueti". Refactorízalo usando
+                        <strong>Cláusulas de Guarda</strong> para eliminar TODOS los `else`.</p>
+                    <pre class="text-xs bg-gray-100 p-2 rounded mt-2">
+void procesarPago(Usuario u, double monto) {
+    if (u != null) {
+        if (u.isActivo()) {
+            if (monto > 0) {
+                System.out.println("Pago procesado");
+            } else {
+                System.out.println("Monto inválido");
+            }
+        } else {
+            System.out.println("Usuario inactivo");
+        }
+    } else {
+        System.out.println("Usuario nulo");
+    }
+}</pre>
+
+                    <button onclick="toggleSolution('sol-4')"
+                        class="mt-3 text-sm font-semibold text-red-600 hover:text-red-800 underline">
+                        👁️ Ver Solución Guía
+                    </button>
+
+                    <div id="sol-4" class="solution-spoiler">
+                        <pre><code class="language-java">void procesarPago(Usuario u, double monto) {
+    // 1. Validaciones primero (Fail Fast)
+    if (u == null) {
+        System.out.println("Usuario nulo");
+        return;
+    }
+    if (!u.isActivo()) {
+        System.out.println("Usuario inactivo");
+        return;
+    }
+    if (monto <= 0) {
+        System.out.println("Monto inválido");
+        return;
+    }
+
+    // 2. Camino feliz (Happy Path) al final, sin indentación
+    System.out.println("Pago procesado");
+}</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LECCIÓN 05 -->
+            <div id="lesson-5" class="lesson-section max-w-4xl mx-auto">
+                <div class="mb-6 pb-6 border-b border-gray-200">
+                    <span class="text-blue-600 font-bold tracking-wide text-sm uppercase">Lección 05</span>
+                    <h1 class="text-4xl font-extrabold text-gray-900 mt-2">Métodos y Modularidad (Clean Code)</h1>
+                </div>
+
+                <div class="bg-blue-50 p-6 rounded-lg mb-8 border border-blue-100">
+                    <h3 class="text-blue-800 font-bold mb-2 !mt-0">🎯 Objetivos de Élite</h3>
+                    <ul class="list-disc list-inside text-gray-700 space-y-1">
+                        <li>Entender el "Stack Frame": Qué pasa realmente en memoria al llamar a un método.</li>
+                        <li>Paso por Valor vs Paso por Referencia: La pregunta de entrevista #1.</li>
+                        <li>Clean Code: Nombres que cuentan historias y la regla de "Hacer una sola cosa".</li>
+                    </ul>
+                </div>
+
+                <h2>1. Teoría Suprema: The Stack Frame</h2>
+                <p class="text-gray-700 mb-4">
+                    Cuando llamas a un método, Java crea un "Stack Frame" en la Pila. Este contiene los parámetros del
+                    método y sus variables locales. Cuando el método termina (`return`), ese frame se destruye.
+                </p>
+
+                <h3 class="text-lg font-bold text-gray-800">1.1 La Verdad sobre el Paso de Parámetros</h3>
+                <div class="warning-box">
+                    <strong>¡Java SIEMPRE pasa por valor!</strong>
+                    <p class="mt-2 text-sm">
+                        Mucha gente cree que los objetos se pasan por referencia. Falso. Se pasa <strong>el valor de la
+                            referencia</strong> (una copia de la dirección de memoria).
+                        <br>
+                        Consecuencia: Puedes modificar el interior del objeto (sus atributos), pero no puedes hacer que
+                        la variable original apunte a otro objeto nuevo dentro del método.
+                    </p>
+                </div>
+
+                <h2>2. Laboratorio de Código</h2>
+                <div class="code-block">
+                    <pre><code class="language-java">public class CleanCodeMethods {
+
+    public static void main(String[] args) {
+        // Ejemplo de nombre descriptivo
+        double salarioNeto = calcularSalarioConImpuestos(2500.0);
+    }
+
+    // Un método debe hacer UNA sola cosa.
+    // Nombre verboso pero claro > Nombre corto y criptico.
+    public static double calcularSalarioConImpuestos(double bruto) {
+        double impuesto = calcularIVA(bruto); // Delegar a métodos más pequeños
+        return bruto - impuesto;
+    }
+    
+    // Método privado auxiliar
+    private static double calcularIVA(double monto) {
+        return monto * 0.21;
+    }
+}</code></pre>
+                </div>
+
+                <h2>3. Entrenamiento Progresivo</h2>
+
+                <!-- EJERCICIO 1: VERDE -->
+                <div class="exercise-card">
+                    <span class="difficulty-badge badge-green">Nivel Básico</span>
+                    <h4 class="font-bold text-gray-800 pr-20">Extracción Simple</h4>
+                    <p class="text-gray-600 mt-2">Crea un método `esMayorDeEdad(int edad)` que devuelva `boolean`. Úsalo
+                        en el main dentro de un `if`. El código del main debe leerse como prosa: `if
+                        (esMayorDeEdad(usuario.edad)) ...`</p>
+                </div>
+
+                <!-- EJERCICIO 2: AMARILLO -->
+                <div class="exercise-card">
+                    <span class="difficulty-badge badge-yellow">Nivel Intermedio</span>
+                    <h4 class="font-bold text-gray-800 pr-20">Refactorización: Divide y Vencerás</h4>
+                    <p class="text-gray-600 mt-2">Tienes un método gigante `generarReporte()` que hace 3 cosas: 1.
+                        Obtiene datos de BD, 2. Calcula totales, 3. Genera un HTML. Sepáralo en 3 métodos privados,
+                        dejando el método público como un "orquestador" limpio.</p>
+                </div>
+
+                <!-- EJERCICIO 3: ROJO -->
+                <div class="exercise-card">
+                    <span class="difficulty-badge badge-red">Nivel Experto</span>
+                    <h4 class="font-bold text-gray-800 pr-20">El Experimento del Paso por Valor</h4>
+                    <p class="text-gray-600 mt-2">Crea una clase `Caja` con un entero dentro. Crea un método
+                        `intentarCambiar(Caja c)` que haga `c = new Caja(99)`. Crea otro método `cambiarContenido(Caja
+                        c)` que haga `c.valor = 99`. Llama a ambos desde el main y demuestra cuál cambia el objeto
+                        original y por qué.</p>
+
+                    <button onclick="toggleSolution('sol-5')"
+                        class="mt-3 text-sm font-semibold text-red-600 hover:text-red-800 underline">
+                        👁️ Ver Solución Guía
+                    </button>
+
+                    <div id="sol-5" class="solution-spoiler">
+                        <p class="mb-2 text-sm text-gray-300">
+                            1. `intentarCambiar`: NO afecta al original. Solo cambiaste a dónde apunta tu copia local de
+                            la referencia. La referencia original sigue apuntando al objeto viejo.
+                            <br>
+                            2. `cambiarContenido`: SÍ afecta. Usaste tu copia de la referencia para viajar al Heap y
+                            modificar el objeto compartido.
+                        </p>
+                    </div>
+                </div>
+
+                <h2>4. Evaluación de Conceptos</h2>
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                    <p class="font-semibold text-gray-800 mb-4">¿Cuál es el número ideal de parámetros para un método
+                        según Clean Code?</p>
+                    <div class="space-y-2">
+                        <label class="flex items-center space-x-2 cursor-pointer">
+                            <input type="radio" name="q5" class="form-radio text-blue-600" id="q5-correct"> <span>Cero
+                                (niladic) es lo ideal. Luego 1 o 2. Tres deben evitarse.</span>
+                        </label>
+                        <label class="flex items-center space-x-2 cursor-pointer">
+                            <input type="radio" name="q5" class="form-radio text-blue-600"> <span>Cuantos más mejor,
+                                para tener toda la información.</span>
+                        </label>
+                        <label class="flex items-center space-x-2 cursor-pointer">
+                            <input type="radio" name="q5" class="form-radio text-blue-600"> <span>Siempre un Array de
+                                Objetos.</span>
+                        </label>
+                    </div>
+                    <button onclick="checkQuiz1()"
+                        class="mt-4 bg-blue-600 text-white px-4 py-2 rounded text-sm hover:bg-blue-700 w-full">Validar
+                        Respuesta</button>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Scripts para interactividad -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+    <script>
+        function showLesson(id) {
+            document.querySelectorAll('.lesson-section').forEach(el => {
+                el.classList.remove('active');
+                el.style.display = 'none';
+            });
+            const selected = document.getElementById('lesson-' + id);
+            selected.style.display = 'block';
+            setTimeout(() => selected.classList.add('active'), 10);
+
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('btn-' + id).classList.add('active');
+            document.querySelector('main').scrollTop = 0;
+        }
+
+        function toggleSolution(id) {
+            const el = document.getElementById(id);
+            if (el.style.display === 'block') el.style.display = 'none';
+            else el.style.display = 'block';
+        }
+
+        // Validación simple para Quiz 1 (Expandible para otros)
+        function checkQuiz1() {
+            // Ejemplo básico, en una app real se validaría cada pregunta
+            alert("¡Respuestas registradas! Revisa los conceptos si tuviste dudas.");
+        }
+
+        // Init
+        showLesson(1);
+    </script>
+</body>
+
+</html>

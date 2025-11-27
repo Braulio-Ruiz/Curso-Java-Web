@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curso Java Profesional - Módulo 4</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <style>
+        header {
+            cursor: pointer;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f3f4f6;
+        }
+
+        .code-block {
+            border-radius: 0.5rem;
+            overflow: hidden;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .lesson-section {
+            display: none;
+        }
+
+        .lesson-section.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        h2 {
+            color: #1e3a8a;
+            border-bottom: 2px solid #3b82f6;
+            padding-bottom: 0.5rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        h3 {
+            color: #1f2937;
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            font-size: 1.25rem;
+        }
+
+        .nav-btn {
+            transition: all 0.3s;
+        }
+
+        .nav-btn.active {
+            background-color: #2563eb;
+            color: white;
+            border-left: 4px solid #1e40af;
+        }
+
+        .tip-box {
+            background-color: #eff6ff;
+            border-left: 4px solid #3b82f6;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 0.5rem 0.5rem 0;
+        }
+
+        .warning-box {
+            background-color: #fef2f2;
+            border-left: 4px solid #ef4444;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 0.5rem 0.5rem 0;
+        }
+
+        .best-practice {
+            background-color: #ecfdf5;
+            border: 1px solid #10b981;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .exercise-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            margin-bottom: 1rem;
+            border: 1px solid #e5e7eb;
+            position: relative;
+        }
+
+        .difficulty-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .badge-green {
+            background-color: #dcfce7;
+            color: #166534;
+        }
+
+        .badge-yellow {
+            background-color: #fef9c3;
+            color: #854d0e;
+        }
+
+        .badge-red {
+            background-color: #fee2e2;
+            color: #991b1b;
+        }
+
+        .solution-spoiler {
+            display: none;
+            background: #1f2937;
+            color: #e5e7eb;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-top: 0.5rem;
+            border-left: 4px solid #ea580c;
+        }
+    </style>
+</head>
+
+<body class="flex flex-col h-screen overflow-hidden">
+
+    <!-- Header -->
+    <header onclick="window.location.href='../index.html'"
+        class="bg-slate-900 text-white p-4 shadow-lg flex justify-between items-center z-10 hover:bg-slate-800 transition">
+        <div>
+            <h1 class="text-2xl font-bold tracking-tight">☕ Curso Profesional de Java</h1>
+            <p class="text-slate-400 text-sm">Módulo 4: Java Moderno y Programación Funcional</p>
+        </div>
+        <div class="text-xs bg-orange-600 px-3 py-1 rounded-full font-semibold">Java 21 LTS</div>
+    </header>
+
+    <div class="flex flex-1 overflow-hidden">
+        <!-- Sidebar Navigation -->
+        <nav class="w-64 bg-white shadow-md overflow-y-auto hidden md:block border-r border-gray-200">
+            <div class="p-4">
+                <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-4">Temario del Módulo</h3>
+                <div class="space-y-1">
+                    <button onclick="showLesson(16)" id="btn-16"
+                        class="nav-btn active w-full text-left px-4 py-3 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100">
+                        16: Lambdas e Interfaces
+                    </button>
+                    <button onclick="showLesson(17)" id="btn-17"
+                        class="nav-btn w-full text-left px-4 py-3 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100">
+                        17: Stream API
+                    </button>
+                    <button onclick="showLesson(18)" id="btn-18"
+                        class="nav-btn w-full text-left px-4 py-3 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100">
+                        18: Optional (Adiós Null)
+                    </button>
+                    <button onclick="showLesson(19)" id="btn-19"
+                        class="nav-btn w-full text-left px-4 py-3 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100">
+                        19: Date & Time API
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="flex-1 overflow-y-auto p-8 relative scroll-smooth">
+
+            <!-- LECCIÓN 16 -->
+            <div id="lesson-16" class="lesson-section active max-w-4xl mx-auto">
+                <div class="mb-6 pb-6 border-b border-gray-200">
+                    <span class="text-orange-600 font-bold tracking-wide text-sm uppercase">Lección 16</span>
+                    <h1 class="text-4xl font-extrabold text-gray-900 mt-2">Interfaces Funcionales y Lambdas</h1>
+                </div>
+
+                <div class="bg-orange-50 p-6 rounded-lg mb-8 border border-orange-100">
+                    <h3 class="text-orange-800 font-bold mb-2 !mt-0">🎯 Objetivos de Élite</h3>
+                    <ul class="list-disc list-inside text-gray-700 space-y-1">
+                        <li>Entender la evolución: De clases anónimas (verbosas) a Lambdas (concisas).</li>
+                        <li>Tratar el código como datos: Pasar funciones como argumentos.</li>
+                        <li>Dominar las 4 interfaces funcionales fundamentales del JDK (`Predicate`, `Consumer`,
+                            `Function`, `Supplier`).</li>
+                        <li>Reconocer cuándo usar `Method References` (`::`) para código ultra-limpio.</li>
+                    </ul>
+                </div>
+
+                <h2>1. Teoría Suprema: Código como Ciudadano de Primera Clase</h2>
+                <p class="text-gray-700 mb-4">
+                    Hasta Java 7, Java era puramente orientado a objetos. Para pasar una acción a un botón, tenías que
+                    crear un objeto entero (`new ActionListener() {...}`). Era como construir un edificio entero solo
+                    para cambiar una bombilla.
+                    <br><br>
+                    Las <strong>Lambdas</strong> (introducidas en Java 8) permiten tratar bloques de código como si
+                    fueran objetos. Bajo el capó, la JVM usa `invokedynamic` (una instrucción de bytecode muy potente)
+                    para ejecutarlas sin el costo de memoria de crear una clase anónima completa.
+                </p>
+
+                <h3 class="text-lg font-bold text-gray-800">1.1 El Kit de Herramientas Funcional (`java.util.function`)
+                </h3>
+                <p class="text-gray-700 mb-4">No memorices, entiende el patrón:</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div class="bg-white p-5 rounded-lg border-l-4 border-blue-500 shadow-sm">
+                        <h4 class="font-bold text-blue-700 mb-2">Predicate&lt;T&gt;</h4>
+                        <p class="text-sm text-gray-600"><strong>Pregunta algo.</strong> Recibe un objeto, devuelve
+                            `boolean`.<br>Ej: `x -> x > 10` (¿Es mayor que 10?)</p>
+                    </div>
+                    <div class="bg-white p-5 rounded-lg border-l-4 border-green-500 shadow-sm">
+                        <h4 class="font-bold text-green-700 mb-2">Function&lt;T, R&gt;</h4>
+                        <p class="text-sm text-gray-600"><strong>Transforma algo.</strong> Recibe T, devuelve R.<br>Ej:
+                            `s -> s.length()` (Transforma String a Integer).</p>
+                    </div>
+                    <div class="bg-white p-5 rounded-lg border-l-4 border-purple-500 shadow-sm">
+                        <h4 class="font-bold text-purple-700 mb-2">Consumer&lt;T&gt;</h4>
+                        <p class="text-sm text-gray-600"><strong>Consume algo.</strong> Recibe T, no devuelve nada
+                            (efecto secundario).<br>Ej: `msg -> System.out.println(msg)`.</p>
+                    </div>
+                    <div class="bg-white p-5 rounded-lg border-l-4 border-yellow-500 shadow-sm">
+                        <h4 class="font-bold text-yellow-700 mb-2">Supplier&lt;T&gt;</h4>
+                        <p class="text-sm text-gray-600"><strong>Provee algo.</strong> No recibe nada, devuelve T. Es
+                            "lazy" (perezoso).<br>Ej: `() -> Math.random()`.</p>
+                    </div>
+                </div>
+
+                <h2>2. Laboratorio de Código</h2>
+                <div class="code-block">
+                    <pre><code class="language-java">import java.util.function.*;
+import java.util.*;
+
+public class LambdasPro {
+    public static void main(String[] args) {
+        // Estilo Antiguo (Clase Anónima) - ¡Mucho ruido!
+        // Creamos una instancia de una interfaz al vuelo.
+        Runnable r1 = new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("Soy viejo y verboso");
+            }
+        };
+
+        // Estilo Moderno (Lambda) - ¡Solo la esencia!
+        // La JVM infiere que es un Runnable porque coincide la firma: () -> void
+        Runnable r2 = () -> System.out.println("Soy moderno y conciso");
+
+        // USO REAL: Estrategias intercambiables
+        List<String> nombres = new ArrayList<>(List.of("Ana", "Carlos", "Bea"));
+        
+        // sort espera un Comparator<T>: (T a, T b) -> int
+        // Usamos Method Reference (::) porque String ya tiene un método compareTo
+        nombres.sort(String::compareTo); 
+        
+        // forEach espera un Consumer<T>: (T t) -> void
+        nombres.forEach(System.out::println);
+    }
+}</code></pre>
+                </div>
+
+                <h2>3. Entrenamiento Progresivo</h2>
+
+                <!-- EJERCICIO 1: VERDE -->
+                <div class="exercise-card">
+                    <span class="difficulty-badge badge-green">Nivel Básico</span>
+                    <h4 class="font-bold text-gray-800 pr-20">El Filtro Humano</h4>
+                    <p class="text-gray-600 mt-2">Crea un `Predicate<Integer>` llamado `esPar` que devuelva true si el
+                            número es par. Pruébalo imprimiendo el resultado de `esPar.test(4)` y `esPar.test(5)`.</p>
+                </div>
+
+                <!-- EJERCICIO 2: AMARILLO -->
+                <div class="exercise-card">
+                    <span class="difficulty-badge badge-yellow">Nivel Intermedio</span>
+                    <h4 class="font-bold text-gray-800 pr-20">Motor de Filtrado Genérico</h4>
+                    <p class="text-gray-600 mt-2">Escribe un método estático `filtrar` que reciba una `List<String>` y
+                            un `Predicate<String>`. Debe devolver una <strong>nueva lista</strong> solo con los
+                                elementos que cumplan la condición del predicado.</p>
+                    <div class="mt-3 bg-gray-50 p-3 rounded text-sm text-yellow-800 border border-yellow-100">
+                        <strong>💡 Pista:</strong> Itera la lista original, aplica `condicion.test(item)` y si es true,
+                        añádelo a la lista resultado.
+                    </div>
+                </div>
+
+                <!-- EJERCICIO 3: ROJO -->
+                <div class="exercise-card">
+                    <span class="difficulty-badge badge-red">Nivel Experto</span>
+                    <h4 class="font-bold text-gray-800 pr-20">Cadena de Montaje (Function Chaining)</h4>
+                    <p class="text-gray-600 mt-2">Java permite componer funciones como si fueran piezas de Lego. <br>1.
+                        Crea una `Function<Integer, Integer>` que duplique (`x * 2`). <br>2. Crea otra que sume 10 (`x +
+                            10`). <br>3. Únelas usando `.andThen()` para crear una tubería que primero duplique y luego
+                            sume. Aplícalo al número 5 (debería dar 20).</p>
+
+                    <button onclick="toggleSolution('sol-16')"
+                        class="mt-3 text-sm font-semibold text-orange-600 hover:text-orange-800 underline">
+                        👁️ Ver Solución Guía
+                    </button>
+
+                    <div id="sol-16" class="solution-spoiler">
+                        <pre><code class="language-java">import java.util.function.Function;
+
+Function<Integer, Integer> duplicar = x -> x * 2;
+Function<Integer, Integer> sumarDiez = x -> x + 10;
+
+// Composición: f(g(x))
+Function<Integer, Integer> tuberia = duplicar.andThen(sumarDiez);
+
+int resultado = tuberia.apply(5); // (5 * 2) + 10 = 20
+System.out.println(resultado);</code></pre>
+                    </div>
+                </div>
+
+                <h2>4. Evaluación de Conceptos</h2>
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 space-y-4">
+                    <div>
+                        <p class="font-semibold text-gray-800">1. ¿Qué es una Interfaz Funcional?</p>
+                        <select id="q16-1" class="w-full p-2 border rounded mt-1">
+                            <option value="">Elegir...</option>
+                            <option value="a">Cualquier interfaz con la anotación @FunctionalInterface.</option>
+                            <option value="b">Una interfaz con exactamente un método abstracto.</option>
+                            <option value="c">Una interfaz que hereda de Function.</option>
+                        </select>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-gray-800">2. ¿Qué hace `Supplier`?</p>
+                        <select id="q16-2" class="w-full p-2 border rounded mt-1">
+                            <option value="">Elegir...</option>
+                            <option value="a">Recibe datos y no devuelve nada.</option>
+                            <option value="b">No recibe nada y devuelve un resultado.</option>
+                            <option value="c">Filtra datos.</option>
+                        </select>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-gray-800">3. ¿Qué ventaja tiene `String::toUpperCase` sobre `s ->
+                            s.toUpperCase()`?</p>
+                        <select id="q16-3" class="w-full p-2 border rounded mt-1">
+                            <option value="">Elegir...</option>
+                            <option value="a">Es más rápido en tiempo de ejecución.</option>
+                            <option value="b">Legibilidad y menor probabilidad de errores tipográficos.</option>
+                            <option value="c">Ninguna, es solo azúcar sintáctico.</option>
+                        </select>
+                    </div>
+                    <button onclick="checkQuiz1()"
+                        class="bg-orange-600 text-white px-6 py-2 rounded hover:bg-orange-700 w-full font-bold">Validar
+                        Conocimientos</button>
+                </div>
+            </div>
+
+            <!-- LECCIÓN 17 -->
+            <div id="lesson-17" class="lesson-section max-w-4xl mx-auto">
+                <div class="mb-6 pb-6 border-b border-gray-200">
+                    <span class="text-orange-600 font-bold tracking-wide text-sm uppercase">Lección 17</span>
+                    <h1 class="text-4xl font-extrabold text-gray-900 mt-2">Stream API: Procesamiento de Datos</h1>
+                </div>
+
+                <div class="bg-orange-50 p-6 rounded-lg mb-8 border border-orange-100">
+                    <h3 class="text-orange-800 font-bold mb-2 !mt-0">🎯 Objetivos de Élite</h3>
+                    <ul class="list-disc list-inside text-gray-700 space-y-1">
+                        <li>Entender que un Stream <strong>NO</strong> almacena datos, es una cinta transportadora de
+                            procesamiento.</li>
+                        <li>Diferenciar operaciones <strong>Intermedias</strong> (Lazy) de <strong>Terminales</strong>
+                            (Eager).</li>
+                        <li>Realizar Map-Reduce en Java.</li>
+                        <li>Evitar el error de principiante: Reutilizar un stream cerrado.</li>
+                    </ul>
+                </div>
+
+                <h2>1. Teoría Suprema: La Cinta Transportadora</h2>
+                <p class="text-gray-700 mb-4">
+                    Imagina una fábrica. Tienes una caja de piezas (`List`). Vuelcas las piezas en una cinta
+                    transportadora (`.stream()`).
+                    <br>
+                    En el camino, hay robots. Uno pinta las piezas (`map`), otro quita las defectuosas (`filter`). Al
+                    final de la cinta, hay una caja donde caen las piezas terminadas (`collect`).
+                </p>
+                [Image of assembly line diagram]
+                <div class="tip-box">
+                    <strong>Evaluación Perezosa (Lazy):</strong> Si pones los robots en la cinta pero no pones la caja
+                    al final, la cinta <strong>ni siquiera arranca</strong>. Java no procesa nada hasta que llamas a una
+                    operación terminal (`collect`, `count`, `forEach`). Esto permite optimizaciones brutales: si solo
+                    necesitas el primer elemento (`findFirst`), la cinta se para en cuanto encuentra uno, aunque haya
+                    millones detrás.
+                </div>
+
+                <h2>2. Laboratorio de Código</h2>
+                <div class="code-block">
+                    <pre><code class="language-java">import java.util.stream.Collectors;
+
+public class StreamPower {
+    public static void main(String[] args) {
+        List<String> empleados = List.of("Ana", "Alberto", "Bea", "Carlos", "Alicia");
+
+        // Pipeline Declarativo
+        List<String> resultado = empleados.stream()  // 1. Fuente
+            .filter(n -> {
+                System.out.println("Filtrando: " + n); // Debug para ver lazy eval
+                return n.startsWith("A");
+            })                                       // 2. Op. Intermedia
+            .map(String::toUpperCase)                // 3. Op. Intermedia
+            .sorted()                                // 4. Op. Intermedia (Stateful)
+            .collect(Collectors.toList());           // 5. Op. Terminal (¡Arranca!)
+
+        System.out.println(resultado); // [ALBERTO, ALICIA, ANA]
+    }
+}</code></pre>
+                </div>
+
+                <h2>3. Entrenamiento Progresivo</h2>
+
+                <!-- EJERCICIO 1: VERDE -->
+                <div class="exercise-card">
+                    <span class="difficulty-badge badge-green">Nivel Básico</span>
+                    <h4 class="font-bold text-gray-800 pr-20">Transformación Numérica</h4>
+                    <p class="text-gray-600 mt-2">Dada una lista `[1, 2, 3, 4, 5]`, usa streams para obtener una nueva
+                        lista que contenga el cuadrado de cada número (`n*n`), pero solo de aquellos que sean mayores a
+                        2.</p>
+                </div>
+
+                <!-- EJERCICIO 2: AMARILLO -->
+                <div class="exercise-card">
+                    <span class="difficulty-badge badge-yellow">Nivel Intermedio</span>
+                    <h4 class="font-bold text-gray-800 pr-20">Limpieza de Datos (Reduce)</h4>
+                    <p class="text-gray-600 mt-2">Tienes una lista de Strings sucios: `["10", "20", "basura", "30",
+                        "null", "40"]`. <br>1. Filtra los nulos y no numéricos. <br>2. Parsea a Integer. <br>3. Suma
+                        todos los valores usando `.reduce(0, Integer::sum)`. <br>El resultado debe ser 100.</p>
+                </div>
+
+                <!-- EJERCICIO 3: ROJO -->
+                <div class="exercise-card">
+                    <span class="difficulty-badge badge-red">Nivel Experto</span>
+                    <h4 class="font-bold text-gray-800 pr-20">Analítica SQL-Style</h4>
+                    <p class="text-gray-600 mt-2">Tienes una clase `Empleado(String depto, double salario)`. Usa
+                        `Collectors.groupingBy` para generar un Mapa donde la clave sea el Departamento y el valor sea
+                        el <strong>Salario Promedio</strong> de ese departamento.</p>
+
+                    <button onclick="toggleSolution('sol-17')"
+                        class="mt-3 text-sm font-semibold text-orange-600 hover:text-orange-800 underline">
+                        👁️ Ver Solución Guía
+                    </button>
+
+                    <div id="sol-17" class="solution-spoiler">
+                        <pre><code class="language-java">import java.util.stream.Collectors;
+
+Map<String, Double> salarioPromedioPorDepto = empleados.stream()
+    .collect(Collectors.groupingBy(
+        Empleado::getDepto,                 // Clave: Departamento
+        Collectors.averagingDouble(Empleado::getSalario) // Valor: Promedio
+    ));</code></pre>
+                    </div>
+                </div>
+
+                <h2>4. Evaluación de Conceptos</h2>
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 space-y-4">
+                    <div>
+                        <p class="font-semibold text-gray-800">1. ¿Qué pasa si intentas usar un Stream dos veces?</p>
+                        <select id="q17-1" class="w-full p-2 border rounded mt-1">
+                            <option value="">Elegir...</option>
+                            <option value="a">Funciona normal.</option>
+                            <option value="b">Lanza IllegalStateException: stream has already been operated upon or
+                                closed.</option>
+                            <option value="c">Crea una copia automáticamente.</option>
+                        </select>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-gray-800">2. ¿Cuál es una operación terminal?</p>
+                        <select id="q17-2" class="w-full p-2 border rounded mt-1">
+                            <option value="">Elegir...</option>
+                            <option value="a">filter()</option>
+                            <option value="b">map()</option>
+                            <option value="c">collect()</option>
+                        </select>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-gray-800">3. ¿Qué hace `map()`?</p>
+                        <select id="q17-3" class="w-full p-2 border rounded mt-1">
+                            <option value="">Elegir...</option>
+                            <option value="a">Filtra elementos.</option>
+                            <option value="b">Transforma cada elemento en otra cosa (1 a 1).</option>
+                            <option value="c">Aplana listas anidadas.</option>
+                        </select>
+                    </div>
+                    <button onclick="checkQuiz1()"
+                        class="bg-orange-600 text-white px-6 py-2 rounded hover:bg-orange-700 w-full font-bold">Validar
+                        Conocimientos</button>
+                </div>
+            </div>
+
+            <!-- LECCIÓN 18 -->
+            <div id="lesson-18" class="lesson-section max-w-4xl mx-auto">
+                <div class="mb-6 pb-6 border-b border-gray-200">
+                    <span class="text-orange-600 font-bold tracking-wide text-sm uppercase">Lección 18</span>
+                    <h1 class="text-4xl font-extrabold text-gray-900 mt-2">Manejo de Nulidad con Optional</h1>
+                </div>
+
+                <div class="bg-orange-50 p-6 rounded-lg mb-8 border border-orange-100">
+                    <h3 class="text-orange-800 font-bold mb-2 !mt-0">🎯 Objetivos de Élite</h3>
+                    <ul class="list-disc list-inside text-gray-700 space-y-1">
+                        <li>Erradicar el `NullPointerException` (el error del billón de dólares).</li>
+                        <li>Usar `Optional` como una caja de Schrödinger: Puede tener dato o no.</li>
+                        <li>Anti-patrones: Cuándo NO usar Optional (parámetros, atributos).</li>
+                        <li>Métodos seguros: `orElse`, `orElseThrow`, `ifPresent`.</li>
+                    </ul>
+                </div>
+
+                <h2>1. Teoría Suprema: La Caja Cuántica</h2>
+                <p class="text-gray-700 mb-4">
+                    `null` es el peor error de diseño en la historia de la programación. Rompe el sistema de tipos.
+                    <br>
+                    `Optional<T>` es un contenedor que envuelve un objeto. Te obliga, en tiempo de compilación, a
+                        pensar: "¿Y si esto está vacío?". <strong>Es una herramienta de diseño de API</strong>, para
+                        decirle explícitamente a quien use tu método: "Oye, puede que no te devuelva nada, prepárate".
+                </p>
+
+                <div class="warning-box">
+                    <strong>Regla de Oro:</strong> NUNCA uses `Optional.get()` sin verificar antes `isPresent()`. Si lo
+                    haces, estás cambiando un `NullPointerException` por un `NoSuchElementException`, que es lo mismo.
+                    Usa `orElse` o `ifPresent`.
+                </div>
+
+                <h2>2. Laboratorio de Código</h2>
+                <div class="code-block">
+                    <pre><code class="language-java">import java.util.Optional;
+
+public class SinNulos {
+    public static void main(String[] args) {
+        // Simulamos búsqueda en BD
+        Optional<String> resultado = buscarUsuario(99);
+
+        // Estilo Imperativo (Malo - Igual que checkear null)
+        if (resultado.isPresent()) {
+            System.out.println(resultado.get());
+        }
+
+        // Estilo Funcional (Bueno - "Si existe, haz esto")
+        resultado.ifPresent(u -> System.out.println("Usuario encontrado: " + u));
+
+        // Valores por defecto
+        String nombre = resultado.orElse("Invitado");
+        
+        // Transformación segura (Map funciona igual que en Streams)
+        // Si está vacío, no hace nada. Si hay valor, lo pasa a mayúsculas.
+        Optional<String> mayus = resultado.map(String::toUpperCase);
+    }
+
+    // Un método que devuelve Optional declara explícitamente la posibilidad de ausencia
+    public static Optional<String> buscarUsuario(int id) {
+        if (id == 1) return Optional.of("Juan");
+        return Optional.empty(); // NUNCA devolver null aquí
+    }
+}</code></pre>
+                </div>
+
+                <h2>3. Entrenamiento Progresivo</h2>
+
+                <!-- EJERCICIO 1: VERDE -->
+                <div class="exercise-card">
+                    <span class="difficulty-badge badge-green">Nivel Básico</span>
+                    <h4 class="font-bold text-gray-800 pr-20">Creación y Consumo</h4>
+                    <p class="text-gray-600 mt-2">Crea un `Optional` que contenga el String "Hola". Usa `ifPresent` para
+                        imprimirlo. Luego crea uno vacío (`Optional.empty()`) y usa `orElse` para imprimir "Adiós".</p>
+                </div>
+
+                <!-- EJERCICIO 2: AMARILLO -->
+                <div class="exercise-card">
+                    <span class="difficulty-badge badge-yellow">Nivel Intermedio</span>
+                    <h4 class="font-bold text-gray-800 pr-20">Navegación Segura (Map/FlatMap)</h4>
+                    <p class="text-gray-600 mt-2">Simula una cadena de llamadas peligrosas:
+                        `usuario.getDireccion().getCiudad()`. Si usuario es null, o dirección es null, todo explota.
+                        <br>Usa `Optional` para encadenar estas llamadas con `.map()` de forma que si cualquiera falla,
+                        obtengas un Optional vacío al final sin excepciones.</p>
+                </div>
+
+                <!-- EJERCICIO 3: ROJO -->
+                <div class="exercise-card">
+                    <span class="difficulty-badge badge-red">Nivel Experto</span>
+                    <h4 class="font-bold text-gray-800 pr-20">Lazy Loading con orElseGet</h4>
+                    <p class="text-gray-600 mt-2">Diferencia crítica de rendimiento. <br>1. Usa
+                        `orElse(metodoPesado())`. <br>2. Usa `orElseGet(() -> metodoPesado())`. <br>Demuestra con prints
+                        dentro de `metodoPesado` que en el caso 1 el método se ejecuta SIEMPRE (aunque el optional tenga
+                        valor), mientras que en el caso 2 solo se ejecuta si es necesario (Lazy).</p>
+
+                    <button onclick="toggleSolution('sol-18')"
+                        class="mt-3 text-sm font-semibold text-orange-600 hover:text-orange-800 underline">
+                        👁️ Ver Solución Guía
+                    </button>
+
+                    <div id="sol-18" class="solution-spoiler">
+                        <pre><code class="language-java">Optional<String> opt = Optional.of("Dato");
+
+// Malo: calcularDefault() se ejecuta SIEMPRE, gastando recursos
+String r1 = opt.orElse(calcularDefault()); 
+
+// Bueno: calcularDefault() solo se ejecuta si opt está vacío
+String r2 = opt.orElseGet(() -> calcularDefault());
+
+public String calcularDefault() {
+    System.out.println("Calculando... (Costoso)");
+    return "Default";
+}</code></pre>
+                    </div>
+                </div>
+
+                <h2>4. Evaluación de Conceptos</h2>
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 space-y-4">
+                    <div>
+                        <p class="font-semibold text-gray-800">1. ¿Deberías usar Optional como parámetro de un método?
+                        </p>
+                        <select id="q18-1" class="w-full p-2 border rounded mt-1">
+                            <option value="">Elegir...</option>
+                            <option value="a">Sí, es buena práctica.</option>
+                            <option value="b">No, complica la llamada y no es serializable.</option>
+                            <option value="c">Solo en constructores.</option>
+                        </select>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-gray-800">2. ¿Qué hace `orElseThrow`?</p>
+                        <select id="q18-2" class="w-full p-2 border rounded mt-1">
+                            <option value="">Elegir...</option>
+                            <option value="a">Lanza una excepción si el Optional está vacío.</option>
+                            <option value="b">Captura una excepción.</option>
+                            <option value="c">Devuelve null.</option>
+                        </select>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-gray-800">3. ¿Cómo envuelves un valor que podría ser null?</p>
+                        <select id="q18-3" class="w-full p-2 border rounded mt-1">
+                            <option value="">Elegir...</option>
+                            <option value="a">Optional.of(val)</option>
+                            <option value="b">Optional.ofNullable(val)</option>
+                            <option value="c">Optional.empty()</option>
+                        </select>
+                    </div>
+                    <button onclick="checkQuiz1()"
+                        class="bg-orange-600 text-white px-6 py-2 rounded hover:bg-orange-700 w-full font-bold">Validar
+                        Conocimientos</button>
+                </div>
+            </div>
+
+            <!-- LECCIÓN 19 -->
+            <div id="lesson-19" class="lesson-section max-w-4xl mx-auto">
+                <div class="mb-6 pb-6 border-b border-gray-200">
+                    <span class="text-orange-600 font-bold tracking-wide text-sm uppercase">Lección 19</span>
+                    <h1 class="text-4xl font-extrabold text-gray-900 mt-2">Date & Time API (java.time)</h1>
+                </div>
+
+                <div class="bg-orange-50 p-6 rounded-lg mb-8 border border-orange-100">
+                    <h3 class="text-orange-800 font-bold mb-2 !mt-0">🎯 Objetivos de Élite</h3>
+                    <ul class="list-disc list-inside text-gray-700 space-y-1">
+                        <li>Entender por qué `java.util.Date` es tóxico (mutable, mal diseño).</li>
+                        <li>Dominar la tríada: `LocalDate` (Fechas), `LocalTime` (Horas), `LocalDateTime`.</li>
+                        <li>Manejar el tiempo global con `ZonedDateTime` y `Instant` (UTC).</li>
+                        <li>Calcular lapsos temporales con `Duration` (máquina) y `Period` (humano).</li>
+                    </ul>
+                </div>
+
+                <h2>1. Teoría Suprema: El Tiempo es Relativo</h2>
+                <p class="text-gray-700 mb-4">
+                    Manejar fechas es una de las cosas más difíciles en informática (Años bisiestos, zonas horarias,
+                    segundos intercalares). La antigua `java.util.Date` fallaba miserablemente (era mutable, enero era
+                    el mes 0, año 1900 base).
+                    <br><br>
+                    La nueva API (`java.time`, desde Java 8) es <strong>Inmutable</strong> y está basada en el estándar
+                    ISO-8601.
+                </p>
+
+                <h3 class="text-lg font-bold text-gray-800">1.1 Máquina vs Humano</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div class="bg-white p-5 rounded-lg border-l-4 border-indigo-500 shadow-sm">
+                        <h4 class="font-bold text-indigo-700 mb-2">Tiempo Máquina (Instant)</h4>
+                        <p class="text-sm text-gray-600">Cuenta los nanosegundos desde 1970 (Epoch). Es universal. Úsalo
+                            para logs y timestamps de base de datos.</p>
+                    </div>
+                    <div class="bg-white p-5 rounded-lg border-l-4 border-teal-500 shadow-sm">
+                        <h4 class="font-bold text-teal-700 mb-2">Tiempo Humano (LocalDate...)</h4>
+                        <p class="text-sm text-gray-600">Conceptos de calendario: "25 de Diciembre". Depende de dónde
+                            estés. "Ahora" no es la misma hora en Tokio que en Nueva York.</p>
+                    </div>
+                </div>
+
+                <h2>2. Laboratorio de Código</h2>
+                <div class="code-block">
+                    <pre><code class="language-java">import java.time.*;
+import java.time.temporal.ChronoUnit;
+
+public class Cronos {
+    public static void main(String[] args) {
+        // Fecha Humana (Sin hora, sin zona)
+        LocalDate nacimiento = LocalDate.of(1995, Month.MAY, 23);
+        LocalDate hoy = LocalDate.now();
+
+        // Operaciones Inmutables (devuelven copia nueva)
+        LocalDate vencimiento = hoy.plusDays(30);
+
+        // Periodo (Diferencia en años/meses/días)
+        Period edad = Period.between(nacimiento, hoy);
+        System.out.println("Tienes " + edad.getYears() + " años.");
+
+        // Duración (Diferencia exacta en tiempo)
+        LocalTime inicio = LocalTime.now();
+        // ... proceso ...
+        LocalTime fin = LocalTime.now().plusHours(2);
+        long minutos = ChronoUnit.MINUTES.between(inicio, fin); // 120
+
+        // Zonas Horarias (CRÍTICO)
+        // Instant es el punto exacto en la línea de tiempo universal (UTC)
+        Instant ahoraMismo = Instant.now(); 
+        
+        // Convertir ese instante a la hora de Tokio
+        ZonedDateTime horaTokio = ahoraMismo.atZone(ZoneId.of("Asia/Tokyo"));
+        System.out.println(horaTokio);
+    }
+}</code></pre>
+                </div>
+
+                <h2>3. Entrenamiento Progresivo</h2>
+
+                <!-- EJERCICIO 1: VERDE -->
+                <div class="exercise-card">
+                    <span class="difficulty-badge badge-green">Nivel Básico</span>
+                    <h4 class="font-bold text-gray-800 pr-20">Calculadora de Días</h4>
+                    <p class="text-gray-600 mt-2">Obtén la fecha actual. Resta 200 días. Imprime qué día de la semana
+                        fue (Lunes, Martes...) usando `.getDayOfWeek()`.</p>
+                </div>
+
+                <!-- EJERCICIO 2: AMARILLO -->
+                <div class="exercise-card">
+                    <span class="difficulty-badge badge-yellow">Nivel Intermedio</span>
+                    <h4 class="font-bold text-gray-800 pr-20">Cuenta Regresiva</h4>
+                    <p class="text-gray-600 mt-2">Calcula cuántos días exactos faltan para el próximo Año Nuevo. Usa
+                        `LocalDate.now()`, `LocalDate.of(...)` y `ChronoUnit.DAYS.between(...)`. Recuerda manejar el
+                        cambio de año.</p>
+                </div>
+
+                <!-- EJERCICIO 3: ROJO -->
+                <div class="exercise-card">
+                    <span class="difficulty-badge badge-red">Nivel Experto</span>
+                    <h4 class="font-bold text-gray-800 pr-20">Coordinador de Reuniones Global</h4>
+                    <p class="text-gray-600 mt-2">Tienes una reunión programada para el "2023-10-05 a las 15:00 en Nueva
+                        York". <br>Tu usuario está en Londres. <br>Calcula y muestra a qué hora local debe conectarse el
+                        usuario de Londres. Usa `ZonedDateTime` y `withZoneSameInstant`.</p>
+
+                    <button onclick="toggleSolution('sol-19')"
+                        class="mt-3 text-sm font-semibold text-orange-600 hover:text-orange-800 underline">
+                        👁️ Ver Solución Guía
+                    </button>
+
+                    <div id="sol-19" class="solution-spoiler">
+                        <pre><code class="language-java">import java.time.*;
+
+// 1. Definir la reunión en origen
+LocalDateTime reunionLocal = LocalDateTime.of(2023, 10, 5, 15, 0);
+ZonedDateTime reunionNY = ZonedDateTime.of(reunionLocal, ZoneId.of("America/New_York"));
+
+// 2. Convertir al destino (mismo instante universal)
+ZonedDateTime reunionLondres = reunionNY.withZoneSameInstant(ZoneId.of("Europe/London"));
+
+System.out.println("En NY: " + reunionNY);
+System.out.println("En Londres: " + reunionLondres);</code></pre>
+                    </div>
+                </div>
+
+                <h2>4. Evaluación de Conceptos</h2>
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 space-y-4">
+                    <div>
+                        <p class="font-semibold text-gray-800">1. ¿Qué clase usarías para guardar un timestamp de
+                            auditoría (log)?</p>
+                        <select id="q19-1" class="w-full p-2 border rounded mt-1">
+                            <option value="">Elegir...</option>
+                            <option value="a">LocalDateTime</option>
+                            <option value="b">Instant (UTC, inequívoco)</option>
+                            <option value="c">Date</option>
+                        </select>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-gray-800">2. ¿Son mutables los objetos de java.time?</p>
+                        <select id="q19-2" class="w-full p-2 border rounded mt-1">
+                            <option value="">Elegir...</option>
+                            <option value="a">Sí, tienen setters.</option>
+                            <option value="b">No, cualquier operación crea una nueva instancia.</option>
+                            <option value="c">Solo LocalDateTime.</option>
+                        </select>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-gray-800">3. ¿Para qué sirve Duration?</p>
+                        <select id="q19-3" class="w-full p-2 border rounded mt-1">
+                            <option value="">Elegir...</option>
+                            <option value="a">Para medir tiempo basado en calendario (años, meses).</option>
+                            <option value="b">Para medir tiempo exacto basado en segundos/nanos.</option>
+                            <option value="c">Para formatear fechas.</option>
+                        </select>
+                    </div>
+                    <button onclick="checkQuiz1()"
+                        class="bg-orange-600 text-white px-6 py-2 rounded hover:bg-orange-700 w-full font-bold">Validar
+                        Conocimientos</button>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Scripts para interactividad -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+    <script>
+        function showLesson(id) {
+            document.querySelectorAll('.lesson-section').forEach(el => {
+                el.classList.remove('active');
+                el.style.display = 'none';
+            });
+            const selected = document.getElementById('lesson-' + id);
+            selected.style.display = 'block';
+            setTimeout(() => selected.classList.add('active'), 10);
+
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('btn-' + id).classList.add('active');
+            document.querySelector('main').scrollTop = 0;
+        }
+
+        function toggleSolution(id) {
+            const el = document.getElementById(id);
+            if (el.style.display === 'block') el.style.display = 'none';
+            else el.style.display = 'block';
+        }
+
+        // Validación simple para Quiz
+        function checkQuiz1() {
+            alert("¡Respuestas registradas! Revisa la sección 'Teoría Suprema' para asegurar conceptos.");
+        }
+
+        // Init
+        showLesson(16);
+    </script>
+</body>
+
+</html>
