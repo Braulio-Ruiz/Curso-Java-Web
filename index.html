@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Java Masterclass | De Cero a Profesional</title>
+    <title>Java Masterclass | De Cero a Arquitecto</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
@@ -21,7 +21,7 @@
                         'float': 'float 6s ease-in-out infinite',
                         'float-delayed': 'float 6s ease-in-out 3s infinite',
                         'fade-in-up': 'fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
-                        'blob': 'blob 10s infinite', /* Un poco más rápido para dar vida */
+                        'blob': 'blob 10s infinite',
                     },
                     keyframes: {
                         float: {
@@ -62,37 +62,32 @@
             background: linear-gradient(to right, #3b82f6, #8b5cf6);
             filter: blur(80px);
             opacity: 0.5;
-            /* Un poco más brillante */
             border-radius: 50%;
             animation: blob 10s infinite cubic-bezier(0.4, 0, 0.2, 1);
+            mix-blend-mode: screen;
         }
 
-        /* Tarjetas con Glassmorphism Mejorado - CORRECCIÓN DE ANIMACIÓN */
+        /* Tarjetas Optimidas para Velocidad */
         .module-card {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.5);
-
-            /* CAMBIO CLAVE: 'ease-out' inicia la animación rápido y frena al final.
-               Duración reducida a 0.2s para respuesta inmediata.
-               'will-change' optimiza el renderizado en GPU.
-            */
-            transition: all 0.2s ease-out;
-            will-change: transform, box-shadow, border-color;
+            /* Transición ultra-rápida y sin delay */
+            transition: transform 0.2s ease-out, box-shadow 0.2s ease-out, background-color 0.2s;
+            will-change: transform, box-shadow;
         }
 
         .module-card:hover {
-            /* Scale un poco mayor para más impacto */
-            transform: translateY(-8px) scale(1.03);
-            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.3);
+            transform: translateY(-8px) scale(1.02);
             z-index: 10;
-            background: rgba(255, 255, 255, 1);
+            background: #ffffff;
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.3);
         }
 
         /* Scrollbar */
         ::-webkit-scrollbar {
-            width: 10px;
+            width: 8px;
         }
 
         ::-webkit-scrollbar-track {
@@ -101,39 +96,39 @@
 
         ::-webkit-scrollbar-thumb {
             background: #334155;
-            border-radius: 5px;
+            border-radius: 4px;
         }
 
         ::-webkit-scrollbar-thumb:hover {
             background: #475569;
         }
 
-        /* Delays de animación de entrada */
-        .delay-100 {
+        /* NUEVOS nombres de clases para evitar conflicto con Tailwind transition-delay */
+        .anim-delay-100 {
             animation-delay: 100ms;
         }
 
-        .delay-200 {
+        .anim-delay-200 {
             animation-delay: 200ms;
         }
 
-        .delay-300 {
+        .anim-delay-300 {
             animation-delay: 300ms;
         }
 
-        .delay-400 {
+        .anim-delay-400 {
             animation-delay: 400ms;
         }
 
-        .delay-500 {
+        .anim-delay-500 {
             animation-delay: 500ms;
         }
 
-        .delay-600 {
+        .anim-delay-600 {
             animation-delay: 600ms;
         }
 
-        .delay-700 {
+        .anim-delay-700 {
             animation-delay: 700ms;
         }
     </style>
@@ -148,12 +143,13 @@
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
             <div class="flex items-center gap-3 group cursor-pointer">
                 <div
-                    class="bg-gradient-to-br from-blue-600 to-indigo-600 p-2.5 rounded-xl shadow-lg shadow-blue-500/20 group-hover:shadow-blue-500/50 group-hover:scale-110 transition-all duration-300">
+                    class="bg-gradient-to-br from-blue-600 to-indigo-600 p-2.5 rounded-xl shadow-lg shadow-blue-500/20 group-hover:shadow-blue-500/50 group-hover:scale-105 transition-all duration-300">
                     <i class="fab fa-java text-xl text-white"></i>
                 </div>
                 <div class="flex flex-col">
                     <span
-                        class="font-bold text-lg tracking-tight leading-none group-hover:text-blue-400 transition-colors">Java</span>
+                        class="font-bold text-lg tracking-tight leading-none group-hover:text-blue-400 transition-colors">Java
+                        Elite</span>
                     <span class="text-xs text-blue-400 font-medium tracking-widest uppercase">Masterclass</span>
                 </div>
             </div>
@@ -171,16 +167,13 @@
 
     <!-- Hero Section -->
     <header class="hero-bg text-white pt-48 pb-32 relative">
-        <!-- Nuevas Animaciones Fluidas de Fondo -->
-        <div class="blob-bg w-96 h-96 bg-purple-600 top-0 -left-20 mix-blend-multiply opacity-50 animate-blob"></div>
-        <div
-            class="blob-bg w-96 h-96 bg-blue-600 bottom-0 -right-20 mix-blend-multiply opacity-50 animate-blob animation-delay-2000">
-        </div>
-        <div
-            class="blob-bg w-80 h-80 bg-pink-600 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 mix-blend-multiply opacity-40 animate-blob animation-delay-4000">
-        </div>
+        <!-- Fondo Animado (Blobs) -->
+        <div class="blob-bg w-96 h-96 bg-purple-600 top-0 -left-20"></div>
+        <div class="blob-bg w-96 h-96 bg-blue-600 bottom-0 -right-20" style="animation-delay: -2s"></div>
+        <div class="blob-bg w-80 h-80 bg-pink-600 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+            style="animation-delay: -4s"></div>
 
-        <!-- Floating Icons Decoration -->
+        <!-- Elementos flotantes -->
         <i class="fas fa-code absolute top-40 left-[10%] text-white/5 text-8xl animate-float pointer-events-none"></i>
         <i
             class="fas fa-database absolute bottom-20 right-[15%] text-white/5 text-7xl animate-float-delayed pointer-events-none"></i>
@@ -188,13 +181,13 @@
 
         <div class="container mx-auto px-6 relative z-10 text-center">
             <div
-                class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-md mb-8 animate-fade-in-up opacity-0 shadow-lg">
-                <span class="text-xs font-bold tracking-wider uppercase text-blue-300">🎓 Programa de Ingeniería de
-                    Software</span>
+                class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-md mb-8 animate-fade-in-up opacity-0 shadow-xl">
+                <span class="text-xs font-bold tracking-wider uppercase text-blue-300">🎓 Ingeniería de Software
+                    Profesional</span>
             </div>
 
             <h1
-                class="text-5xl md:text-7xl font-extrabold tracking-tight mb-8 leading-tight animate-fade-in-up delay-100 opacity-0 drop-shadow-2xl">
+                class="text-5xl md:text-7xl font-extrabold tracking-tight mb-8 leading-tight animate-fade-in-up anim-delay-100 opacity-0 drop-shadow-2xl">
                 De Programador a <br>
                 <span
                     class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 filter drop-shadow-lg">Arquitecto
@@ -202,12 +195,12 @@
             </h1>
 
             <p
-                class="text-lg md:text-xl text-slate-300 max-w-2xl mx-auto mb-12 leading-relaxed animate-fade-in-up delay-200 opacity-0 text-shadow-sm">
+                class="text-lg md:text-xl text-slate-300 max-w-2xl mx-auto mb-12 leading-relaxed animate-fade-in-up anim-delay-200 opacity-0 font-light">
                 Domina el ecosistema completo: Desde la JVM y la Concurrencia Avanzada hasta Microservicios y
                 Arquitectura Limpia.
             </p>
 
-            <div class="flex flex-col sm:flex-row justify-center gap-6 animate-fade-in-up delay-300 opacity-0">
+            <div class="flex flex-col sm:flex-row justify-center gap-6 animate-fade-in-up anim-delay-300 opacity-0">
                 <a href="#ruta"
                     class="px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-bold transition-all shadow-xl shadow-blue-600/30 hover:shadow-blue-600/50 hover:-translate-y-1 flex items-center justify-center gap-3 group ring-4 ring-transparent hover:ring-blue-500/30">
                     Comenzar la Ruta
@@ -222,9 +215,9 @@
     </header>
 
     <!-- Stats Bar -->
-    <div class="relative z-20 -mt-12 mx-4 md:mx-auto max-w-5xl animate-fade-in-up delay-400 opacity-0">
+    <div class="relative z-20 -mt-12 mx-4 md:mx-auto max-w-5xl animate-fade-in-up anim-delay-400 opacity-0">
         <div
-            class="bg-white/80 backdrop-blur-2xl rounded-3xl shadow-2xl shadow-black/20 border border-white/40 flex flex-wrap justify-around py-8 px-4 ring-1 ring-white/50">
+            class="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl shadow-black/20 border border-white/40 flex flex-wrap justify-around py-8 px-4 ring-1 ring-white/50 hover:bg-white/90 transition-colors duration-300">
             <div class="text-center px-6 w-1/2 md:w-auto border-r border-slate-200/50">
                 <div class="text-4xl font-black text-slate-800 mb-1">7</div>
                 <div class="text-xs text-slate-500 font-bold uppercase tracking-widest">Módulos</div>
@@ -254,7 +247,7 @@
 
         <div class="container mx-auto px-6 relative z-10">
 
-            <div class="flex flex-col items-center mb-20 animate-fade-in-up delay-500 opacity-0">
+            <div class="flex flex-col items-center mb-20 animate-fade-in-up anim-delay-500 opacity-0">
                 <span
                     class="text-blue-600 font-bold tracking-widest uppercase text-xs mb-4 bg-blue-50 px-4 py-2 rounded-full border border-blue-100 shadow-sm">Roadmap
                     Profesional</span>
@@ -268,9 +261,8 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
 
                 <!-- MÓDULO 1: Fundamentos (Azul) -->
-                <!-- Eliminado transition-all duration-300 del HTML para que use el CSS optimizado -->
                 <a href="./modulos/modulo1.html"
-                    class="module-card group rounded-2xl overflow-hidden animate-fade-in-up delay-100 opacity-0 flex flex-col h-full hover:ring-4 hover:ring-blue-500/50 hover:ring-offset-2 ring-offset-slate-50">
+                    class="module-card group rounded-2xl overflow-hidden animate-fade-in-up anim-delay-100 opacity-0 flex flex-col h-full hover:ring-4 hover:ring-blue-500/50 hover:ring-offset-2 ring-offset-slate-50 shadow-lg hover:shadow-2xl hover:shadow-blue-500/20">
                     <div class="h-2 bg-gradient-to-r from-blue-500 to-blue-600 w-full"></div>
                     <div class="p-8 flex-1 flex flex-col">
                         <div class="flex justify-between items-start mb-6">
@@ -305,7 +297,7 @@
 
                 <!-- MÓDULO 2: POO (Morado) -->
                 <a href="./modulos/modulo2.html"
-                    class="module-card group rounded-2xl overflow-hidden animate-fade-in-up delay-200 opacity-0 flex flex-col h-full hover:ring-4 hover:ring-purple-500/50 hover:ring-offset-2 ring-offset-slate-50">
+                    class="module-card group rounded-2xl overflow-hidden animate-fade-in-up anim-delay-200 opacity-0 flex flex-col h-full hover:ring-4 hover:ring-purple-500/50 hover:ring-offset-2 ring-offset-slate-50 shadow-lg hover:shadow-2xl hover:shadow-purple-500/20">
                     <div class="h-2 bg-gradient-to-r from-purple-500 to-purple-600 w-full"></div>
                     <div class="p-8 flex-1 flex flex-col">
                         <div class="flex justify-between items-start mb-6">
@@ -340,7 +332,7 @@
 
                 <!-- MÓDULO 3: Estructuras (Amarillo) -->
                 <a href="./modulos/modulo3.html"
-                    class="module-card group rounded-2xl overflow-hidden animate-fade-in-up delay-300 opacity-0 flex flex-col h-full hover:ring-4 hover:ring-yellow-500/50 hover:ring-offset-2 ring-offset-slate-50">
+                    class="module-card group rounded-2xl overflow-hidden animate-fade-in-up anim-delay-300 opacity-0 flex flex-col h-full hover:ring-4 hover:ring-yellow-500/50 hover:ring-offset-2 ring-offset-slate-50 shadow-lg hover:shadow-2xl hover:shadow-yellow-500/20">
                     <div class="h-2 bg-gradient-to-r from-yellow-400 to-yellow-600 w-full"></div>
                     <div class="p-8 flex-1 flex flex-col">
                         <div class="flex justify-between items-start mb-6">
@@ -375,7 +367,7 @@
 
                 <!-- MÓDULO 4: Funcional (Naranja) -->
                 <a href="./modulos/modulo4.html"
-                    class="module-card group rounded-2xl overflow-hidden animate-fade-in-up delay-400 opacity-0 flex flex-col h-full hover:ring-4 hover:ring-orange-500/50 hover:ring-offset-2 ring-offset-slate-50">
+                    class="module-card group rounded-2xl overflow-hidden animate-fade-in-up anim-delay-400 opacity-0 flex flex-col h-full hover:ring-4 hover:ring-orange-500/50 hover:ring-offset-2 ring-offset-slate-50 shadow-lg hover:shadow-2xl hover:shadow-orange-500/20">
                     <div class="h-2 bg-gradient-to-r from-orange-500 to-orange-600 w-full"></div>
                     <div class="p-8 flex-1 flex flex-col">
                         <div class="flex justify-between items-start mb-6">
@@ -410,7 +402,7 @@
 
                 <!-- MÓDULO 5: Concurrencia (Rojo) -->
                 <a href="./modulos/modulo5.html"
-                    class="module-card group rounded-2xl overflow-hidden animate-fade-in-up delay-500 opacity-0 flex flex-col h-full hover:ring-4 hover:ring-red-500/50 hover:ring-offset-2 ring-offset-slate-50">
+                    class="module-card group rounded-2xl overflow-hidden animate-fade-in-up anim-delay-500 opacity-0 flex flex-col h-full hover:ring-4 hover:ring-red-500/50 hover:ring-offset-2 ring-offset-slate-50 shadow-lg hover:shadow-2xl hover:shadow-red-500/20">
                     <div class="h-2 bg-gradient-to-r from-red-500 to-red-600 w-full"></div>
                     <div class="p-8 flex-1 flex flex-col">
                         <div class="flex justify-between items-start mb-6">
@@ -445,7 +437,7 @@
 
                 <!-- MÓDULO 6: Backend (Esmeralda) -->
                 <a href="./modulos/modulo6.html"
-                    class="module-card group rounded-2xl overflow-hidden animate-fade-in-up delay-600 opacity-0 flex flex-col h-full hover:ring-4 hover:ring-emerald-500/50 hover:ring-offset-2 ring-offset-slate-50">
+                    class="module-card group rounded-2xl overflow-hidden animate-fade-in-up anim-delay-600 opacity-0 flex flex-col h-full hover:ring-4 hover:ring-emerald-500/50 hover:ring-offset-2 ring-offset-slate-50 shadow-lg hover:shadow-2xl hover:shadow-emerald-500/20">
                     <div class="h-2 bg-gradient-to-r from-emerald-500 to-emerald-600 w-full"></div>
                     <div class="p-8 flex-1 flex flex-col">
                         <div class="flex justify-between items-start mb-6">
@@ -480,7 +472,7 @@
 
                 <!-- MÓDULO 7: Arquitectura (Índigo) - Destacado -->
                 <a href="./modulos/modulo7.html"
-                    class="module-card group rounded-2xl overflow-hidden animate-fade-in-up delay-700 opacity-0 flex flex-col h-full md:col-span-2 lg:col-span-3 hover:ring-4 hover:ring-indigo-500/50 hover:ring-offset-2 ring-offset-slate-50">
+                    class="module-card group rounded-2xl overflow-hidden animate-fade-in-up anim-delay-700 opacity-0 flex flex-col h-full md:col-span-2 lg:col-span-3 hover:ring-4 hover:ring-indigo-500/50 hover:ring-offset-2 ring-offset-slate-50 shadow-xl hover:shadow-2xl hover:shadow-indigo-500/20">
                     <div class="h-2 bg-gradient-to-r from-indigo-500 to-indigo-600 w-full"></div>
                     <div class="p-8 flex-1 flex flex-col md:flex-row items-center gap-10">
                         <div class="flex-shrink-0">
@@ -495,7 +487,7 @@
                                     class="bg-indigo-100 text-indigo-700 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider border border-indigo-200">Módulo
                                     Final</span>
                                 <h3
-                                    class="text-3xl font-bold text-slate-800 group-hover:text-indigo-600 transition-colors">
+                                    class="text-3xl font-bold text-slate-800 group-hover:text-indigo-600 transition-colors duration-200">
                                     Arquitectura y Proyecto Final</h3>
                             </div>
                             <p class="text-slate-500 text-base mb-6 max-w-2xl leading-relaxed">
@@ -540,11 +532,11 @@
                             class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center text-white text-xl shadow-lg shadow-blue-900/50">
                             <i class="fab fa-java"></i>
                         </div>
-                        <h4 class="text-white font-bold text-2xl tracking-tight">Curso Java por Braulio Ruiz Niñoles
-                        </h4>
+                        <h4 class="text-white font-bold text-2xl tracking-tight">Java Elite</h4>
                     </div>
                     <p class="text-sm text-slate-500 max-w-xs leading-relaxed">
-                        Formando a la próxima generación de Ingenieros de Software.
+                        Formando a la próxima generación de Ingenieros de Software con estándares de calidad de Silicon
+                        Valley.
                     </p>
                 </div>
                 <div class="flex gap-6 text-2xl">
