@@ -1,885 +1,535 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="scroll-smooth">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Curso Java Profesional - Módulo 2</title>
+    <title>Módulo 2 | POO Avanzada</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" href="../assets/syle.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="../assets/style.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                    }
+                }
+            }
+        }
+    </script>
 </head>
 
-<body class="flex flex-col h-screen overflow-hidden">
+<body
+    class="flex flex-col h-screen bg-slate-50 text-slate-800 antialiased selection:bg-purple-500 selection:text-white overflow-hidden">
 
-    <!-- Header -->
-    <header onclick="window.location.href='../index.html'"
-        class="bg-slate-900 text-white p-4 shadow-lg flex justify-between items-center z-10 hover:bg-slate-800 transition">
-        <div>
-            <h1 class="text-2xl font-bold tracking-tight">☕ Curso Profesional de Java</h1>
-            <p class="text-slate-400 text-sm">Módulo 2: Programación Orientada a Objetos (El Núcleo)</p>
-        </div>
-        <div class="text-xs bg-purple-600 px-3 py-1 rounded-full font-semibold">Java 21 LTS</div>
-    </header>
-
-    <div class="flex flex-1 overflow-hidden">
-        <!-- Sidebar Navigation -->
-        <nav class="w-64 bg-white shadow-md overflow-y-auto hidden md:block border-r border-gray-200">
-            <div class="p-4">
-                <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-4">Temario del Módulo</h3>
-                <div class="space-y-1">
-                    <button onclick="showLesson(6)" id="btn-6"
-                        class="nav-btn active w-full text-left px-4 py-3 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100">
-                        06: Clases y Objetos
-                    </button>
-                    <button onclick="showLesson(7)" id="btn-7"
-                        class="nav-btn w-full text-left px-4 py-3 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100">
-                        07: Encapsulamiento
-                    </button>
-                    <button onclick="showLesson(8)" id="btn-8"
-                        class="nav-btn w-full text-left px-4 py-3 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100">
-                        08: Herencia y Polimorfismo
-                    </button>
-                    <button onclick="showLesson(9)" id="btn-9"
-                        class="nav-btn w-full text-left px-4 py-3 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100">
-                        09: Interfaces y Abstracción
-                    </button>
-                    <button onclick="showLesson(10)" id="btn-10"
-                        class="nav-btn w-full text-left px-4 py-3 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100">
-                        10: Records y Enums
-                    </button>
+    <nav
+        class="fixed w-full z-50 bg-slate-900/95 backdrop-blur-md border-b border-slate-700/50 text-white h-16 flex items-center justify-between px-6 shadow-lg">
+        <div class="flex items-center gap-4">
+            <a href="../index.html"
+                class="group flex items-center gap-2 text-slate-300 hover:text-white transition-all bg-white/5 hover:bg-white/10 px-4 py-2 rounded-lg border border-white/10 hover:border-white/20">
+                <i class="fas fa-arrow-left text-sm group-hover:-translate-x-1 transition-transform"></i>
+                <span class="text-sm font-medium">Volver al Inicio</span>
+            </a>
+            <div class="h-6 w-px bg-slate-700 mx-2"></div>
+            <div class="flex items-center gap-3">
+                <div class="bg-purple-600/20 p-2 rounded-lg border border-purple-500/30 text-purple-400">
+                    <i class="fas fa-cubes text-lg"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-sm tracking-wide leading-none">Módulo 02</h1>
+                    <span class="text-xs text-slate-400 font-medium">POO: El Núcleo</span>
                 </div>
             </div>
-        </nav>
+        </div>
 
-        <!-- Main Content -->
-        <main class="flex-1 overflow-y-auto p-8 relative scroll-smooth">
+        <div class="hidden md:flex items-center gap-4">
+            <div class="flex items-center gap-2 px-3 py-1.5 bg-purple-900/30 rounded-full border border-purple-500/20">
+                <span class="relative flex h-2 w-2">
+                    <span
+                        class="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-purple-500"></span>
+                </span>
+                <span class="text-xs font-semibold text-purple-300">Java 21 LTS</span>
+            </div>
+        </div>
+    </nav>
 
-            <!-- LECCIÓN 06 -->
-            <div id="lesson-6" class="lesson-section active max-w-4xl mx-auto">
-                <div class="mb-6 pb-6 border-b border-gray-200">
-                    <span class="text-purple-600 font-bold tracking-wide text-sm uppercase">Lección 06</span>
-                    <h1 class="text-4xl font-extrabold text-gray-900 mt-2">Clases, Objetos y Constructores</h1>
-                </div>
+    <div class="flex flex-1 pt-16 h-full overflow-hidden">
 
-                <div class="bg-purple-50 p-6 rounded-lg mb-8 border border-purple-100">
-                    <h3 class="text-purple-800 font-bold mb-2 !mt-0">🎯 Objetivos de Élite</h3>
-                    <ul class="list-disc list-inside text-gray-700 space-y-1">
-                        <li>Entender la dicotomía arquitectónica: Definición (Clase) vs Instancia en Memoria (Objeto).
-                        </li>
-                        <li>Dominar el ciclo de vida de un objeto en el Heap y el rol del Garbage Collector.</li>
-                        <li>Utilizar `this` para resolver la ambigüedad de alcance (Shadowing).</li>
-                        <li>Diseñar constructores robustos y sobrecargados (Constructor Chaining).</li>
-                    </ul>
-                </div>
+        <aside class="w-80 bg-white border-r border-slate-200 shadow-xl z-20 hidden md:flex flex-col">
+            <div class="p-6 border-b border-slate-100 bg-slate-50/50">
+                <h3 class="text-xs font-black text-slate-400 uppercase tracking-widest mb-1">Contenido del Módulo</h3>
+                <p class="text-sm text-slate-600 font-medium">5 Lecciones Clave</p>
+            </div>
 
-                <h2>1. Teoría Suprema: Arquitectura de la Realidad</h2>
-                <p class="text-gray-700 mb-4">
-                    La POO no es solo sintaxis, es una forma de <strong>modelar el mundo</strong>.
-                    <br>
-                    Imagina que eres un arquitecto. Tienes los planos de un edificio (<strong>La Clase</strong>). Esos
-                    planos no ocupan espacio físico en la ciudad, son solo información. Cuando la constructora usa esos
-                    planos para edificar un edificio real en una dirección específica, eso es el
-                    <strong>Objeto</strong>.
-                </p>
+            <div class="flex-1 overflow-y-auto custom-scrollbar p-4 space-y-2">
+                <button onclick="showLesson(6)" id="btn-6"
+                    class="nav-btn w-full text-left px-4 py-4 rounded-xl text-sm font-medium transition-all duration-200 border border-transparent hover:bg-slate-50 hover:border-slate-200 group relative overflow-hidden active">
+                    <div class="relative z-10 flex items-center gap-3">
+                        <span
+                            class="flex-shrink-0 w-8 h-8 rounded-lg bg-slate-100 text-slate-500 flex items-center justify-center text-xs font-bold group-hover:bg-white group-hover:shadow-sm transition-all btn-icon">06</span>
+                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">Clases y Objetos</span>
+                    </div>
+                    <div
+                        class="absolute left-0 top-0 bottom-0 w-1 bg-purple-600 opacity-0 btn-indicator transition-opacity">
+                    </div>
+                </button>
 
-                <h3 class="text-lg font-bold text-gray-800">1.1 Anatomía de la Memoria (Heap vs Metaspace)</h3>
-                <p class="text-gray-700 mb-4">
-                    Cuando escribes `Coche c = new Coche();`, ocurren tres milagros:
-                </p>
-                <ol class="list-decimal list-inside text-gray-700 space-y-2 ml-4">
-                    <li><strong>Definición:</strong> La JVM carga la clase `Coche` en el <em>Metaspace</em> (zona de
-                        metadatos).</li>
-                    <li><strong>Asignación:</strong> La palabra clave `new` reserva un bloque de memoria física en el
-                        <strong>Heap</strong> para guardar los atributos de ese coche específico.
-                    </li>
-                    <li><strong>Referencia:</strong> La variable `c` (en el Stack) recibe la dirección de memoria (ej.
-                        `0x004F`) de donde está el objeto.</li>
-                </ol>
+                <button onclick="showLesson(7)" id="btn-7"
+                    class="nav-btn w-full text-left px-4 py-4 rounded-xl text-sm font-medium transition-all duration-200 border border-transparent hover:bg-slate-50 hover:border-slate-200 group relative overflow-hidden">
+                    <div class="relative z-10 flex items-center gap-3">
+                        <span
+                            class="flex-shrink-0 w-8 h-8 rounded-lg bg-slate-100 text-slate-500 flex items-center justify-center text-xs font-bold group-hover:bg-white group-hover:shadow-sm transition-all btn-icon">07</span>
+                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">Encapsulamiento</span>
+                    </div>
+                    <div
+                        class="absolute left-0 top-0 bottom-0 w-1 bg-purple-600 opacity-0 btn-indicator transition-opacity">
+                    </div>
+                </button>
 
-                <div class="warning-box">
-                    <strong>¡Cuidado!</strong> El constructor NO crea el objeto. El objeto lo crea `new`. El constructor
-                    solo <strong>prepara</strong> (inicializa) el objeto recién nacido para que sea usable.
-                </div>
+                <button onclick="showLesson(8)" id="btn-8"
+                    class="nav-btn w-full text-left px-4 py-4 rounded-xl text-sm font-medium transition-all duration-200 border border-transparent hover:bg-slate-50 hover:border-slate-200 group relative overflow-hidden">
+                    <div class="relative z-10 flex items-center gap-3">
+                        <span
+                            class="flex-shrink-0 w-8 h-8 rounded-lg bg-slate-100 text-slate-500 flex items-center justify-center text-xs font-bold group-hover:bg-white group-hover:shadow-sm transition-all btn-icon">08</span>
+                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">Herencia y Polimorfismo</span>
+                    </div>
+                    <div
+                        class="absolute left-0 top-0 bottom-0 w-1 bg-purple-600 opacity-0 btn-indicator transition-opacity">
+                    </div>
+                </button>
 
-                <h2>2. Laboratorio de Código</h2>
-                <div class="code-block">
-                    <pre><code class="language-java">public class Usuario {
-    // Estado (Atributos)
+                <button onclick="showLesson(9)" id="btn-9"
+                    class="nav-btn w-full text-left px-4 py-4 rounded-xl text-sm font-medium transition-all duration-200 border border-transparent hover:bg-slate-50 hover:border-slate-200 group relative overflow-hidden">
+                    <div class="relative z-10 flex items-center gap-3">
+                        <span
+                            class="flex-shrink-0 w-8 h-8 rounded-lg bg-slate-100 text-slate-500 flex items-center justify-center text-xs font-bold group-hover:bg-white group-hover:shadow-sm transition-all btn-icon">09</span>
+                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">Interfaces</span>
+                    </div>
+                    <div
+                        class="absolute left-0 top-0 bottom-0 w-1 bg-purple-600 opacity-0 btn-indicator transition-opacity">
+                    </div>
+                </button>
+
+                <button onclick="showLesson(10)" id="btn-10"
+                    class="nav-btn w-full text-left px-4 py-4 rounded-xl text-sm font-medium transition-all duration-200 border border-transparent hover:bg-slate-50 hover:border-slate-200 group relative overflow-hidden">
+                    <div class="relative z-10 flex items-center gap-3">
+                        <span
+                            class="flex-shrink-0 w-8 h-8 rounded-lg bg-slate-100 text-slate-500 flex items-center justify-center text-xs font-bold group-hover:bg-white group-hover:shadow-sm transition-all btn-icon">10</span>
+                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">Records y Enums</span>
+                    </div>
+                    <div
+                        class="absolute left-0 top-0 bottom-0 w-1 bg-purple-600 opacity-0 btn-indicator transition-opacity">
+                    </div>
+                </button>
+            </div>
+        </aside>
+
+        <main class="flex-1 overflow-y-auto relative bg-slate-50 scroll-smooth">
+            <div
+                class="absolute inset-0 pointer-events-none bg-[url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%2364748b\' fill-opacity=\'0.03\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')]">
+            </div>
+
+            <div class="max-w-5xl mx-auto px-8 py-12 relative z-10">
+
+                <div id="lesson-6" class="lesson-section active animate-fade-in-up lesson-content">
+                    <div class="mb-8 border-b border-slate-200 pb-6">
+                        <div class="flex items-center gap-3 mb-2">
+                            <span
+                                class="px-3 py-1 rounded-full bg-purple-100 text-purple-700 text-xs font-bold uppercase tracking-wider">Lección
+                                06</span>
+                            <span class="text-slate-400 text-sm font-medium"><i class="far fa-clock mr-1"></i> 25
+                                min</span>
+                        </div>
+                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">Clases, Objetos y
+                            Constructores</h1>
+                        <p class="text-lg text-slate-600 max-w-3xl">La diferencia arquitectónica entre el plano y el
+                            edificio.</p>
+                    </div>
+
+                    <div
+                        class="bg-white rounded-2xl p-8 shadow-lg shadow-purple-900/5 border-l-4 border-purple-600 mb-10">
+                        <h3 class="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2">
+                            <i class="fas fa-bullseye text-purple-600"></i> Objetivos de Élite
+                        </h3>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="flex items-start gap-3">
+                                <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                                <span class="text-slate-600 text-sm">Definición (Clase) vs Instancia (Objeto).</span>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                                <span class="text-slate-600 text-sm">Ciclo de vida en el Heap y Garbage
+                                    Collector.</span>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                                <span class="text-slate-600 text-sm">Uso de `this` para Shadowing.</span>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                                <span class="text-slate-600 text-sm">Constructor Chaining (Sobrecarga).</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h2>1. Teoría Suprema: Arquitectura de la Realidad</h2>
+                    <p class="text-slate-600 mb-6 leading-relaxed">
+                        Imagina que eres un arquitecto. Tienes los planos de un edificio (<strong>La Clase</strong>).
+                        Esos planos no ocupan espacio físico, son información. Cuando construyes el edificio en una
+                        dirección real, eso es el <strong>Objeto</strong>.
+                    </p>
+
+                    <h3 class="text-xl font-bold text-slate-800 mb-3">1.1 Anatomía de la Memoria</h3>
+                    <div class="bg-purple-50 border-l-4 border-purple-500 p-6 rounded-r-xl mb-8">
+                        <div class="flex gap-4">
+                            <div class="text-purple-500 text-2xl"><i class="fas fa-microchip"></i></div>
+                            <div>
+                                <h4 class="font-bold text-purple-900 mb-1">El Milagro del 'new'</h4>
+                                <ol class="list-decimal list-inside text-purple-800 text-sm space-y-1">
+                                    <li><strong>Definición:</strong> JVM carga la clase en Metaspace.</li>
+                                    <li><strong>Asignación:</strong> `new` reserva espacio en el <strong>Heap</strong>.
+                                    </li>
+                                    <li><strong>Referencia:</strong> La variable en el Stack apunta a esa dirección.
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-red-50 border-l-4 border-red-500 p-4 rounded-r-xl mb-8 text-red-700 text-sm">
+                        <strong>¡Cuidado!</strong> El constructor NO crea el objeto. El objeto lo crea `new`. El
+                        constructor solo <strong>inicializa</strong> el objeto ya creado.
+                    </div>
+
+                    <h2>2. Laboratorio de Código</h2>
+                    <div class="rounded-xl overflow-hidden shadow-2xl bg-[#2d2d2d] border border-slate-700 mb-8">
+                        <div class="bg-[#1e1e1e] px-4 py-2 flex items-center gap-2 border-b border-slate-700">
+                            <div class="flex gap-1.5">
+                                <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                            </div>
+                            <span class="text-xs text-slate-400 ml-2 font-mono">Usuario.java</span>
+                        </div>
+                        <pre><code class="language-java">public class Usuario {
     private String nombre;
     private String email;
 
     // 1. Constructor Principal
-    // Responsabilidad: Inicializar el estado válido.
     public Usuario(String nombre, String email) {
-        // 'this' diferencia el atributo de la clase del parámetro
-        this.nombre = nombre;
+        this.nombre = nombre; // 'this' resuelve la ambigüedad
         this.email = email;
     }
 
-    // 2. Sobrecarga de Constructores (Constructor Chaining)
-    // Evita duplicar lógica de inicialización llamando al principal con 'this()'
+    // 2. Constructor Chaining (Sobrecarga inteligente)
     public Usuario(String nombre) {
-        this(nombre, "sin-email@dominio.com"); // Llama al constructor de arriba
+        this(nombre, "sin-email@dominio.com"); // Llama al principal
     }
 
     public void saludar() {
         System.out.println("Hola, soy " + this.nombre);
     }
 }</code></pre>
-                </div>
-
-                <h2>3. Entrenamiento Progresivo</h2>
-
-                <!-- EJERCICIO 1: VERDE -->
-                <div class="exercise-card">
-                    <span class="difficulty-badge badge-green">Nivel Básico</span>
-                    <h4 class="font-bold text-gray-800 pr-20">El Molde Básico</h4>
-                    <p class="text-gray-600 mt-2">Crea una clase `Producto` con atributos `nombre` (String) y `precio`
-                        (double). Crea un constructor que inicialice ambos. En el `main`, instancia 2 productos
-                        diferentes e imprime sus nombres.</p>
-                    <div class="mt-3 bg-gray-50 p-3 rounded text-sm text-purple-800 border border-purple-100">
-                        <strong>💡 Pista:</strong> Recuerda usar `new Producto(...)` para invocar al constructor.
                     </div>
-                </div>
 
-                <!-- EJERCICIO 2: AMARILLO -->
-                <div class="exercise-card">
-                    <span class="difficulty-badge badge-yellow">Nivel Intermedio</span>
-                    <h4 class="font-bold text-gray-800 pr-20">Lógica en el Nacimiento</h4>
-                    <p class="text-gray-600 mt-2">Modifica el constructor de `Producto`. Si el precio recibido es
-                        negativo, no lo asignes directamente; en su lugar, lanza una excepción
-                        `IllegalArgumentException` con el mensaje "Precio inválido". Esto garantiza que nunca existan
-                        objetos "Producto" con estado corrupto.</p>
-                </div>
+                    <h2>3. Entrenamiento Progresivo</h2>
+                    <div
+                        class="bg-white rounded-2xl p-6 border border-slate-200 shadow-lg mb-6 relative overflow-hidden group hover:border-emerald-400 transition-colors">
+                        <div
+                            class="absolute top-0 right-0 bg-emerald-100 text-emerald-700 text-xs font-bold px-3 py-1 rounded-bl-xl border-l border-b border-emerald-200">
+                            NIVEL BÁSICO</div>
+                        <h4 class="font-bold text-lg text-slate-800 mb-2">El Molde Básico</h4>
+                        <p class="text-slate-600 text-sm mb-4">Crea una clase `Producto` con constructor para `nombre` y
+                            `precio`. Instancia 2 objetos distintos.</p>
+                        <div class="bg-slate-50 p-3 rounded-lg border border-slate-200 text-sm text-slate-600">
+                            <strong>💡 Pista:</strong> Usa <code>new Producto(...)</code> para cada uno.
+                        </div>
+                    </div>
 
-                <!-- EJERCICIO 3: ROJO -->
-                <div class="exercise-card">
-                    <span class="difficulty-badge badge-red">Nivel Experto</span>
-                    <h4 class="font-bold text-gray-800 pr-20">El Experimento de las Referencias (Aliasing)</h4>
-                    <p class="text-gray-600 mt-2">
-                        1. Crea `Producto p1 = new Producto("Laptop", 1000);`.<br>
-                        2. Haz `Producto p2 = p1;`.<br>
-                        3. Cambia el precio usando `p2.setPrecio(500);`.<br>
-                        4. Imprime el precio de `p1`.<br>
-                        Explica técnicamente por qué cambió `p1` si solo tocaste `p2`.
-                    </p>
-
-                    <button onclick="toggleSolution('sol-6')"
-                        class="mt-3 text-sm font-semibold text-purple-600 hover:text-purple-800 underline">
-                        👁️ Ver Solución Guía
-                    </button>
-
-                    <div id="sol-6" class="solution-spoiler">
-                        <p class="font-mono text-xs text-green-400 mb-2">Explicación Técnica:</p>
-                        <p class="text-sm text-gray-300">
-                            En Java, las variables de objeto no contienen el objeto, contienen una
-                            <strong>referencia</strong> (dirección de memoria). Al hacer `p2 = p1`, copiaste la
-                            dirección, no el objeto. Ahora tienes dos "controles remotos" (p1 y p2) apuntando al mismo
-                            televisor (objeto en el Heap). Si cambias el canal con uno, cambia para el otro.
+                    <div
+                        class="bg-white rounded-2xl p-6 border border-slate-200 shadow-lg mb-6 relative overflow-hidden group hover:border-red-400 transition-colors">
+                        <div
+                            class="absolute top-0 right-0 bg-red-100 text-red-700 text-xs font-bold px-3 py-1 rounded-bl-xl border-l border-b border-red-200">
+                            NIVEL EXPERTO</div>
+                        <h4 class="font-bold text-lg text-slate-800 mb-2">Experimento de Aliasing</h4>
+                        <p class="text-slate-600 text-sm mb-4">Crea p1. Haz `p2 = p1`. Modifica p2. ¿Por qué cambia p1?
                         </p>
+                        <button onclick="toggleSolution('sol-6')"
+                            class="text-sm font-bold text-purple-600 flex items-center gap-2 hover:bg-purple-50 px-3 py-2 rounded-lg transition-colors">
+                            <i class="fas fa-eye"></i> Ver Explicación
+                        </button>
+                        <div id="sol-6"
+                            class="hidden mt-4 bg-slate-800 rounded-xl p-4 border border-slate-700 text-slate-300 text-sm">
+                            <p>Las variables no guardan el objeto, guardan la <strong>dirección de memoria</strong>. Al
+                                hacer `p2 = p1`, copiaste la dirección. Ambos apuntan al mismo sitio en el Heap.</p>
+                        </div>
                     </div>
                 </div>
 
-                <h2>4. Evaluación de Conceptos</h2>
-                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 space-y-4">
-                    <div>
-                        <p class="font-semibold text-gray-800">1. ¿Qué palabra clave se usa para invocar a otro
-                            constructor de la misma clase?</p>
-                        <select id="q6-1" class="w-full p-2 border rounded mt-1">
-                            <option value="">Elegir...</option>
-                            <option value="a">super()</option>
-                            <option value="b">this()</option>
-                            <option value="c">new()</option>
-                        </select>
+                <div id="lesson-7" class="lesson-section hidden animate-fade-in-up lesson-content">
+                    <div class="mb-8 border-b border-slate-200 pb-6">
+                        <div class="flex items-center gap-3 mb-2">
+                            <span
+                                class="px-3 py-1 rounded-full bg-purple-100 text-purple-700 text-xs font-bold uppercase tracking-wider">Lección
+                                07</span>
+                        </div>
+                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">Encapsulamiento
+                        </h1>
+                        <p class="text-lg text-slate-600">Protege el estado interno. "Tell, Don't Ask".</p>
                     </div>
-                    <div>
-                        <p class="font-semibold text-gray-800">2. Si no escribes ningún constructor, ¿qué hace Java?</p>
-                        <select id="q6-2" class="w-full p-2 border rounded mt-1">
-                            <option value="">Elegir...</option>
-                            <option value="a">Error de compilación.</option>
-                            <option value="b">Crea uno por defecto (sin argumentos) invisible.</option>
-                            <option value="c">La clase se vuelve abstracta.</option>
-                        </select>
+
+                    <div class="overflow-hidden rounded-xl border border-slate-200 mb-8 shadow-sm">
+                        <table class="w-full text-left bg-white text-sm">
+                            <thead class="bg-slate-100 text-slate-700 font-bold uppercase text-xs">
+                                <tr>
+                                    <th class="p-4">Modificador</th>
+                                    <th class="p-4">Alcance</th>
+                                    <th class="p-4">Riesgo</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100">
+                                <tr>
+                                    <td class="p-4 font-mono text-green-600 font-bold">private</td>
+                                    <td class="p-4">Solo la clase</td>
+                                    <td class="p-4"><span
+                                            class="bg-green-100 text-green-700 px-2 py-1 rounded text-xs font-bold">Seguro</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="p-4 font-mono text-orange-500 font-bold">protected</td>
+                                    <td class="p-4">Hijos + Paquete</td>
+                                    <td class="p-4"><span
+                                            class="bg-orange-100 text-orange-700 px-2 py-1 rounded text-xs font-bold">Alto</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="p-4 font-mono text-red-500 font-bold">public</td>
+                                    <td class="p-4">Mundo entero</td>
+                                    <td class="p-4"><span
+                                            class="bg-red-100 text-red-700 px-2 py-1 rounded text-xs font-bold">Crítico</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
-                    <div>
-                        <p class="font-semibold text-gray-800">3. ¿Dónde viven los objetos en memoria?</p>
-                        <select id="q6-3" class="w-full p-2 border rounded mt-1">
-                            <option value="">Elegir...</option>
-                            <option value="a">Stack</option>
-                            <option value="b">Heap</option>
-                            <option value="c">Metaspace</option>
-                        </select>
+
+                    <div class="bg-green-50 border border-green-200 rounded-xl p-6 mb-8">
+                        <h4 class="font-bold text-green-800 flex items-center gap-2 mb-2"><i
+                                class="fas fa-check-double"></i> Principio: Tell, Don't Ask</h4>
+                        <p class="text-green-900 text-sm">No pidas datos (`getSaldo()`) para operar fuera. Dile al
+                            objeto qué hacer (`retirar()`).</p>
                     </div>
-                    <button onclick="checkQuiz1()"
-                        class="bg-purple-600 text-white px-6 py-2 rounded hover:bg-purple-700 w-full font-bold">Validar
-                        Conocimientos</button>
-                </div>
-            </div>
 
-            <!-- LECCIÓN 07 -->
-            <div id="lesson-7" class="lesson-section max-w-4xl mx-auto">
-                <div class="mb-6 pb-6 border-b border-gray-200">
-                    <span class="text-purple-600 font-bold tracking-wide text-sm uppercase">Lección 07</span>
-                    <h1 class="text-4xl font-extrabold text-gray-900 mt-2">Encapsulamiento y Modificadores de Acceso
-                    </h1>
-                </div>
+                    <div class="rounded-xl overflow-hidden shadow-2xl bg-[#2d2d2d] border border-slate-700 mb-8">
+                        <pre><code class="language-java">public class Cuenta {
+    private double saldo; // Estado Privado
 
-                <div class="bg-purple-50 p-6 rounded-lg mb-8 border border-purple-100">
-                    <h3 class="text-purple-800 font-bold mb-2 !mt-0">🎯 Objetivos de Élite</h3>
-                    <ul class="list-disc list-inside text-gray-700 space-y-1">
-                        <li>Entender la seguridad del código: Proteger el estado interno de la corrupción externa.</li>
-                        <li>Dominar la escala de visibilidad: `private` < `package-private` < `protected` <
-                                `public`.</li>
-                        <li>Aplicar el principio "Tell, Don't Ask": Evitar Getters/Setters anémicos.</li>
-                        <li>Construir Objetos Inmutables: El secreto para sistemas concurrentes seguros.</li>
-                    </ul>
-                </div>
-
-                <h2>1. Teoría Suprema: El Objeto como Fortaleza</h2>
-                <p class="text-gray-700 mb-4">
-                    Un objeto bien diseñado es como una cápsula espacial: protege su interior (estado) del vacío hostil
-                    del exterior. Si permites acceso público a tus variables (`public int saldo`), cualquiera puede
-                    poner `saldo = -1000000` y romper tu lógica de negocio.
-                </p>
-
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left border-collapse border border-gray-300 mb-6 bg-white text-sm">
-                        <tr class="bg-gray-100">
-                            <th class="border p-2">Modificador</th>
-                            <th class="border p-2">Visibilidad</th>
-                            <th class="border p-2">Nivel de Riesgo</th>
-                        </tr>
-                        <tr>
-                            <td class="border p-2 font-mono text-green-700">private</td>
-                            <td class="border p-2">Solo la clase</td>
-                            <td class="border p-2">Seguro (Default Mental)</td>
-                        </tr>
-                        <tr>
-                            <td class="border p-2 font-mono text-yellow-600">default</td>
-                            <td class="border p-2">Mismo paquete</td>
-                            <td class="border p-2">Medio (Para módulos)</td>
-                        </tr>
-                        <tr>
-                            <td class="border p-2 font-mono text-orange-600">protected</td>
-                            <td class="border p-2">Paquete + Hijos</td>
-                            <td class="border p-2">Alto (Solo para herencia)</td>
-                        </tr>
-                        <tr>
-                            <td class="border p-2 font-mono text-red-600">public</td>
-                            <td class="border p-2">Todo el mundo</td>
-                            <td class="border p-2">Crítico (Solo API estable)</td>
-                        </tr>
-                    </table>
-                </div>
-
-                <div class="best-practice">
-                    <h4 class="font-bold text-green-800 flex items-center gap-2">✨ Principio: Tell, Don't Ask</h4>
-                    <p class="text-green-900 mt-2">
-                        En lugar de pedir datos al objeto para actuar (`if (user.getSaldo() > 10) ...`), dile al objeto
-                        qué hacer (`user.retirar(10)`). Mantén la lógica cerca de los datos.
-                    </p>
-                </div>
-
-                <h2>2. Laboratorio de Código</h2>
-                <div class="code-block">
-                    <pre><code class="language-java">public class CuentaBancaria {
-    // 1. Estado Privado (Encapsulado)
-    private double saldo;
-    private boolean congelada;
-
-    // 2. Comportamiento Público (API Controlada)
     public void depositar(double monto) {
-        if (monto <= 0) throw new IllegalArgumentException("Monto inválido");
-        if (congelada) throw new IllegalStateException("Cuenta congelada");
-        
+        if (monto <= 0) throw new IllegalArgumentException("Inválido");
         this.saldo += monto;
     }
-
-    // No exponemos 'setSaldo'. Eso violaría el encapsulamiento.
-    // Solo permitimos leer.
-    public double getSaldo() {
-        return saldo;
-    }
+    // Solo getter, sin setter.
+    public double getSaldo() { return saldo; }
 }</code></pre>
+                    </div>
                 </div>
 
-                <h2>3. Entrenamiento Progresivo</h2>
+                <div id="lesson-8" class="lesson-section hidden animate-fade-in-up lesson-content">
+                    <div class="mb-8 border-b border-slate-200 pb-6">
+                        <div class="flex items-center gap-3 mb-2">
+                            <span
+                                class="px-3 py-1 rounded-full bg-purple-100 text-purple-700 text-xs font-bold uppercase tracking-wider">Lección
+                                08</span>
+                        </div>
+                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">Herencia y
+                            Polimorfismo</h1>
+                    </div>
 
-                <!-- EJERCICIO 1: VERDE -->
-                <div class="exercise-card">
-                    <span class="difficulty-badge badge-green">Nivel Básico</span>
-                    <h4 class="font-bold text-gray-800 pr-20">Protegiendo el Termostato</h4>
-                    <p class="text-gray-600 mt-2">Crea una clase `Termostato`. Haz que la variable `temperatura` sea
-                        privada. Crea métodos públicos `subir()` y `bajar()` que modifiquen la temperatura, pero que
-                        impidan que baje de 0 grados o suba de 40.</p>
-                </div>
-
-                <!-- EJERCICIO 2: AMARILLO -->
-                <div class="exercise-card">
-                    <span class="difficulty-badge badge-yellow">Nivel Intermedio</span>
-                    <h4 class="font-bold text-gray-800 pr-20">Refactorización de Seguridad</h4>
-                    <p class="text-gray-600 mt-2">Tienes una clase legado `Usuario` con `public String password`. <br>1.
-                        Hazla `private`. <br>2. Borra el getter (nunca devuelvas contraseñas). <br>3. Crea un método
-                        `boolean autenticar(String input)` que devuelva true si coincide.</p>
-                </div>
-
-                <!-- EJERCICIO 3: ROJO -->
-                <div class="exercise-card">
-                    <span class="difficulty-badge badge-red">Nivel Experto</span>
-                    <h4 class="font-bold text-gray-800 pr-20">El Objeto Inmutable</h4>
-                    <p class="text-gray-600 mt-2">Crea una clase `PuntoGPS` con `latitud` y `longitud`. Debe ser
-                        <strong>inmutable</strong>: una vez creado el punto, no se puede mover.
+                    <h2>1. Teoría Suprema: El Árbol Genealógico</h2>
+                    <p class="text-slate-600 mb-6 text-lg">
+                        El polimorfismo es la capacidad de un objeto de tomar muchas formas.
                     </p>
-                    <ol class="list-decimal ml-5 mt-1 text-gray-600 text-sm">
-                        <li>Haz los atributos `private final`.</li>
-                        <li>Solo ten getters, cero setters.</li>
-                        <li>Crea un método `mover(double deltaLat, double deltaLon)` que devuelva un
-                            <strong>NUEVO</strong> objeto `PuntoGPS` con las nuevas coordenadas, sin tocar el actual.
-                        </li>
-                    </ol>
 
-                    <button onclick="toggleSolution('sol-7')"
-                        class="mt-3 text-sm font-semibold text-purple-600 hover:text-purple-800 underline">
-                        👁️ Ver Solución Guía
-                    </button>
+                    <div class="my-8 flex justify-center">
 
-                    <div id="sol-7" class="solution-spoiler">
-                        <pre><code class="language-java">public class PuntoGPS {
-    private final double lat;
-    private final double lon;
 
-    public PuntoGPS(double lat, double lon) {
-        this.lat = lat;
-        this.lon = lon;
-    }
+                        [Image of Inheritance hierarchy diagram]
 
-    // Devuelve una nueva instancia, no muta la actual
-    public PuntoGPS mover(double dLat, double dLon) {
-        return new PuntoGPS(this.lat + dLat, this.lon + dLon);
-    }
-}</code></pre>
                     </div>
-                </div>
 
-                <h2>4. Evaluación de Conceptos</h2>
-                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 space-y-4">
-                    <div>
-                        <p class="font-semibold text-gray-800">1. ¿Qué modificador permite acceso a cualquier clase del
-                            proyecto?</p>
-                        <select id="q7-1" class="w-full p-2 border rounded mt-1">
-                            <option value="">Elegir...</option>
-                            <option value="a">protected</option>
-                            <option value="b">default</option>
-                            <option value="c">public</option>
-                        </select>
-                    </div>
-                    <div>
-                        <p class="font-semibold text-gray-800">2. ¿Por qué se prefiere la inmutabilidad?</p>
-                        <select id="q7-2" class="w-full p-2 border rounded mt-1">
-                            <option value="">Elegir...</option>
-                            <option value="a">Porque ocupa menos memoria.</option>
-                            <option value="b">Porque es Thread-Safe y previene efectos secundarios.</option>
-                            <option value="c">Porque permite usar setters.</option>
-                        </select>
-                    </div>
-                    <div>
-                        <p class="font-semibold text-gray-800">3. Si no pones modificador, ¿cuál es por defecto?</p>
-                        <select id="q7-3" class="w-full p-2 border rounded mt-1">
-                            <option value="">Elegir...</option>
-                            <option value="a">Private</option>
-                            <option value="b">Package-Private (Default)</option>
-                            <option value="c">Public</option>
-                        </select>
-                    </div>
-                    <button onclick="checkQuiz1()"
-                        class="bg-purple-600 text-white px-6 py-2 rounded hover:bg-purple-700 w-full font-bold">Validar
-                        Conocimientos</button>
-                </div>
-            </div>
-
-            <!-- LECCIÓN 08 -->
-            <div id="lesson-8" class="lesson-section max-w-4xl mx-auto">
-                <div class="mb-6 pb-6 border-b border-gray-200">
-                    <span class="text-purple-600 font-bold tracking-wide text-sm uppercase">Lección 08</span>
-                    <h1 class="text-4xl font-extrabold text-gray-900 mt-2">Herencia y Polimorfismo</h1>
-                </div>
-
-                <div class="bg-purple-50 p-6 rounded-lg mb-8 border border-purple-100">
-                    <h3 class="text-purple-800 font-bold mb-2 !mt-0">🎯 Objetivos de Élite</h3>
-                    <ul class="list-disc list-inside text-gray-700 space-y-1">
-                        <li>Entender la relación "ES-UN" (`extends`) vs "TIENE-UN" (Composición).</li>
-                        <li>Polimorfismo: La magia de tratar objetos distintos de forma uniforme.</li>
-                        <li>Dominar la Ligadura Dinámica (Runtime Binding): Cómo Java decide qué método ejecutar.</li>
-                        <li>Principio de Sustitución de Liskov (La 'L' de SOLID).</li>
-                    </ul>
-                </div>
-
-                <h2>1. Teoría Suprema: El Árbol Genealógico</h2>
-                <p class="text-gray-700 mb-4">
-                    La herencia permite crear nuevas clases basadas en clases existentes. Pero el verdadero poder es el
-                    <strong>Polimorfismo</strong>: la capacidad de un objeto de tomar muchas formas.
-                </p>
-                [Image of Inheritance hierarchy diagram]
-                <h3 class="text-lg font-bold text-gray-800">1.1 Sobreescritura (@Override)</h3>
-                <p class="text-gray-700 mb-4">
-                    Cuando un hijo redefine el comportamiento del padre. La anotación `@Override` es vital: le dice al
-                    compilador "Oye, verifica que realmente estoy sobreescribiendo algo, si me equivoqué en el nombre,
-                    avísame".
-                </p>
-
-                <h2>2. Laboratorio de Código</h2>
-                <div class="code-block">
-                    <pre><code class="language-java">// Clase Padre
-class Empleado {
-    public void trabajar() {
-        System.out.println("Empleado genérico trabajando");
-    }
-}
-
-// Clase Hija
-class Desarrollador extends Empleado {
-    @Override
-    public void trabajar() {
-        System.out.println("Escribiendo código Java...");
-    }
-}
-
-public class Oficina {
-    public static void main(String[] args) {
-        // POLIMORFISMO EN ACCIÓN
-        // Referencia tipo PADRE -> Objeto tipo HIJO
-        Empleado e = new Desarrollador();
-        
-        // ¿Qué método se ejecuta?
-        // En C++ dependería, en Java SIEMPRE es el del objeto real (Hijo).
-        // Esto es Ligadura Dinámica.
-        e.trabajar(); // Imprime: "Escribiendo código Java..."
-    }
-}</code></pre>
-                </div>
-
-                <h2>3. Entrenamiento Progresivo</h2>
-
-                <!-- EJERCICIO 1: VERDE -->
-                <div class="exercise-card">
-                    <span class="difficulty-badge badge-green">Nivel Básico</span>
-                    <h4 class="font-bold text-gray-800 pr-20">Extendiendo Funcionalidad</h4>
-                    <p class="text-gray-600 mt-2">Crea una clase `Animal` con método `hacerSonido()`. Crea subclases
-                        `Perro` y `Gato` que sobreescriban ese método imprimiendo "Guau" y "Miau". Instáncialos y
-                        pruébalos.</p>
-                </div>
-
-                <!-- EJERCICIO 2: AMARILLO -->
-                <div class="exercise-card">
-                    <span class="difficulty-badge badge-yellow">Nivel Intermedio</span>
-                    <h4 class="font-bold text-gray-800 pr-20">Colección Polimórfica</h4>
-                    <p class="text-gray-600 mt-2">Crea un `List<Animal>`. Añade un perro, un gato y un animal genérico.
-                            Recorre la lista con un bucle `for-each` y llama a `hacerSonido()`. Observa cómo cada uno
-                            responde diferente al mismo mensaje.</p>
-                </div>
-
-                <!-- EJERCICIO 3: ROJO -->
-                <div class="exercise-card">
-                    <span class="difficulty-badge badge-red">Nivel Experto</span>
-                    <h4 class="font-bold text-gray-800 pr-20">La Trampa de Liskov</h4>
-                    <p class="text-gray-600 mt-2">El Principio de Liskov dice que una subclase debe poder sustituir a su
-                        padre sin romper el programa. <br>Investiga el clásico problema "Cuadrado hereda de Rectángulo".
-                        Implementa las clases y demuestra en un `main` cómo un método que espera un Rectángulo falla
-                        cuando le pasas un Cuadrado (al cambiar el ancho, el cuadrado cambia también el alto
-                        inesperadamente para el código cliente).</p>
-
-                    <button onclick="toggleSolution('sol-8')"
-                        class="mt-3 text-sm font-semibold text-purple-600 hover:text-purple-800 underline">
-                        👁️ Ver Solución Guía
-                    </button>
-
-                    <div id="sol-8" class="solution-spoiler">
-                        <p class="text-sm text-gray-300">
-                            Si `Rectangulo` tiene `setAncho` y `setAlto` independientes, y `Cuadrado` fuerza que ambos
-                            sean iguales en sus setters, rompes la expectativa del usuario de `Rectangulo`.
-                            <br>
-                            <strong>Solución:</strong> El cuadrado NO debe heredar de rectángulo. Ambos deberían
-                            implementar una interfaz `Figura`.
+                    <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-lg mb-8">
+                        <h3 class="font-bold text-slate-800 mb-2">Ligadura Dinámica</h3>
+                        <p class="text-slate-600 text-sm">
+                            Si tienes `Empleado e = new Desarrollador()`, al llamar a `e.trabajar()`, Java ejecuta el
+                            método del <strong>Desarrollador</strong> (el objeto real en memoria), no el del Empleado.
                         </p>
                     </div>
-                </div>
 
-                <h2>4. Evaluación de Conceptos</h2>
-                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 space-y-4">
-                    <div>
-                        <p class="font-semibold text-gray-800">1. ¿Puede una clase heredar de múltiples clases en Java?
-                        </p>
-                        <select id="q8-1" class="w-full p-2 border rounded mt-1">
-                            <option value="">Elegir...</option>
-                            <option value="a">Sí, siempre.</option>
-                            <option value="b">No, solo herencia simple.</option>
-                            <option value="c">Solo si son abstractas.</option>
-                        </select>
-                    </div>
-                    <div>
-                        <p class="font-semibold text-gray-800">2. ¿Qué pasa si no usas @Override y te equivocas en el
-                            nombre del método?</p>
-                        <select id="q8-2" class="w-full p-2 border rounded mt-1">
-                            <option value="">Elegir...</option>
-                            <option value="a">El compilador da error.</option>
-                            <option value="b">Java lo arregla solo.</option>
-                            <option value="c">Creas un método nuevo en lugar de sobreescribir (Bug silencioso).</option>
-                        </select>
-                    </div>
-                    <div>
-                        <p class="font-semibold text-gray-800">3. ¿Qué es `super`?</p>
-                        <select id="q8-3" class="w-full p-2 border rounded mt-1">
-                            <option value="">Elegir...</option>
-                            <option value="a">Una referencia a la clase padre.</option>
-                            <option value="b">Una referencia al objeto actual.</option>
-                            <option value="c">Un método estático.</option>
-                        </select>
-                    </div>
-                    <button onclick="checkQuiz1()"
-                        class="bg-purple-600 text-white px-6 py-2 rounded hover:bg-purple-700 w-full font-bold">Validar
-                        Conocimientos</button>
-                </div>
-            </div>
+                    <div class="rounded-xl overflow-hidden shadow-2xl bg-[#2d2d2d] border border-slate-700 mb-8">
+                        <pre><code class="language-java">class Empleado {
+    public void trabajar() { System.out.println("Trabajando..."); }
+}
 
-            <!-- LECCIÓN 09 -->
-            <div id="lesson-9" class="lesson-section max-w-4xl mx-auto">
-                <div class="mb-6 pb-6 border-b border-gray-200">
-                    <span class="text-purple-600 font-bold tracking-wide text-sm uppercase">Lección 09</span>
-                    <h1 class="text-4xl font-extrabold text-gray-900 mt-2">Abstracción: Interfaces y Abstract Classes
-                    </h1>
-                </div>
+class Dev extends Empleado {
+    @Override // Vital para evitar errores
+    public void trabajar() { System.out.println("Codificando..."); }
+}
 
-                <div class="bg-purple-50 p-6 rounded-lg mb-8 border border-purple-100">
-                    <h3 class="text-purple-800 font-bold mb-2 !mt-0">🎯 Objetivos de Élite</h3>
-                    <ul class="list-disc list-inside text-gray-700 space-y-1">
-                        <li>Diferenciar conceptualmente: "Es algo" (Abstracta) vs "Hace algo" (Interfaz).</li>
-                        <li>Definir contratos sólidos con `interface`.</li>
-                        <li>Evolución de APIs: Métodos `default` y `static` en interfaces.</li>
-                        <li>Herencia múltiple de TIPOS (la gran ventaja de las interfaces).</li>
-                    </ul>
-                </div>
-
-                <h2>1. Teoría Suprema: Definiendo el Contrato</h2>
-                <p class="text-gray-700 mb-4">
-                    La abstracción es el arte de ignorar los detalles para centrarse en lo importante. Una
-                    <strong>Interfaz</strong> es un contrato: "Si quieres ser un `Conductor`, debes saber `conducir()`.
-                    No me importa cómo lo hagas (coche, moto, camión), solo que lo hagas".
-                </p>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                    <div class="bg-white p-5 rounded-lg border-l-4 border-blue-500 shadow-sm">
-                        <h4 class="font-bold text-blue-700 mb-2">Clase Abstracta</h4>
-                        <p class="text-sm text-gray-600">Úsala cuando las clases hijas comparten código real y estado
-                            (atributos). Es una relación fuerte.</p>
-                        <code class="text-xs bg-gray-100 p-1 block mt-2">public abstract class Vehiculo { ... }</code>
-                    </div>
-                    <div class="bg-white p-5 rounded-lg border-l-4 border-pink-500 shadow-sm">
-                        <h4 class="font-bold text-pink-700 mb-2">Interfaz</h4>
-                        <p class="text-sm text-gray-600">Úsala para definir capacidades o roles. Una clase puede
-                            implementar múltiples interfaces. Es flexible.</p>
-                        <code class="text-xs bg-gray-100 p-1 block mt-2">public interface Volador { ... }</code>
+// Polimorfismo
+Empleado e = new Dev();
+e.trabajar(); // Imprime "Codificando..."</code></pre>
                     </div>
                 </div>
 
-                <h2>2. Laboratorio de Código</h2>
-                <div class="code-block">
-                    <pre><code class="language-java">// Contrato: Capacidad de enviarse por red
-interface Enviable {
+                <div id="lesson-9" class="lesson-section hidden animate-fade-in-up lesson-content">
+                    <div class="mb-8 border-b border-slate-200 pb-6">
+                        <div class="flex items-center gap-3 mb-2">
+                            <span
+                                class="px-3 py-1 rounded-full bg-purple-100 text-purple-700 text-xs font-bold uppercase tracking-wider">Lección
+                                09</span>
+                        </div>
+                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">Abstracción e
+                            Interfaces</h1>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-6 mb-8">
+                        <div class="bg-white p-6 rounded-2xl border-l-4 border-blue-500 shadow-sm">
+                            <h4 class="font-bold text-blue-700 mb-2">Clase Abstracta</h4>
+                            <p class="text-sm text-slate-600 mb-2">Relación "ES-UN". Comparte código real y atributos.
+                            </p>
+                            <code class="text-xs bg-slate-100 p-1 rounded">public abstract class Vehiculo</code>
+                        </div>
+                        <div class="bg-white p-6 rounded-2xl border-l-4 border-pink-500 shadow-sm">
+                            <h4 class="font-bold text-pink-700 mb-2">Interfaz</h4>
+                            <p class="text-sm text-slate-600 mb-2">Relación "HACE-ALGO". Define capacidades/roles.</p>
+                            <code class="text-xs bg-slate-100 p-1 rounded">public interface Volador</code>
+                        </div>
+                    </div>
+
+                    <div class="rounded-xl overflow-hidden shadow-2xl bg-[#2d2d2d] border border-slate-700 mb-8">
+                        <pre><code class="language-java">interface Enviable {
     void enviar(String destino);
     
-    // Método Default (Java 8+): Permite añadir funcionalidad 
-    // sin romper las clases que ya implementan la interfaz.
-    default void loguearEnvio() {
-        System.out.println("Log: Enviando objeto...");
-    }
+    // Método default: Evolución de API sin romper código
+    default void log() { System.out.println("Enviando..."); }
 }
 
-// Contrato: Capacidad de imprimirse
-interface Imprimible {
-    void imprimir();
-}
-
-// Herencia Múltiple de Interfaces
-// "Reporte" firma ambos contratos.
-public class Reporte implements Enviable, Imprimible {
-    @Override
-    public void enviar(String destino) {
-        loguearEnvio(); // Reutilizando código default
-        System.out.println("Enviando reporte a " + destino);
-    }
-
-    @Override
-    public void imprimir() {
-        System.out.println("Imprimiendo en papel...");
+public class Reporte implements Enviable {
+    public void enviar(String d) {
+        log();
+        System.out.println("Reporte enviado a " + d);
     }
 }</code></pre>
-                </div>
-
-                <h2>3. Entrenamiento Progresivo</h2>
-
-                <!-- EJERCICIO 1: VERDE -->
-                <div class="exercise-card">
-                    <span class="difficulty-badge badge-green">Nivel Básico</span>
-                    <h4 class="font-bold text-gray-800 pr-20">El Contrato Básico</h4>
-                    <p class="text-gray-600 mt-2">Define una interfaz `Reproducible` con métodos `play()`, `pause()` y
-                        `stop()`. Crea una clase `VideoPlayer` y otra `AudioPlayer` que la implementen con mensajes
-                        diferentes.</p>
-                </div>
-
-                <!-- EJERCICIO 2: AMARILLO -->
-                <div class="exercise-card">
-                    <span class="difficulty-badge badge-yellow">Nivel Intermedio</span>
-                    <h4 class="font-bold text-gray-800 pr-20">Programar contra Interfaces</h4>
-                    <p class="text-gray-600 mt-2">Crea un método `iniciarFiesta(Reproducible r)`. Pásale una instancia
-                        de `VideoPlayer` y luego una de `AudioPlayer`. Observa cómo el método funciona sin saber qué
-                        clase concreta recibe, solo sabe que es "reproducible".</p>
-                </div>
-
-                <!-- EJERCICIO 3: ROJO -->
-                <div class="exercise-card">
-                    <span class="difficulty-badge badge-red">Nivel Experto</span>
-                    <h4 class="font-bold text-gray-800 pr-20">Clases Anónimas y Lambdas</h4>
-                    <p class="text-gray-600 mt-2">
-                        1. Crea una interfaz funcional `Operacion` con un método `int ejecutar(int a, int b)`. <br>
-                        2. En el main, implementa esta interfaz "al vuelo" usando una <strong>Clase Anónima</strong>
-                        para sumar. <br>
-                        3. Haz lo mismo pero usando una <strong>Expresión Lambda</strong> para restar (Sintaxis
-                        moderna).
-                    </p>
-
-                    <button onclick="toggleSolution('sol-9')"
-                        class="mt-3 text-sm font-semibold text-purple-600 hover:text-purple-800 underline">
-                        👁️ Ver Solución Guía
-                    </button>
-
-                    <div id="sol-9" class="solution-spoiler">
-                        <pre><code class="language-java">// 1. Interfaz
-@FunctionalInterface
-interface Operacion { int ejecutar(int a, int b); }
-
-// 2. Clase Anónima (Verbolaridad antigua)
-Operacion suma = new Operacion() {
-    @Override
-    public int ejecutar(int a, int b) { return a + b; }
-};
-
-// 3. Lambda (Sintaxis moderna y limpia)
-Operacion resta = (a, b) -> a - b;</code></pre>
                     </div>
                 </div>
 
-                <h2>4. Evaluación de Conceptos</h2>
-                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 space-y-4">
-                    <div>
-                        <p class="font-semibold text-gray-800">1. ¿Puede una interfaz tener atributos de instancia
-                            (estado)?</p>
-                        <select id="q9-1" class="w-full p-2 border rounded mt-1">
-                            <option value="">Elegir...</option>
-                            <option value="a">Sí, públicos.</option>
-                            <option value="b">No, solo constantes static final.</option>
-                            <option value="c">Sí, pero privados.</option>
-                        </select>
+                <div id="lesson-10" class="lesson-section hidden animate-fade-in-up lesson-content">
+                    <div class="mb-8 border-b border-slate-200 pb-6">
+                        <div class="flex items-center gap-3 mb-2">
+                            <span
+                                class="px-3 py-1 rounded-full bg-purple-100 text-purple-700 text-xs font-bold uppercase tracking-wider">Lección
+                                10</span>
+                        </div>
+                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">Records y Enums
+                        </h1>
+                        <p class="text-lg text-slate-600">Modelado moderno de datos en Java 21.</p>
                     </div>
-                    <div>
-                        <p class="font-semibold text-gray-800">2. ¿Para qué sirve un método `default` en una interfaz?
-                        </p>
-                        <select id="q9-2" class="w-full p-2 border rounded mt-1">
-                            <option value="">Elegir...</option>
-                            <option value="a">Para obligar a implementarlo.</option>
-                            <option value="b">Para añadir funcionalidad sin romper implementaciones existentes.</option>
-                            <option value="c">Para hacerlo privado.</option>
-                        </select>
+
+                    <div class="bg-purple-50 p-6 rounded-xl border border-purple-100 mb-8">
+                        <h3 class="font-bold text-purple-900 mb-2">¿Por qué Records?</h3>
+                        <p class="text-sm text-purple-800">Java solía ser muy verboso para crear clases que solo guardan
+                            datos (DTOs). Los <strong>Records</strong> son inmutables, transparentes y se definen en una
+                            sola línea.</p>
                     </div>
-                    <div>
-                        <p class="font-semibold text-gray-800">3. ¿Se puede instanciar una interfaz con `new`?</p>
-                        <select id="q9-3" class="w-full p-2 border rounded mt-1">
-                            <option value="">Elegir...</option>
-                            <option value="a">Sí, siempre.</option>
-                            <option value="b">No, nunca directamente.</option>
-                            <option value="c">Solo si tiene métodos default.</option>
-                        </select>
-                    </div>
-                    <button onclick="checkQuiz1()"
-                        class="bg-purple-600 text-white px-6 py-2 rounded hover:bg-purple-700 w-full font-bold">Validar
-                        Conocimientos</button>
-                </div>
-            </div>
 
-            <!-- LECCIÓN 10 -->
-            <div id="lesson-10" class="lesson-section max-w-4xl mx-auto">
-                <div class="mb-6 pb-6 border-b border-gray-200">
-                    <span class="text-purple-600 font-bold tracking-wide text-sm uppercase">Lección 10</span>
-                    <h1 class="text-4xl font-extrabold text-gray-900 mt-2">Modelado Moderno: Records y Enums</h1>
-                </div>
-
-                <div class="bg-purple-50 p-6 rounded-lg mb-8 border border-purple-100">
-                    <h3 class="text-purple-800 font-bold mb-2 !mt-0">🎯 Objetivos de Élite</h3>
-                    <ul class="list-disc list-inside text-gray-700 space-y-1">
-                        <li>Eliminar el "Boilerplate" (código repetitivo) con `record` (Java 16+).</li>
-                        <li>Entender que los Records son portadores de datos inmutables semánticos.</li>
-                        <li>Usar Enums avanzados: No son solo constantes, son clases completas (Patrón Strategy).</li>
-                        <li>Pattern Matching: La nueva forma de escribir `switch` y `instanceof`.</li>
-                    </ul>
-                </div>
-
-                <h2>1. Teoría Suprema: Java a Dieta</h2>
-                <p class="text-gray-700 mb-4">
-                    Durante años, Java fue criticado por necesitar 50 líneas de código para crear una clase simple con
-                    dos datos (DTO). <strong>Records</strong> soluciona esto. Es una clase restringida, inmutable y
-                    transparente.
-                </p>
-
-                <h3 class="text-lg font-bold text-gray-800">1.1 Enums Poderosos</h3>
-                <p class="text-gray-700 mb-4">
-                    En Java, un `enum` es mucho más que una lista de nombres. Puede tener atributos, constructor y
-                    métodos abstractos. Es la forma perfecta de implementar el patrón <strong>Singleton</strong> o
-                    <strong>Strategy</strong> de forma segura.
-                </p>
-
-                <h2>2. Laboratorio de Código</h2>
-                <div class="code-block">
-                    <pre><code class="language-java">// 1. RECORD: Todo en una línea (Constructor, Getters, Equals, HashCode, ToString)
+                    <div class="rounded-xl overflow-hidden shadow-2xl bg-[#2d2d2d] border border-slate-700 mb-8">
+                        <pre><code class="language-java">// 1. RECORD: Constructor, Getters, Equals, HashCode, ToString automáticos
 public record Coordenada(double lat, double lon) {
-    // Constructor Compacto para validaciones
     public Coordenada {
-        if (lat < -90 || lat > 90) throw new IllegalArgumentException("Latitud inválida");
+        if (lat < -90 || lat > 90) throw new IllegalArgumentException("Error");
     }
 }
 
-// 2. ENUM CON COMPORTAMIENTO
+// 2. ENUM Avanzado (Strategy Pattern)
 enum Operacion {
-    SUMAR { @Override double aplicar(double a, double b) { return a + b; } },
-    RESTAR { @Override double aplicar(double a, double b) { return a - b; } };
-
-    abstract double aplicar(double a, double b);
-}
-
-// 3. PATTERN MATCHING (Java 21)
-public class Demo {
-    void procesar(Object obj) {
-        if (obj instanceof Coordenada(double l, double n)) {
-            System.out.println("Es una coordenada en: " + l);
-        }
-    }
-}</code></pre>
-                </div>
-
-                <h2>3. Entrenamiento Progresivo</h2>
-
-                <!-- EJERCICIO 1: VERDE -->
-                <div class="exercise-card">
-                    <span class="difficulty-badge badge-green">Nivel Básico</span>
-                    <h4 class="font-bold text-gray-800 pr-20">Tu Primer Record</h4>
-                    <p class="text-gray-600 mt-2">Define un record `LibroDTO` que tenga `titulo`, `autor` y `precio`.
-                        Crea una instancia e imprímela. Observa el formato `toString()` que Java generó automáticamente
-                        por ti.</p>
-                </div>
-
-                <!-- EJERCICIO 2: AMARILLO -->
-                <div class="exercise-card">
-                    <span class="difficulty-badge badge-yellow">Nivel Intermedio</span>
-                    <h4 class="font-bold text-gray-800 pr-20">Enum Planetas</h4>
-                    <p class="text-gray-600 mt-2">Crea un Enum `Planeta` con constantes (MERCURIO, VENUS, TIERRA...).
-                        Añade atributos finales `masa` y `radio` y un constructor privado. Crea un método
-                        `gravedadSuperficial()` que calcule la gravedad de cada uno.</p>
-                </div>
-
-                <!-- EJERCICIO 3: ROJO -->
-                <div class="exercise-card">
-                    <span class="difficulty-badge badge-red">Nivel Experto</span>
-                    <h4 class="font-bold text-gray-800 pr-20">Refactorización DTO Legacy</h4>
-                    <p class="text-gray-600 mt-2">Tienes una clase `Persona` antigua con 60 líneas de código (atributos
-                        privados, constructor, todos los getters, equals, hashCode y toString). Reemplázala por un
-                        `record Persona(...)`. <br>Añade una validación en el constructor compacto para que el nombre no
-                        sea null.</p>
-
-                    <button onclick="toggleSolution('sol-10')"
-                        class="mt-3 text-sm font-semibold text-purple-600 hover:text-purple-800 underline">
-                        👁️ Ver Solución Guía
-                    </button>
-
-                    <div id="sol-10" class="solution-spoiler">
-                        <pre><code class="language-java">public record Persona(String nombre, int edad) {
-    // Constructor Compacto (No necesitas repetir parámetros)
-    public Persona {
-        // Objects.requireNonNull lanza NullPointerException si es null
-        java.util.Objects.requireNonNull(nombre, "El nombre es obligatorio");
-        
-        if (edad < 0) throw new IllegalArgumentException("Edad negativa");
-    }
+    SUMAR { double calc(double a, double b) { return a + b; } },
+    RESTAR { double calc(double a, double b) { return a - b; } };
+    abstract double calc(double a, double b);
 }</code></pre>
                     </div>
                 </div>
 
-                <h2>4. Evaluación de Conceptos</h2>
-                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 space-y-4">
-                    <div>
-                        <p class="font-semibold text-gray-800">1. ¿Son inmutables los atributos de un Record?</p>
-                        <select id="q10-1" class="w-full p-2 border rounded mt-1">
-                            <option value="">Elegir...</option>
-                            <option value="a">Sí, son final implícitamente.</option>
-                            <option value="b">No, se pueden cambiar.</option>
-                            <option value="c">Solo si usas 'final'.</option>
-                        </select>
-                    </div>
-                    <div>
-                        <p class="font-semibold text-gray-800">2. ¿Puede un Record extender otra clase?</p>
-                        <select id="q10-2" class="w-full p-2 border rounded mt-1">
-                            <option value="">Elegir...</option>
-                            <option value="a">Sí.</option>
-                            <option value="b">No, ya extiende implícitamente java.lang.Record.</option>
-                            <option value="c">Solo clases abstractas.</option>
-                        </select>
-                    </div>
-                    <div>
-                        <p class="font-semibold text-gray-800">3. ¿Qué patrón de diseño implementan los Enums de forma
-                            nativa y segura?</p>
-                        <select id="q10-3" class="w-full p-2 border rounded mt-1">
-                            <option value="">Elegir...</option>
-                            <option value="a">Factory.</option>
-                            <option value="b">Singleton.</option>
-                            <option value="c">Observer.</option>
-                        </select>
-                    </div>
-                    <button onclick="checkQuiz1()"
-                        class="bg-purple-600 text-white px-6 py-2 rounded hover:bg-purple-700 w-full font-bold">Validar
-                        Conocimientos</button>
-                </div>
             </div>
 
+            <footer class="mt-20 py-8 text-center text-slate-400 text-sm border-t border-slate-200">
+                <p>&copy; 2025 Java Masterclass. Módulo 2 completado.</p>
+            </footer>
         </main>
     </div>
 
-    <!-- Scripts para interactividad -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
     <script>
         function showLesson(id) {
+            // Ocultar todas
             document.querySelectorAll('.lesson-section').forEach(el => {
+                el.classList.add('hidden');
                 el.classList.remove('active');
-                el.style.display = 'none';
             });
+
+            // Mostrar seleccionada
             const selected = document.getElementById('lesson-' + id);
-            selected.style.display = 'block';
+            selected.classList.remove('hidden');
             setTimeout(() => selected.classList.add('active'), 10);
 
-            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
-            document.getElementById('btn-' + id).classList.add('active');
+            // Resetear botones sidebar
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active', 'bg-purple-50', 'border-purple-100');
+                btn.querySelector('.btn-indicator').classList.remove('opacity-100');
+                btn.querySelector('.btn-indicator').classList.add('opacity-0');
+
+                const icon = btn.querySelector('.btn-icon');
+                icon.classList.remove('bg-purple-600', 'text-white');
+                icon.classList.add('bg-slate-100', 'text-slate-500');
+
+                btn.querySelector('.btn-text').classList.remove('text-purple-700', 'font-bold');
+            });
+
+            // Activar botón actual
+            const activeBtn = document.getElementById('btn-' + id);
+            activeBtn.classList.add('active', 'bg-purple-50', 'border-purple-100');
+            activeBtn.querySelector('.btn-indicator').classList.add('opacity-100');
+            activeBtn.querySelector('.btn-indicator').classList.remove('opacity-0');
+
+            const activeIcon = activeBtn.querySelector('.btn-icon');
+            activeIcon.classList.remove('bg-slate-100', 'text-slate-500');
+            activeIcon.classList.add('bg-purple-600', 'text-white');
+
+            activeBtn.querySelector('.btn-text').classList.add('text-purple-700', 'font-bold');
+
+            // Scroll top
             document.querySelector('main').scrollTop = 0;
         }
 
         function toggleSolution(id) {
             const el = document.getElementById(id);
-            if (el.style.display === 'block') el.style.display = 'none';
-            else el.style.display = 'block';
-        }
-
-        // Validación simple para Quiz
-        function checkQuiz1() {
-            // En una app real, aquí validaríamos las respuestas
-            alert("¡Respuestas registradas! Si alguna no te quedó clara, revisa la sección 'Teoría Suprema'.");
+            el.classList.toggle('hidden');
         }
 
         // Init

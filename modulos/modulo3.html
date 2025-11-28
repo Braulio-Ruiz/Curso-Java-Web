@@ -1,949 +1,495 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="scroll-smooth">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Curso Java Profesional - Módulo 3</title>
+    <title>Módulo 3 | Estructuras de Datos</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" href="../assets/syle.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="../assets/style.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                    }
+                }
+            }
+        }
+    </script>
 </head>
 
-<body class="flex flex-col h-screen overflow-hidden">
+<body
+    class="flex flex-col h-screen bg-slate-50 text-slate-800 antialiased selection:bg-yellow-500 selection:text-white overflow-hidden">
 
-    <!-- Header -->
-    <header onclick="window.location.href='../index.html'"
-        class="bg-slate-900 text-white p-4 shadow-lg flex justify-between items-center z-10 hover:bg-slate-800 transition">
-        <div>
-            <h1 class="text-2xl font-bold tracking-tight">☕ Curso Profesional de Java</h1>
-            <p class="text-slate-400 text-sm">Módulo 3: Estructuras de Datos y Algoritmos Core</p>
-        </div>
-        <div class="text-xs bg-yellow-600 px-3 py-1 rounded-full font-semibold">Java 21 LTS</div>
-    </header>
-
-    <div class="flex flex-1 overflow-hidden">
-        <!-- Sidebar Navigation -->
-        <nav class="w-64 bg-white shadow-md overflow-y-auto hidden md:block border-r border-gray-200">
-            <div class="p-4">
-                <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-4">Temario del Módulo</h3>
-                <div class="space-y-1">
-                    <button onclick="showLesson(11)" id="btn-11"
-                        class="nav-btn active w-full text-left px-4 py-3 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100">
-                        11: Arrays y Strings
-                    </button>
-                    <button onclick="showLesson(12)" id="btn-12"
-                        class="nav-btn w-full text-left px-4 py-3 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100">
-                        12: Excepciones
-                    </button>
-                    <button onclick="showLesson(13)" id="btn-13"
-                        class="nav-btn w-full text-left px-4 py-3 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100">
-                        13: List y Set
-                    </button>
-                    <button onclick="showLesson(14)" id="btn-14"
-                        class="nav-btn w-full text-left px-4 py-3 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100">
-                        14: Map y Queue
-                    </button>
-                    <button onclick="showLesson(15)" id="btn-15"
-                        class="nav-btn w-full text-left px-4 py-3 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100">
-                        15: Genéricos
-                    </button>
+    <nav
+        class="fixed w-full z-50 bg-slate-900/95 backdrop-blur-md border-b border-slate-700/50 text-white h-16 flex items-center justify-between px-6 shadow-lg">
+        <div class="flex items-center gap-4">
+            <a href="../index.html"
+                class="group flex items-center gap-2 text-slate-300 hover:text-white transition-all bg-white/5 hover:bg-white/10 px-4 py-2 rounded-lg border border-white/10 hover:border-white/20">
+                <i class="fas fa-arrow-left text-sm group-hover:-translate-x-1 transition-transform"></i>
+                <span class="text-sm font-medium">Volver al Inicio</span>
+            </a>
+            <div class="h-6 w-px bg-slate-700 mx-2"></div>
+            <div class="flex items-center gap-3">
+                <div class="bg-yellow-600/20 p-2 rounded-lg border border-yellow-500/30 text-yellow-400">
+                    <i class="fas fa-layer-group text-lg"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-sm tracking-wide leading-none">Módulo 03</h1>
+                    <span class="text-xs text-slate-400 font-medium">Estructuras de Datos</span>
                 </div>
             </div>
-        </nav>
+        </div>
 
-        <!-- Main Content -->
-        <main class="flex-1 overflow-y-auto p-8 relative scroll-smooth">
+        <div class="hidden md:flex items-center gap-4">
+            <div class="flex items-center gap-2 px-3 py-1.5 bg-yellow-900/30 rounded-full border border-yellow-500/20">
+                <span class="relative flex h-2 w-2">
+                    <span
+                        class="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-yellow-500"></span>
+                </span>
+                <span class="text-xs font-semibold text-yellow-300">Java 21 LTS</span>
+            </div>
+        </div>
+    </nav>
 
-            <!-- LECCIÓN 11 -->
-            <div id="lesson-11" class="lesson-section active max-w-4xl mx-auto">
-                <div class="mb-6 pb-6 border-b border-gray-200">
-                    <span class="text-yellow-600 font-bold tracking-wide text-sm uppercase">Lección 11</span>
-                    <h1 class="text-4xl font-extrabold text-gray-900 mt-2">Arrays y Manipulación de Strings</h1>
-                </div>
+    <div class="flex flex-1 pt-16 h-full overflow-hidden">
 
-                <div class="bg-yellow-50 p-6 rounded-lg mb-8 border border-yellow-100">
-                    <h3 class="text-yellow-800 font-bold mb-2 !mt-0">🎯 Objetivos de Élite</h3>
-                    <ul class="list-disc list-inside text-gray-700 space-y-1">
-                        <li>Entender la física de los Arrays: Memoria contigua y acceso O(1).</li>
-                        <li>Profundizar en el <strong>String Pool</strong>: Optimización de memoria vs `new String()`.
-                        </li>
-                        <li>Complejidad Temporal: Por qué concatenar Strings en bucles es O(N²).</li>
-                        <li>Java Moderno: Bloques de texto (Text Blocks) y métodos de Java 21.</li>
-                    </ul>
-                </div>
+        <aside class="w-80 bg-white border-r border-slate-200 shadow-xl z-20 hidden md:flex flex-col">
+            <div class="p-6 border-b border-slate-100 bg-slate-50/50">
+                <h3 class="text-xs font-black text-slate-400 uppercase tracking-widest mb-1">Contenido del Módulo</h3>
+                <p class="text-sm text-slate-600 font-medium">5 Lecciones Críticas</p>
+            </div>
 
-                <h2>1. Teoría Suprema: La Memoria y el Texto</h2>
-                <p class="text-gray-700 mb-4">
-                    Los Arrays son la estructura de datos más básica y eficiente. Son bloques de memoria contigua. Si
-                    sabes dónde empieza y el tamaño del dato, saltar a la posición 1000 es instantáneo.
-                </p>
+            <div class="flex-1 overflow-y-auto custom-scrollbar p-4 space-y-2">
+                <button onclick="showLesson(11)" id="btn-11"
+                    class="nav-btn w-full text-left px-4 py-4 rounded-xl text-sm font-medium transition-all duration-200 border border-transparent hover:bg-slate-50 hover:border-slate-200 group relative overflow-hidden active">
+                    <div class="relative z-10 flex items-center gap-3">
+                        <span
+                            class="flex-shrink-0 w-8 h-8 rounded-lg bg-slate-100 text-slate-500 flex items-center justify-center text-xs font-bold group-hover:bg-white group-hover:shadow-sm transition-all btn-icon">11</span>
+                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">Arrays y Strings</span>
+                    </div>
+                    <div
+                        class="absolute left-0 top-0 bottom-0 w-1 bg-yellow-500 opacity-0 btn-indicator transition-opacity">
+                    </div>
+                </button>
 
-                <h3 class="text-lg font-bold text-gray-800">1.1 Inmutabilidad de Strings y el Pool</h3>
-                <p class="text-gray-700 mb-4">
-                    En Java, `String` es inmutable. Si modificas un texto, <strong>no lo cambias</strong>, creas uno
-                    nuevo y descartas el viejo.
-                    <br>
-                    Para ahorrar RAM, Java mantiene un "String Pool" en el Heap.
-                </p>
+                <button onclick="showLesson(12)" id="btn-12"
+                    class="nav-btn w-full text-left px-4 py-4 rounded-xl text-sm font-medium transition-all duration-200 border border-transparent hover:bg-slate-50 hover:border-slate-200 group relative overflow-hidden">
+                    <div class="relative z-10 flex items-center gap-3">
+                        <span
+                            class="flex-shrink-0 w-8 h-8 rounded-lg bg-slate-100 text-slate-500 flex items-center justify-center text-xs font-bold group-hover:bg-white group-hover:shadow-sm transition-all btn-icon">12</span>
+                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">Excepciones</span>
+                    </div>
+                    <div
+                        class="absolute left-0 top-0 bottom-0 w-1 bg-yellow-500 opacity-0 btn-indicator transition-opacity">
+                    </div>
+                </button>
 
-                <div class="warning-box">
-                    <strong>El Pecado Capital del Rendimiento:</strong>
-                    <br>Hacer `texto += "a"` dentro de un bucle de 10,000 iteraciones crea 10,000 objetos intermedios
-                    que el Garbage Collector debe limpiar. Esto congela aplicaciones.
-                </div>
+                <button onclick="showLesson(13)" id="btn-13"
+                    class="nav-btn w-full text-left px-4 py-4 rounded-xl text-sm font-medium transition-all duration-200 border border-transparent hover:bg-slate-50 hover:border-slate-200 group relative overflow-hidden">
+                    <div class="relative z-10 flex items-center gap-3">
+                        <span
+                            class="flex-shrink-0 w-8 h-8 rounded-lg bg-slate-100 text-slate-500 flex items-center justify-center text-xs font-bold group-hover:bg-white group-hover:shadow-sm transition-all btn-icon">13</span>
+                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">List y Set</span>
+                    </div>
+                    <div
+                        class="absolute left-0 top-0 bottom-0 w-1 bg-yellow-500 opacity-0 btn-indicator transition-opacity">
+                    </div>
+                </button>
 
-                <h2>2. Laboratorio de Código</h2>
-                <div class="code-block">
-                    <pre><code class="language-java">public class OptimizacionStrings {
+                <button onclick="showLesson(14)" id="btn-14"
+                    class="nav-btn w-full text-left px-4 py-4 rounded-xl text-sm font-medium transition-all duration-200 border border-transparent hover:bg-slate-50 hover:border-slate-200 group relative overflow-hidden">
+                    <div class="relative z-10 flex items-center gap-3">
+                        <span
+                            class="flex-shrink-0 w-8 h-8 rounded-lg bg-slate-100 text-slate-500 flex items-center justify-center text-xs font-bold group-hover:bg-white group-hover:shadow-sm transition-all btn-icon">14</span>
+                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">Map y Queue</span>
+                    </div>
+                    <div
+                        class="absolute left-0 top-0 bottom-0 w-1 bg-yellow-500 opacity-0 btn-indicator transition-opacity">
+                    </div>
+                </button>
+
+                <button onclick="showLesson(15)" id="btn-15"
+                    class="nav-btn w-full text-left px-4 py-4 rounded-xl text-sm font-medium transition-all duration-200 border border-transparent hover:bg-slate-50 hover:border-slate-200 group relative overflow-hidden">
+                    <div class="relative z-10 flex items-center gap-3">
+                        <span
+                            class="flex-shrink-0 w-8 h-8 rounded-lg bg-slate-100 text-slate-500 flex items-center justify-center text-xs font-bold group-hover:bg-white group-hover:shadow-sm transition-all btn-icon">15</span>
+                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">Genéricos</span>
+                    </div>
+                    <div
+                        class="absolute left-0 top-0 bottom-0 w-1 bg-yellow-500 opacity-0 btn-indicator transition-opacity">
+                    </div>
+                </button>
+            </div>
+        </aside>
+
+        <main class="flex-1 overflow-y-auto relative bg-slate-50 scroll-smooth">
+            <div
+                class="absolute inset-0 pointer-events-none bg-[url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%2364748b\' fill-opacity=\'0.03\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')]">
+            </div>
+
+            <div class="max-w-5xl mx-auto px-8 py-12 relative z-10">
+
+                <div id="lesson-11" class="lesson-section active animate-fade-in-up lesson-content">
+                    <div class="mb-8 border-b border-slate-200 pb-6">
+                        <div class="flex items-center gap-3 mb-2">
+                            <span
+                                class="px-3 py-1 rounded-full bg-yellow-100 text-yellow-700 text-xs font-bold uppercase tracking-wider">Lección
+                                11</span>
+                            <span class="text-slate-400 text-sm font-medium"><i class="far fa-clock mr-1"></i> 25
+                                min</span>
+                        </div>
+                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">Arrays y Strings
+                        </h1>
+                        <p class="text-lg text-slate-600 max-w-3xl">La física de la memoria: por qué el acceso a Arrays
+                            es instantáneo y cómo evitar matar el rendimiento con Strings.</p>
+                    </div>
+
+                    <div
+                        class="bg-white rounded-2xl p-8 shadow-lg shadow-yellow-900/5 border-l-4 border-yellow-500 mb-10">
+                        <h3 class="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2">
+                            <i class="fas fa-bullseye text-yellow-600"></i> Objetivos de Élite
+                        </h3>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="flex items-start gap-3">
+                                <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                                <span class="text-slate-600 text-sm">Física de Arrays: Memoria contigua y O(1).</span>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                                <span class="text-slate-600 text-sm">String Pool y Optimización de Memoria.</span>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                                <span class="text-slate-600 text-sm">StringBuilder vs Concatenación (+).</span>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                                <span class="text-slate-600 text-sm">Java Moderno: Text Blocks.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h2>1. Teoría Suprema: La Memoria y el Texto</h2>
+                    <p class="text-slate-600 mb-6 leading-relaxed">
+                        Los Arrays son la estructura de datos más básica y eficiente. Son bloques de memoria contigua.
+                        Si sabes dónde empieza y el tamaño del dato, saltar a la posición 1000 es instantáneo.
+                    </p>
+
+
+
+                    <h3 class="text-xl font-bold text-slate-800 mb-3">1.1 Inmutabilidad de Strings</h3>
+                    <div class="bg-red-50 border-l-4 border-red-500 p-6 rounded-r-xl mb-8">
+                        <h4 class="font-bold text-red-800 mb-1">El Pecado Capital del Rendimiento</h4>
+                        <p class="text-red-700 text-sm">Hacer <code>texto += "a"</code> dentro de un bucle de 10,000
+                            iteraciones crea 10,000 objetos intermedios que el Garbage Collector debe limpiar. Esto
+                            congela aplicaciones.</p>
+                    </div>
+
+                    <h2>2. Laboratorio de Código</h2>
+                    <div class="rounded-xl overflow-hidden shadow-2xl bg-[#2d2d2d] border border-slate-700 mb-8">
+                        <div class="bg-[#1e1e1e] px-4 py-2 flex items-center gap-2 border-b border-slate-700">
+                            <div class="flex gap-1.5">
+                                <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                            </div>
+                            <span class="text-xs text-slate-400 ml-2 font-mono">Optimizacion.java</span>
+                        </div>
+                        <pre><code class="language-java">public class Optimizacion {
     public static void main(String[] args) {
-        // String Pool: 'a' y 'b' apuntan al MISMO objeto en memoria.
+        // String Pool: 'a' y 'b' apuntan al MISMO objeto.
         String a = "Java";
         String b = "Java"; 
-        System.out.println(a == b); // true (Misma referencia)
+        System.out.println(a == b); // true
 
-        // FORMA INCORRECTA (Lenta)
-        String lento = "";
-        for (int i = 0; i < 1000; i++) {
-            lento += i; // Crea un objeto String nuevo en CADA iteración
-        }
-
-        // FORMA DE ÉLITE (StringBuilder)
-        // StringBuilder usa un array interno que se redimensiona inteligentemente.
+        // ELITE: StringBuilder usa un array interno redimensionable.
         StringBuilder rapido = new StringBuilder();
         for (int i = 0; i < 1000; i++) {
-            rapido.append(i); // Modifica el mismo objeto
+            rapido.append(i); // Modifica el mismo objeto, cero basura.
         }
         
-        // Java 15+: Text Blocks (Para JSON, SQL, HTML)
+        // Java 15+: Text Blocks (Ideal para JSON/SQL)
         String json = """
               {
                   "id": 1,
-                  "nombre": "Experto"
+                  "status": "ACTIVE"
               }
               """;
     }
 }</code></pre>
-                </div>
-
-                <h2>3. Entrenamiento Progresivo</h2>
-
-                <!-- EJERCICIO 1: VERDE -->
-                <div class="exercise-card">
-                    <span class="difficulty-badge badge-green">Nivel Básico</span>
-                    <h4 class="font-bold text-gray-800 pr-20">Analítica de Texto</h4>
-                    <p class="text-gray-600 mt-2">Dada una frase "Java es genial", conviértela a un array de caracteres
-                        (`toCharArray()`). Usa un bucle para contar cuántas vocales tiene e imprime el resultado.</p>
-                </div>
-
-                <!-- EJERCICIO 2: AMARILLO -->
-                <div class="exercise-card">
-                    <span class="difficulty-badge badge-yellow">Nivel Intermedio</span>
-                    <h4 class="font-bold text-gray-800 pr-20">Inversión Eficiente</h4>
-                    <p class="text-gray-600 mt-2">Crea un método que invierta una cadena (ej: "Hola" -> "aloH")
-                        <strong>sin usar</strong> el método `reverse()` de StringBuilder. Usa un array de caracteres y
-                        dos punteros (uno al inicio, otro al final) intercambiando valores hasta llegar al centro.
-                    </p>
-                    <div class="mt-3 bg-gray-50 p-3 rounded text-sm text-yellow-800 border border-yellow-100">
-                        <strong>💡 Pista:</strong> Intercambia `arr[i]` con `arr[length - 1 - i]`.
                     </div>
-                </div>
 
-                <!-- EJERCICIO 3: ROJO -->
-                <div class="exercise-card">
-                    <span class="difficulty-badge badge-red">Nivel Experto</span>
-                    <h4 class="font-bold text-gray-800 pr-20">Algoritmo de Rotación</h4>
-                    <p class="text-gray-600 mt-2">Implementa un método que rote un array de enteros `k` veces a la
-                        derecha. Ej: `[1, 2, 3, 4, 5]` con `k=2` se vuelve `[4, 5, 1, 2, 3]`. <br>Restricción de Élite:
-                        Hazlo con complejidad de espacio O(1) (sin crear arrays auxiliares completos).</p>
+                    <h2>3. Entrenamiento Progresivo</h2>
 
-                    <button onclick="toggleSolution('sol-11')"
-                        class="mt-3 text-sm font-semibold text-yellow-600 hover:text-yellow-800 underline">
-                        👁️ Ver Solución Guía
-                    </button>
+                    <div
+                        class="bg-white rounded-2xl p-6 border border-slate-200 shadow-lg mb-6 relative overflow-hidden group hover:border-emerald-400 transition-colors">
+                        <div
+                            class="absolute top-0 right-0 bg-emerald-100 text-emerald-700 text-xs font-bold px-3 py-1 rounded-bl-xl border-l border-b border-emerald-200">
+                            NIVEL BÁSICO</div>
+                        <h4 class="font-bold text-lg text-slate-800 mb-2">Analítica de Texto</h4>
+                        <p class="text-slate-600 text-sm mb-4">Convierte "Java es genial" a `toCharArray()`. Cuenta las
+                            vocales con un bucle.</p>
+                    </div>
 
-                    <div id="sol-11" class="solution-spoiler">
-                        <p class="text-sm text-gray-300 mb-2">Truco: Invertir partes del array.</p>
-                        <pre><code class="language-java">public void rotar(int[] nums, int k) {
-    k %= nums.length; // Optimización si k > length
-    invertir(nums, 0, nums.length - 1); // Invierte todo
-    invertir(nums, 0, k - 1);           // Invierte primera parte
-    invertir(nums, k, nums.length - 1); // Invierte segunda parte
+                    <div
+                        class="bg-white rounded-2xl p-6 border border-slate-200 shadow-lg mb-6 relative overflow-hidden group hover:border-red-400 transition-colors">
+                        <div
+                            class="absolute top-0 right-0 bg-red-100 text-red-700 text-xs font-bold px-3 py-1 rounded-bl-xl border-l border-b border-red-200">
+                            NIVEL EXPERTO</div>
+                        <h4 class="font-bold text-lg text-slate-800 mb-2">Algoritmo de Rotación (O(1) Espacio)</h4>
+                        <p class="text-slate-600 text-sm mb-4">Rota un array `k` veces a la derecha sin crear arrays
+                            auxiliares. Pista: Invertir partes del array.</p>
+                        <button onclick="toggleSolution('sol-11')"
+                            class="text-sm font-bold text-yellow-600 flex items-center gap-2 hover:bg-yellow-50 px-3 py-2 rounded-lg transition-colors">
+                            <i class="fas fa-eye"></i> Ver Solución
+                        </button>
+                        <div id="sol-11" class="hidden mt-4 bg-slate-900 rounded-xl p-4 border border-slate-700">
+                            <pre><code class="language-java text-xs text-white">public void rotar(int[] nums, int k) {
+    k %= nums.length;
+    invertir(nums, 0, nums.length - 1); // Todo
+    invertir(nums, 0, k - 1);           // Parte 1
+    invertir(nums, k, nums.length - 1); // Parte 2
 }
-// Método auxiliar para invertir un rango
-private void invertir(int[] nums, int start, int end) {
-    while (start < end) {
-        int temp = nums[start];
-        nums[start] = nums[end];
-        nums[end] = temp;
-        start++; end--;
-    }
-}</code></pre>
+// Método auxiliar 'invertir' usa dos punteros (start/end)</code></pre>
+                        </div>
                     </div>
                 </div>
 
-                <h2>4. Evaluación de Conceptos</h2>
-                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 space-y-4">
-                    <div>
-                        <p class="font-semibold text-gray-800">1. ¿Qué imprime `System.out.println("A" == new
-                            String("A"));`?</p>
-                        <select id="q11-1" class="w-full p-2 border rounded mt-1">
-                            <option value="">Elegir...</option>
-                            <option value="a">true</option>
-                            <option value="b">false</option>
-                            <option value="c">Error de compilación</option>
-                        </select>
-                    </div>
-                    <div>
-                        <p class="font-semibold text-gray-800">2. ¿Por qué `StringBuilder` es más rápido que `String`
-                            para concatenar?</p>
-                        <select id="q11-2" class="w-full p-2 border rounded mt-1">
-                            <option value="">Elegir...</option>
-                            <option value="a">Porque usa threads paralelos.</option>
-                            <option value="b">Porque es mutable y reutiliza su buffer interno.</option>
-                            <option value="c">Porque ignora el Garbage Collector.</option>
-                        </select>
-                    </div>
-                    <div>
-                        <p class="font-semibold text-gray-800">3. ¿Qué complejidad temporal tiene acceder a un elemento
-                            de array por índice?</p>
-                        <select id="q11-3" class="w-full p-2 border rounded mt-1">
-                            <option value="">Elegir...</option>
-                            <option value="a">O(1) - Constante</option>
-                            <option value="b">O(n) - Lineal</option>
-                            <option value="c">O(log n) - Logarítmica</option>
-                        </select>
-                    </div>
-                    <div>
-                        <p class="font-semibold text-gray-800">4. ¿Cuándo se añade un literal String al Pool?</p>
-                        <select id="q11-4" class="w-full p-2 border rounded mt-1">
-                            <option value="">Elegir...</option>
-                            <option value="a">Al usar `new String()`.</option>
-                            <option value="b">Al cargar la clase o encontrar el literal en el código.</option>
-                            <option value="c">Solo si llamamos a `.intern()`.</option>
-                        </select>
-                    </div>
-                    <div>
-                        <p class="font-semibold text-gray-800">5. ¿Qué pasa si `k` es mayor que la longitud del array en
-                            una rotación?</p>
-                        <select id="q11-5" class="w-full p-2 border rounded mt-1">
-                            <option value="">Elegir...</option>
-                            <option value="a">Lanza IndexOutOfBoundsException.</option>
-                            <option value="b">Debe usarse el operador módulo (%) para obtener la rotación efectiva.
-                            </option>
-                            <option value="c">El array se vacía.</option>
-                        </select>
-                    </div>
-                    <button onclick="checkQuiz1()"
-                        class="bg-yellow-600 text-white px-6 py-2 rounded hover:bg-yellow-700 w-full font-bold">Validar
-                        Conocimientos</button>
-                </div>
-            </div>
-
-            <!-- LECCIÓN 12 -->
-            <div id="lesson-12" class="lesson-section max-w-4xl mx-auto">
-                <div class="mb-6 pb-6 border-b border-gray-200">
-                    <span class="text-yellow-600 font-bold tracking-wide text-sm uppercase">Lección 12</span>
-                    <h1 class="text-4xl font-extrabold text-gray-900 mt-2">Manejo Profesional de Excepciones</h1>
-                </div>
-
-                <div class="bg-yellow-50 p-6 rounded-lg mb-8 border border-yellow-100">
-                    <h3 class="text-yellow-800 font-bold mb-2 !mt-0">🎯 Objetivos de Élite</h3>
-                    <ul class="list-disc list-inside text-gray-700 space-y-1">
-                        <li>Coste de Rendimiento: Por qué no debes usar excepciones para controlar el flujo lógico.</li>
-                        <li>Jerarquía Throwable: Error vs Exception vs RuntimeException.</li>
-                        <li>Gestión de Recursos: `try-with-resources` y la interfaz `AutoCloseable`.</li>
-                        <li>Diseño de API: Cuándo forzar al usuario a capturar un error (Checked) y cuándo no.</li>
-                    </ul>
-                </div>
-
-                <h2>1. Teoría Suprema: No es solo un "Error"</h2>
-                <p class="text-gray-700 mb-4">
-                    Crear una excepción en Java es <strong>caro</strong>. La JVM debe capturar toda la pila de llamadas
-                    (stack trace) en ese instante.
-                    <br>
-                    Las excepciones son para situaciones <strong>excepcionales</strong>, no para validar si un usuario
-                    introdujo mal un email (eso es validación lógica).
-                </p>
-
-                <h3 class="text-lg font-bold text-gray-800">1.1 Checked vs Unchecked</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                    <div class="bg-white p-5 rounded-lg border-l-4 border-red-500 shadow-sm">
-                        <h4 class="font-bold text-red-700 mb-2">Checked (Verificadas)</h4>
-                        <p class="text-sm text-gray-600">Heredan de `Exception`. El compilador te OBLIGA a manejarlas.
-                            Úsalas para errores recuperables fuera de tu control (Red caída, Archivo no encontrado).</p>
-                    </div>
-                    <div class="bg-white p-5 rounded-lg border-l-4 border-orange-500 shadow-sm">
-                        <h4 class="font-bold text-orange-700 mb-2">Unchecked (Runtime)</h4>
-                        <p class="text-sm text-gray-600">Heredan de `RuntimeException`. Indican errores de programación
-                            (Bugs). No se deben capturar, se deben arreglar (NullPointer, IndexOutBounds).</p>
-                    </div>
-                </div>
-
-                <h2>2. Laboratorio de Código</h2>
-                <div class="code-block">
-                    <pre><code class="language-java">import java.io.*;
-
-public class FlujoSeguro {
-
-    // Declaramos que este método PUEDE fallar
-    public void leerDatos() throws IOException {
-        
-        // Try-with-resources (Java 7+)
-        // Cualquier objeto que implemente AutoCloseable se cerrará solo al final.
-        // Evita fugas de memoria (Memory Leaks) si ocurre un error.
-        try (BufferedReader br = new BufferedReader(new FileReader("data.txt"))) {
-            System.out.println(br.readLine());
-        } 
-        // No hace falta bloque 'finally' explícito para cerrar el archivo.
-    }
-
-    public void logicaNegocio(int valor) {
-        if (valor < 0) {
-            // Unchecked: Error lógico del programador que llamó al método
-            throw new IllegalArgumentException("El valor no puede ser negativo");
-        }
-    }
-}</code></pre>
-                </div>
-
-                <h2>3. Entrenamiento Progresivo</h2>
-
-                <!-- EJERCICIO 1: VERDE -->
-                <div class="exercise-card">
-                    <span class="difficulty-badge badge-green">Nivel Básico</span>
-                    <h4 class="font-bold text-gray-800 pr-20">Captura Segura</h4>
-                    <p class="text-gray-600 mt-2">Escribe un código que intente dividir `a / b`. Usa un bloque
-                        `try-catch` para capturar `ArithmeticException` (división por cero) e imprime un mensaje
-                        amigable. Añade un `finally` que imprima "Operación terminada".</p>
-                </div>
-
-                <!-- EJERCICIO 2: AMARILLO -->
-                <div class="exercise-card">
-                    <span class="difficulty-badge badge-yellow">Nivel Intermedio</span>
-                    <h4 class="font-bold text-gray-800 pr-20">Excepción Semántica</h4>
-                    <p class="text-gray-600 mt-2">Crea una clase de excepción personalizada `SaldoInsuficienteException`
-                        (Checked). Crea una clase `Cuenta` con método `retirar(double cantidad)`. Si el saldo es menor a
-                        la cantidad, lanza tu excepción.</p>
-                    <div class="mt-3 bg-gray-50 p-3 rounded text-sm text-yellow-800 border border-yellow-100">
-                        <strong>💡 Pista:</strong> Hereda de `Exception` y genera un constructor que reciba un mensaje.
-                    </div>
-                </div>
-
-                <!-- EJERCICIO 3: ROJO -->
-                <div class="exercise-card">
-                    <span class="difficulty-badge badge-red">Nivel Experto</span>
-                    <h4 class="font-bold text-gray-800 pr-20">Exception Translation (Wrapping)</h4>
-                    <p class="text-gray-600 mt-2">Simula una capa de acceso a datos. Crea un método que lance una
-                        `SQLException` (simulada). Crea una capa de servicio que llame a ese método, capture la
-                        excepción de bajo nivel y la relance envuelta en una `DatabaseException` (personalizada y
-                        Unchecked) para no ensuciar la API con detalles SQL.</p>
-
-                    <button onclick="toggleSolution('sol-12')"
-                        class="mt-3 text-sm font-semibold text-yellow-600 hover:text-yellow-800 underline">
-                        👁️ Ver Solución Guía
-                    </button>
-
-                    <div id="sol-12" class="solution-spoiler">
-                        <pre><code class="language-java">// Baja nivel
-public void conectar() throws SQLException {
-    throw new SQLException("Fallo de conexión");
-}
-
-// Alto nivel (Service)
-public void procesarUsuario() {
-    try {
-        conectar();
-    } catch (SQLException e) {
-        // Envolver (Wrap) preservando la causa original
-        throw new DatabaseRuntimeException("No se pudo procesar el usuario", e);
-    }
-}</code></pre>
-                    </div>
-                </div>
-
-                <h2>4. Evaluación de Conceptos</h2>
-                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 space-y-4">
-                    <div>
-                        <p class="font-semibold text-gray-800">1. ¿Qué sucede si no cierras un recurso
-                            (archivo/conexión)?</p>
-                        <select id="q12-1" class="w-full p-2 border rounded mt-1">
-                            <option value="">Elegir...</option>
-                            <option value="a">Nada, el GC lo cierra rápido.</option>
-                            <option value="b">Resource Leak (Fuga de recursos), puedes agotar los descriptores del SO.
-                            </option>
-                            <option value="c">Lanza StackOverflowError.</option>
-                        </select>
-                    </div>
-                    <div>
-                        <p class="font-semibold text-gray-800">2. ¿Es buena práctica capturar `Exception` genérica?</p>
-                        <select id="q12-2" class="w-full p-2 border rounded mt-1">
-                            <option value="">Elegir...</option>
-                            <option value="a">Sí, ahorra código.</option>
-                            <option value="b">No, ocultas errores inesperados y dificultas el debugging.</option>
-                            <option value="c">Solo en el main.</option>
-                        </select>
-                    </div>
-                    <div>
-                        <p class="font-semibold text-gray-800">3. ¿Qué interfaz debe implementar una clase para usarse
-                            en try-with-resources?</p>
-                        <select id="q12-3" class="w-full p-2 border rounded mt-1">
-                            <option value="">Elegir...</option>
-                            <option value="a">Serializable</option>
-                            <option value="b">Runnable</option>
-                            <option value="c">AutoCloseable</option>
-                        </select>
-                    </div>
-                    <div>
-                        <p class="font-semibold text-gray-800">4. ¿Cuál es el costo principal de instanciar una
-                            Excepción?</p>
-                        <select id="q12-4" class="w-full p-2 border rounded mt-1">
-                            <option value="">Elegir...</option>
-                            <option value="a">El mensaje de error.</option>
-                            <option value="b">Llenar el Stack Trace (fillInStackTrace).</option>
-                            <option value="c">La reserva de memoria en el Heap.</option>
-                        </select>
-                    </div>
-                    <div>
-                        <p class="font-semibold text-gray-800">5. ¿Debo usar excepciones para controlar bucles?</p>
-                        <select id="q12-5" class="w-full p-2 border rounded mt-1">
-                            <option value="">Elegir...</option>
-                            <option value="a">Sí, es elegante.</option>
-                            <option value="b">No, es ineficiente y confuso.</option>
-                            <option value="c">Depende del IDE.</option>
-                        </select>
-                    </div>
-                    <button onclick="checkQuiz1()"
-                        class="bg-yellow-600 text-white px-6 py-2 rounded hover:bg-yellow-700 w-full font-bold">Validar
-                        Conocimientos</button>
-                </div>
-            </div>
-
-            <!-- LECCIÓN 13 -->
-            <div id="lesson-13" class="lesson-section max-w-4xl mx-auto">
-                <div class="mb-6 pb-6 border-b border-gray-200">
-                    <span class="text-yellow-600 font-bold tracking-wide text-sm uppercase">Lección 13</span>
-                    <h1 class="text-4xl font-extrabold text-gray-900 mt-2">Collections Framework I (List y Set)</h1>
-                </div>
-
-                <div class="bg-yellow-50 p-6 rounded-lg mb-8 border border-yellow-100">
-                    <h3 class="text-yellow-800 font-bold mb-2 !mt-0">🎯 Objetivos de Élite</h3>
-                    <ul class="list-disc list-inside text-gray-700 space-y-1">
-                        <li>Complejidad Algorítmica (Big O): Cuándo usar qué lista.</li>
-                        <li>`ArrayList` vs `LinkedList`: Por qué `LinkedList` casi nunca es la respuesta (Cache
-                            Locality).</li>
-                        <li>Cómo funciona un `HashSet`: Buckets y el contrato `hashCode`/`equals`.</li>
-                        <li>Ordenamiento natural (`Comparable`) vs Ordenamiento externo (`Comparator`).</li>
-                    </ul>
-                </div>
-
-                <h2>1. Teoría Suprema: Ingeniería de Datos</h2>
-                <p class="text-gray-700 mb-4">
-                    Elegir la colección incorrecta puede hacer que tu aplicación sea 1000 veces más lenta.
-                </p>
-
-                <h3 class="text-lg font-bold text-gray-800">1.1 La Mentira de LinkedList</h3>
-                <p class="text-gray-700 mb-4">
-                    En teoría, insertar en medio de una `LinkedList` es O(1). En la práctica, llegar a ese punto es O(N)
-                    y los nodos están dispersos en memoria, causando "Cache Misses" en la CPU.
-                    <strong>`ArrayList`</strong> es casi siempre mejor porque usa memoria contigua, amigable para el
-                    procesador.
-                </p>
-
-                <h3 class="text-lg font-bold text-gray-800">1.2 La Magia del Hash</h3>
-                <p class="text-gray-700 mb-4">
-                    `HashSet` no busca elemento por elemento. Usa el `hashCode()` del objeto para saltar directamente a
-                    un "cubo" (bucket) de memoria. Búsqueda instantánea O(1).
-                </p>
-
-
-                <h2>2. Laboratorio de Código</h2>
-                <div class="code-block">
-                    <pre><code class="language-java">import java.util.*;
-
-public class ColeccionesPro {
-    public static void main(String[] args) {
-        // LISTA: Ordenada, permite duplicados
-        // Siempre programa contra la Interfaz (List), no la implementación.
-        List<String> lista = new ArrayList<>();
-        lista.add("Alfa");
-        
-        // SET: Sin orden garantizado, ÚNICOS
-        // Ideal para eliminar duplicados masivos rápidamente.
-        Set<Integer> unicos = new HashSet<>();
-        unicos.add(1);
-        unicos.add(1); // Ignorado
-        
-        System.out.println(unicos.size()); // 1
-
-        // Inmutabilidad (Java 9+)
-        List<String> soloLectura = List.of("A", "B", "C");
-        // soloLectura.add("D"); // Lanza UnsupportedOperationException
-    }
-}</code></pre>
-                </div>
-
-                <h2>3. Entrenamiento Progresivo</h2>
-
-                <!-- EJERCICIO 1: VERDE -->
-                <div class="exercise-card">
-                    <span class="difficulty-badge badge-green">Nivel Básico</span>
-                    <h4 class="font-bold text-gray-800 pr-20">Filtrado Básico</h4>
-                    <p class="text-gray-600 mt-2">Crea un `ArrayList` de números con valores repetidos. Crea un
-                        `HashSet` y pásale la lista en el constructor para eliminar duplicados automáticamente. Imprime
-                        el resultado.</p>
-                </div>
-
-                <!-- EJERCICIO 2: AMARILLO -->
-                <div class="exercise-card">
-                    <span class="difficulty-badge badge-yellow">Nivel Intermedio</span>
-                    <h4 class="font-bold text-gray-800 pr-20">Ordenamiento Personalizado</h4>
-                    <p class="text-gray-600 mt-2">Crea una clase `Tarea` (titulo, prioridad). Crea una `List<Tarea>`.
-                            Ordénala por prioridad usando `Collections.sort` o `list.sort` pasando un `Comparator`
-                            (lambda).</p>
-                </div>
-
-                <!-- EJERCICIO 3: ROJO -->
-                <div class="exercise-card">
-                    <span class="difficulty-badge badge-red">Nivel Experto</span>
-                    <h4 class="font-bold text-gray-800 pr-20">Rompiendo el HashSet</h4>
-                    <p class="text-gray-600 mt-2">
-                        1. Crea una clase `Persona` (nombre). <strong>Sobrescribe `equals` pero NO `hashCode`</strong>
-                        (rompiendo el contrato).<br>
-                        2. Añade dos personas "Juan" idénticas a un `HashSet`.<br>
-                        3. Comprueba el tamaño del Set. Debería ser 1, pero será 2. Explica por qué Java falló en
-                        detectar el duplicado.
-                    </p>
-
-                    <button onclick="toggleSolution('sol-13')"
-                        class="mt-3 text-sm font-semibold text-yellow-600 hover:text-yellow-800 underline">
-                        👁️ Ver Solución Guía
-                    </button>
-
-                    <div id="sol-13" class="solution-spoiler">
-                        <p class="text-sm text-gray-300">
-                            <strong>Explicación:</strong> HashSet usa primero el `hashCode` para encontrar el "cubo"
-                            donde guardar el objeto. Si dos objetos idénticos tienen hashCodes distintos (comportamiento
-                            por defecto de Object), van a cubos distintos y Java nunca llega a llamar a `equals` para
-                            compararlos.
+                <div id="lesson-12" class="lesson-section hidden animate-fade-in-up lesson-content">
+                    <div class="mb-8 border-b border-slate-200 pb-6">
+                        <span
+                            class="px-3 py-1 rounded-full bg-yellow-100 text-yellow-700 text-xs font-bold uppercase tracking-wider">Lección
+                            12</span>
+                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mt-2 mb-4">Manejo de
+                            Excepciones</h1>
+                        <p class="text-lg text-slate-600">Errores recuperables vs Bugs. Jerarquía y gestión de recursos.
                         </p>
                     </div>
-                </div>
 
-                <h2>4. Evaluación de Conceptos</h2>
-                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 space-y-4">
-                    <div>
-                        <p class="font-semibold text-gray-800">1. ¿Qué pasa cuando un ArrayList se llena?</p>
-                        <select id="q13-1" class="w-full p-2 border rounded mt-1">
-                            <option value="">Elegir...</option>
-                            <option value="a">Lanza excepción.</option>
-                            <option value="b">Crea un nuevo array interno (generalmente 50% más grande) y copia todo
-                                (O(n)).</option>
-                            <option value="c">Se convierte en LinkedList.</option>
-                        </select>
+                    <h2>1. Teoría Suprema: No es solo un "Error"</h2>
+                    <p class="text-slate-600 mb-6">Crear una excepción es costoso para la JVM (Stack Trace). Úsalas para
+                        casos excepcionales, no para lógica de negocio.</p>
+
+
+
+                    [Image of Java Exception Class Hierarchy]
+
+
+                    <div class="grid md:grid-cols-2 gap-6 mb-8">
+                        <div class="bg-white p-6 rounded-2xl border-l-4 border-red-500 shadow-sm">
+                            <h4 class="font-bold text-red-700 mb-2">Checked (Exception)</h4>
+                            <p class="text-sm text-slate-600">El compilador OBLIGA a manejarlas. Para errores externos
+                                recuperables (Red, Archivos).</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-2xl border-l-4 border-orange-500 shadow-sm">
+                            <h4 class="font-bold text-orange-700 mb-2">Unchecked (Runtime)</h4>
+                            <p class="text-sm text-slate-600">Errores de programación (Bugs). No se capturan, se
+                                arreglan (NullPointer).</p>
+                        </div>
                     </div>
-                    <div>
-                        <p class="font-semibold text-gray-800">2. ¿Cuál es el contrato entre equals y hashCode?</p>
-                        <select id="q13-2" class="w-full p-2 border rounded mt-1">
-                            <option value="">Elegir...</option>
-                            <option value="a">Si equals es true, hashCode debe ser igual.</option>
-                            <option value="b">Si hashCode es igual, equals debe ser true.</option>
-                            <option value="c">No tienen relación.</option>
-                        </select>
-                    </div>
-                    <div>
-                        <p class="font-semibold text-gray-800">3. ¿Qué estructura mantiene el orden de inserción y
-                            unicidad?</p>
-                        <select id="q13-3" class="w-full p-2 border rounded mt-1">
-                            <option value="">Elegir...</option>
-                            <option value="a">HashSet</option>
-                            <option value="b">TreeSet</option>
-                            <option value="c">LinkedHashSet</option>
-                        </select>
-                    </div>
-                    <div>
-                        <p class="font-semibold text-gray-800">4. ¿Complejidad de búsqueda en LinkedList?</p>
-                        <select id="q13-4" class="w-full p-2 border rounded mt-1">
-                            <option value="">Elegir...</option>
-                            <option value="a">O(1)</option>
-                            <option value="b">O(n)</option>
-                            <option value="c">O(log n)</option>
-                        </select>
-                    </div>
-                    <div>
-                        <p class="font-semibold text-gray-800">5. ¿Para qué sirve TreeSet?</p>
-                        <select id="q13-5" class="w-full p-2 border rounded mt-1">
-                            <option value="">Elegir...</option>
-                            <option value="a">Para guardar elementos duplicados.</option>
-                            <option value="b">Para mantener elementos únicos y ordenados automáticamente.</option>
-                            <option value="c">Para acceso rápido por índice.</option>
-                        </select>
-                    </div>
-                    <button onclick="checkQuiz1()"
-                        class="bg-yellow-600 text-white px-6 py-2 rounded hover:bg-yellow-700 w-full font-bold">Validar
-                        Conocimientos</button>
-                </div>
-            </div>
 
-            <!-- LECCIÓN 14 -->
-            <div id="lesson-14" class="lesson-section max-w-4xl mx-auto">
-                <div class="mb-6 pb-6 border-b border-gray-200">
-                    <span class="text-yellow-600 font-bold tracking-wide text-sm uppercase">Lección 14</span>
-                    <h1 class="text-4xl font-extrabold text-gray-900 mt-2">Collections Framework II (Map y Queue)</h1>
-                </div>
-
-                <div class="bg-yellow-50 p-6 rounded-lg mb-8 border border-yellow-100">
-                    <h3 class="text-yellow-800 font-bold mb-2 !mt-0">🎯 Objetivos de Élite</h3>
-                    <ul class="list-disc list-inside text-gray-700 space-y-1">
-                        <li>Arquitectura interna del `HashMap`: Buckets, Nodos y Árboles Rojo-Negro.</li>
-                        <li>Resolver colisiones de Hash eficientemente.</li>
-                        <li>Usar `Queue` y `Deque` para algoritmos de procesamiento (Colas de mensajes, Stacks).</li>
-                        <li>`PriorityQueue`: El secreto para algoritmos de "Top K" elementos.</li>
-                    </ul>
-                </div>
-
-                <h2>1. Teoría Suprema: El Motor Clave-Valor</h2>
-                <p class="text-gray-700 mb-4">
-                    `HashMap` es la estructura más utilizada. Internamente es un Array de Listas (o Árboles).
-                </p>
-                <ul class="list-disc list-inside text-gray-700 space-y-2 ml-4 mb-4">
-                    <li><strong>Colisión:</strong> Cuando dos claves distintas generan el mismo Hash. Java las encadena
-                        en el mismo bucket.</li>
-                    <li><strong>Factor de Carga:</strong> Si el mapa se llena al 75% (0.75), duplica su tamaño y
-                        re-calcula todas las posiciones (Rehashing). Costoso.</li>
-                </ul>
-
-                <h2>2. Laboratorio de Código</h2>
-                <div class="code-block">
-                    <pre><code class="language-java">import java.util.*;
-
-public class MapasAvanzados {
-    public static void main(String[] args) {
-        // Map: Diccionario Clave -> Valor
-        Map<String, Integer> inventario = new HashMap<>();
-        inventario.put("Manzana", 10);
-        
-        // getOrDefault: Evita NullPointerException de forma elegante
-        int cantidad = inventario.getOrDefault("Pera", 0);
-
-        // Iteración eficiente sobre el EntrySet (Clave y Valor a la vez)
-        for (Map.Entry<String, Integer> entry : inventario.entrySet()) {
-            System.out.println(entry.getKey() + ": " + entry.getValue());
-        }
-
-        // PriorityQueue: Mantiene el orden natural (el menor sale primero)
-        // Útil para procesar tareas por prioridad.
-        Queue<Integer> cola = new PriorityQueue<>();
-        cola.add(50);
-        cola.add(10);
-        cola.add(30);
-        
-        System.out.println(cola.poll()); // Imprime 10 (El menor)
-    }
+                    <div class="rounded-xl overflow-hidden shadow-2xl bg-[#2d2d2d] border border-slate-700 mb-8">
+                        <pre><code class="language-java">public void leerDatos() throws IOException {
+    // Try-with-resources: Cierra el archivo automáticamente
+    try (BufferedReader br = new BufferedReader(new FileReader("data.txt"))) {
+        System.out.println(br.readLine());
+    } 
+    // No hace falta finally para cerrar
 }</code></pre>
+                    </div>
                 </div>
 
-                <h2>3. Entrenamiento Progresivo</h2>
+                <div id="lesson-13" class="lesson-section hidden animate-fade-in-up lesson-content">
+                    <div class="mb-8 border-b border-slate-200 pb-6">
+                        <span
+                            class="px-3 py-1 rounded-full bg-yellow-100 text-yellow-700 text-xs font-bold uppercase tracking-wider">Lección
+                            13</span>
+                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mt-2 mb-4">Collections:
+                            List y Set</h1>
+                    </div>
 
-                <!-- EJERCICIO 1: VERDE -->
-                <div class="exercise-card">
-                    <span class="difficulty-badge badge-green">Nivel Básico</span>
-                    <h4 class="font-bold text-gray-800 pr-20">Agenda Telefónica</h4>
-                    <p class="text-gray-600 mt-2">Crea un `HashMap<String, String>` (Nombre -> Teléfono). Añade 3
-                            contactos. Usa `containsKey("Pepe")` para ver si existe antes de intentar obtener su número.
-                    </p>
-                </div>
+                    <h2>1. Teoría Suprema: Ingeniería de Datos</h2>
+                    <p class="text-slate-600 mb-6">Elegir la colección incorrecta puede degradar el rendimiento
+                        masivamente.</p>
 
-                <!-- EJERCICIO 2: AMARILLO -->
-                <div class="exercise-card">
-                    <span class="difficulty-badge badge-yellow">Nivel Intermedio</span>
-                    <h4 class="font-bold text-gray-800 pr-20">Contador de Palabras</h4>
-                    <p class="text-gray-600 mt-2">Dada una frase larga, usa un Map para contar la frecuencia de cada
-                        palabra. <br>Pista: Usa `map.put(palabra, map.getOrDefault(palabra, 0) + 1)`.</p>
-                </div>
-
-                <!-- EJERCICIO 3: ROJO -->
-                <div class="exercise-card">
-                    <span class="difficulty-badge badge-red">Nivel Experto</span>
-                    <h4 class="font-bold text-gray-800 pr-20">LRU Cache (Least Recently Used)</h4>
-                    <p class="text-gray-600 mt-2">Implementa un sistema de caché simple que guarde máximo N elementos.
-                        Si añades uno nuevo y está lleno, debe borrar el más antiguo (el que menos se ha usado).
-                        <br><strong>Truco de Experto:</strong> Extiende de `LinkedHashMap` y sobreescribe el método
-                        `removeEldestEntry`. Se hace en 5 líneas de código.
+                    <h3 class="text-xl font-bold text-slate-800 mb-3">La Mentira de LinkedList</h3>
+                    <p class="text-slate-600 mb-6">
+                        Aunque insertar es O(1), llegar a la posición es O(N). Además, los nodos dispersos causan "Cache
+                        Misses" en la CPU. <strong>ArrayList</strong> es casi siempre superior.
                     </p>
 
-                    <button onclick="toggleSolution('sol-14')"
-                        class="mt-3 text-sm font-semibold text-yellow-600 hover:text-yellow-800 underline">
-                        👁️ Ver Solución Guía
-                    </button>
+                    <h3 class="text-xl font-bold text-slate-800 mb-3">La Magia del Hash (Set)</h3>
+                    <p class="text-slate-600 mb-4">HashSet usa el <code>hashCode()</code> para saltar directamente a la
+                        posición de memoria.</p>
 
-                    <div id="sol-14" class="solution-spoiler">
-                        <pre><code class="language-java">import java.util.LinkedHashMap;
-import java.util.Map;
 
-// accessOrder = true activa el modo LRU (reordena al acceder)
-public class LRUCache<K, V> extends LinkedHashMap<K, V> {
-    private final int capacity;
 
-    public LRUCache(int capacity) {
-        super(capacity, 0.75f, true);
-        this.capacity = capacity;
-    }
+                    <div class="rounded-xl overflow-hidden shadow-2xl bg-[#2d2d2d] border border-slate-700 mb-8">
+                        <pre><code class="language-java">// LIST: Ordenada, duplicados OK
+List<String> lista = new ArrayList<>();
 
-    @Override
-    protected boolean removeEldestEntry(Map.Entry<K, V> eldest) {
-        return size() > capacity; // Borra el más viejo si excedemos capacidad
-    }
-}</code></pre>
+// SET: Sin orden, ÚNICOS (Rapidísimo para búsquedas)
+Set<Integer> unicos = new HashSet<>();
+unicos.add(1);
+unicos.add(1); // Ignorado
+System.out.println(unicos.size()); // 1</code></pre>
                     </div>
                 </div>
 
-                <h2>4. Evaluación de Conceptos</h2>
-                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 space-y-4">
-                    <div>
-                        <p class="font-semibold text-gray-800">1. ¿Qué es una colisión en un HashMap?</p>
-                        <select id="q14-1" class="w-full p-2 border rounded mt-1">
-                            <option value="">Elegir...</option>
-                            <option value="a">Cuando se acaba la memoria.</option>
-                            <option value="b">Cuando dos claves distintas producen el mismo hash.</option>
-                            <option value="c">Cuando insertas un valor null.</option>
-                        </select>
+                <div id="lesson-14" class="lesson-section hidden animate-fade-in-up lesson-content">
+                    <div class="mb-8 border-b border-slate-200 pb-6">
+                        <span
+                            class="px-3 py-1 rounded-full bg-yellow-100 text-yellow-700 text-xs font-bold uppercase tracking-wider">Lección
+                            14</span>
+                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mt-2 mb-4">Map y Queue
+                        </h1>
                     </div>
-                    <div>
-                        <p class="font-semibold text-gray-800">2. ¿Qué estructura usarías para una cola FIFO?</p>
-                        <select id="q14-2" class="w-full p-2 border rounded mt-1">
-                            <option value="">Elegir...</option>
-                            <option value="a">Stack</option>
-                            <option value="b">PriorityQueue</option>
-                            <option value="c">ArrayDeque (usado como Queue)</option>
-                        </select>
+
+                    <div class="bg-yellow-50 p-6 rounded-xl border border-yellow-100 mb-8">
+                        <h3 class="font-bold text-yellow-900 mb-2">Motor Clave-Valor</h3>
+                        <p class="text-sm text-yellow-800">HashMap es la estructura más usada. Es vital entender cómo
+                            maneja las colisiones (cuando dos claves caen en el mismo bucket).</p>
                     </div>
-                    <div>
-                        <p class="font-semibold text-gray-800">3. ¿Qué garantiza LinkedHashMap?</p>
-                        <select id="q14-3" class="w-full p-2 border rounded mt-1">
-                            <option value="">Elegir...</option>
-                            <option value="a">Orden natural de claves.</option>
-                            <option value="b">Orden de inserción o acceso.</option>
-                            <option value="c">Búsquedas más rápidas que HashMap.</option>
-                        </select>
-                    </div>
-                    <div>
-                        <p class="font-semibold text-gray-800">4. ¿En Java 8+, qué pasa si un bucket tiene muchos
-                            elementos?</p>
-                        <select id="q14-4" class="w-full p-2 border rounded mt-1">
-                            <option value="">Elegir...</option>
-                            <option value="a">Se redimensiona el array.</option>
-                            <option value="b">La lista enlazada se transforma en un Árbol (Red-Black Tree) para mejorar
-                                rendimiento a O(log n).</option>
-                            <option value="c">Lanza excepción.</option>
-                        </select>
-                    </div>
-                    <div>
-                        <p class="font-semibold text-gray-800">5. ¿Puede un TreeMap tener claves null?</p>
-                        <select id="q14-5" class="w-full p-2 border rounded mt-1">
-                            <option value="">Elegir...</option>
-                            <option value="a">Sí.</option>
-                            <option value="b">No, porque necesita comparar claves para ordenar.</option>
-                            <option value="c">Depende del comparador.</option>
-                        </select>
-                    </div>
-                    <button onclick="checkQuiz1()"
-                        class="bg-yellow-600 text-white px-6 py-2 rounded hover:bg-yellow-700 w-full font-bold">Validar
-                        Conocimientos</button>
-                </div>
-            </div>
 
-            <!-- LECCIÓN 15 -->
-            <div id="lesson-15" class="lesson-section max-w-4xl mx-auto">
-                <div class="mb-6 pb-6 border-b border-gray-200">
-                    <span class="text-yellow-600 font-bold tracking-wide text-sm uppercase">Lección 15</span>
-                    <h1 class="text-4xl font-extrabold text-gray-900 mt-2">Genéricos (Generics)</h1>
-                </div>
 
-                <div class="bg-yellow-50 p-6 rounded-lg mb-8 border border-yellow-100">
-                    <h3 class="text-yellow-800 font-bold mb-2 !mt-0">🎯 Objetivos de Élite</h3>
-                    <ul class="list-disc list-inside text-gray-700 space-y-1">
-                        <li>Seguridad de Tipos: Detectar errores al compilar, no al ejecutar.</li>
-                        <li>Type Erasure: La ilusión de los genéricos y lo que realmente ve la JVM.</li>
-                        <li>Comodines (Wildcards): Dominar `? extends` y `? super` (Principio PECS).</li>
-                        <li>Diseñar APIs genéricas flexibles.</li>
-                    </ul>
-                </div>
 
-                <h2>1. Teoría Suprema: La Ilusión del Tipo</h2>
-                <p class="text-gray-700 mb-4">
-                    Los Genéricos se añadieron en Java 5 para evitar el casting manual constante (`(String)
-                    lista.get(0)`).
-                    <br>
-                    <strong>Type Erasure:</strong> Para mantener compatibilidad con versiones viejas, Java BORRA la
-                    información de tipos al compilar. `List<String>` se convierte en `List` (raw type) en el bytecode.
-                        Por eso no puedes hacer `new T()`.
-                </p>
+                    <div class="rounded-xl overflow-hidden shadow-2xl bg-[#2d2d2d] border border-slate-700 mb-8">
+                        <pre><code class="language-java">Map<String, Integer> inventario = new HashMap<>();
+inventario.put("Manzana", 10);
 
-                <h3 class="text-lg font-bold text-gray-800">1.1 Invarianza vs Covarianza</h3>
-                <div class="warning-box">
-                    <strong>¡Cuidado!</strong> `List<Perro>` NO es hija de `List<Animal>`, aunque Perro sea hijo de
-                            Animal.
-                            <br>Si lo fuera, podrías pasar una lista de Perros a un método que espera lista de Animales,
-                            y ese método podría meter un Gato. ¡Boom! Error en tiempo de ejecución.
-                </div>
-
-                <h2>2. Laboratorio de Código</h2>
-                <div class="code-block">
-                    <pre><code class="language-java">public class Caja<T> {
-    private T contenido;
-
-    public void guardar(T contenido) {
-        this.contenido = contenido;
-    }
-
-    public T sacar() {
-        return contenido;
-    }
-
-    // PECS: Producer Extends, Consumer Super
-    // Producer Extends: Solo LEEMOS de la lista (produce datos)
-    public static double sumarNumeros(List<? extends Number> lista) {
-        double suma = 0;
-        for (Number n : lista) { // Seguro leer como Number
-            suma += n.doubleValue();
-        }
-        // lista.add(10); // ERROR: No podemos escribir, no sabemos el tipo exacto
-        return suma;
-    }
-}</code></pre>
-                </div>
-
-                <h2>3. Entrenamiento Progresivo</h2>
-
-                <!-- EJERCICIO 1: VERDE -->
-                <div class="exercise-card">
-                    <span class="difficulty-badge badge-green">Nivel Básico</span>
-                    <h4 class="font-bold text-gray-800 pr-20">Clase Genérica</h4>
-                    <p class="text-gray-600 mt-2">Crea una clase `Bolsa<T>` que tenga un método `add(T item)` y `List<T>
-                                getItems()`. Limita la bolsa a máximo 5 elementos. Prueba guardando Strings y luego
-                                Integers en bolsas distintas.</p>
-                </div>
-
-                <!-- EJERCICIO 2: AMARILLO -->
-                <div class="exercise-card">
-                    <span class="difficulty-badge badge-yellow">Nivel Intermedio</span>
-                    <h4 class="font-bold text-gray-800 pr-20">Método de Intercambio</h4>
-                    <p class="text-gray-600 mt-2">Escribe un método genérico estático `void swap(T[] array, int i, int
-                        j)` que intercambie elementos en un array de cualquier tipo.</p>
-                </div>
-
-                <!-- EJERCICIO 3: ROJO -->
-                <div class="exercise-card">
-                    <span class="difficulty-badge badge-red">Nivel Experto</span>
-                    <h4 class="font-bold text-gray-800 pr-20">API Flexible (Wildcards)</h4>
-                    <p class="text-gray-600 mt-2">Implementa un método `copy` que copie elementos de una lista origen a
-                        una destino. <br>Firma: `void copy(List
-                        <? extends T> src, List<? super T> dest)`. <br>Demuestra por qué esto permite copiar una `List<Integer>` a una `List<Number>`, pero no al revés.</p>
-                    
-                    <button onclick="toggleSolution('sol-15')" class="mt-3 text-sm font-semibold text-yellow-600 hover:text-yellow-800 underline">
-                        👁️ Ver Solución Guía
-                    </button>
-                    
-                    <div id="sol-15" class="solution-spoiler">
-                        <pre><code class="language-java">public static <T> void copy(List<? extends T> source, List<? super T> dest) {
-    for (T item : source) {
-        dest.add(item);
-    }
+// Iteración eficiente
+for (Map.Entry<String, Integer> entry : inventario.entrySet()) {
+    System.out.println(entry.getKey() + ": " + entry.getValue());
 }
-// Uso:
-// List<Integer> ints = List.of(1, 2);
-// List<Number> nums = new ArrayList<>();
-// copy(ints, nums); // Funciona: Integer extiende Number</code></pre>
+
+// PriorityQueue: El menor sale primero (Ideal para tareas)
+Queue<Integer> cola = new PriorityQueue<>();
+cola.add(50); cola.add(10);
+System.out.println(cola.poll()); // 10</code></pre>
                     </div>
                 </div>
 
-                <h2>4. Evaluación de Conceptos</h2>
-                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 space-y-4">
-                    <div>
-                        <p class="font-semibold text-gray-800">1. ¿Por qué `new T()` no es válido?</p>
-                        <select id="q15-1" class="w-full p-2 border rounded mt-1">
-                            <option value="">Elegir...</option>
-                            <option value="a">Porque T es abstracta.</option>
-                            <option value="b">Por el Type Erasure, en runtime T no existe.</option>
-                            <option value="c">Porque falta el constructor.</option>
-                        </select>
+                <div id="lesson-15" class="lesson-section hidden animate-fade-in-up lesson-content">
+                    <div class="mb-8 border-b border-slate-200 pb-6">
+                        <span
+                            class="px-3 py-1 rounded-full bg-yellow-100 text-yellow-700 text-xs font-bold uppercase tracking-wider">Lección
+                            15</span>
+                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mt-2 mb-4">Genéricos
+                        </h1>
+                        <p class="text-lg text-slate-600">Seguridad de tipos en compilación y flexibilidad de API.</p>
                     </div>
-                    <div>
-                        <p class="font-semibold text-gray-800">2. ¿Qué significa `? extends Number`?</p>
-                        <select id="q15-2" class="w-full p-2 border rounded mt-1">
-                            <option value="">Elegir...</option>
-                            <option value="a">Cualquier clase que sea Number o hija de Number.</option>
-                            <option value="b">Cualquier clase padre de Number.</option>
-                            <option value="c">Solo Number.</option>
-                        </select>
+
+                    <h2>1. Teoría Suprema: Type Erasure</h2>
+                    <p class="text-slate-600 mb-6">
+                        Para mantener compatibilidad, Java BORRA la información de tipos al compilar.
+                        <code>List&lt;String&gt;</code> se convierte en <code>List</code> (raw) en el bytecode.
+                    </p>
+
+
+
+                    <div class="bg-yellow-50 border border-yellow-200 rounded-xl p-6 mb-8">
+                        <h4 class="font-bold text-yellow-800 mb-2">Principio PECS</h4>
+                        <p class="text-yellow-900 text-sm">"Producer Extends, Consumer Super". Usa
+                            <code>? extends T</code> si solo lees de la lista. Usa <code>? super T</code> si escribes en
+                            ella.</p>
                     </div>
-                    <div>
-                        <p class="font-semibold text-gray-800">3. ¿Qué restricción aplica PECS para `? extends T`?</p>
-                        <select id="q15-3" class="w-full p-2 border rounded mt-1">
-                            <option value="">Elegir...</option>
-                            <option value="a">Solo escritura.</option>
-                            <option value="b">Solo lectura (Producer).</option>
-                            <option value="c">Lectura y escritura.</option>
-                        </select>
+
+                    <div class="rounded-xl overflow-hidden shadow-2xl bg-[#2d2d2d] border border-slate-700 mb-8">
+                        <pre><code class="language-java">public class Caja<T> {
+    private T contenido;
+    public void guardar(T c) { this.contenido = c; }
+    public T sacar() { return contenido; }
+}
+
+// Comodines (Wildcards)
+public double sumar(List<? extends Number> nums) {
+    double suma = 0;
+    for (Number n : nums) suma += n.doubleValue();
+    return suma;
+}</code></pre>
                     </div>
-                    <div>
-                        <p class="font-semibold text-gray-800">4. ¿Los genéricos existen en el bytecode compilado?</p>
-                        <select id="q15-4" class="w-full p-2 border rounded mt-1">
-                            <option value="">Elegir...</option>
-                            <option value="a">Sí, Java retiene toda la info.</option>
-                            <option value="b">No, son borrados y reemplazados por casts (Type Erasure).</option>
-                            <option value="c">Solo si usas la versión Java 21.</option>
-                        </select>
-                    </div>
-                    <div>
-                        <p class="font-semibold text-gray-800">5. ¿Es `Object[]` compatible con `String[]`?</p>
-                        <select id="q15-5" class="w-full p-2 border rounded mt-1">
-                            <option value="">Elegir...</option>
-                            <option value="a">Sí, los arrays son covariantes (riesgo de ArrayStoreException).</option>
-                            <option value="b">No, los arrays funcionan como genéricos.</option>
-                            <option value="c">Solo para lectura.</option>
-                        </select>
-                    </div>
-                    <button onclick="checkQuiz1()" class="bg-yellow-600 text-white px-6 py-2 rounded hover:bg-yellow-700 w-full font-bold">Validar Conocimientos</button>
                 </div>
+
             </div>
 
+            <footer class="mt-20 py-8 text-center text-slate-400 text-sm border-t border-slate-200">
+                <p>&copy; 2025 Java Masterclass. Módulo 3 completado.</p>
+            </footer>
         </main>
     </div>
 
-    <!-- Scripts para interactividad -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
     <script>
         function showLesson(id) {
             document.querySelectorAll('.lesson-section').forEach(el => {
+                el.classList.add('hidden');
                 el.classList.remove('active');
-                el.style.display = 'none';
             });
+
             const selected = document.getElementById('lesson-' + id);
-            selected.style.display = 'block';
+            selected.classList.remove('hidden');
             setTimeout(() => selected.classList.add('active'), 10);
 
-            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
-            document.getElementById('btn-' + id).classList.add('active');
+            // Resetear botones
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active', 'bg-yellow-50', 'border-yellow-100');
+                btn.querySelector('.btn-indicator').classList.remove('opacity-100');
+                btn.querySelector('.btn-indicator').classList.add('opacity-0');
+
+                const icon = btn.querySelector('.btn-icon');
+                icon.classList.remove('bg-yellow-500', 'text-white');
+                icon.classList.add('bg-slate-100', 'text-slate-500');
+
+                btn.querySelector('.btn-text').classList.remove('text-yellow-700', 'font-bold');
+            });
+
+            // Activar botón
+            const activeBtn = document.getElementById('btn-' + id);
+            activeBtn.classList.add('active', 'bg-yellow-50', 'border-yellow-100');
+            activeBtn.querySelector('.btn-indicator').classList.add('opacity-100');
+            activeBtn.querySelector('.btn-indicator').classList.remove('opacity-0');
+
+            const activeIcon = activeBtn.querySelector('.btn-icon');
+            activeIcon.classList.remove('bg-slate-100', 'text-slate-500');
+            activeIcon.classList.add('bg-yellow-500', 'text-white');
+
+            activeBtn.querySelector('.btn-text').classList.add('text-yellow-700', 'font-bold');
+
             document.querySelector('main').scrollTop = 0;
         }
 
         function toggleSolution(id) {
             const el = document.getElementById(id);
-            if (el.style.display === 'block') el.style.display = 'none';
-            else el.style.display = 'block';
+            el.classList.toggle('hidden');
         }
 
-        // Validación simple para Quiz
         function checkQuiz1() {
-            alert("¡Respuestas registradas! Revisa la sección 'Teoría Suprema' para asegurar conceptos.");
+            // Ejemplo básico
+            alert("¡Respuestas registradas! Revisa los conceptos si tuviste dudas.");
         }
 
         // Init
         showLesson(11);
     </script>
 </body>
+
 </html>
