@@ -4,66 +4,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Módulo 1 | Fundamentos Java</title>
+    <title>Módulo 1 | Fundamentos Java Elite</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" href="../assets/style.css">
 
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
-                    animation: {
-                        'fade-in-up': 'fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards',
-                    },
-                    keyframes: {
-                        fadeInUp: {
-                            '0%': { opacity: '0', transform: 'translateY(20px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' },
-                        },
-                    }
+                    fontFamily: { sans: ['Inter', 'sans-serif'], },
+                    animation: { 'fade-in-up': 'fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards', },
+                    keyframes: { fadeInUp: { '0%': { opacity: '0', transform: 'translateY(20px)' }, '100%': { opacity: '1', transform: 'translateY(0)' }, }, }
                 }
             }
         }
     </script>
-
-    <style>
-        /* Ajustes específicos para el contenido de lección */
-        .lesson-content h2 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #1e293b;
-            margin-top: 2rem;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        /* Personalización del Scrollbar para el sidebar */
-        .custom-scrollbar::-webkit-scrollbar {
-            width: 5px;
-        }
-
-        .custom-scrollbar::-webkit-scrollbar-track {
-            background: transparent;
-        }
-
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
-            border-radius: 20px;
-        }
-
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-            background: #94a3b8;
-        }
-    </style>
 </head>
 
 <body
@@ -75,7 +33,7 @@
             <a href="../index.html"
                 class="group flex items-center gap-2 text-slate-300 hover:text-white transition-all bg-white/5 hover:bg-white/10 px-4 py-2 rounded-lg border border-white/10 hover:border-white/20">
                 <i class="fas fa-arrow-left text-sm group-hover:-translate-x-1 transition-transform"></i>
-                <span class="text-sm font-medium">Volver al Inicio</span>
+                <span class="text-sm font-medium">Dashboard</span>
             </a>
             <div class="h-6 w-px bg-slate-700 mx-2"></div>
             <div class="flex items-center gap-3">
@@ -83,12 +41,11 @@
                     <i class="fas fa-laptop-code text-lg"></i>
                 </div>
                 <div>
-                    <h1 class="font-bold text-sm tracking-wide leading-none">Módulo 01</h1>
-                    <span class="text-xs text-slate-400 font-medium">Fundamentos y Clean Code</span>
+                    <h1 class="font-bold text-sm tracking-wide leading-none">Ingeniería de Software</h1>
+                    <span class="text-xs text-slate-400 font-medium">Java Elite Bootcamp</span>
                 </div>
             </div>
         </div>
-
         <div class="hidden md:flex items-center gap-4">
             <div class="flex items-center gap-2 px-3 py-1.5 bg-blue-900/30 rounded-full border border-blue-500/20">
                 <span class="relative flex h-2 w-2">
@@ -102,50 +59,45 @@
     </nav>
 
     <div class="flex flex-1 pt-16 h-full overflow-hidden">
-
         <aside class="w-80 bg-white border-r border-slate-200 shadow-xl z-20 hidden md:flex flex-col">
             <div class="p-6 border-b border-slate-100 bg-slate-50/50">
-                <h3 class="text-xs font-black text-slate-400 uppercase tracking-widest mb-1">Contenido del Módulo</h3>
-                <p class="text-sm text-slate-600 font-medium">5 Lecciones Prácticas</p>
+                <h3 class="text-xs font-black text-slate-400 uppercase tracking-widest mb-1">Módulo 01</h3>
+                <p class="text-sm text-slate-600 font-medium">Fundamentos & Arquitectura</p>
             </div>
-
             <div class="flex-1 overflow-y-auto custom-scrollbar p-4 space-y-2">
                 <button onclick="showLesson(1)" id="btn-1"
                     class="nav-btn w-full text-left px-4 py-4 rounded-xl text-sm font-medium transition-all duration-200 border border-transparent hover:bg-slate-50 hover:border-slate-200 group relative overflow-hidden active">
                     <div class="relative z-10 flex items-center gap-3">
                         <span
                             class="flex-shrink-0 w-8 h-8 rounded-lg bg-slate-100 text-slate-500 flex items-center justify-center text-xs font-bold group-hover:bg-white group-hover:shadow-sm transition-all btn-icon">01</span>
-                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">JVM y Ecosistema</span>
+                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">Arquitectura JVM</span>
                     </div>
                     <div
                         class="absolute left-0 top-0 bottom-0 w-1 bg-blue-600 opacity-0 btn-indicator transition-opacity">
                     </div>
                 </button>
-
                 <button onclick="showLesson(2)" id="btn-2"
                     class="nav-btn w-full text-left px-4 py-4 rounded-xl text-sm font-medium transition-all duration-200 border border-transparent hover:bg-slate-50 hover:border-slate-200 group relative overflow-hidden">
                     <div class="relative z-10 flex items-center gap-3">
                         <span
                             class="flex-shrink-0 w-8 h-8 rounded-lg bg-slate-100 text-slate-500 flex items-center justify-center text-xs font-bold group-hover:bg-white group-hover:shadow-sm transition-all btn-icon">02</span>
-                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">IntelliJ IDEA</span>
+                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">Tooling & IDE</span>
                     </div>
                     <div
                         class="absolute left-0 top-0 bottom-0 w-1 bg-blue-600 opacity-0 btn-indicator transition-opacity">
                     </div>
                 </button>
-
                 <button onclick="showLesson(3)" id="btn-3"
                     class="nav-btn w-full text-left px-4 py-4 rounded-xl text-sm font-medium transition-all duration-200 border border-transparent hover:bg-slate-50 hover:border-slate-200 group relative overflow-hidden">
                     <div class="relative z-10 flex items-center gap-3">
                         <span
                             class="flex-shrink-0 w-8 h-8 rounded-lg bg-slate-100 text-slate-500 flex items-center justify-center text-xs font-bold group-hover:bg-white group-hover:shadow-sm transition-all btn-icon">03</span>
-                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">Variables y Tipos</span>
+                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">Sistema de Tipos</span>
                     </div>
                     <div
                         class="absolute left-0 top-0 bottom-0 w-1 bg-blue-600 opacity-0 btn-indicator transition-opacity">
                     </div>
                 </button>
-
                 <button onclick="showLesson(4)" id="btn-4"
                     class="nav-btn w-full text-left px-4 py-4 rounded-xl text-sm font-medium transition-all duration-200 border border-transparent hover:bg-slate-50 hover:border-slate-200 group relative overflow-hidden">
                     <div class="relative z-10 flex items-center gap-3">
@@ -157,13 +109,12 @@
                         class="absolute left-0 top-0 bottom-0 w-1 bg-blue-600 opacity-0 btn-indicator transition-opacity">
                     </div>
                 </button>
-
                 <button onclick="showLesson(5)" id="btn-5"
                     class="nav-btn w-full text-left px-4 py-4 rounded-xl text-sm font-medium transition-all duration-200 border border-transparent hover:bg-slate-50 hover:border-slate-200 group relative overflow-hidden">
                     <div class="relative z-10 flex items-center gap-3">
                         <span
                             class="flex-shrink-0 w-8 h-8 rounded-lg bg-slate-100 text-slate-500 flex items-center justify-center text-xs font-bold group-hover:bg-white group-hover:shadow-sm transition-all btn-icon">05</span>
-                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">Métodos y Clean Code</span>
+                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">Métodos & Stack</span>
                     </div>
                     <div
                         class="absolute left-0 top-0 bottom-0 w-1 bg-blue-600 opacity-0 btn-indicator transition-opacity">
@@ -173,10 +124,6 @@
         </aside>
 
         <main class="flex-1 overflow-y-auto relative bg-slate-50 scroll-smooth">
-            <div
-                class="absolute inset-0 pointer-events-none bg-[url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%2364748b\' fill-opacity=\'0.03\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')]">
-            </div>
-
             <div class="max-w-5xl mx-auto px-8 py-12 relative z-10">
 
                 <div id="lesson-1" class="lesson-section active animate-fade-in-up lesson-content">
@@ -185,134 +132,201 @@
                             <span
                                 class="px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-bold uppercase tracking-wider">Lección
                                 01</span>
-                            <span class="text-slate-400 text-sm font-medium"><i class="far fa-clock mr-1"></i> 20
+                            <span class="text-slate-400 text-sm font-medium"><i class="far fa-clock mr-1"></i> 30
                                 min</span>
                         </div>
                         <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">La Máquina
-                            Virtual (JVM) y el Ecosistema</h1>
+                            Virtual (JVM) Internals</h1>
                     </div>
 
                     <div class="bg-white rounded-2xl p-8 shadow-lg shadow-blue-900/5 border-l-4 border-blue-600 mb-10">
-                        <h3 class="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2">
-                            <i class="fas fa-bullseye text-blue-600"></i> Objetivos de Élite
+                        <h3 class="!mt-0 text-xl font-bold text-slate-800 mb-4 flex items-center gap-2">
+                            <i class="fas fa-crosshairs text-blue-600"></i> Objetivos de Ingeniería
                         </h3>
                         <div class="grid md:grid-cols-2 gap-4">
                             <div class="flex items-start gap-3"><i
                                     class="fas fa-check-circle text-green-500 mt-1"></i><span
-                                    class="text-slate-600 text-sm">Entender la JVM como S.O. virtual.</span></div>
+                                    class="text-slate-600 text-sm">Comprender el ciclo JIT (C1/C2 Compiler).</span>
+                            </div>
                             <div class="flex items-start gap-3"><i
                                     class="fas fa-check-circle text-green-500 mt-1"></i><span
-                                    class="text-slate-600 text-sm">Compilación JIT y Bytecode.</span></div>
+                                    class="text-slate-600 text-sm">Diseccionar el Bytecode (.class).</span></div>
                             <div class="flex items-start gap-3"><i
                                     class="fas fa-check-circle text-green-500 mt-1"></i><span
-                                    class="text-slate-600 text-sm">Arquitectura Stack vs Heap.</span></div>
+                                    class="text-slate-600 text-sm">Stack vs Heap: Gestión de memoria real.</span></div>
                             <div class="flex items-start gap-3"><i
                                     class="fas fa-check-circle text-green-500 mt-1"></i><span
-                                    class="text-slate-600 text-sm">Diferencias JDK vs JRE.</span></div>
+                                    class="text-slate-600 text-sm">El mito del "Write Once, Run Anywhere".</span></div>
                         </div>
                     </div>
 
-                    <h2>1. Teoría Suprema: Más allá del "Hello World"</h2>
-                    <p class="text-slate-600 mb-6 leading-relaxed">
-                        Muchos cursos te enseñan a conducir el coche (sintaxis), pero aquí vamos a abrir el capó para
-                        entender el motor. Java es famoso por su lema <em>"Write Once, Run Anywhere"</em> (WORA). ¿Cómo
-                        es esto posible si cada procesador habla un idioma distinto?
-                    </p>
-
-                    <h3 class="text-xl font-bold text-slate-800 mb-3">1.1 El Esperanto del Software: Bytecode</h3>
-                    <p class="text-slate-600 mb-4">
-                        Cuando compilas (`javac`), no creas un ejecutable (`.exe`) para Windows. Creas un archivo
-                        `.class` que contiene <strong>Bytecode</strong>.
+                    <h2>1. Más allá de la compilación</h2>
+                    <p>La mayoría de los cursos te dicen que Java es un lenguaje compilado e interpretado. <strong>Eso
+                            es una verdad a medias.</strong> Java utiliza una tecnología de élite llamada
+                        <strong>HotSpot JVM</strong>.
                     </p>
 
 
-                    <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-xl mb-8">
+
+                    <p>Cuando ejecutas <code>javac</code>, solo estás traduciendo tu código a <strong>Bytecode</strong>
+                        (un lenguaje intermedio agnóstico). La magia real ocurre cuando ejecutas el programa:</p>
+                    <ol class="list-decimal list-inside space-y-2 ml-4 text-slate-600 mb-6">
+                        <li><strong>Interpretación:</strong> La JVM empieza interpretando el bytecode línea por línea
+                            (lento pero inicio rápido).</li>
+                        <li><strong>Profiling:</strong> La JVM observa qué partes de tu código se usan más (Hot Spots).
+                        </li>
+                        <li><strong>JIT Compilation (C1/C2):</strong> La JVM compila esos "puntos calientes" a Código
+                            Máquina Nativo (Assembly) altamente optimizado en tiempo real.</li>
+                    </ol>
+
+                    <div class="bg-amber-50 border-l-4 border-amber-500 p-6 rounded-r-xl mb-8">
                         <div class="flex gap-4">
-                            <div class="text-blue-500 text-2xl"><i class="fas fa-info-circle"></i></div>
+                            <div class="text-amber-500 text-2xl"><i class="fas fa-lightbulb"></i></div>
                             <div>
-                                <h4 class="font-bold text-blue-900 mb-1">Analogía del Traductor</h4>
-                                <p class="text-blue-800 text-sm">Tú eres el autor (Programador) y escribes un libro en
-                                    un idioma perfecto (Java). La JVM es un <strong>traductor simultáneo
-                                        experto</strong> que vive en la computadora del usuario. Lee tu libro (Bytecode)
-                                    y lo traduce en tiempo real al dialecto local de la CPU.</p>
+                                <h4 class="font-bold text-amber-900 mb-1">Analogía: El Chef y el Recepcionista</h4>
+                                <p class="text-amber-800 text-sm">El <strong>Bytecode</strong> es la comanda escrita por
+                                    el camarero (tú). La <strong>CPU</strong> es el Chef Francés que solo habla francés
+                                    (Código Máquina). La <strong>JVM</strong> es el Jefe de Cocina que traduce la
+                                    comanda. Si piden 100 veces "Sopa de Cebolla", el Jefe de Cocina deja de traducir y
+                                    simplemente grita "¡Una de Cebolla!" en francés (Código Nativo optimizado).</p>
                             </div>
                         </div>
                     </div>
 
-                    <h3 class="text-xl font-bold text-slate-800 mb-4">1.2 Arquitectura de Memoria</h3>
+                    <h2>2. Arquitectura de Memoria: Stack vs Heap</h2>
+                    <p>Entender esto diferencia a un Junior de un Senior. Java divide la memoria en dos áreas críticas:
+                    </p>
+
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                         <div
-                            class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
-                            <div
-                                class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center text-purple-600 text-xl mb-4">
-                                <i class="fas fa-layer-group"></i>
+                            class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm relative overflow-hidden">
+                            <div class="absolute top-0 right-0 w-20 h-20 bg-purple-100 rounded-bl-full -mr-10 -mt-10">
                             </div>
-                            <h4 class="font-bold text-lg text-slate-800 mb-2">The Stack (La Pila)</h4>
-                            <p class="text-sm text-slate-500 mb-3">Mesa de trabajo rápida y ordenada. Tareas inmediatas
-                                y primitivos. Gestión LIFO.</p>
+                            <h4 class="font-bold text-lg text-slate-800 mb-2 relative z-10">The Stack (La Pila)</h4>
+                            <p class="text-sm text-slate-500 mb-3 relative z-10">Es tu <strong>Mesa de Trabajo</strong>.
+                                Rápida, pequeña y ordenada. Almacena variables locales y llamadas a métodos. Cuando un
+                                método termina, su espacio en el Stack se limpia instantáneamente (LIFO).</p>
                         </div>
                         <div
-                            class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
-                            <div
-                                class="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center text-emerald-600 text-xl mb-4">
-                                <i class="fas fa-cubes"></i>
+                            class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm relative overflow-hidden">
+                            <div class="absolute top-0 right-0 w-20 h-20 bg-emerald-100 rounded-bl-full -mr-10 -mt-10">
                             </div>
-                            <h4 class="font-bold text-lg text-slate-800 mb-2">The Heap (El Montículo)</h4>
-                            <p class="text-sm text-slate-500 mb-3">Gran almacén desordenado. Aquí viven los OBJETOS.
-                                Gestionado por el Garbage Collector.</p>
+                            <h4 class="font-bold text-lg text-slate-800 mb-2 relative z-10">The Heap (El Montículo)</h4>
+                            <p class="text-sm text-slate-500 mb-3 relative z-10">Es el <strong>Almacén Gigante</strong>.
+                                Lento y desordenado. Aquí viven TODOS los OBJETOS (<code>new Object()</code>). El
+                                <em>Garbage Collector</em> es el encargado de limpieza que pasa por la noche a borrar lo
+                                que nadie usa.
+                            </p>
                         </div>
                     </div>
 
-                    <h2>2. Laboratorio de Código</h2>
-                    <div class="rounded-xl overflow-hidden shadow-2xl bg-[#2d2d2d] border border-slate-700 mb-8">
-                        <div class="bg-[#1e1e1e] px-4 py-2 flex items-center gap-2 border-b border-slate-700">
-                            <div class="flex gap-1.5">
-                                <div class="w-3 h-3 rounded-full bg-red-500"></div>
-                                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
-                                <div class="w-3 h-3 rounded-full bg-green-500"></div>
-                            </div>
-                            <span class="text-xs text-slate-400 ml-2 font-mono">ArquitecturaMemoria.java</span>
-                        </div>
-                        <pre><code class="language-java">public class ArquitecturaMemoria {
-    // 'main' entra al Stack Frame principal
-    public static void main(String[] args) {
-        int id = 10; // Primitivo: Vive directamente en el Stack
-        
-        // 'usuario' es una Referencia en el Stack.
-        // El objeto real {nombre: "Ana"} se crea en el Heap.
-        Usuario usuario = new Usuario("Ana"); 
-        
-        crearReporte(usuario); // Nuevo frame apilado en el Stack
-    } // Stack se vacía, GC limpia el Heap.
+                    <h2 class="text-slate-900 border-none mb-6"><i
+                            class="fas fa-dumbbell text-blue-600 mr-2"></i>Training Ground</h2>
 
-    public static void crearReporte(Usuario u) {
-        // ... lógica
-    }
+                    <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-green-500">
+                        <span class="text-xs font-bold text-green-600 uppercase mb-2 block">🟢 Nivel Básico</span>
+                        <p class="font-medium text-slate-800 mb-2">Compilación Manual</p>
+                        <p class="text-sm text-slate-600 mb-4">Crea un archivo <code>Hola.java</code> con un bloc de
+                            notas (sin IDE). Compílalo usando la terminal con <code>javac</code> y ejecútalo con
+                            <code>java</code>.
+                        </p>
+                        <details class="group">
+                            <summary
+                                class="flex cursor-pointer items-center text-sm font-medium text-green-600 hover:text-green-700">
+                                <i class="fas fa-lightbulb mr-2"></i>Ver Pista
+                            </summary>
+                            <p class="mt-2 text-sm text-slate-600 pl-6 border-l-2 border-slate-300">
+                                Necesitas tener el JDK instalado y añadido al PATH. Comandos:
+                                <code>javac Hola.java</code> (genera .class) y luego <code>java Hola</code> (sin la
+                                extensión).
+                            </p>
+                        </details>
+                    </div>
+
+                    <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-yellow-500">
+                        <span class="text-xs font-bold text-yellow-600 uppercase mb-2 block">🟡 Nivel Intermedio</span>
+                        <p class="font-medium text-slate-800 mb-2">Autopsia del Bytecode</p>
+                        <p class="text-sm text-slate-600 mb-4">Usa el desensamblador de Java para ver el bytecode
+                            generado del ejercicio anterior. Identifica el constructor por defecto.</p>
+                        <details class="group">
+                            <summary
+                                class="flex cursor-pointer items-center text-sm font-medium text-yellow-600 hover:text-yellow-700">
+                                <i class="fas fa-lightbulb mr-2"></i>Ver Pista
+                            </summary>
+                            <p class="mt-2 text-sm text-slate-600 pl-6 border-l-2 border-slate-300">
+                                El comando mágico es <code>javap -c Hola.class</code>. Busca la instrucción
+                                <code>invokespecial</code>.
+                            </p>
+                        </details>
+                    </div>
+
+                    <div class="mb-10 p-6 bg-slate-100 rounded-xl border-l-4 border-red-500">
+                        <span class="text-xs font-bold text-red-600 uppercase mb-2 block">🔴 Nivel Avanzado (Caso
+                            Real)</span>
+                        <p class="font-medium text-slate-800 mb-2">Colapso de Memoria Controlado</p>
+                        <p class="text-sm text-slate-600 mb-4">Escribe dos programas: uno que cause un
+                            <code>StackOverflowError</code> (agotando la Pila) y otro que cause un
+                            <code>OutOfMemoryError</code> (agotando el Heap). Esto te enseñará los límites físicos de la
+                            JVM.
+                        </p>
+
+                        <div class="mt-4">
+                            <button onclick="toggleSolution('sol-l1-adv')"
+                                class="text-xs font-bold text-white bg-slate-800 px-4 py-2 rounded hover:bg-slate-700 transition-colors">
+                                <i class="fas fa-code mr-2"></i>Ver Solución Guía
+                            </button>
+                            <div id="sol-l1-adv" class="hidden mt-4">
+                                <pre><code class="language-java">// 1. StackOverflowError: Recursividad infinita sin caso base.
+// Cada llamada añade un frame al Stack hasta que explota.
+public void romperStack() {
+    romperStack(); 
+}
+
+// 2. OutOfMemoryError: Llenar el Heap de objetos basura.
+// El Garbage Collector no puede borrar objetos que tienen referencias vivas.
+List<byte[]> agujeroNegro = new ArrayList<>();
+while(true) {
+    agujeroNegro.add(new byte[1024 * 1024]); // Añade 1MB repetidamente
 }</code></pre>
+                            </div>
+                        </div>
                     </div>
 
-                    <div
-                        class="bg-white rounded-2xl p-6 border border-slate-200 shadow-lg mb-6 relative overflow-hidden group hover:border-red-400 transition-colors">
-                        <div
-                            class="absolute top-0 right-0 bg-red-100 text-red-700 text-xs font-bold px-3 py-1 rounded-bl-xl border-l border-b border-red-200">
-                            NIVEL EXPERTO</div>
-                        <h4 class="font-bold text-lg text-slate-800 mb-2 group-hover:text-red-600 transition-colors">
-                            Provocando el Colapso</h4>
-                        <p class="text-slate-600 text-sm mb-4">Crea un `StackOverflowError` y un `OutOfMemoryError`
-                            intencionalmente.</p>
-
-                        <button onclick="toggleSolution('sol-1')"
-                            class="text-sm font-bold text-red-600 flex items-center gap-2 hover:bg-red-50 px-3 py-2 rounded-lg transition-colors">
-                            <i class="fas fa-eye"></i> Ver Solución
-                        </button>
-
-                        <div id="sol-1" class="hidden mt-4 bg-slate-900 rounded-xl p-4 border border-slate-700">
-                            <pre><code class="language-java text-xs text-white">// 1. StackOverflowError (Recursividad Infinita)
-public void recursivo() { recursivo(); }
-
-// 2. OutOfMemoryError (Heap lleno)
-List&lt;byte[]&gt; memoria = new ArrayList<>();
-while(true) { memoria.add(new byte[1024*1024]); }</code></pre>
+                    <div class="bg-white rounded-2xl p-8 border border-slate-200 shadow-sm">
+                        <h3 class="!mt-0 mb-6 text-slate-800">Quiz de Validación</h3>
+                        <div class="space-y-4">
+                            <div class="pb-4 border-b border-slate-100">
+                                <p class="text-sm font-semibold text-slate-700 mb-2">1. ¿Qué componente traduce Bytecode
+                                    a código máquina nativo para optimizar rendimiento?</p>
+                                <div class="grid grid-cols-1 gap-2 text-sm">
+                                    <button
+                                        class="quiz-option text-left px-4 py-2 rounded border border-slate-200 text-slate-600 transition-all"
+                                        onclick="this.style.borderColor='#ef4444'; this.style.color='#ef4444'">A)
+                                        ClassLoader</button>
+                                    <button
+                                        class="quiz-option text-left px-4 py-2 rounded border border-slate-200 text-slate-600 transition-all"
+                                        onclick="this.style.borderColor='#22c55e'; this.style.color='#22c55e'; this.style.fontWeight='bold'">B)
+                                        JIT Compiler</button>
+                                    <button
+                                        class="quiz-option text-left px-4 py-2 rounded border border-slate-200 text-slate-600 transition-all"
+                                        onclick="this.style.borderColor='#ef4444'; this.style.color='#ef4444'">C)
+                                        Garbage Collector</button>
+                                </div>
+                            </div>
+                            <div>
+                                <p class="text-sm font-semibold text-slate-700 mb-2">2. ¿Dónde se almacenan las
+                                    variables locales primitivas (int, boolean)?</p>
+                                <div class="grid grid-cols-1 gap-2 text-sm">
+                                    <button
+                                        class="quiz-option text-left px-4 py-2 rounded border border-slate-200 text-slate-600 transition-all"
+                                        onclick="this.style.borderColor='#22c55e'; this.style.color='#22c55e'; this.style.fontWeight='bold'">A)
+                                        Stack</button>
+                                    <button
+                                        class="quiz-option text-left px-4 py-2 rounded border border-slate-200 text-slate-600 transition-all"
+                                        onclick="this.style.borderColor='#ef4444'; this.style.color='#ef4444'">B)
+                                        Heap</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -324,62 +338,98 @@ while(true) { memoria.add(new byte[1024*1024]); }</code></pre>
                                 class="px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-bold uppercase tracking-wider">Lección
                                 02</span>
                         </div>
-                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">Dominando
-                            IntelliJ IDEA</h1>
+                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">Dominando el IDE
+                            como un Senior</h1>
                     </div>
 
                     <div class="bg-white rounded-2xl p-8 shadow-lg shadow-blue-900/5 border-l-4 border-blue-600 mb-10">
-                        <h3 class="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2"><i
-                                class="fas fa-bullseye text-blue-600"></i> Objetivos de Élite</h3>
+                        <h3 class="!mt-0 text-xl font-bold text-slate-800 mb-4 flex items-center gap-2">
+                            <i class="fas fa-crosshairs text-blue-600"></i> Objetivos de Ingeniería
+                        </h3>
                         <ul class="list-disc list-inside text-gray-600 space-y-2 text-sm">
-                            <li>Configurar IntelliJ IDEA para rendimiento máximo.</li>
-                            <li>Entender el "Indexado": Por qué tu IDE piensa por ti.</li>
-                            <li>Dominar la Refactorización Automatizada.</li>
-                            <li>Debugging Visual: Dejar de usar `System.out.println`.</li>
+                            <li>Entender el <strong>AST (Abstract Syntax Tree)</strong> y el Indexado.</li>
+                            <li>Uso del Debugger Condicional (No más <code>System.out.println</code>).</li>
+                            <li>Refactorización automatizada segura.</li>
+                            <li>Local History: Tu salvavidas cuando Git falla.</li>
                         </ul>
                     </div>
 
-                    <h2>1. Teoría Suprema: Tu IDE es tu Exosqueleto</h2>
-                    <p class="text-slate-600 mb-4">Un programador senior no escribe código más rápido tecleando; lo hace
-                        porque el IDE escribe el 40% por él. <strong>IntelliJ IDEA</strong> no es un editor de texto, es
-                        un motor de análisis estático.</p>
+                    <h2>1. Tu IDE es un Analizador Estático</h2>
+                    <p>Un editor de texto (Notepad++) ve caracteres. <strong>IntelliJ IDEA</strong> ve estructuras.
+                        Cuando el IDE "Indexa", está construyendo un <strong>AST (Árbol de Sintaxis Abstracta)</strong>
+                        de tu código. Esto significa que él <em>entiende</em> tu código.</p>
 
-                    <h3 class="text-xl font-bold text-slate-800 mb-3">1.1 Indexado: El Cerebro Artificial</h3>
-                    <p class="text-slate-600 mb-4">Cuando abres un proyecto y ves "Indexing...", IntelliJ está creando
-                        un mapa mental de todo tu código. Esto permite:</p>
-                    <ul class="list-disc list-inside text-slate-600 ml-4 mb-6">
-                        <li><strong>Refactorización Segura:</strong> Renombrar una clase actualiza todas sus
-                            referencias.</li>
-                        <li><strong>Análisis de Código Muerto:</strong> Te avisa si un método no se usa.</li>
+                    <p>Por eso puedes hacer cosas "mágicas" como:</p>
+                    <ul class="list-disc list-inside text-slate-600 mb-6 ml-4">
+                        <li><strong>Find Usages (Alt+F7):</strong> No es una búsqueda de texto (Ctrl+F). Busca
+                            <em>referencias semánticas</em>. Si tienes dos variables llamadas <code>id</code> en clases
+                            distintas, el IDE sabe cuál es cuál.
+                        </li>
+                        <li><strong>Refactorización:</strong> Cambiar el nombre de una clase actualiza archivos,
+                            imports, variables y comentarios en todo el proyecto en milisegundos.</li>
                     </ul>
 
-                    <h2>2. Laboratorio de Productividad</h2>
+                    <h2>2. Debugging de Nivel Dios</h2>
+                    <p>Los novatos llenan el código de <code>print</code>. Los expertos usan Breakpoints.</p>
                     <div class="rounded-xl overflow-hidden shadow-2xl bg-[#2d2d2d] border border-slate-700 mb-8">
-                        <pre><code class="language-java">public class Productividad {
-    // Escribe 'psvm' + TAB
-    public static void main(String[] args) {
-        String saludo = "Hola Senior";
-        
-        // Escribe 'sout' + TAB
-        System.out.println(saludo);
-        
-        // Ctrl+Alt+M (Extract Method)
-        int resultado = calculoComplejo(10, 20);
-        
-        // 'soutv' + TAB
-        System.out.println("resultado = " + resultado);
-    }
-
-    private static int calculoComplejo(int a, int b) {
-        return a * b + 100;
-    }
+                        <div class="bg-[#1e1e1e] px-4 py-2 flex items-center gap-2 border-b border-slate-700">
+                            <span class="text-xs text-slate-400 font-mono">Debugging.java</span>
+                        </div>
+                        <pre><code class="language-java">for (int i = 0; i < 1000; i++) {
+    process(i); // ¿Cómo paras SOLO cuando i es 500?
 }</code></pre>
                     </div>
+                    <p><strong>Conditional Breakpoint:</strong> Haz clic derecho en el punto rojo del breakpoint y
+                        escribe la condición <code>i == 500</code>. El programa correrá a toda velocidad y se detendrá
+                        quirúrgicamente ahí.</p>
 
-                    <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-6 mb-8">
-                        <h4 class="font-bold text-emerald-800 mb-2">Clean Code Tooling</h4>
-                        <p class="text-emerald-900 text-sm"><strong>Reformat Code:</strong> Usa `Ctrl+Alt+L` (Windows)
-                            compulsivamente. Configura IntelliJ para formatear al guardar.</p>
+                    <h2 class="text-slate-900 border-none mb-6"><i
+                            class="fas fa-dumbbell text-blue-600 mr-2"></i>Training Ground</h2>
+
+                    <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-green-500">
+                        <span class="text-xs font-bold text-green-600 uppercase mb-2 block">🟢 Nivel Básico</span>
+                        <p class="font-medium text-slate-800 mb-2">Live Templates</p>
+                        <p class="text-sm text-slate-600 mb-4">Crea un "Main" y un "Print" sin escribir las palabras
+                            completas.</p>
+                        <details class="group">
+                            <summary
+                                class="flex cursor-pointer items-center text-sm font-medium text-green-600 hover:text-green-700">
+                                Pista</summary>
+                            <p class="mt-2 text-sm text-slate-600 pl-4 border-l-2 border-slate-300">Escribe
+                                <code>psvm</code> + Tab y <code>sout</code> + Tab (o <code>soutv</code> para variables).
+                            </p>
+                        </details>
+                    </div>
+
+                    <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-yellow-500">
+                        <span class="text-xs font-bold text-yellow-600 uppercase mb-2 block">🟡 Nivel Intermedio</span>
+                        <p class="font-medium text-slate-800 mb-2">Refactorización: Extract Method</p>
+                        <p class="text-sm text-slate-600 mb-4">Toma un bloque de código sucio dentro de tu Main (ej: un
+                            cálculo matemático) y extráelo a un método privado automáticamente.</p>
+                        <details class="group">
+                            <summary
+                                class="flex cursor-pointer items-center text-sm font-medium text-yellow-600 hover:text-yellow-700">
+                                Pista</summary>
+                            <p class="mt-2 text-sm text-slate-600 pl-4 border-l-2 border-slate-300">Selecciona el código
+                                y presiona <code>Ctrl + Alt + M</code> (Windows) o <code>Cmd + Opt + M</code> (Mac).</p>
+                        </details>
+                    </div>
+
+                    <div class="mb-10 p-6 bg-slate-100 rounded-xl border-l-4 border-red-500">
+                        <span class="text-xs font-bold text-red-600 uppercase mb-2 block">🔴 Nivel Avanzado</span>
+                        <p class="font-medium text-slate-800 mb-2">Viaje en el Tiempo (Local History)</p>
+                        <p class="text-sm text-slate-600 mb-4">Borra accidentalmente una clase entera (simulado).
+                            Recupérala sin usar Git.</p>
+                        <div class="mt-4">
+                            <button onclick="toggleSolution('sol-l2-adv')"
+                                class="text-xs font-bold text-white bg-slate-800 px-4 py-2 rounded hover:bg-slate-700">Solución
+                                Guía</button>
+                            <div id="sol-l2-adv" class="hidden mt-4 text-sm text-slate-300 bg-slate-900 p-4 rounded">
+                                Click derecho en la carpeta del proyecto en el explorador del IDE -> <strong>Local
+                                    History</strong> -> <strong>Show History</strong>. IntelliJ guarda snapshots cada
+                                vez que compilas o guardas, independientemente de tus commits de Git.
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -390,69 +440,129 @@ while(true) { memoria.add(new byte[1024*1024]); }</code></pre>
                                 class="px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-bold uppercase tracking-wider">Lección
                                 03</span>
                         </div>
-                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">Variables y Tipos
-                        </h1>
+                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">El Sistema de
+                            Tipos y Precisión</h1>
                     </div>
 
                     <div class="bg-white rounded-2xl p-8 shadow-lg shadow-blue-900/5 border-l-4 border-blue-600 mb-10">
-                        <h3 class="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2"><i
-                                class="fas fa-bullseye text-blue-600"></i> Objetivos de Élite</h3>
+                        <h3 class="!mt-0 text-xl font-bold text-slate-800 mb-4 flex items-center gap-2">
+                            <i class="fas fa-crosshairs text-blue-600"></i> Objetivos de Ingeniería
+                        </h3>
                         <ul class="list-disc list-inside text-gray-600 space-y-2 text-sm">
-                            <li>Dominar la anatomía de los tipos: Bits, Bytes y rangos.</li>
-                            <li>Entender el costo del Autoboxing.</li>
-                            <li>Inferencia de tipos (`var`).</li>
-                            <li>Precisión Financiera: `BigDecimal`.</li>
+                            <li>Anatomía de los tipos (Bits y Bytes).</li>
+                            <li>La trampa del punto flotante (IEEE 754).</li>
+                            <li>String Pool y el patrón Flyweight.</li>
+                            <li>Inferencia de tipos con <code>var</code>.</li>
                         </ul>
                     </div>
 
-                    <h2>1. Teoría Suprema: Bits y Precisión</h2>
-                    <p class="text-slate-600 mb-6">Elegir el tipo de dato incorrecto puede costar millones (errores de
-                        redondeo) o tumbar servidores (memoria).</p>
+                    <h2>1. Bits, Bytes y el costo de la memoria</h2>
+                    <p>Java es un lenguaje tipado estáticamente. Cada variable define cuántos bits ocupa en memoria.
+                        Elegir mal es ineficiente.</p>
 
                     <div class="overflow-hidden rounded-xl border border-slate-200 mb-8 shadow-sm">
                         <table class="w-full text-left bg-white text-sm">
                             <thead class="bg-slate-100 text-slate-700 font-bold uppercase text-xs">
                                 <tr>
                                     <th class="p-4">Tipo</th>
-                                    <th class="p-4">Tamaño</th>
-                                    <th class="p-4">Uso Ideal</th>
+                                    <th class="p-4">Bits</th>
+                                    <th class="p-4">Uso Profesional</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-slate-100">
                                 <tr>
-                                    <td class="p-4 font-mono">int</td>
-                                    <td class="p-4">32 bits</td>
-                                    <td class="p-4">Contadores, índices.</td>
+                                    <td class="p-4 font-mono text-pink-600">int</td>
+                                    <td class="p-4">32</td>
+                                    <td class="p-4">Estándar para números enteros.</td>
                                 </tr>
                                 <tr>
-                                    <td class="p-4 font-mono">long</td>
-                                    <td class="p-4">64 bits</td>
-                                    <td class="p-4">IDs de BD, timestamps.</td>
+                                    <td class="p-4 font-mono text-pink-600">long</td>
+                                    <td class="p-4">64</td>
+                                    <td class="p-4">IDs de bases de datos, Timestamps, conteos masivos (Twitter likes).
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td class="p-4 font-mono">double</td>
-                                    <td class="p-4">64 bits</td>
-                                    <td class="p-4">Científico (NO dinero).</td>
+                                    <td class="p-4 font-mono text-pink-600">double</td>
+                                    <td class="p-4">64</td>
+                                    <td class="p-4">Cálculos científicos (física, coordenadas). <strong>JAMÁS para
+                                            dinero.</strong></td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
 
-                    <div class="rounded-xl overflow-hidden shadow-2xl bg-[#2d2d2d] border border-slate-700 mb-8">
-                        <pre><code class="language-java">import java.math.BigDecimal;
+                    <h2>2. El Crimen Financiero (IEEE 754)</h2>
+                    <p>Nunca uses <code>double</code> o <code>float</code> para monedas. Las computadoras usan base 2
+                        (binario), y no pueden representar exactamente fracciones como 0.1 (igual que en base 10 no
+                        podemos escribir 1/3 exactamente).</p>
 
-public class Precision {
-    public static void main(String[] args) {
-        // EL CRIMEN FINANCIERO
-        double precio = 0.1;
-        System.out.println(precio + 0.2); // 0.30000000000000004
-        
-        // LA SOLUCIÓN PROFESIONAL
-        BigDecimal exacto = new BigDecimal("0.1");
-        BigDecimal suma = exacto.add(new BigDecimal("0.2"));
-        System.out.println(suma); // 0.3
-    }
-}</code></pre>
+                    <div class="bg-red-50 border-l-4 border-red-500 p-6 rounded-r-xl mb-8">
+                        <h4 class="font-bold text-red-800 mb-1">¡Peligro!</h4>
+                        <code
+                            class="text-red-900 block mt-2">double a = 0.1 + 0.2; // Resultado: 0.30000000000000004</code>
+                        <p class="text-red-700 text-sm mt-2">Para dinero, usa SIEMPRE <strong>BigDecimal</strong>.</p>
+                    </div>
+
+                    <h2>3. String Pool (Optimización interna)</h2>
+                    <p>Los Strings en Java son inmutables. Para ahorrar memoria, Java usa un "String Pool" en el Heap.
+                        Si creas dos strings con "Hola", ambos apuntan a la misma dirección de memoria. Esto es el
+                        patrón de diseño <strong>Flyweight</strong> integrado en el lenguaje.</p>
+
+                    <h2 class="text-slate-900 border-none mb-6"><i
+                            class="fas fa-dumbbell text-blue-600 mr-2"></i>Training Ground</h2>
+
+                    <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-green-500">
+                        <span class="text-xs font-bold text-green-600 uppercase mb-2 block">🟢 Nivel Básico</span>
+                        <p class="font-medium text-slate-800 mb-2">Inferencia con Var</p>
+                        <p class="text-sm text-slate-600 mb-4">Declara una variable usando <code>var</code> para
+                            almacenar un String muy largo y luego intenta asignarle un número. Observa el error.</p>
+                        <details class="group">
+                            <summary
+                                class="flex cursor-pointer items-center text-sm font-medium text-green-600 hover:text-green-700">
+                                Pista</summary>
+                            <p class="mt-2 text-sm text-slate-600 pl-4 border-l-2 border-slate-300">Java sigue siendo
+                                fuertemente tipado. <code>var</code> solo infiere el tipo al momento de compilar. Una
+                                vez es String, siempre será String.</p>
+                        </details>
+                    </div>
+
+                    <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-yellow-500">
+                        <span class="text-xs font-bold text-yellow-600 uppercase mb-2 block">🟡 Nivel Intermedio</span>
+                        <p class="font-medium text-slate-800 mb-2">La Trampa de la Identidad</p>
+                        <p class="text-sm text-slate-600 mb-4">Compara dos Strings: uno creado con literales
+                            (<code>"texto"</code>) y otro con <code>new String("texto")</code> usando <code>==</code>.
+                            ¿Por qué da false?</p>
+                        <details class="group">
+                            <summary
+                                class="flex cursor-pointer items-center text-sm font-medium text-yellow-600 hover:text-yellow-700">
+                                Pista</summary>
+                            <p class="mt-2 text-sm text-slate-600 pl-4 border-l-2 border-slate-300"><code>==</code>
+                                compara direcciones de memoria. El literal vive en el Pool. El <code>new</code> fuerza
+                                la creación de un objeto nuevo en el Heap principal.</p>
+                        </details>
+                    </div>
+
+                    <div class="mb-10 p-6 bg-slate-100 rounded-xl border-l-4 border-red-500">
+                        <span class="text-xs font-bold text-red-600 uppercase mb-2 block">🔴 Nivel Avanzado</span>
+                        <p class="font-medium text-slate-800 mb-2">Cálculo Financiero Exacto</p>
+                        <p class="text-sm text-slate-600 mb-4">Crea un programa que calcule el impuesto (19%) de un
+                            producto que vale 19.90, usando <code>BigDecimal</code>. El resultado debe estar redondeado
+                            a 2 decimales usando <code>RoundingMode.HALF_UP</code>.</p>
+                        <div class="mt-4">
+                            <button onclick="toggleSolution('sol-l3-adv')"
+                                class="text-xs font-bold text-white bg-slate-800 px-4 py-2 rounded hover:bg-slate-700">Solución
+                                Guía</button>
+                            <div id="sol-l3-adv" class="hidden mt-4">
+                                <pre><code class="language-java">import java.math.BigDecimal;
+import java.math.RoundingMode;
+
+BigDecimal precio = new BigDecimal("19.90"); // ¡Usa String en el constructor!
+BigDecimal tasa = new BigDecimal("0.19");
+BigDecimal impuesto = precio.multiply(tasa);
+// Redondeo profesional
+BigDecimal total = impuesto.setScale(2, RoundingMode.HALF_UP);</code></pre>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -464,27 +574,97 @@ public class Precision {
                                 04</span>
                         </div>
                         <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">Control de Flujo
-                        </h1>
+                            & Clean Code</h1>
                     </div>
 
-                    <h2>1. Teoría Suprema: La Carga Cognitiva</h2>
-                    <p class="text-slate-600 mb-6">Cada `if` anidado aumenta la carga cognitiva. Un código con forma de
-                        flecha (Arrow Code) es difícil de mantener.</p>
-
-                    <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-6 mb-8">
-                        <h4 class="font-bold text-emerald-800 mb-2">Patrón: Guard Clauses</h4>
-                        <p class="text-emerald-900 text-sm">
-                            <strong>Mal:</strong> `if (user != null) { if (active) { ... } }`<br>
-                            <strong>Bien:</strong> `if (user == null) return;` `if (!active) return;`
-                        </p>
+                    <div class="bg-white rounded-2xl p-8 shadow-lg shadow-blue-900/5 border-l-4 border-blue-600 mb-10">
+                        <h3 class="!mt-0 text-xl font-bold text-slate-800 mb-4 flex items-center gap-2">
+                            <i class="fas fa-crosshairs text-blue-600"></i> Objetivos de Ingeniería
+                        </h3>
+                        <ul class="list-disc list-inside text-gray-600 space-y-2 text-sm">
+                            <li>Reducir la <strong>Complejidad Ciclomática</strong>.</li>
+                            <li>Evitar el "Arrow Code" (código flecha) con Guard Clauses.</li>
+                            <li>Switch Expressions modernos (Java 14+).</li>
+                            <li>Entender el Branch Prediction de la CPU.</li>
+                        </ul>
                     </div>
 
-                    <div class="rounded-xl overflow-hidden shadow-2xl bg-[#2d2d2d] border border-slate-700 mb-8">
-                        <pre><code class="language-java">String tipo = switch (dia) {
-    case "LUNES", "VIERNES" -> "Laboral";
-    case "SABADO", "DOMINGO" -> "Fin de Semana";
-    default -> throw new IllegalArgumentException("Inválido");
-};</code></pre>
+                    <h2>1. Complejidad Cognitiva y Guard Clauses</h2>
+                    <p>Cada <code>if</code> anidado aumenta la carga mental para entender el código. Un código con
+                        muchos niveles de indentación es un "Code Smell".</p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                        <div class="bg-red-50 p-4 rounded-xl border border-red-200">
+                            <h4 class="text-red-800 font-bold mb-2">❌ Estilo Novato (Arrow Code)</h4>
+                            <pre class="text-xs bg-white p-2 rounded border border-red-100"><code class="language-java">if (usuario != null) {
+    if (usuario.isActivo()) {
+        if (saldo > 0) {
+            enviarProducto();
+        }
+    }
+}</code></pre>
+                        </div>
+                        <div class="bg-green-50 p-4 rounded-xl border border-green-200">
+                            <h4 class="text-green-800 font-bold mb-2">✅ Estilo Senior (Guard Clauses)</h4>
+                            <pre class="text-xs bg-white p-2 rounded border border-green-100"><code class="language-java">if (usuario == null) return;
+if (!usuario.isActivo()) return;
+if (saldo <= 0) return;
+
+enviarProducto(); // Flujo lineal y limpio</code></pre>
+                        </div>
+                    </div>
+
+                    <h2>2. Switch Expressions (Modern Java)</h2>
+                    <p>El viejo switch era propenso a errores (olvidar el <code>break</code>). Java moderno introduce
+                        expresiones funcionales que retornan valores y no necesitan break.</p>
+
+                    <h2 class="text-slate-900 border-none mb-6"><i
+                            class="fas fa-dumbbell text-blue-600 mr-2"></i>Training Ground</h2>
+
+                    <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-green-500">
+                        <span class="text-xs font-bold text-green-600 uppercase mb-2 block">🟢 Nivel Básico</span>
+                        <p class="font-medium text-slate-800 mb-2">Switch Moderno</p>
+                        <p class="text-sm text-slate-600 mb-4">Convierte un switch clásico de días de la semana
+                            (Lunes-Domingo) a un Switch Expression que retorne "Laboral" o "Descanso".</p>
+                        <details class="group">
+                            <summary
+                                class="flex cursor-pointer items-center text-sm font-medium text-green-600 hover:text-green-700">
+                                Pista</summary>
+                            <p class="mt-2 text-sm text-slate-600 pl-4 border-l-2 border-slate-300">Usa la sintaxis
+                                <code>case LUNES, MARTES -> "Laboral";</code>.
+                            </p>
+                        </details>
+                    </div>
+
+                    <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-yellow-500">
+                        <span class="text-xs font-bold text-yellow-600 uppercase mb-2 block">🟡 Nivel Intermedio</span>
+                        <p class="font-medium text-slate-800 mb-2">Optimización de Bucles</p>
+                        <p class="text-sm text-slate-600 mb-4">Investiga por qué iterar sobre un Array ordenado es más
+                            rápido que uno desordenado al hacer condicionales (Branch Prediction).</p>
+                    </div>
+
+                    <div class="mb-10 p-6 bg-slate-100 rounded-xl border-l-4 border-red-500">
+                        <span class="text-xs font-bold text-red-600 uppercase mb-2 block">🔴 Nivel Avanzado</span>
+                        <p class="font-medium text-slate-800 mb-2">Refactorización Masiva</p>
+                        <p class="text-sm text-slate-600 mb-4">Escribe un método "validarUsuario" con 4 niveles de
+                            if/else anidados. Luego refactorízalo usando Guard Clauses para que tenga máximo 1 nivel de
+                            indentación.</p>
+                        <div class="mt-4">
+                            <button onclick="toggleSolution('sol-l4-adv')"
+                                class="text-xs font-bold text-white bg-slate-800 px-4 py-2 rounded hover:bg-slate-700">Solución
+                                Guía</button>
+                            <div id="sol-l4-adv" class="hidden mt-4">
+                                <pre><code class="language-java">// Patrón "Fail Fast"
+public void registrar(User u) {
+    if (u == null) throw new IllegalArgumentException("Nulo");
+    if (u.edad < 18) throw new SecurityException("Menor");
+    if (!db.isConnected()) throw new RuntimeException("DB Error");
+
+    // Lógica principal aquí, sin indentación
+    db.save(u);
+}</code></pre>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -495,34 +675,105 @@ public class Precision {
                                 class="px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-bold uppercase tracking-wider">Lección
                                 05</span>
                         </div>
-                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">Métodos y Clean
-                            Code</h1>
+                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">Anatomía de
+                            Métodos y Stack Frames</h1>
                     </div>
 
-                    <h2>1. Teoría Suprema: The Stack Frame</h2>
-                    <p class="text-slate-600 mb-6">Cuando llamas a un método, Java crea un "Stack Frame" en la Pila con
-                        sus variables locales. Cuando termina, se destruye.</p>
-
-                    <div class="bg-red-50 border-l-4 border-red-500 p-6 rounded-r-xl mb-8">
-                        <h4 class="font-bold text-red-800 mb-1">¡Java SIEMPRE pasa por valor!</h4>
-                        <p class="text-red-700 text-sm">Se pasa el valor de la referencia (una copia de la dirección),
-                            no el objeto en sí. Puedes modificar el interior del objeto, pero no cambiar a qué objeto
-                            apunta la variable original.</p>
+                    <div class="bg-white rounded-2xl p-8 shadow-lg shadow-blue-900/5 border-l-4 border-blue-600 mb-10">
+                        <h3 class="!mt-0 text-xl font-bold text-slate-800 mb-4 flex items-center gap-2">
+                            <i class="fas fa-crosshairs text-blue-600"></i> Objetivos de Ingeniería
+                        </h3>
+                        <ul class="list-disc list-inside text-gray-600 space-y-2 text-sm">
+                            <li>Entender el <strong>Stack Frame</strong>.</li>
+                            <li>El mito del "Pass by Reference" (Java es <strong>Pass by Value</strong>).</li>
+                            <li>Principio de Responsabilidad Única (SRP).</li>
+                            <li>Riesgos de la Recursividad.</li>
+                        </ul>
                     </div>
 
-                    <div class="rounded-xl overflow-hidden shadow-2xl bg-[#2d2d2d] border border-slate-700 mb-8">
-                        <pre><code class="language-java">// Un método debe hacer UNA sola cosa.
-public static double calcularSalario(double bruto) {
-    double impuesto = calcularIVA(bruto); // Delegar
-    return bruto - impuesto;
+                    <h2>1. The Stack Frame (El Marco de Pila)</h2>
+                    <p>Cada vez que invocas un método, Java crea un bloque de memoria nuevo en el Stack llamado
+                        <strong>Frame</strong>. Este frame contiene:
+                    </p>
+                    <ul class="list-disc list-inside text-slate-600 ml-4 mb-4">
+                        <li>Las variables locales del método.</li>
+                        <li>Los parámetros recibidos.</li>
+                        <li>La dirección de retorno (a dónde volver cuando termine).</li>
+                    </ul>
+                    <p>Cuando el método termina (encuentra un <code>return</code> o cierra llave <code>}</code>), el
+                        Frame se destruye. Por eso las variables locales no existen fuera del método.</p>
+
+                    <h2>2. Java is Pass-By-Value (Siempre)</h2>
+                    <p>Este es el concepto más malinterpretado. Java <strong>nunca</strong> pasa objetos a los métodos.
+                        Pasa el <strong>valor de la referencia</strong> (como una fotocopia de las llaves de tu casa).
+                    </p>
+
+                    <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-xl mb-8">
+                        <h4 class="font-bold text-blue-900 mb-1">La Analogía de la Llave</h4>
+                        <p class="text-blue-800 text-sm">Si le doy una copia de mi llave (referencia) a un constructor,
+                            él puede entrar a mi casa y pintar las paredes (modificar el objeto). Pero si él cambia su
+                            llave por otra, mi llave original sigue abriendo mi casa (no puede cambiar a qué objeto
+                            apunto yo).</p>
+                    </div>
+
+                    <h2 class="text-slate-900 border-none mb-6"><i
+                            class="fas fa-dumbbell text-blue-600 mr-2"></i>Training Ground</h2>
+
+                    <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-green-500">
+                        <span class="text-xs font-bold text-green-600 uppercase mb-2 block">🟢 Nivel Básico</span>
+                        <p class="font-medium text-slate-800 mb-2">Scope de Variables</p>
+                        <p class="text-sm text-slate-600 mb-4">Intenta acceder a una variable definida dentro de un
+                            <code>if</code> o un método desde fuera de él. Analiza el error del compilador.
+                        </p>
+                    </div>
+
+                    <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-yellow-500">
+                        <span class="text-xs font-bold text-yellow-600 uppercase mb-2 block">🟡 Nivel Intermedio</span>
+                        <p class="font-medium text-slate-800 mb-2">Clean Code: SRP</p>
+                        <p class="text-sm text-slate-600 mb-4">Tienes un método <code>procesarPedido()</code> que
+                            calcula impuestos, envía email y guarda en BD. Divídelo en 3 métodos pequeños.</p>
+                        <details class="group">
+                            <summary
+                                class="flex cursor-pointer items-center text-sm font-medium text-yellow-600 hover:text-yellow-700">
+                                Pista</summary>
+                            <p class="mt-2 text-sm text-slate-600 pl-4 border-l-2 border-slate-300">Un método debería
+                                tener un nombre que sea verbo y hacer SOLAMENTE lo que dice su nombre.</p>
+                        </details>
+                    </div>
+
+                    <div class="mb-10 p-6 bg-slate-100 rounded-xl border-l-4 border-red-500">
+                        <span class="text-xs font-bold text-red-600 uppercase mb-2 block">🔴 Nivel Avanzado</span>
+                        <p class="font-medium text-slate-800 mb-2">Prueba de Pass-by-Value</p>
+                        <p class="text-sm text-slate-600 mb-4">Crea un método
+                            <code>intercambiar(Objeto a, Objeto b)</code> que intente intercambiar las referencias.
+                            Demuestra en el main que el intercambio NO funcionó fuera del método.
+                        </p>
+                        <div class="mt-4">
+                            <button onclick="toggleSolution('sol-l5-adv')"
+                                class="text-xs font-bold text-white bg-slate-800 px-4 py-2 rounded hover:bg-slate-700">Solución
+                                Guía</button>
+                            <div id="sol-l5-adv" class="hidden mt-4">
+                                <pre><code class="language-java">public void test() {
+    String s1 = "A";
+    String s2 = "B";
+    swap(s1, s2);
+    System.out.println(s1); // Sigue siendo "A". ¡Prueba de Pass-by-Value!
+}
+
+public void swap(String x, String y) {
+    String temp = x;
+    x = y; // Solo cambia la copia local 'x'
+    y = temp;
 }</code></pre>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
             </div>
 
             <footer class="mt-20 py-8 text-center text-slate-400 text-sm border-t border-slate-200">
-                <p>&copy; 2025 Java Masterclass. Módulo 1 completado.</p>
+                <p>&copy; 2025 Java Elite Bootcamp. Arquitectura de Software.</p>
             </footer>
         </main>
     </div>
@@ -531,16 +782,18 @@ public static double calcularSalario(double bruto) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
     <script>
         function showLesson(id) {
+            // Ocultar todas las lecciones
             document.querySelectorAll('.lesson-section').forEach(el => {
                 el.classList.add('hidden');
                 el.classList.remove('active');
             });
 
+            // Mostrar lección seleccionada
             const selected = document.getElementById('lesson-' + id);
             selected.classList.remove('hidden');
             setTimeout(() => selected.classList.add('active'), 10);
 
-            // Resetear botones
+            // Resetear estilos de botones
             document.querySelectorAll('.nav-btn').forEach(btn => {
                 btn.classList.remove('active', 'bg-blue-50', 'border-blue-100');
                 btn.querySelector('.btn-indicator').classList.remove('opacity-100');
@@ -553,7 +806,7 @@ public static double calcularSalario(double bruto) {
                 btn.querySelector('.btn-text').classList.remove('text-blue-700', 'font-bold');
             });
 
-            // Activar botón
+            // Activar botón seleccionado
             const activeBtn = document.getElementById('btn-' + id);
             activeBtn.classList.add('active', 'bg-blue-50', 'border-blue-100');
             activeBtn.querySelector('.btn-indicator').classList.add('opacity-100');
@@ -565,6 +818,7 @@ public static double calcularSalario(double bruto) {
 
             activeBtn.querySelector('.btn-text').classList.add('text-blue-700', 'font-bold');
 
+            // Scroll top
             document.querySelector('main').scrollTop = 0;
         }
 

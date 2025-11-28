@@ -4,30 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Módulo 5 | Concurrencia y Calidad</title>
+    <title>Módulo 5 | Concurrencia y Calidad Elite</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" href="../assets/style.css">
 
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
-                    animation: {
-                        'fade-in-up': 'fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards',
-                    },
-                    keyframes: {
-                        fadeInUp: {
-                            '0%': { opacity: '0', transform: 'translateY(20px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' },
-                        },
-                    }
+                    fontFamily: { sans: ['Inter', 'sans-serif'], },
+                    animation: { 'fade-in-up': 'fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards', },
+                    keyframes: { fadeInUp: { '0%': { opacity: '0', transform: 'translateY(20px)' }, '100%': { opacity: '1', transform: 'translateY(0)' }, }, }
                 }
             }
         }
@@ -43,7 +33,7 @@
             <a href="../index.html"
                 class="group flex items-center gap-2 text-slate-300 hover:text-white transition-all bg-white/5 hover:bg-white/10 px-4 py-2 rounded-lg border border-white/10 hover:border-white/20">
                 <i class="fas fa-arrow-left text-sm group-hover:-translate-x-1 transition-transform"></i>
-                <span class="text-sm font-medium">Volver al Inicio</span>
+                <span class="text-sm font-medium">Dashboard</span>
             </a>
             <div class="h-6 w-px bg-slate-700 mx-2"></div>
             <div class="flex items-center gap-3">
@@ -52,11 +42,10 @@
                 </div>
                 <div>
                     <h1 class="font-bold text-sm tracking-wide leading-none">Módulo 05</h1>
-                    <span class="text-xs text-slate-400 font-medium">Concurrencia y Calidad</span>
+                    <span class="text-xs text-slate-400 font-medium">Arquitectura Concurrente</span>
                 </div>
             </div>
         </div>
-
         <div class="hidden md:flex items-center gap-4">
             <div class="flex items-center gap-2 px-3 py-1.5 bg-red-900/30 rounded-full border border-red-500/20">
                 <span class="relative flex h-2 w-2">
@@ -70,38 +59,34 @@
     </nav>
 
     <div class="flex flex-1 pt-16 h-full overflow-hidden">
-
         <aside class="w-80 bg-white border-r border-slate-200 shadow-xl z-20 hidden md:flex flex-col">
             <div class="p-6 border-b border-slate-100 bg-slate-50/50">
-                <h3 class="text-xs font-black text-slate-400 uppercase tracking-widest mb-1">Contenido del Módulo</h3>
+                <h3 class="text-xs font-black text-slate-400 uppercase tracking-widest mb-1">Plan de Estudio</h3>
                 <p class="text-sm text-slate-600 font-medium">5 Lecciones Críticas</p>
             </div>
-
             <div class="flex-1 overflow-y-auto custom-scrollbar p-4 space-y-2">
                 <button onclick="showLesson(20)" id="btn-20"
                     class="nav-btn w-full text-left px-4 py-4 rounded-xl text-sm font-medium transition-all duration-200 border border-transparent hover:bg-slate-50 hover:border-slate-200 group relative overflow-hidden active">
                     <div class="relative z-10 flex items-center gap-3">
                         <span
                             class="flex-shrink-0 w-8 h-8 rounded-lg bg-slate-100 text-slate-500 flex items-center justify-center text-xs font-bold group-hover:bg-white group-hover:shadow-sm transition-all btn-icon">20</span>
-                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">I/O Moderno (NIO.2)</span>
+                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">Modern I/O (NIO.2)</span>
                     </div>
                     <div
                         class="absolute left-0 top-0 bottom-0 w-1 bg-red-600 opacity-0 btn-indicator transition-opacity">
                     </div>
                 </button>
-
                 <button onclick="showLesson(21)" id="btn-21"
                     class="nav-btn w-full text-left px-4 py-4 rounded-xl text-sm font-medium transition-all duration-200 border border-transparent hover:bg-slate-50 hover:border-slate-200 group relative overflow-hidden">
                     <div class="relative z-10 flex items-center gap-3">
                         <span
                             class="flex-shrink-0 w-8 h-8 rounded-lg bg-slate-100 text-slate-500 flex items-center justify-center text-xs font-bold group-hover:bg-white group-hover:shadow-sm transition-all btn-icon">21</span>
-                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">Concurrencia Básica</span>
+                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">Concurrency & Threads</span>
                     </div>
                     <div
                         class="absolute left-0 top-0 bottom-0 w-1 bg-red-600 opacity-0 btn-indicator transition-opacity">
                     </div>
                 </button>
-
                 <button onclick="showLesson(22)" id="btn-22"
                     class="nav-btn w-full text-left px-4 py-4 rounded-xl text-sm font-medium transition-all duration-200 border border-transparent hover:bg-slate-50 hover:border-slate-200 group relative overflow-hidden">
                     <div class="relative z-10 flex items-center gap-3">
@@ -113,25 +98,23 @@
                         class="absolute left-0 top-0 bottom-0 w-1 bg-red-600 opacity-0 btn-indicator transition-opacity">
                     </div>
                 </button>
-
                 <button onclick="showLesson(23)" id="btn-23"
                     class="nav-btn w-full text-left px-4 py-4 rounded-xl text-sm font-medium transition-all duration-200 border border-transparent hover:bg-slate-50 hover:border-slate-200 group relative overflow-hidden">
                     <div class="relative z-10 flex items-center gap-3">
                         <span
                             class="flex-shrink-0 w-8 h-8 rounded-lg bg-slate-100 text-slate-500 flex items-center justify-center text-xs font-bold group-hover:bg-white group-hover:shadow-sm transition-all btn-icon">23</span>
-                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">Testing con JUnit 5</span>
+                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">Testing & JUnit 5</span>
                     </div>
                     <div
                         class="absolute left-0 top-0 bottom-0 w-1 bg-red-600 opacity-0 btn-indicator transition-opacity">
                     </div>
                 </button>
-
                 <button onclick="showLesson(24)" id="btn-24"
                     class="nav-btn w-full text-left px-4 py-4 rounded-xl text-sm font-medium transition-all duration-200 border border-transparent hover:bg-slate-50 hover:border-slate-200 group relative overflow-hidden">
                     <div class="relative z-10 flex items-center gap-3">
                         <span
                             class="flex-shrink-0 w-8 h-8 rounded-lg bg-slate-100 text-slate-500 flex items-center justify-center text-xs font-bold group-hover:bg-white group-hover:shadow-sm transition-all btn-icon">24</span>
-                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">Debugging y Profiling</span>
+                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">Debugging & Profiling</span>
                     </div>
                     <div
                         class="absolute left-0 top-0 bottom-0 w-1 bg-red-600 opacity-0 btn-indicator transition-opacity">
@@ -141,10 +124,6 @@
         </aside>
 
         <main class="flex-1 overflow-y-auto relative bg-slate-50 scroll-smooth">
-            <div
-                class="absolute inset-0 pointer-events-none bg-[url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%2364748b\' fill-opacity=\'0.03\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')]">
-            </div>
-
             <div class="max-w-5xl mx-auto px-8 py-12 relative z-10">
 
                 <div id="lesson-20" class="lesson-section active animate-fade-in-up lesson-content">
@@ -153,263 +132,382 @@
                             <span
                                 class="px-3 py-1 rounded-full bg-red-100 text-red-700 text-xs font-bold uppercase tracking-wider">Lección
                                 20</span>
-                            <span class="text-slate-400 text-sm font-medium"><i class="far fa-clock mr-1"></i> 30
+                            <span class="text-slate-400 text-sm font-medium"><i class="far fa-clock mr-1"></i> 35
                                 min</span>
                         </div>
-                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">I/O Moderno
-                            (NIO.2)</h1>
-                        <p class="text-lg text-slate-600 max-w-3xl">Manejo eficiente de archivos y directorios con
-                            `java.nio.file`. Olvida `java.io.File`.</p>
+                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">I/O Moderno:
+                            Hablando con el Sistema</h1>
                     </div>
 
                     <div class="bg-white rounded-2xl p-8 shadow-lg shadow-red-900/5 border-l-4 border-red-600 mb-10">
-                        <h3 class="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2">
-                            <i class="fas fa-bullseye text-red-600"></i> Objetivos de Élite
-                        </h3>
-                        <div class="grid md:grid-cols-2 gap-4">
-                            <div class="flex items-start gap-3">
-                                <i class="fas fa-check-circle text-green-500 mt-1"></i>
-                                <span class="text-slate-600 text-sm">Superar `java.io.File` con `Path` y `Files`.</span>
-                            </div>
-                            <div class="flex items-start gap-3">
-                                <i class="fas fa-check-circle text-green-500 mt-1"></i>
-                                <span class="text-slate-600 text-sm">Streams perezosos vs Lectura voraz.</span>
-                            </div>
-                            <div class="flex items-start gap-3">
-                                <i class="fas fa-check-circle text-green-500 mt-1"></i>
-                                <span class="text-slate-600 text-sm">Gestión de recursos `try-with-resources`.</span>
-                            </div>
-                            <div class="flex items-start gap-3">
-                                <i class="fas fa-check-circle text-green-500 mt-1"></i>
-                                <span class="text-slate-600 text-sm">Manipulación agnóstica al S.O.</span>
-                            </div>
-                        </div>
+                        <h3 class="!mt-0 text-xl font-bold text-slate-800 mb-4 flex items-center gap-2"><i
+                                class="fas fa-bullseye text-red-600"></i> Objetivos Senior</h3>
+                        <ul class="list-disc list-inside text-slate-600 text-sm space-y-2">
+                            <li>Abandonar <code>java.io.File</code> por el API moderno <strong>NIO.2</strong>.</li>
+                            <li>Entender <code>Path</code> vs <code>File</code>.</li>
+                            <li>Lectura de archivos gigantes sin colapsar la RAM (Streams).</li>
+                        </ul>
                     </div>
 
-                    <h2>1. Teoría Suprema: Hablando con el Disco</h2>
-                    <p class="text-slate-600 mb-6 leading-relaxed">
-                        El disco duro es millones de veces más lento que la CPU. NIO.2 (New I/O 2) es la API moderna
-                        para interactuar con el sistema de archivos de forma eficiente y segura.
-                    </p>
+                    <h2>1. El Disco Duro es Lento</h2>
+                    <p class="text-slate-600 mb-6">El I/O es la operación más costosa. NIO.2 (New I/O 2) introducido en
+                        Java 7 ofrece una abstracción más eficiente y segura para interactuar con el sistema de
+                        archivos.</p>
 
-
-
-                    <div class="bg-red-50 border-l-4 border-red-500 p-6 rounded-r-xl mb-8">
-                        <h4 class="font-bold text-red-800 mb-1">¡Peligro de Memoria!</h4>
-                        <p class="text-red-700 text-sm">
-                            Nunca uses <code>Files.readAllLines()</code> para archivos cuyo tamaño desconoces. Carga
-                            todo en RAM y provoca <code>OutOfMemoryError</code>.
-                            Usa <strong><code>Files.lines()</code></strong>, que devuelve un Stream procesado línea a
-                            línea.
+                    <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-r-xl mb-8">
+                        <h4 class="font-bold text-yellow-800 mb-1">¡Cuidado con la RAM!</h4>
+                        <p class="text-yellow-800 text-sm">Nunca uses <code>Files.readAllLines()</code> en archivos que
+                            no controles (ej: logs de 10GB). Eso carga TODO el archivo en memoria y causa un
+                            <code>OutOfMemoryError</code>. Usa <code>Files.lines()</code> para procesar línea a línea.
                         </p>
                     </div>
 
-                    <h2>2. Laboratorio de Código</h2>
-                    <div class="rounded-xl overflow-hidden shadow-2xl bg-[#2d2d2d] border border-slate-700 mb-8">
-                        <div class="bg-[#1e1e1e] px-4 py-2 flex items-center gap-2 border-b border-slate-700">
-                            <div class="flex gap-1.5">
-                                <div class="w-3 h-3 rounded-full bg-red-500"></div>
-                                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
-                                <div class="w-3 h-3 rounded-full bg-green-500"></div>
-                            </div>
-                            <span class="text-xs text-slate-400 ml-2 font-mono">ArchivosModernos.java</span>
+                    <div class="code-window bg-[#1e1e1e] mb-8">
+                        <div class="flex items-center gap-2 px-4 py-2 border-b border-slate-700 bg-slate-800/50">
+                            <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                            <span class="text-xs text-slate-400 font-mono ml-2">SmartIO.java</span>
                         </div>
                         <pre><code class="language-java">import java.nio.file.*;
 import java.util.stream.Stream;
 
-// 1. Path define la ruta (funciona en Win/Linux/Mac)
-Path ruta = Path.of("datos", "logs", "server.log");
+// 1. Path: Ruta agnóstica del sistema operativo
+Path logFile = Path.of("var", "logs", "app.log");
 
-// 2. Escritura rápida
-Files.createDirectories(ruta.getParent());
-Files.writeString(ruta, "INFO: Inicio\nERROR: Fallo Crítico");
-
-// 3. Lectura Eficiente (Lazy Stream)
-// try-with-resources cierra el archivo automáticamente
-try (Stream<String> lineas = Files.lines(ruta)) {
-    lineas.filter(l -> l.startsWith("ERROR"))
-          .forEach(System.out::println);
-}</code></pre>
+// 2. Lectura perezosa (Stream) - Solo carga en memoria lo que procesa
+try (Stream<String> lines = Files.lines(logFile)) {
+    lines.filter(line -> line.contains("ERROR"))
+         .forEach(System.err::println);
+} // El archivo se cierra automáticamente aquí</code></pre>
                     </div>
 
-                    <h2>3. Entrenamiento Progresivo</h2>
+                    <h2 class="text-slate-900 mt-12 mb-6 border-none"><i
+                            class="fas fa-dumbbell text-red-600 mr-2"></i>Training Ground</h2>
 
-                    <div
-                        class="bg-white rounded-2xl p-6 border border-slate-200 shadow-lg mb-6 relative overflow-hidden group hover:border-emerald-400 transition-colors">
-                        <div
-                            class="absolute top-0 right-0 bg-emerald-100 text-emerald-700 text-xs font-bold px-3 py-1 rounded-bl-xl border-l border-b border-emerald-200">
-                            NIVEL BÁSICO</div>
-                        <h4 class="font-bold text-lg text-slate-800 mb-2">Verificación de Existencia</h4>
-                        <p class="text-slate-600 text-sm mb-4">Usa `Files.exists(path)` para verificar un archivo. Si no
-                            existe, créalo con `Files.createFile`.</p>
+                    <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-green-500">
+                        <span class="text-xs font-bold text-green-600 uppercase mb-2 block">🟢 Nivel Básico</span>
+                        <h4 class="font-bold text-slate-800">Verificación de Archivos</h4>
+                        <p class="text-sm text-slate-600 mb-4">Usa <code>Files.exists()</code> y
+                            <code>Files.createFile()</code> para asegurar que un archivo de configuración existe. Si no,
+                            créalo vacío.
+                        </p>
                     </div>
 
-                    <div
-                        class="bg-white rounded-2xl p-6 border border-slate-200 shadow-lg mb-6 relative overflow-hidden group hover:border-red-400 transition-colors">
-                        <div
-                            class="absolute top-0 right-0 bg-red-100 text-red-700 text-xs font-bold px-3 py-1 rounded-bl-xl border-l border-b border-red-200">
-                            NIVEL EXPERTO</div>
-                        <h4 class="font-bold text-lg text-slate-800 mb-2">Crawler de Archivos</h4>
-                        <p class="text-slate-600 text-sm mb-4">Usa `Files.walk(path)` para encontrar recursivamente
-                            todos los archivos `.java` en una carpeta.</p>
+                    <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-yellow-500">
+                        <span class="text-xs font-bold text-yellow-600 uppercase mb-2 block">🟡 Nivel Intermedio</span>
+                        <h4 class="font-bold text-slate-800">Copia Segura</h4>
+                        <p class="text-sm text-slate-600 mb-4">Copia un archivo de una carpeta a otra usando
+                            <code>Files.copy()</code>. Asegúrate de manejar la opción
+                            <code>StandardCopyOption.REPLACE_EXISTING</code>.
+                        </p>
+                    </div>
+
+                    <div class="mb-8 p-6 bg-slate-900 rounded-xl border border-slate-700 text-white">
+                        <span class="text-xs font-bold text-red-500 uppercase mb-2 block">🔴 Nivel Avanzado</span>
+                        <h4 class="font-bold text-white">Buscador de Archivos Recursivo</h4>
+                        <p class="text-sm text-slate-400 mb-4">Utiliza <code>Files.walk()</code> para recorrer un
+                            directorio y todas sus subcarpetas. Encuentra y lista todos los archivos que terminen en
+                            <code>.java</code>.
+                        </p>
                         <button onclick="toggleSolution('sol-20')"
-                            class="text-sm font-bold text-red-600 flex items-center gap-2 hover:bg-red-50 px-3 py-2 rounded-lg transition-colors">
-                            <i class="fas fa-eye"></i> Ver Solución
-                        </button>
-                        <div id="sol-20" class="hidden mt-4 bg-slate-900 rounded-xl p-4 border border-slate-700">
-                            <pre><code class="language-java text-xs text-white">try (Stream<Path> paths = Files.walk(Path.of("src"))) {
+                            class="text-xs bg-red-600 hover:bg-red-500 text-white px-3 py-1 rounded transition">Ver
+                            Solución</button>
+                        <div id="sol-20" class="hidden mt-4 pt-4 border-t border-slate-700">
+                            <pre><code class="language-java">try (Stream<Path> paths = Files.walk(Path.of("src"))) {
     paths.filter(Files::isRegularFile)
          .filter(p -> p.toString().endsWith(".java"))
          .forEach(System.out::println);
 }</code></pre>
                         </div>
                     </div>
+
+                    <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
+                        <h3 class="font-bold text-slate-800 mb-6">Quiz de Validación</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <p class="text-sm font-semibold mb-2">1. ¿Qué método de Files es seguro para leer
+                                    archivos de 5GB?</p>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <button class="quiz-btn border p-2 rounded text-sm hover:bg-slate-50"
+                                        onclick="checkQuiz(this, false)">readAllLines()</button>
+                                    <button class="quiz-btn border p-2 rounded text-sm hover:bg-slate-50"
+                                        onclick="checkQuiz(this, true)">lines()</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div id="lesson-21" class="lesson-section hidden animate-fade-in-up lesson-content">
                     <div class="mb-8 border-b border-slate-200 pb-6">
-                        <span
-                            class="px-3 py-1 rounded-full bg-red-100 text-red-700 text-xs font-bold uppercase tracking-wider">Lección
-                            21</span>
-                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mt-2 mb-4">Concurrencia
-                            Básica</h1>
-                        <p class="text-lg text-slate-600">Hilos, memoria compartida y el caos de las Race Conditions.
+                        <div class="flex items-center gap-3 mb-2">
+                            <span
+                                class="px-3 py-1 rounded-full bg-red-100 text-red-700 text-xs font-bold uppercase tracking-wider">Lección
+                                21</span>
+                        </div>
+                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">Concurrencia: El
+                            Caos Controlado</h1>
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-8 shadow-lg shadow-red-900/5 border-l-4 border-red-600 mb-10">
+                        <p class="text-slate-600">La concurrencia permite hacer múltiples cosas a la vez, pero introduce
+                            el riesgo de <strong>Race Conditions</strong> (Condiciones de Carrera).</p>
+                    </div>
+
+                    <h2>1. El Chef Multihilo</h2>
+                    <p class="text-slate-600 mb-6">Imagina una cocina (CPU) con varios chefs (Hilos). Si dos chefs
+                        intentan picar cebolla en la misma tabla (Objeto compartido) al mismo tiempo sin coordinarse,
+                        alguien perderá un dedo (Datos corruptos).</p>
+
+
+
+                    <h3 class="text-xl font-bold text-slate-800 mt-8 mb-4">2. Synchronized: El Candado</h3>
+                    <p class="text-slate-600 mb-4">Para evitar el caos, usamos <code>synchronized</code>. Es como poner
+                        un candado en la puerta de la cocina. Solo un chef entra, cocina y sale antes de que entre el
+                        siguiente.</p>
+
+                    <h2 class="text-slate-900 mt-12 mb-6 border-none"><i
+                            class="fas fa-dumbbell text-red-600 mr-2"></i>Training Ground</h2>
+
+                    <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-green-500">
+                        <span class="text-xs font-bold text-green-600 uppercase mb-2 block">🟢 Nivel Básico</span>
+                        <h4 class="font-bold text-slate-800">Creando Hilos</h4>
+                        <p class="text-sm text-slate-600 mb-4">Crea un hilo extendiendo la clase <code>Thread</code> y
+                            otro implementando <code>Runnable</code>. Inicia ambos e imprime mensajes concurrentes.</p>
+                    </div>
+
+                    <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-yellow-500">
+                        <span class="text-xs font-bold text-yellow-600 uppercase mb-2 block">🟡 Nivel Intermedio</span>
+                        <h4 class="font-bold text-slate-800">Race Condition</h4>
+                        <p class="text-sm text-slate-600 mb-4">Crea una clase <code>Contador</code> con una variable
+                            <code>count</code>. Lanza 1000 hilos que incrementen el contador. Imprime el resultado
+                            final. ¿Es 1000? (Probablemente no).
                         </p>
                     </div>
 
-                    <h2>1. Teoría Suprema: El Caos de la Cocina</h2>
-                    <p class="text-slate-600 mb-6">
-                        Si dos cocineros (Hilos) intentan cortar en la misma tabla (Objeto) sin coordinarse, los datos
-                        se corrompen. Esto es una <strong>Race Condition</strong>.
-                    </p>
+                    <div class="mb-8 p-6 bg-slate-900 rounded-xl border border-slate-700 text-white">
+                        <span class="text-xs font-bold text-red-500 uppercase mb-2 block">🔴 Nivel Avanzado</span>
+                        <h4 class="font-bold text-white">Thread Safety</h4>
+                        <p class="text-sm text-slate-400 mb-4">Arregla el ejercicio anterior usando
+                            <code>synchronized</code> o <code>AtomicInteger</code> para garantizar que el resultado
+                            siempre sea 1000.
+                        </p>
+                        <button onclick="toggleSolution('sol-21')"
+                            class="text-xs bg-red-600 hover:bg-red-500 text-white px-3 py-1 rounded transition">Ver
+                            Solución</button>
+                        <div id="sol-21" class="hidden mt-4 pt-4 border-t border-slate-700">
+                            <pre><code class="language-java">public class ContadorSeguro {
+    // AtomicInteger es thread-safe sin necesidad de synchronized explícito
+    private AtomicInteger count = new AtomicInteger(0);
 
-
-
-                    <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-lg mb-8">
-                        <h3 class="font-bold text-slate-800 mb-2">La Solución: Synchronized</h3>
-                        <p class="text-slate-600 text-sm">La palabra clave <code>synchronized</code> actúa como un
-                            candado en la puerta del método. Solo un hilo puede entrar a la vez.</p>
-                    </div>
-
-                    <div class="rounded-xl overflow-hidden shadow-2xl bg-[#2d2d2d] border border-slate-700 mb-8">
-                        <pre><code class="language-java">public class Contador {
-    private int cuenta = 0;
-
-    // El candado evita que dos hilos escriban a la vez
-    public synchronized void incrementar() {
-        cuenta++;
+    public void incrementar() {
+        count.incrementAndGet();
     }
 }</code></pre>
+                        </div>
                     </div>
                 </div>
 
                 <div id="lesson-22" class="lesson-section hidden animate-fade-in-up lesson-content">
                     <div class="mb-8 border-b border-slate-200 pb-6">
-                        <span
-                            class="px-3 py-1 rounded-full bg-red-100 text-red-700 text-xs font-bold uppercase tracking-wider">Lección
-                            22</span>
-                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mt-2 mb-4">Virtual
-                            Threads (Loom)</h1>
-                        <p class="text-lg text-slate-600">La revolución de Java 21: Millones de hilos ligeros.</p>
+                        <div class="flex items-center gap-3 mb-2">
+                            <span
+                                class="px-3 py-1 rounded-full bg-red-100 text-red-700 text-xs font-bold uppercase tracking-wider">Lección
+                                22</span>
+                        </div>
+                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">Virtual Threads
+                            (Project Loom)</h1>
                     </div>
 
-                    <h2>1. Teoría Suprema: Project Loom</h2>
-                    <p class="text-slate-600 mb-6">
-                        Antes, 1 Hilo Java = 1 Hilo del Sistema Operativo (Pesado). Loom introduce hilos gestionados por
-                        la JVM que son extremadamente ligeros.
-                    </p>
-
-
-
-                    <div class="bg-blue-50 p-6 rounded-xl border border-blue-100 mb-8">
-                        <h3 class="font-bold text-blue-900 mb-2">Modelo "Uber"</h3>
-                        <p class="text-sm text-blue-800">Los hilos virtuales son tareas que comparten un número limitado
-                            de hilos del sistema (el "coche"). Cuando una tarea espera (duerme), se baja del coche y
-                            deja que otra lo use.</p>
+                    <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-xl mb-8">
+                        <h3 class="font-bold text-blue-900 mb-2">La Revolución de Java 21</h3>
+                        <p class="text-sm text-blue-800">Antes, 1 Hilo Java = 1 Hilo del Sistema Operativo (Pesado, máx
+                            ~5000 hilos). Ahora, los Hilos Virtuales son gestionados por la JVM (Ligeros, puedes tener
+                            millones).</p>
                     </div>
 
-                    <div class="rounded-xl overflow-hidden shadow-2xl bg-[#2d2d2d] border border-slate-700 mb-8">
-                        <pre><code class="language-java">// Ejecutor moderno de Java 21
-try (var executor = Executors.newVirtualThreadPerTaskExecutor()) {
-    // Podemos lanzar 100,000 tareas sin colapsar la RAM
-    for (int i = 0; i < 100_000; i++) {
+                    <h2>1. El Modelo "Uber"</h2>
+                    <p class="text-slate-600 mb-6">Imagina los hilos del sistema operativo como taxis (limitados y
+                        caros). Los hilos virtuales son los pasajeros. Un pasajero sube al taxi (CPU), hace su trabajo,
+                        y si tiene que esperar (I/O, Sleep), se baja inmediatamente para que otro pasajero use el taxi.
+                        Esto maximiza el uso del hardware.</p>
+
+
+
+                    <h2 class="text-slate-900 mt-12 mb-6 border-none"><i
+                            class="fas fa-dumbbell text-red-600 mr-2"></i>Training Ground</h2>
+
+                    <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-green-500">
+                        <span class="text-xs font-bold text-green-600 uppercase mb-2 block">🟢 Nivel Básico</span>
+                        <h4 class="font-bold text-slate-800">Tu primer Hilo Virtual</h4>
+                        <p class="text-sm text-slate-600 mb-4">Usa <code>Thread.startVirtualThread(() -> ...)</code>
+                            para imprimir un mensaje desde un hilo virtual.</p>
+                    </div>
+
+                    <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-yellow-500">
+                        <span class="text-xs font-bold text-yellow-600 uppercase mb-2 block">🟡 Nivel Intermedio</span>
+                        <h4 class="font-bold text-slate-800">Escalabilidad Masiva</h4>
+                        <p class="text-sm text-slate-600 mb-4">Intenta lanzar 100,000 hilos tradicionales vs 100,000
+                            hilos virtuales que duerman 1 segundo. Observa la diferencia en consumo de memoria y tiempo
+                            de inicio.</p>
+                    </div>
+
+                    <div class="mb-8 p-6 bg-slate-900 rounded-xl border border-slate-700 text-white">
+                        <span class="text-xs font-bold text-red-500 uppercase mb-2 block">🔴 Nivel Avanzado</span>
+                        <h4 class="font-bold text-white">ExecutorService Moderno</h4>
+                        <p class="text-sm text-slate-400 mb-4">Usa el nuevo
+                            <code>Executors.newVirtualThreadPerTaskExecutor()</code> para enviar tareas concurrentes y
+                            esperar a que todas terminen usando try-with-resources (Structured Concurrency).
+                        </p>
+                        <button onclick="toggleSolution('sol-22')"
+                            class="text-xs bg-red-600 hover:bg-red-500 text-white px-3 py-1 rounded transition">Ver
+                            Solución</button>
+                        <div id="sol-22" class="hidden mt-4 pt-4 border-t border-slate-700">
+                            <pre><code class="language-java">try (var executor = Executors.newVirtualThreadPerTaskExecutor()) {
+    IntStream.range(0, 10_000).forEach(i -> {
         executor.submit(() -> {
-            System.out.println("Hilo virtual corriendo");
+            Thread.sleep(Duration.ofSeconds(1));
+            return i;
         });
-    }
-} // Espera automática a que terminen todas</code></pre>
+    });
+} // El código se bloquea aquí hasta que las 10,000 tareas terminen</code></pre>
+                        </div>
                     </div>
                 </div>
 
                 <div id="lesson-23" class="lesson-section hidden animate-fade-in-up lesson-content">
                     <div class="mb-8 border-b border-slate-200 pb-6">
-                        <span
-                            class="px-3 py-1 rounded-full bg-red-100 text-red-700 text-xs font-bold uppercase tracking-wider">Lección
-                            23</span>
-                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mt-2 mb-4">Testing con
-                            JUnit 5</h1>
-                        <p class="text-lg text-slate-600">Asegura la calidad de tu código y duerme tranquilo.</p>
+                        <div class="flex items-center gap-3 mb-2">
+                            <span
+                                class="px-3 py-1 rounded-full bg-red-100 text-red-700 text-xs font-bold uppercase tracking-wider">Lección
+                                23</span>
+                        </div>
+                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">Testing
+                            Profesional con JUnit 5</h1>
                     </div>
 
-                    <h2>1. Teoría Suprema: Ciclo de Vida del Test</h2>
-                    <p class="text-slate-600 mb-6">Un test unitario aísla la unidad más pequeña de código.</p>
+                    <p class="text-slate-600 mb-6">Si no está probado, no funciona. El testing automatizado es la red de
+                        seguridad que te permite refactorizar y mejorar código sin miedo a romper nada.</p>
 
-
-
-                    <div class="rounded-xl overflow-hidden shadow-2xl bg-[#2d2d2d] border border-slate-700 mb-8">
+                    <h3 class="text-xl font-bold text-slate-800 mt-8 mb-4">Anatomía de un Test</h3>
+                    <div class="code-window bg-[#1e1e1e] mb-8">
                         <pre><code class="language-java">class CalculadoraTest {
-    private Calculadora c;
-
-    @BeforeEach // Se ejecuta antes de CADA test
-    void setup() { c = new Calculadora(); }
-
+    
     @Test
-    void sumarDebeFuncionar() {
-        assertEquals(5, c.sumar(2, 3));
-    }
-
-    @Test
-    void divisionPorCeroLanzaExcepcion() {
-        assertThrows(ArithmeticException.class, () -> c.dividir(1, 0));
+    @DisplayName("Suma de números positivos")
+    void sumarPositivos() {
+        // 1. Arrange (Preparar)
+        Calculadora c = new Calculadora();
+        
+        // 2. Act (Ejecutar)
+        int resultado = c.sumar(2, 3);
+        
+        // 3. Assert (Verificar)
+        assertEquals(5, resultado, "2 + 3 debe ser 5");
     }
 }</code></pre>
+                    </div>
+
+                    <h2 class="text-slate-900 mt-12 mb-6 border-none"><i
+                            class="fas fa-dumbbell text-red-600 mr-2"></i>Training Ground</h2>
+
+                    <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-green-500">
+                        <span class="text-xs font-bold text-green-600 uppercase mb-2 block">🟢 Nivel Básico</span>
+                        <h4 class="font-bold text-slate-800">Test Simple</h4>
+                        <p class="text-sm text-slate-600 mb-4">Escribe un test para verificar que el método
+                            <code>String.toUpperCase()</code> funciona correctamente.
+                        </p>
+                    </div>
+
+                    <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-yellow-500">
+                        <span class="text-xs font-bold text-yellow-600 uppercase mb-2 block">🟡 Nivel Intermedio</span>
+                        <h4 class="font-bold text-slate-800">Testing de Excepciones</h4>
+                        <p class="text-sm text-slate-600 mb-4">Usa <code>assertThrows</code> para verificar que tu
+                            método de división lanza <code>ArithmeticException</code> al dividir por cero.</p>
+                    </div>
+
+                    <div class="mb-8 p-6 bg-slate-900 rounded-xl border border-slate-700 text-white">
+                        <span class="text-xs font-bold text-red-500 uppercase mb-2 block">🔴 Nivel Avanzado</span>
+                        <h4 class="font-bold text-white">Tests Parametrizados</h4>
+                        <p class="text-sm text-slate-400 mb-4">No escribas 5 tests iguales. Usa
+                            <code>@ParameterizedTest</code> y <code>@CsvSource</code> para probar tu calculadora con 5
+                            pares de números distintos en un solo método.
+                        </p>
+                        <button onclick="toggleSolution('sol-23')"
+                            class="text-xs bg-red-600 hover:bg-red-500 text-white px-3 py-1 rounded transition">Ver
+                            Solución</button>
+                        <div id="sol-23" class="hidden mt-4 pt-4 border-t border-slate-700">
+                            <pre><code class="language-java">@ParameterizedTest
+@CsvSource({
+    "1, 1, 2",
+    "2, 3, 5",
+    "10, -5, 5"
+})
+void testSuma(int a, int b, int esperado) {
+    assertEquals(esperado, calculadora.sumar(a, b));
+}</code></pre>
+                        </div>
                     </div>
                 </div>
 
                 <div id="lesson-24" class="lesson-section hidden animate-fade-in-up lesson-content">
                     <div class="mb-8 border-b border-slate-200 pb-6">
-                        <span
-                            class="px-3 py-1 rounded-full bg-red-100 text-red-700 text-xs font-bold uppercase tracking-wider">Lección
-                            24</span>
-                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mt-2 mb-4">Debugging &
+                        <div class="flex items-center gap-3 mb-2">
+                            <span
+                                class="px-3 py-1 rounded-full bg-red-100 text-red-700 text-xs font-bold uppercase tracking-wider">Lección
+                                24</span>
+                        </div>
+                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">Debugging &
                             Profiling</h1>
                     </div>
 
-                    <h2>1. Teoría Suprema: Rayos X</h2>
-                    <p class="text-slate-600 mb-6">El Debugger te permite detener el tiempo y ver las entrañas de tu
-                        programa.</p>
+                    <div class="bg-white rounded-2xl p-8 shadow-lg shadow-red-900/5 border-l-4 border-red-600 mb-10">
+                        <p class="text-slate-600">Un Ingeniero Senior no adivina, <strong>observa</strong>. El Debugger
+                            es tu herramienta de rayos X para ver el estado del programa en tiempo real.</p>
+                    </div>
+
+                    <h2>1. Breakpoints Avanzados</h2>
+                    <p class="text-slate-600 mb-6">Poner un punto rojo para parar el programa es nivel básico. Los
+                        breakpoints condicionales te permiten parar el programa <strong>solo cuando ocurre el
+                            error</strong>.</p>
 
 
 
-                    <div class="grid md:grid-cols-2 gap-6 mb-8">
-                        <div class="bg-white p-6 rounded-2xl border-l-4 border-purple-500 shadow-sm">
-                            <h4 class="font-bold text-purple-700 mb-2">Breakpoint Condicional</h4>
-                            <p class="text-sm text-slate-600">Configura el punto rojo para que solo pare si
-                                <code>i == 999</code>.
-                            </p>
-                        </div>
-                        <div class="bg-white p-6 rounded-2xl border-l-4 border-blue-500 shadow-sm">
-                            <h4 class="font-bold text-blue-700 mb-2">Evaluate Expression</h4>
-                            <p class="text-sm text-slate-600">Ejecuta código arbitrario en tiempo real mientras el
-                                programa está pausado.</p>
-                        </div>
+                    <h3 class="text-xl font-bold text-slate-800 mt-8 mb-4">2. Profiling (Rendimiento)</h3>
+                    <p class="text-slate-600 mb-4">Si tu aplicación es lenta, no optimices a ciegas. Usa un Profiler
+                        (como VisualVM o IntelliJ Profiler) para encontrar qué métodos consumen más CPU o memoria
+                        (Hotspots).</p>
+
+                    <h2 class="text-slate-900 mt-12 mb-6 border-none"><i
+                            class="fas fa-dumbbell text-red-600 mr-2"></i>Training Ground</h2>
+
+                    <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-green-500">
+                        <span class="text-xs font-bold text-green-600 uppercase mb-2 block">🟢 Nivel Básico</span>
+                        <h4 class="font-bold text-slate-800">Inspección de Variables</h4>
+                        <p class="text-sm text-slate-600 mb-4">Pon un breakpoint en un bucle. Usa la herramienta de
+                            "Watch" o "Evaluate Expression" para ver el valor de una variable antes de que cambie.</p>
+                    </div>
+
+                    <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-yellow-500">
+                        <span class="text-xs font-bold text-yellow-600 uppercase mb-2 block">🟡 Nivel Intermedio</span>
+                        <h4 class="font-bold text-slate-800">Breakpoint Condicional</h4>
+                        <p class="text-sm text-slate-600 mb-4">Tienes un bucle de 0 a 1000. Configura el breakpoint para
+                            que se detenga SOLO cuando <code>i == 500</code>. No modifiques el código Java.</p>
+                    </div>
+
+                    <div class="mb-8 p-6 bg-slate-900 rounded-xl border border-slate-700 text-white">
+                        <span class="text-xs font-bold text-red-500 uppercase mb-2 block">🔴 Nivel Avanzado</span>
+                        <h4 class="font-bold text-white">Caza del Stack Overflow</h4>
+                        <p class="text-sm text-slate-400 mb-4">Crea un método recursivo infinito. Ejecútalo en modo
+                            Debug. Analiza el "Frames" stack window para ver cómo la pila crece hasta explotar.</p>
                     </div>
                 </div>
 
             </div>
 
             <footer class="mt-20 py-8 text-center text-slate-400 text-sm border-t border-slate-200">
-                <p>&copy; 2025 Java Masterclass. Módulo 5 completado.</p>
+                <p>&copy; 2025 Java Elite Bootcamp. Calidad y Concurrencia.</p>
             </footer>
         </main>
     </div>
@@ -427,29 +525,23 @@ try (var executor = Executors.newVirtualThreadPerTaskExecutor()) {
             selected.classList.remove('hidden');
             setTimeout(() => selected.classList.add('active'), 10);
 
-            // Reset botones
             document.querySelectorAll('.nav-btn').forEach(btn => {
                 btn.classList.remove('active', 'bg-red-50', 'border-red-100');
                 btn.querySelector('.btn-indicator').classList.remove('opacity-100');
                 btn.querySelector('.btn-indicator').classList.add('opacity-0');
-
                 const icon = btn.querySelector('.btn-icon');
                 icon.classList.remove('bg-red-600', 'text-white');
                 icon.classList.add('bg-slate-100', 'text-slate-500');
-
                 btn.querySelector('.btn-text').classList.remove('text-red-700', 'font-bold');
             });
 
-            // Activar botón
             const activeBtn = document.getElementById('btn-' + id);
             activeBtn.classList.add('active', 'bg-red-50', 'border-red-100');
             activeBtn.querySelector('.btn-indicator').classList.add('opacity-100');
             activeBtn.querySelector('.btn-indicator').classList.remove('opacity-0');
-
             const activeIcon = activeBtn.querySelector('.btn-icon');
             activeIcon.classList.remove('bg-slate-100', 'text-slate-500');
             activeIcon.classList.add('bg-red-600', 'text-white');
-
             activeBtn.querySelector('.btn-text').classList.add('text-red-700', 'font-bold');
 
             document.querySelector('main').scrollTop = 0;
@@ -460,8 +552,16 @@ try (var executor = Executors.newVirtualThreadPerTaskExecutor()) {
             el.classList.toggle('hidden');
         }
 
-        function checkQuiz1() {
-            alert("¡Respuestas registradas! Practica el Debugging.");
+        function checkQuiz(btn, isCorrect) {
+            const parent = btn.parentElement;
+            parent.querySelectorAll('.quiz-btn').forEach(b => {
+                b.classList.remove('correct', 'wrong');
+            });
+            if (isCorrect) {
+                btn.classList.add('correct');
+            } else {
+                btn.classList.add('wrong');
+            }
         }
 
         // Init

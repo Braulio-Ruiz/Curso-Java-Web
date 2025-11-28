@@ -4,30 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Módulo 3 | Estructuras de Datos</title>
+    <title>Módulo 3 | Estructuras de Datos Elite</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" href="../assets/style.css">
 
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
-                    animation: {
-                        'fade-in-up': 'fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards',
-                    },
-                    keyframes: {
-                        fadeInUp: {
-                            '0%': { opacity: '0', transform: 'translateY(20px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' },
-                        },
-                    }
+                    fontFamily: { sans: ['Inter', 'sans-serif'], },
+                    animation: { 'fade-in-up': 'fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards', },
+                    keyframes: { fadeInUp: { '0%': { opacity: '0', transform: 'translateY(20px)' }, '100%': { opacity: '1', transform: 'translateY(0)' }, }, }
                 }
             }
         }
@@ -43,7 +33,7 @@
             <a href="../index.html"
                 class="group flex items-center gap-2 text-slate-300 hover:text-white transition-all bg-white/5 hover:bg-white/10 px-4 py-2 rounded-lg border border-white/10 hover:border-white/20">
                 <i class="fas fa-arrow-left text-sm group-hover:-translate-x-1 transition-transform"></i>
-                <span class="text-sm font-medium">Volver al Inicio</span>
+                <span class="text-sm font-medium">Dashboard</span>
             </a>
             <div class="h-6 w-px bg-slate-700 mx-2"></div>
             <div class="flex items-center gap-3">
@@ -52,11 +42,10 @@
                 </div>
                 <div>
                     <h1 class="font-bold text-sm tracking-wide leading-none">Módulo 03</h1>
-                    <span class="text-xs text-slate-400 font-medium">Estructuras de Datos</span>
+                    <span class="text-xs text-slate-400 font-medium">Algoritmos y Estructuras</span>
                 </div>
             </div>
         </div>
-
         <div class="hidden md:flex items-center gap-4">
             <div class="flex items-center gap-2 px-3 py-1.5 bg-yellow-900/30 rounded-full border border-yellow-500/20">
                 <span class="relative flex h-2 w-2">
@@ -70,68 +59,62 @@
     </nav>
 
     <div class="flex flex-1 pt-16 h-full overflow-hidden">
-
         <aside class="w-80 bg-white border-r border-slate-200 shadow-xl z-20 hidden md:flex flex-col">
             <div class="p-6 border-b border-slate-100 bg-slate-50/50">
-                <h3 class="text-xs font-black text-slate-400 uppercase tracking-widest mb-1">Contenido del Módulo</h3>
-                <p class="text-sm text-slate-600 font-medium">5 Lecciones Críticas</p>
+                <h3 class="text-xs font-black text-slate-400 uppercase tracking-widest mb-1">Plan de Estudio</h3>
+                <p class="text-sm text-slate-600 font-medium">5 Lecciones Avanzadas</p>
             </div>
-
             <div class="flex-1 overflow-y-auto custom-scrollbar p-4 space-y-2">
                 <button onclick="showLesson(11)" id="btn-11"
                     class="nav-btn w-full text-left px-4 py-4 rounded-xl text-sm font-medium transition-all duration-200 border border-transparent hover:bg-slate-50 hover:border-slate-200 group relative overflow-hidden active">
                     <div class="relative z-10 flex items-center gap-3">
                         <span
                             class="flex-shrink-0 w-8 h-8 rounded-lg bg-slate-100 text-slate-500 flex items-center justify-center text-xs font-bold group-hover:bg-white group-hover:shadow-sm transition-all btn-icon">11</span>
-                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">Arrays y Strings</span>
+                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">Arrays & Strings Memory</span>
                     </div>
                     <div
                         class="absolute left-0 top-0 bottom-0 w-1 bg-yellow-500 opacity-0 btn-indicator transition-opacity">
                     </div>
                 </button>
-
                 <button onclick="showLesson(12)" id="btn-12"
                     class="nav-btn w-full text-left px-4 py-4 rounded-xl text-sm font-medium transition-all duration-200 border border-transparent hover:bg-slate-50 hover:border-slate-200 group relative overflow-hidden">
                     <div class="relative z-10 flex items-center gap-3">
                         <span
                             class="flex-shrink-0 w-8 h-8 rounded-lg bg-slate-100 text-slate-500 flex items-center justify-center text-xs font-bold group-hover:bg-white group-hover:shadow-sm transition-all btn-icon">12</span>
-                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">Excepciones</span>
+                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">Exception Handling</span>
                     </div>
                     <div
                         class="absolute left-0 top-0 bottom-0 w-1 bg-yellow-500 opacity-0 btn-indicator transition-opacity">
                     </div>
                 </button>
-
                 <button onclick="showLesson(13)" id="btn-13"
                     class="nav-btn w-full text-left px-4 py-4 rounded-xl text-sm font-medium transition-all duration-200 border border-transparent hover:bg-slate-50 hover:border-slate-200 group relative overflow-hidden">
                     <div class="relative z-10 flex items-center gap-3">
                         <span
                             class="flex-shrink-0 w-8 h-8 rounded-lg bg-slate-100 text-slate-500 flex items-center justify-center text-xs font-bold group-hover:bg-white group-hover:shadow-sm transition-all btn-icon">13</span>
-                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">List y Set</span>
+                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">List & Set Deep Dive</span>
                     </div>
                     <div
                         class="absolute left-0 top-0 bottom-0 w-1 bg-yellow-500 opacity-0 btn-indicator transition-opacity">
                     </div>
                 </button>
-
                 <button onclick="showLesson(14)" id="btn-14"
                     class="nav-btn w-full text-left px-4 py-4 rounded-xl text-sm font-medium transition-all duration-200 border border-transparent hover:bg-slate-50 hover:border-slate-200 group relative overflow-hidden">
                     <div class="relative z-10 flex items-center gap-3">
                         <span
                             class="flex-shrink-0 w-8 h-8 rounded-lg bg-slate-100 text-slate-500 flex items-center justify-center text-xs font-bold group-hover:bg-white group-hover:shadow-sm transition-all btn-icon">14</span>
-                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">Map y Queue</span>
+                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">Maps & Queues</span>
                     </div>
                     <div
                         class="absolute left-0 top-0 bottom-0 w-1 bg-yellow-500 opacity-0 btn-indicator transition-opacity">
                     </div>
                 </button>
-
                 <button onclick="showLesson(15)" id="btn-15"
                     class="nav-btn w-full text-left px-4 py-4 rounded-xl text-sm font-medium transition-all duration-200 border border-transparent hover:bg-slate-50 hover:border-slate-200 group relative overflow-hidden">
                     <div class="relative z-10 flex items-center gap-3">
                         <span
                             class="flex-shrink-0 w-8 h-8 rounded-lg bg-slate-100 text-slate-500 flex items-center justify-center text-xs font-bold group-hover:bg-white group-hover:shadow-sm transition-all btn-icon">15</span>
-                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">Genéricos</span>
+                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">Generics & Erasure</span>
                     </div>
                     <div
                         class="absolute left-0 top-0 bottom-0 w-1 bg-yellow-500 opacity-0 btn-indicator transition-opacity">
@@ -141,10 +124,6 @@
         </aside>
 
         <main class="flex-1 overflow-y-auto relative bg-slate-50 scroll-smooth">
-            <div
-                class="absolute inset-0 pointer-events-none bg-[url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%2364748b\' fill-opacity=\'0.03\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')]">
-            </div>
-
             <div class="max-w-5xl mx-auto px-8 py-12 relative z-10">
 
                 <div id="lesson-11" class="lesson-section active animate-fade-in-up lesson-content">
@@ -153,285 +132,430 @@
                             <span
                                 class="px-3 py-1 rounded-full bg-yellow-100 text-yellow-700 text-xs font-bold uppercase tracking-wider">Lección
                                 11</span>
-                            <span class="text-slate-400 text-sm font-medium"><i class="far fa-clock mr-1"></i> 25
+                            <span class="text-slate-400 text-sm font-medium"><i class="far fa-clock mr-1"></i> 35
                                 min</span>
                         </div>
-                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">Arrays y Strings
-                        </h1>
-                        <p class="text-lg text-slate-600 max-w-3xl">La física de la memoria: por qué el acceso a Arrays
-                            es instantáneo y cómo evitar matar el rendimiento con Strings.</p>
+                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">La Física de la
+                            Memoria: Arrays y Strings</h1>
                     </div>
 
                     <div
                         class="bg-white rounded-2xl p-8 shadow-lg shadow-yellow-900/5 border-l-4 border-yellow-500 mb-10">
-                        <h3 class="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2">
-                            <i class="fas fa-bullseye text-yellow-600"></i> Objetivos de Élite
-                        </h3>
-                        <div class="grid md:grid-cols-2 gap-4">
-                            <div class="flex items-start gap-3">
-                                <i class="fas fa-check-circle text-green-500 mt-1"></i>
-                                <span class="text-slate-600 text-sm">Física de Arrays: Memoria contigua y O(1).</span>
-                            </div>
-                            <div class="flex items-start gap-3">
-                                <i class="fas fa-check-circle text-green-500 mt-1"></i>
-                                <span class="text-slate-600 text-sm">String Pool y Optimización de Memoria.</span>
-                            </div>
-                            <div class="flex items-start gap-3">
-                                <i class="fas fa-check-circle text-green-500 mt-1"></i>
-                                <span class="text-slate-600 text-sm">StringBuilder vs Concatenación (+).</span>
-                            </div>
-                            <div class="flex items-start gap-3">
-                                <i class="fas fa-check-circle text-green-500 mt-1"></i>
-                                <span class="text-slate-600 text-sm">Java Moderno: Text Blocks.</span>
-                            </div>
-                        </div>
+                        <h3 class="!mt-0 text-xl font-bold text-slate-800 mb-4 flex items-center gap-2"><i
+                                class="fas fa-bullseye text-yellow-600"></i> Objetivos Senior</h3>
+                        <ul class="list-disc list-inside text-slate-600 text-sm space-y-2">
+                            <li>Entender la localidad de caché y la memoria contigua.</li>
+                            <li>Diferenciar <code>O(1)</code> vs <code>O(N)</code> en acceso y búsqueda.</li>
+                            <li>String Pool Internals y optimización con <code>StringBuilder</code>.</li>
+                        </ul>
                     </div>
 
-                    <h2>1. Teoría Suprema: La Memoria y el Texto</h2>
-                    <p class="text-slate-600 mb-6 leading-relaxed">
-                        Los Arrays son la estructura de datos más básica y eficiente. Son bloques de memoria contigua.
-                        Si sabes dónde empieza y el tamaño del dato, saltar a la posición 1000 es instantáneo.
+                    <h2>1. Arrays: Velocidad de la Luz</h2>
+                    <p>Un Array es la estructura de datos más rápida que existe. ¿Por qué? Porque ocupa un bloque de
+                        <strong>memoria contigua</strong>.
                     </p>
 
 
 
-                    <h3 class="text-xl font-bold text-slate-800 mb-3">1.1 Inmutabilidad de Strings</h3>
-                    <div class="bg-red-50 border-l-4 border-red-500 p-6 rounded-r-xl mb-8">
-                        <h4 class="font-bold text-red-800 mb-1">El Pecado Capital del Rendimiento</h4>
-                        <p class="text-red-700 text-sm">Hacer <code>texto += "a"</code> dentro de un bucle de 10,000
-                            iteraciones crea 10,000 objetos intermedios que el Garbage Collector debe limpiar. Esto
-                            congela aplicaciones.</p>
+                    <p>Si la dirección base es <code>0x100</code> y cada entero ocupa 4 bytes, acceder al índice 5 es
+                        simple matemática: <code>0x100 + (5 * 4) = 0x114</code>. La CPU salta directamente ahí. Esto es
+                        <strong>O(1)</strong> o Tiempo Constante.
+                    </p>
+
+                    <h3 class="text-2xl font-bold text-slate-800 mt-8 mb-4">2. Strings: El engaño de la inmutabilidad
+                    </h3>
+                    <p>Los Strings en Java son inmutables. Cada vez que modificas uno, creas basura en el Heap.</p>
+                    <div class="bg-red-50 border-l-4 border-red-500 p-6 rounded-r-xl mb-6">
+                        <p class="text-red-800 font-bold">¡Peligro de Rendimiento!</p>
+                        <p class="text-red-700 text-sm mt-1">Hacer <code>texto += "a"</code> en un bucle de 10k
+                            iteraciones crea 10,000 objetos intermedios que el Garbage Collector debe eliminar. Usa
+                            siempre <strong>StringBuilder</strong>.</p>
                     </div>
 
-                    <h2>2. Laboratorio de Código</h2>
-                    <div class="rounded-xl overflow-hidden shadow-2xl bg-[#2d2d2d] border border-slate-700 mb-8">
-                        <div class="bg-[#1e1e1e] px-4 py-2 flex items-center gap-2 border-b border-slate-700">
-                            <div class="flex gap-1.5">
-                                <div class="w-3 h-3 rounded-full bg-red-500"></div>
-                                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
-                                <div class="w-3 h-3 rounded-full bg-green-500"></div>
-                            </div>
-                            <span class="text-xs text-slate-400 ml-2 font-mono">Optimizacion.java</span>
-                        </div>
-                        <pre><code class="language-java">public class Optimizacion {
-    public static void main(String[] args) {
-        // String Pool: 'a' y 'b' apuntan al MISMO objeto.
-        String a = "Java";
-        String b = "Java"; 
-        System.out.println(a == b); // true
+                    <h2 class="text-slate-900 mt-12 mb-6 border-none"><i
+                            class="fas fa-dumbbell text-yellow-600 mr-2"></i>Training Ground</h2>
 
-        // ELITE: StringBuilder usa un array interno redimensionable.
-        StringBuilder rapido = new StringBuilder();
-        for (int i = 0; i < 1000; i++) {
-            rapido.append(i); // Modifica el mismo objeto, cero basura.
-        }
-        
-        // Java 15+: Text Blocks (Ideal para JSON/SQL)
-        String json = """
-              {
-                  "id": 1,
-                  "status": "ACTIVE"
-              }
-              """;
-    }
-}</code></pre>
+                    <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-green-500">
+                        <span class="text-xs font-bold text-green-600 uppercase mb-2 block">🟢 Nivel Básico</span>
+                        <h4 class="font-bold text-slate-800">Recorrido e Inversión</h4>
+                        <p class="text-sm text-slate-600 mb-4">Crea un array de 10 enteros. Imprímelo en orden inverso
+                            sin crear un segundo array auxiliar.</p>
+                        <details class="text-xs text-slate-500 cursor-pointer">
+                            <summary>Ver Pista</summary>Usa un bucle <code>for</code> empezando en
+                            <code>length - 1</code> y decrementando hasta 0.
+                        </details>
                     </div>
 
-                    <h2>3. Entrenamiento Progresivo</h2>
-
-                    <div
-                        class="bg-white rounded-2xl p-6 border border-slate-200 shadow-lg mb-6 relative overflow-hidden group hover:border-emerald-400 transition-colors">
-                        <div
-                            class="absolute top-0 right-0 bg-emerald-100 text-emerald-700 text-xs font-bold px-3 py-1 rounded-bl-xl border-l border-b border-emerald-200">
-                            NIVEL BÁSICO</div>
-                        <h4 class="font-bold text-lg text-slate-800 mb-2">Analítica de Texto</h4>
-                        <p class="text-slate-600 text-sm mb-4">Convierte "Java es genial" a `toCharArray()`. Cuenta las
-                            vocales con un bucle.</p>
+                    <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-yellow-500">
+                        <span class="text-xs font-bold text-yellow-600 uppercase mb-2 block">🟡 Nivel Intermedio</span>
+                        <h4 class="font-bold text-slate-800">Palíndromo Eficiente</h4>
+                        <p class="text-sm text-slate-600 mb-4">Verifica si un String es palíndromo (se lee igual al
+                            revés) usando la técnica de "Two Pointers" (un puntero al inicio, otro al final).
+                            Complejidad O(N).</p>
                     </div>
 
-                    <div
-                        class="bg-white rounded-2xl p-6 border border-slate-200 shadow-lg mb-6 relative overflow-hidden group hover:border-red-400 transition-colors">
-                        <div
-                            class="absolute top-0 right-0 bg-red-100 text-red-700 text-xs font-bold px-3 py-1 rounded-bl-xl border-l border-b border-red-200">
-                            NIVEL EXPERTO</div>
-                        <h4 class="font-bold text-lg text-slate-800 mb-2">Algoritmo de Rotación (O(1) Espacio)</h4>
-                        <p class="text-slate-600 text-sm mb-4">Rota un array `k` veces a la derecha sin crear arrays
-                            auxiliares. Pista: Invertir partes del array.</p>
+                    <div class="mb-8 p-6 bg-slate-900 rounded-xl border border-slate-700 text-white">
+                        <span class="text-xs font-bold text-red-500 uppercase mb-2 block">🔴 Nivel Avanzado</span>
+                        <h4 class="font-bold text-white">Rotación de Array In-Place</h4>
+                        <p class="text-sm text-slate-400 mb-4">Rota un array <code>k</code> veces a la derecha con
+                            complejidad espacial O(1) (sin arrays extras).</p>
                         <button onclick="toggleSolution('sol-11')"
-                            class="text-sm font-bold text-yellow-600 flex items-center gap-2 hover:bg-yellow-50 px-3 py-2 rounded-lg transition-colors">
-                            <i class="fas fa-eye"></i> Ver Solución
-                        </button>
-                        <div id="sol-11" class="hidden mt-4 bg-slate-900 rounded-xl p-4 border border-slate-700">
-                            <pre><code class="language-java text-xs text-white">public void rotar(int[] nums, int k) {
+                            class="text-xs bg-yellow-600 hover:bg-yellow-500 text-white px-3 py-1 rounded transition">Ver
+                            Solución</button>
+                        <div id="sol-11" class="hidden mt-4 pt-4 border-t border-slate-700">
+                            <pre><code class="language-java">public void rotate(int[] nums, int k) {
     k %= nums.length;
-    invertir(nums, 0, nums.length - 1); // Todo
-    invertir(nums, 0, k - 1);           // Parte 1
-    invertir(nums, k, nums.length - 1); // Parte 2
+    reverse(nums, 0, nums.length - 1); // Invierte todo
+    reverse(nums, 0, k - 1);           // Invierte primera parte
+    reverse(nums, k, nums.length - 1); // Invierte segunda parte
 }
-// Método auxiliar 'invertir' usa dos punteros (start/end)</code></pre>
+// Método auxiliar reverse() usa swap simple</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
+                        <h3 class="font-bold text-slate-800 mb-6">Quiz de Validación</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <p class="text-sm font-semibold mb-2">1. ¿Cuál es la complejidad de acceder a un
+                                    elemento de un array por índice?</p>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <button class="quiz-btn border p-2 rounded text-sm hover:bg-slate-50"
+                                        onclick="checkQuiz(this, true)">O(1)</button>
+                                    <button class="quiz-btn border p-2 rounded text-sm hover:bg-slate-50"
+                                        onclick="checkQuiz(this, false)">O(N)</button>
+                                </div>
+                            </div>
+                            <div>
+                                <p class="text-sm font-semibold mb-2">2. ¿Dónde se almacenan los literales de String en
+                                    Java?</p>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <button class="quiz-btn border p-2 rounded text-sm hover:bg-slate-50"
+                                        onclick="checkQuiz(this, false)">Stack</button>
+                                    <button class="quiz-btn border p-2 rounded text-sm hover:bg-slate-50"
+                                        onclick="checkQuiz(this, true)">String Pool (Heap)</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <div id="lesson-12" class="lesson-section hidden animate-fade-in-up lesson-content">
                     <div class="mb-8 border-b border-slate-200 pb-6">
-                        <span
-                            class="px-3 py-1 rounded-full bg-yellow-100 text-yellow-700 text-xs font-bold uppercase tracking-wider">Lección
-                            12</span>
-                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mt-2 mb-4">Manejo de
-                            Excepciones</h1>
-                        <p class="text-lg text-slate-600">Errores recuperables vs Bugs. Jerarquía y gestión de recursos.
+                        <div class="flex items-center gap-3 mb-2">
+                            <span
+                                class="px-3 py-1 rounded-full bg-yellow-100 text-yellow-700 text-xs font-bold uppercase tracking-wider">Lección
+                                12</span>
+                        </div>
+                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">Manejo de
+                            Excepciones e Integridad</h1>
+                    </div>
+
+                    <div
+                        class="bg-white rounded-2xl p-8 shadow-lg shadow-yellow-900/5 border-l-4 border-yellow-500 mb-10">
+                        <p class="text-slate-600 mb-4">Las excepciones no son solo "errores", son un mecanismo de
+                            comunicación de flujo alternativo. Un Ingeniero Senior sabe diferenciar entre un error
+                            recuperable y un bug.</p>
+                    </div>
+
+
+
+                    [Image of Java Exception class hierarchy diagram]
+
+
+                    <h2 class="mt-8">1. El Costo de Fallar</h2>
+                    <p class="text-slate-600 mb-4">Crear una excepción es costoso porque la JVM debe capturar el estado
+                        completo de la pila (Stack Trace). No uses excepciones para control de flujo lógico (ej: no uses
+                        <code>try-catch</code> para salir de un bucle).
+                    </p>
+
+                    <h3 class="text-2xl font-bold text-slate-800 mt-8 mb-4">2. Checked vs Unchecked</h3>
+                    <div class="grid md:grid-cols-2 gap-6 mb-8">
+                        <div class="bg-orange-50 p-6 rounded-xl border border-orange-200">
+                            <h4 class="font-bold text-orange-800 mb-2">Unchecked (Runtime)</h4>
+                            <p class="text-sm text-orange-900">Son bugs de programación (NullPointer, IndexOut).
+                                <strong>No se capturan</strong>, se arregla el código.
+                            </p>
+                        </div>
+                        <div class="bg-blue-50 p-6 rounded-xl border border-blue-200">
+                            <h4 class="font-bold text-blue-800 mb-2">Checked (Exception)</h4>
+                            <p class="text-sm text-blue-900">Fallos externos anticipables (Base de datos caída, Archivo
+                                no encontrado). El compilador te obliga a manejarlos.</p>
+                        </div>
+                    </div>
+
+                    <h2 class="text-slate-900 mt-12 mb-6 border-none"><i
+                            class="fas fa-dumbbell text-yellow-600 mr-2"></i>Training Ground</h2>
+
+                    <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-green-500">
+                        <span class="text-xs font-bold text-green-600 uppercase mb-2 block">🟢 Nivel Básico</span>
+                        <h4 class="font-bold text-slate-800">Defensa Básica</h4>
+                        <p class="text-sm text-slate-600 mb-4">Escribe un método que divida dos números. Usa
+                            <code>try-catch</code> para evitar que el programa colapse si se divide por cero.
                         </p>
                     </div>
 
-                    <h2>1. Teoría Suprema: No es solo un "Error"</h2>
-                    <p class="text-slate-600 mb-6">Crear una excepción es costoso para la JVM (Stack Trace). Úsalas para
-                        casos excepcionales, no para lógica de negocio.</p>
+                    <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-yellow-500">
+                        <span class="text-xs font-bold text-yellow-600 uppercase mb-2 block">🟡 Nivel Intermedio</span>
+                        <h4 class="font-bold text-slate-800">Try-With-Resources</h4>
+                        <p class="text-sm text-slate-600 mb-4">Implementa la interfaz <code>AutoCloseable</code> en una
+                            clase propia. Úsala en un bloque <code>try()</code> para demostrar que se cierra
+                            automáticamente sin bloque finally.</p>
+                    </div>
 
-
-
-                    [Image of Java Exception Class Hierarchy]
-
-
-                    <div class="grid md:grid-cols-2 gap-6 mb-8">
-                        <div class="bg-white p-6 rounded-2xl border-l-4 border-red-500 shadow-sm">
-                            <h4 class="font-bold text-red-700 mb-2">Checked (Exception)</h4>
-                            <p class="text-sm text-slate-600">El compilador OBLIGA a manejarlas. Para errores externos
-                                recuperables (Red, Archivos).</p>
-                        </div>
-                        <div class="bg-white p-6 rounded-2xl border-l-4 border-orange-500 shadow-sm">
-                            <h4 class="font-bold text-orange-700 mb-2">Unchecked (Runtime)</h4>
-                            <p class="text-sm text-slate-600">Errores de programación (Bugs). No se capturan, se
-                                arreglan (NullPointer).</p>
+                    <div class="mb-8 p-6 bg-slate-900 rounded-xl border border-slate-700 text-white">
+                        <span class="text-xs font-bold text-red-500 uppercase mb-2 block">🔴 Nivel Avanzado</span>
+                        <h4 class="font-bold text-white">Patrón Retry con Exponencial Backoff</h4>
+                        <p class="text-sm text-slate-400 mb-4">Simula una conexión inestable. Crea un método que
+                            reintente la conexión 3 veces antes de rendirse, esperando más tiempo entre cada intento.
+                        </p>
+                        <button onclick="toggleSolution('sol-12')"
+                            class="text-xs bg-yellow-600 hover:bg-yellow-500 text-white px-3 py-1 rounded transition">Ver
+                            Solución</button>
+                        <div id="sol-12" class="hidden mt-4 pt-4 border-t border-slate-700">
+                            <pre><code class="language-java">int retries = 0;
+while (retries < 3) {
+    try {
+        conectar(); // Puede lanzar excepcion
+        return;
+    } catch (NetworkException e) {
+        retries++;
+        Thread.sleep(1000 * Math.pow(2, retries)); // Espera 2s, 4s, 8s...
+    }
+}
+throw new RuntimeException("Servidor no responde");</code></pre>
                         </div>
                     </div>
 
-                    <div class="rounded-xl overflow-hidden shadow-2xl bg-[#2d2d2d] border border-slate-700 mb-8">
-                        <pre><code class="language-java">public void leerDatos() throws IOException {
-    // Try-with-resources: Cierra el archivo automáticamente
-    try (BufferedReader br = new BufferedReader(new FileReader("data.txt"))) {
-        System.out.println(br.readLine());
-    } 
-    // No hace falta finally para cerrar
-}</code></pre>
+                    <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
+                        <h3 class="font-bold text-slate-800 mb-6">Quiz de Validación</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <p class="text-sm font-semibold mb-2">1. ¿Qué interfaz debe implementar una clase para
+                                    usarse en try-with-resources?</p>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <button class="quiz-btn border p-2 rounded text-sm hover:bg-slate-50"
+                                        onclick="checkQuiz(this, true)">AutoCloseable</button>
+                                    <button class="quiz-btn border p-2 rounded text-sm hover:bg-slate-50"
+                                        onclick="checkQuiz(this, false)">Serializable</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <div id="lesson-13" class="lesson-section hidden animate-fade-in-up lesson-content">
                     <div class="mb-8 border-b border-slate-200 pb-6">
-                        <span
-                            class="px-3 py-1 rounded-full bg-yellow-100 text-yellow-700 text-xs font-bold uppercase tracking-wider">Lección
-                            13</span>
-                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mt-2 mb-4">Collections:
-                            List y Set</h1>
+                        <div class="flex items-center gap-3 mb-2">
+                            <span
+                                class="px-3 py-1 rounded-full bg-yellow-100 text-yellow-700 text-xs font-bold uppercase tracking-wider">Lección
+                                13</span>
+                        </div>
+                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">Listas y Sets:
+                            Ingeniería de Colecciones</h1>
                     </div>
 
-                    <h2>1. Teoría Suprema: Ingeniería de Datos</h2>
-                    <p class="text-slate-600 mb-6">Elegir la colección incorrecta puede degradar el rendimiento
-                        masivamente.</p>
+                    <div
+                        class="bg-white rounded-2xl p-8 shadow-lg shadow-yellow-900/5 border-l-4 border-yellow-500 mb-10">
+                        <p class="text-slate-600">Elegir la colección incorrecta puede degradar el rendimiento de tu
+                            aplicación en un 1000%. Aquí aprenderás qué ocurre bajo el capó.</p>
+                    </div>
 
-                    <h3 class="text-xl font-bold text-slate-800 mb-3">La Mentira de LinkedList</h3>
-                    <p class="text-slate-600 mb-6">
-                        Aunque insertar es O(1), llegar a la posición es O(N). Además, los nodos dispersos causan "Cache
-                        Misses" en la CPU. <strong>ArrayList</strong> es casi siempre superior.
+                    <h2>1. ArrayList vs LinkedList: La Gran Mentira</h2>
+                    <p>Muchos tutoriales dicen "Usa LinkedList si insertas mucho". <strong>Falso en hardware
+                            moderno</strong>. <code>ArrayList</code> suele ser más rápido incluso insertando en medio
+                        debido a la <strong>localidad de caché</strong> de la CPU. <code>LinkedList</code> dispersa
+                        nodos por todo el Heap, causando "Cache Misses".</p>
+
+
+
+                    <h2>2. HashSet: Matemáticas Mágicas</h2>
+                    <p>Un Set garantiza unicidad. ¿Cómo sabe si un objeto ya existe sin recorrer toda la lista? Usa el
+                        <code>hashCode()</code> del objeto para calcular una posición directa en memoria.
                     </p>
 
-                    <h3 class="text-xl font-bold text-slate-800 mb-3">La Magia del Hash (Set)</h3>
-                    <p class="text-slate-600 mb-4">HashSet usa el <code>hashCode()</code> para saltar directamente a la
-                        posición de memoria.</p>
+                    <h2 class="text-slate-900 mt-12 mb-6 border-none"><i
+                            class="fas fa-dumbbell text-yellow-600 mr-2"></i>Training Ground</h2>
 
+                    <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-green-500">
+                        <span class="text-xs font-bold text-green-600 uppercase mb-2 block">🟢 Nivel Básico</span>
+                        <h4 class="font-bold text-slate-800">Limpieza de Duplicados</h4>
+                        <p class="text-sm text-slate-600 mb-4">Dada una lista de emails con duplicados:
+                            <code>["a@a.com", "b@b.com", "a@a.com"]</code>, usa un <code>HashSet</code> para eliminar
+                            los duplicados en una sola línea.
+                        </p>
+                    </div>
 
+                    <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-yellow-500">
+                        <span class="text-xs font-bold text-yellow-600 uppercase mb-2 block">🟡 Nivel Intermedio</span>
+                        <h4 class="font-bold text-slate-800">El Contrato Hash</h4>
+                        <p class="text-sm text-slate-600 mb-4">Crea una clase <code>Producto</code>. Intenta añadir dos
+                            productos con el mismo ID a un Set. ¿Por qué se duplican? Implementa <code>equals()</code> y
+                            <code>hashCode()</code> para arreglarlo.
+                        </p>
+                    </div>
 
-                    <div class="rounded-xl overflow-hidden shadow-2xl bg-[#2d2d2d] border border-slate-700 mb-8">
-                        <pre><code class="language-java">// LIST: Ordenada, duplicados OK
-List<String> lista = new ArrayList<>();
+                    <div class="mb-8 p-6 bg-slate-900 rounded-xl border border-slate-700 text-white">
+                        <span class="text-xs font-bold text-red-500 uppercase mb-2 block">🔴 Nivel Avanzado</span>
+                        <h4 class="font-bold text-white">Operaciones de Conjuntos</h4>
+                        <p class="text-sm text-slate-400 mb-4">Dados dos Sets A y B, calcula: Unión (A u B),
+                            Intersección (A n B) y Diferencia (A - B) usando métodos de la API de Java.</p>
+                        <button onclick="toggleSolution('sol-13')"
+                            class="text-xs bg-yellow-600 hover:bg-yellow-500 text-white px-3 py-1 rounded transition">Ver
+                            Solución</button>
+                        <div id="sol-13" class="hidden mt-4 pt-4 border-t border-slate-700">
+                            <pre><code class="language-java">Set&lt;Integer&gt; union = new HashSet&lt;&gt;(a);
+union.addAll(b);
 
-// SET: Sin orden, ÚNICOS (Rapidísimo para búsquedas)
-Set<Integer> unicos = new HashSet<>();
-unicos.add(1);
-unicos.add(1); // Ignorado
-System.out.println(unicos.size()); // 1</code></pre>
+Set&lt;Integer&gt; interseccion = new HashSet&lt;&gt;(a);
+interseccion.retainAll(b); // Mantiene solo los comunes
+
+Set&lt;Integer&gt; diferencia = new HashSet&lt;&gt;(a);
+diferencia.removeAll(b); // Quita los que están en B</code></pre>
+                        </div>
                     </div>
                 </div>
 
                 <div id="lesson-14" class="lesson-section hidden animate-fade-in-up lesson-content">
                     <div class="mb-8 border-b border-slate-200 pb-6">
-                        <span
-                            class="px-3 py-1 rounded-full bg-yellow-100 text-yellow-700 text-xs font-bold uppercase tracking-wider">Lección
-                            14</span>
-                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mt-2 mb-4">Map y Queue
-                        </h1>
+                        <div class="flex items-center gap-3 mb-2">
+                            <span
+                                class="px-3 py-1 rounded-full bg-yellow-100 text-yellow-700 text-xs font-bold uppercase tracking-wider">Lección
+                                14</span>
+                        </div>
+                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">Maps y Queues:
+                            Estructuras Complejas</h1>
                     </div>
 
-                    <div class="bg-yellow-50 p-6 rounded-xl border border-yellow-100 mb-8">
-                        <h3 class="font-bold text-yellow-900 mb-2">Motor Clave-Valor</h3>
-                        <p class="text-sm text-yellow-800">HashMap es la estructura más usada. Es vital entender cómo
-                            maneja las colisiones (cuando dos claves caen en el mismo bucket).</p>
+                    <h2>1. HashMap Internals</h2>
+                    <p>El <code>HashMap</code> es la estructura más importante en backend. Funciona mediante un array de
+                        "Buckets".</p>
+
+
+
+                    <p>Si dos objetos tienen el mismo Hash, ocurre una <strong>Colisión</strong>. Java maneja esto
+                        almacenando ambos objetos en el mismo bucket usando una Lista Enlazada (o un Árbol Rojo-Negro si
+                        hay muchas colisiones, desde Java 8).</p>
+
+                    <h2>2. PriorityQueue</h2>
+                    <p>No es una cola normal FIFO. Es una estructura ordenada donde siempre sale el elemento con "mayor
+                        prioridad" (o menor valor). Utiliza un <strong>Binary Heap</strong> internamente.</p>
+
+                    <h2 class="text-slate-900 mt-12 mb-6 border-none"><i
+                            class="fas fa-dumbbell text-yellow-600 mr-2"></i>Training Ground</h2>
+
+                    <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-green-500">
+                        <span class="text-xs font-bold text-green-600 uppercase mb-2 block">🟢 Nivel Básico</span>
+                        <h4 class="font-bold text-slate-800">Diccionario Simple</h4>
+                        <p class="text-sm text-slate-600 mb-4">Crea un mapa Español-Inglés. Añade 5 palabras. Permite al
+                            usuario buscar una traducción.</p>
                     </div>
 
+                    <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-yellow-500">
+                        <span class="text-xs font-bold text-yellow-600 uppercase mb-2 block">🟡 Nivel Intermedio</span>
+                        <h4 class="font-bold text-slate-800">Frecuencia de Palabras</h4>
+                        <p class="text-sm text-slate-600 mb-4">Dado un texto largo, usa un Map para contar cuántas veces
+                            aparece cada palabra. Clave: Palabra, Valor: Contador.</p>
+                    </div>
 
-
-                    <div class="rounded-xl overflow-hidden shadow-2xl bg-[#2d2d2d] border border-slate-700 mb-8">
-                        <pre><code class="language-java">Map<String, Integer> inventario = new HashMap<>();
-inventario.put("Manzana", 10);
-
-// Iteración eficiente
-for (Map.Entry<String, Integer> entry : inventario.entrySet()) {
-    System.out.println(entry.getKey() + ": " + entry.getValue());
+                    <div class="mb-8 p-6 bg-slate-900 rounded-xl border border-slate-700 text-white">
+                        <span class="text-xs font-bold text-red-500 uppercase mb-2 block">🔴 Nivel Avanzado</span>
+                        <h4 class="font-bold text-white">Top K Elementos (Heap)</h4>
+                        <p class="text-sm text-slate-400 mb-4">Encuentra los 3 números más grandes de una lista de 1
+                            millón de números usando una <code>PriorityQueue</code> de tamaño fijo (Min-Heap). Esto es
+                            mucho más eficiente que ordenar toda la lista.</p>
+                        <button onclick="toggleSolution('sol-14')"
+                            class="text-xs bg-yellow-600 hover:bg-yellow-500 text-white px-3 py-1 rounded transition">Ver
+                            Solución</button>
+                        <div id="sol-14" class="hidden mt-4 pt-4 border-t border-slate-700">
+                            <pre><code class="language-java">PriorityQueue&lt;Integer&gt; minHeap = new PriorityQueue&lt;&gt;();
+for (int n : numeros) {
+    minHeap.add(n);
+    if (minHeap.size() > 3) {
+        minHeap.poll(); // Elimina el más pequeño de los 4, dejando los 3 mayores
+    }
 }
-
-// PriorityQueue: El menor sale primero (Ideal para tareas)
-Queue<Integer> cola = new PriorityQueue<>();
-cola.add(50); cola.add(10);
-System.out.println(cola.poll()); // 10</code></pre>
+// El Heap ahora contiene los 3 mayores del millón.</code></pre>
+                        </div>
                     </div>
                 </div>
 
                 <div id="lesson-15" class="lesson-section hidden animate-fade-in-up lesson-content">
                     <div class="mb-8 border-b border-slate-200 pb-6">
-                        <span
-                            class="px-3 py-1 rounded-full bg-yellow-100 text-yellow-700 text-xs font-bold uppercase tracking-wider">Lección
-                            15</span>
-                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mt-2 mb-4">Genéricos
-                        </h1>
-                        <p class="text-lg text-slate-600">Seguridad de tipos en compilación y flexibilidad de API.</p>
+                        <div class="flex items-center gap-3 mb-2">
+                            <span
+                                class="px-3 py-1 rounded-full bg-yellow-100 text-yellow-700 text-xs font-bold uppercase tracking-wider">Lección
+                                15</span>
+                        </div>
+                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">Genéricos:
+                            Seguridad en Tiempo de Compilación</h1>
                     </div>
 
-                    <h2>1. Teoría Suprema: Type Erasure</h2>
-                    <p class="text-slate-600 mb-6">
-                        Para mantener compatibilidad, Java BORRA la información de tipos al compilar.
-                        <code>List&lt;String&gt;</code> se convierte en <code>List</code> (raw) en el bytecode.
+                    <div
+                        class="bg-white rounded-2xl p-8 shadow-lg shadow-yellow-900/5 border-l-4 border-yellow-500 mb-10">
+                        <p class="text-slate-600">Los genéricos permiten escribir algoritmos reutilizables asegurando
+                            que no metas una "Manzana" en una caja de "Naranjas".</p>
+                    </div>
+
+                    <h2>1. Type Erasure (Borrado de Tipos)</h2>
+                    <p>Java implementa genéricos mediante "Borrado". El código <code>List&lt;String&gt;</code> existe
+                        solo para el compilador. En el Bytecode (runtime), Java lo convierte a <code>List</code> (raw
+                        type) y añade "Casteos" automáticos.</p>
+
+
+
+                    <h2>2. Wildcards y PECS</h2>
+                    <p>La regla de oro para APIs flexibles: <strong>PECS</strong> (Producer Extends, Consumer Super).
                     </p>
+                    <ul class="list-disc list-inside text-slate-600 mb-6">
+                        <li>Si solo LEES de una lista (Produce datos), usa <code>? extends T</code>.</li>
+                        <li>Si escribes en una lista (Consume datos), usa <code>? super T</code>.</li>
+                    </ul>
 
+                    <h2 class="text-slate-900 mt-12 mb-6 border-none"><i
+                            class="fas fa-dumbbell text-yellow-600 mr-2"></i>Training Ground</h2>
 
-
-                    <div class="bg-yellow-50 border border-yellow-200 rounded-xl p-6 mb-8">
-                        <h4 class="font-bold text-yellow-800 mb-2">Principio PECS</h4>
-                        <p class="text-yellow-900 text-sm">"Producer Extends, Consumer Super". Usa
-                            <code>? extends T</code> si solo lees de la lista. Usa <code>? super T</code> si escribes en
-                            ella.</p>
+                    <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-green-500">
+                        <span class="text-xs font-bold text-green-600 uppercase mb-2 block">🟢 Nivel Básico</span>
+                        <h4 class="font-bold text-slate-800">Caja Mágica</h4>
+                        <p class="text-sm text-slate-600 mb-4">Crea una clase <code>Caja&lt;T&gt;</code> que pueda
+                            guardar un objeto de cualquier tipo y tenga un método <code>T obtener()</code>.</p>
                     </div>
 
-                    <div class="rounded-xl overflow-hidden shadow-2xl bg-[#2d2d2d] border border-slate-700 mb-8">
-                        <pre><code class="language-java">public class Caja<T> {
-    private T contenido;
-    public void guardar(T c) { this.contenido = c; }
-    public T sacar() { return contenido; }
-}
+                    <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-yellow-500">
+                        <span class="text-xs font-bold text-yellow-600 uppercase mb-2 block">🟡 Nivel Intermedio</span>
+                        <h4 class="font-bold text-slate-800">Método Genérico</h4>
+                        <p class="text-sm text-slate-600 mb-4">Escribe un método estático <code>intercambiar</code> que
+                            reciba un array de cualquier tipo <code>T[]</code> y dos índices, e intercambie los valores.
+                        </p>
+                    </div>
 
-// Comodines (Wildcards)
-public double sumar(List<? extends Number> nums) {
+                    <div class="mb-8 p-6 bg-slate-900 rounded-xl border border-slate-700 text-white">
+                        <span class="text-xs font-bold text-red-500 uppercase mb-2 block">🔴 Nivel Avanzado</span>
+                        <h4 class="font-bold text-white">Wildcards (PECS)</h4>
+                        <p class="text-sm text-slate-400 mb-4">Crea un método <code>sumarNumeros</code> que acepte
+                            cualquier lista de números (Integer, Double, Float) usando
+                            <code>List&lt;? extends Number&gt;</code> y retorne la suma como double.
+                        </p>
+                        <button onclick="toggleSolution('sol-15')"
+                            class="text-xs bg-yellow-600 hover:bg-yellow-500 text-white px-3 py-1 rounded transition">Ver
+                            Solución</button>
+                        <div id="sol-15" class="hidden mt-4 pt-4 border-t border-slate-700">
+                            <pre><code class="language-java">public static double sumar(List&lt;? extends Number&gt; lista) {
     double suma = 0;
-    for (Number n : nums) suma += n.doubleValue();
+    for (Number n : lista) {
+        suma += n.doubleValue(); // Polimorfismo seguro
+    }
     return suma;
 }</code></pre>
+                        </div>
                     </div>
                 </div>
 
             </div>
 
             <footer class="mt-20 py-8 text-center text-slate-400 text-sm border-t border-slate-200">
-                <p>&copy; 2025 Java Masterclass. Módulo 3 completado.</p>
+                <p>&copy; 2025 Java Elite Bootcamp. Estructuras de Datos y Algoritmos.</p>
             </footer>
         </main>
     </div>
@@ -440,16 +564,18 @@ public double sumar(List<? extends Number> nums) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
     <script>
         function showLesson(id) {
+            // Ocultar todas las lecciones
             document.querySelectorAll('.lesson-section').forEach(el => {
                 el.classList.add('hidden');
                 el.classList.remove('active');
             });
 
+            // Mostrar la seleccionada
             const selected = document.getElementById('lesson-' + id);
             selected.classList.remove('hidden');
             setTimeout(() => selected.classList.add('active'), 10);
 
-            // Resetear botones
+            // Resetear estilos de botones
             document.querySelectorAll('.nav-btn').forEach(btn => {
                 btn.classList.remove('active', 'bg-yellow-50', 'border-yellow-100');
                 btn.querySelector('.btn-indicator').classList.remove('opacity-100');
@@ -462,7 +588,7 @@ public double sumar(List<? extends Number> nums) {
                 btn.querySelector('.btn-text').classList.remove('text-yellow-700', 'font-bold');
             });
 
-            // Activar botón
+            // Activar botón seleccionado
             const activeBtn = document.getElementById('btn-' + id);
             activeBtn.classList.add('active', 'bg-yellow-50', 'border-yellow-100');
             activeBtn.querySelector('.btn-indicator').classList.add('opacity-100');
@@ -482,9 +608,18 @@ public double sumar(List<? extends Number> nums) {
             el.classList.toggle('hidden');
         }
 
-        function checkQuiz1() {
-            // Ejemplo básico
-            alert("¡Respuestas registradas! Revisa los conceptos si tuviste dudas.");
+        function checkQuiz(btn, isCorrect) {
+            // Reset siblings
+            const parent = btn.parentElement;
+            parent.querySelectorAll('.quiz-btn').forEach(b => {
+                b.classList.remove('correct', 'wrong');
+            });
+
+            if (isCorrect) {
+                btn.classList.add('correct');
+            } else {
+                btn.classList.add('wrong');
+            }
         }
 
         // Init

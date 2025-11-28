@@ -4,30 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Módulo 7 | Arquitectura y Despliegue</title>
+    <title>Módulo 7 | Arquitectura y Maestría</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" href="../assets/style.css">
 
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
-                    animation: {
-                        'fade-in-up': 'fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards',
-                    },
-                    keyframes: {
-                        fadeInUp: {
-                            '0%': { opacity: '0', transform: 'translateY(20px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' },
-                        },
-                    }
+                    fontFamily: { sans: ['Inter', 'sans-serif'], },
+                    animation: { 'fade-in-up': 'fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards', },
+                    keyframes: { fadeInUp: { '0%': { opacity: '0', transform: 'translateY(20px)' }, '100%': { opacity: '1', transform: 'translateY(0)' }, }, }
                 }
             }
         }
@@ -43,7 +33,7 @@
             <a href="../index.html"
                 class="group flex items-center gap-2 text-slate-300 hover:text-white transition-all bg-white/5 hover:bg-white/10 px-4 py-2 rounded-lg border border-white/10 hover:border-white/20">
                 <i class="fas fa-arrow-left text-sm group-hover:-translate-x-1 transition-transform"></i>
-                <span class="text-sm font-medium">Volver al Inicio</span>
+                <span class="text-sm font-medium">Dashboard</span>
             </a>
             <div class="h-6 w-px bg-slate-700 mx-2"></div>
             <div class="flex items-center gap-3">
@@ -52,11 +42,10 @@
                 </div>
                 <div>
                     <h1 class="font-bold text-sm tracking-wide leading-none">Módulo 07</h1>
-                    <span class="text-xs text-slate-400 font-medium">Arquitectura Final</span>
+                    <span class="text-xs text-slate-400 font-medium">Arquitectura de Software</span>
                 </div>
             </div>
         </div>
-
         <div class="hidden md:flex items-center gap-4">
             <div class="flex items-center gap-2 px-3 py-1.5 bg-indigo-900/30 rounded-full border border-indigo-500/20">
                 <span class="relative flex h-2 w-2">
@@ -70,44 +59,40 @@
     </nav>
 
     <div class="flex flex-1 pt-16 h-full overflow-hidden">
-
         <aside class="w-80 bg-white border-r border-slate-200 shadow-xl z-20 hidden md:flex flex-col">
             <div class="p-6 border-b border-slate-100 bg-slate-50/50">
-                <h3 class="text-xs font-black text-slate-400 uppercase tracking-widest mb-1">Contenido del Módulo</h3>
+                <h3 class="text-xs font-black text-slate-400 uppercase tracking-widest mb-1">Plan de Estudio</h3>
                 <p class="text-sm text-slate-600 font-medium">3 Pasos a la Maestría</p>
             </div>
-
             <div class="flex-1 overflow-y-auto custom-scrollbar p-4 space-y-2">
                 <button onclick="showLesson(28)" id="btn-28"
-                    class="nav-btn w-full text-left px-4 py-4 rounded-xl text-sm font-medium transition-all duration-200 border border-transparent hover:bg-slate-50 hover:border-slate-200 group relative overflow-hidden active">
+                    class="nav-btn w-full text-left px-4 py-4 rounded-xl text-sm font-medium transition-all duration-200 border border-transparent hover:bg-indigo-50 hover:border-indigo-200 group relative overflow-hidden active">
                     <div class="relative z-10 flex items-center gap-3">
                         <span
                             class="flex-shrink-0 w-8 h-8 rounded-lg bg-slate-100 text-slate-500 flex items-center justify-center text-xs font-bold group-hover:bg-white group-hover:shadow-sm transition-all btn-icon">28</span>
-                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">Servicios Web (HTTP)</span>
+                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">HTTP Client Moderno</span>
                     </div>
                     <div
                         class="absolute left-0 top-0 bottom-0 w-1 bg-indigo-600 opacity-0 btn-indicator transition-opacity">
                     </div>
                 </button>
-
                 <button onclick="showLesson(29)" id="btn-29"
-                    class="nav-btn w-full text-left px-4 py-4 rounded-xl text-sm font-medium transition-all duration-200 border border-transparent hover:bg-slate-50 hover:border-slate-200 group relative overflow-hidden">
+                    class="nav-btn w-full text-left px-4 py-4 rounded-xl text-sm font-medium transition-all duration-200 border border-transparent hover:bg-indigo-50 hover:border-indigo-200 group relative overflow-hidden">
                     <div class="relative z-10 flex items-center gap-3">
                         <span
                             class="flex-shrink-0 w-8 h-8 rounded-lg bg-slate-100 text-slate-500 flex items-center justify-center text-xs font-bold group-hover:bg-white group-hover:shadow-sm transition-all btn-icon">29</span>
-                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">SOLID y Patrones</span>
+                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">Principios SOLID</span>
                     </div>
                     <div
                         class="absolute left-0 top-0 bottom-0 w-1 bg-indigo-600 opacity-0 btn-indicator transition-opacity">
                     </div>
                 </button>
-
                 <button onclick="showLesson(30)" id="btn-30"
-                    class="nav-btn w-full text-left px-4 py-4 rounded-xl text-sm font-medium transition-all duration-200 border border-transparent hover:bg-slate-50 hover:border-slate-200 group relative overflow-hidden">
+                    class="nav-btn w-full text-left px-4 py-4 rounded-xl text-sm font-medium transition-all duration-200 border border-transparent hover:bg-indigo-50 hover:border-indigo-200 group relative overflow-hidden">
                     <div class="relative z-10 flex items-center gap-3">
                         <span
                             class="flex-shrink-0 w-8 h-8 rounded-lg bg-slate-100 text-slate-500 flex items-center justify-center text-xs font-bold group-hover:bg-white group-hover:shadow-sm transition-all btn-icon">30</span>
-                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">Proyecto Final</span>
+                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">Arquitectura Limpia</span>
                     </div>
                     <div
                         class="absolute left-0 top-0 bottom-0 w-1 bg-indigo-600 opacity-0 btn-indicator transition-opacity">
@@ -117,10 +102,6 @@
         </aside>
 
         <main class="flex-1 overflow-y-auto relative bg-slate-50 scroll-smooth">
-            <div
-                class="absolute inset-0 pointer-events-none bg-[url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%2364748b\' fill-opacity=\'0.03\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')]">
-            </div>
-
             <div class="max-w-5xl mx-auto px-8 py-12 relative z-10">
 
                 <div id="lesson-28" class="lesson-section active animate-fade-in-up lesson-content">
@@ -129,286 +110,280 @@
                             <span
                                 class="px-3 py-1 rounded-full bg-indigo-100 text-indigo-700 text-xs font-bold uppercase tracking-wider">Lección
                                 28</span>
-                            <span class="text-slate-400 text-sm font-medium"><i class="far fa-clock mr-1"></i> 40
+                            <span class="text-slate-400 text-sm font-medium"><i class="far fa-clock mr-1"></i> 35
                                 min</span>
                         </div>
-                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">Cliente HTTP
-                            Moderno</h1>
-                        <p class="text-lg text-slate-600 max-w-3xl">Conectando tu aplicación Java al mundo: Consumo de
-                            APIs REST asíncronas.</p>
+                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">El Cliente HTTP:
+                            Hablando con el Mundo</h1>
                     </div>
 
                     <div
                         class="bg-white rounded-2xl p-8 shadow-lg shadow-indigo-900/5 border-l-4 border-indigo-600 mb-10">
-                        <h3 class="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2">
-                            <i class="fas fa-bullseye text-indigo-600"></i> Objetivos de Élite
-                        </h3>
-                        <div class="grid md:grid-cols-2 gap-4">
-                            <div class="flex items-start gap-3">
-                                <i class="fas fa-check-circle text-green-500 mt-1"></i>
-                                <span class="text-slate-600 text-sm">Arquitectura Cliente-Servidor REST.</span>
-                            </div>
-                            <div class="flex items-start gap-3">
-                                <i class="fas fa-check-circle text-green-500 mt-1"></i>
-                                <span class="text-slate-600 text-sm">Uso de `HttpClient` (Java 11+).</span>
-                            </div>
-                            <div class="flex items-start gap-3">
-                                <i class="fas fa-check-circle text-green-500 mt-1"></i>
-                                <span class="text-slate-600 text-sm">Peticiones Asíncronas (Non-blocking).</span>
-                            </div>
-                            <div class="flex items-start gap-3">
-                                <i class="fas fa-check-circle text-green-500 mt-1"></i>
-                                <span class="text-slate-600 text-sm">Resiliencia: Timeouts y Errores.</span>
-                            </div>
-                        </div>
+                        <h3 class="!mt-0 text-xl font-bold text-slate-800 mb-4 flex items-center gap-2"><i
+                                class="fas fa-bullseye text-indigo-600"></i> Objetivos Senior</h3>
+                        <ul class="list-disc list-inside text-slate-600 text-sm space-y-2">
+                            <li>Dejar atrás <code>HttpURLConnection</code> (Legacy) y abrazar <code>HttpClient</code>
+                                (Java 11+).</li>
+                            <li>Entender las peticiones asíncronas (Non-blocking I/O).</li>
+                            <li>Consumo de APIs REST JSON.</li>
+                        </ul>
                     </div>
 
-                    <h2>1. Teoría Suprema: El Idioma de Internet</h2>
-                    <p class="text-slate-600 mb-6 leading-relaxed">
-                        Tu aplicación Java no vive aislada. Necesita hablar HTTP para consumir servicios como Stripe,
-                        Google Maps o APIs internas. <strong>REST</strong> es el estándar arquitectónico que usa los
-                        verbos HTTP (GET, POST, PUT, DELETE) para manipular recursos.
+                    <h2>1. El Idioma de Internet</h2>
+                    <p class="text-slate-600 mb-6">Tu aplicación Java no vive aislada. Necesita conectarse a servicios
+                        de terceros (Stripe, Google Maps, Microservicios internos). El protocolo estándar es
+                        <strong>HTTP/REST</strong>.
                     </p>
 
 
 
-                    [Image of REST API architecture diagram]
+                    <h3 class="text-xl font-bold text-slate-800 mt-8 mb-4">2. java.net.http.HttpClient</h3>
+                    <p class="text-slate-600 mb-4">Introducido en Java 11, es moderno, fluido y soporta HTTP/2
+                        (multiplexación). Permite enviar peticiones de forma síncrona (bloqueante) o asíncrona (usando
+                        <code>CompletableFuture</code>).
+                    </p>
 
-
-                    <h3 class="text-xl font-bold text-slate-800 mb-3">La evolución del Cliente</h3>
-                    <div class="bg-indigo-50 border border-indigo-200 rounded-xl p-6 mb-8">
-                        <p class="text-indigo-900 text-sm">
-                            Antes usábamos <code>HttpURLConnection</code> (verboso y bloqueante). Desde Java 11, usamos
-                            <strong><code>java.net.http.HttpClient</code></strong>, que soporta HTTP/2, WebSockets y es
-                            completamente asíncrono (basado en CompletableFuture).
-                        </p>
-                    </div>
-
-                    <h2>2. Laboratorio de Código</h2>
-                    <div class="rounded-xl overflow-hidden shadow-2xl bg-[#2d2d2d] border border-slate-700 mb-8">
-                        <div class="bg-[#1e1e1e] px-4 py-2 flex items-center gap-2 border-b border-slate-700">
-                            <div class="flex gap-1.5">
-                                <div class="w-3 h-3 rounded-full bg-red-500"></div>
-                                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
-                                <div class="w-3 h-3 rounded-full bg-green-500"></div>
-                            </div>
-                            <span class="text-xs text-slate-400 ml-2 font-mono">ApiClient.java</span>
+                    <div class="code-window bg-[#1e1e1e] mb-8">
+                        <div class="flex items-center gap-2 px-4 py-2 border-b border-slate-700 bg-slate-800/50">
+                            <span class="text-xs text-slate-400 font-mono ml-2">RestClient.java</span>
                         </div>
-                        <pre><code class="language-java">import java.net.http.*;
-import java.net.URI;
-import java.time.Duration;
-
-// 1. Cliente Reutilizable (Best Practice: Singleton)
+                        <pre><code class="language-java">// 1. Construir el Cliente
 HttpClient client = HttpClient.newBuilder()
     .version(HttpClient.Version.HTTP_2)
-    .connectTimeout(Duration.ofSeconds(5)) // Siempre pon Timeout
+    .connectTimeout(Duration.ofSeconds(10))
     .build();
 
-// 2. Petición (Request)
+// 2. Crear la Petición
 HttpRequest request = HttpRequest.newBuilder()
-    .uri(URI.create("https://api.github.com/zen"))
-    .GET()
+    .uri(URI.create("https://api.github.com/users/octocat"))
+    .GET() // O .POST(BodyPublishers.ofString(json))
     .build();
 
-// 3. Envío Asíncrono (No bloquea el hilo principal)
+// 3. Enviar (Asíncrono)
 client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
     .thenApply(HttpResponse::body)
     .thenAccept(System.out::println)
-    .join(); // Esperar solo para el ejemplo</code></pre>
+    .join(); // Esperar para ver el resultado</code></pre>
                     </div>
 
-                    <h2>3. Entrenamiento Progresivo</h2>
+                    <h2 class="text-slate-900 mt-12 mb-6 border-none"><i
+                            class="fas fa-dumbbell text-indigo-600 mr-2"></i>Training Ground</h2>
 
-                    <div
-                        class="bg-white rounded-2xl p-6 border border-slate-200 shadow-lg mb-6 relative overflow-hidden group hover:border-emerald-400 transition-colors">
-                        <div
-                            class="absolute top-0 right-0 bg-emerald-100 text-emerald-700 text-xs font-bold px-3 py-1 rounded-bl-xl border-l border-b border-emerald-200">
-                            NIVEL BÁSICO</div>
-                        <h4 class="font-bold text-lg text-slate-800 mb-2">Consumo Simple</h4>
-                        <p class="text-slate-600 text-sm mb-4">Usa `HttpClient` para hacer un GET síncrono (`send`) a
-                            una API pública. Imprime el Status Code (200).</p>
+                    <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-green-500">
+                        <span class="text-xs font-bold text-green-600 uppercase mb-2 block">🟢 Nivel Básico</span>
+                        <h4 class="font-bold text-slate-800">GET Simple</h4>
+                        <p class="text-sm text-slate-600 mb-4">Haz una petición GET síncrona a
+                            <code>https://jsonplaceholder.typicode.com/posts/1</code> e imprime el cuerpo de la
+                            respuesta.
+                        </p>
                     </div>
 
-                    <div
-                        class="bg-white rounded-2xl p-6 border border-slate-200 shadow-lg mb-6 relative overflow-hidden group hover:border-red-400 transition-colors">
-                        <div
-                            class="absolute top-0 right-0 bg-red-100 text-red-700 text-xs font-bold px-3 py-1 rounded-bl-xl border-l border-b border-red-200">
-                            NIVEL EXPERTO</div>
-                        <h4 class="font-bold text-lg text-slate-800 mb-2">Race Request (Carrera de APIs)</h4>
-                        <p class="text-slate-600 text-sm mb-4">Lanza 3 peticiones asíncronas simultáneas. Usa
-                            `CompletableFuture.allOf` para esperar a que TODAS terminen antes de seguir.</p>
+                    <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-yellow-500">
+                        <span class="text-xs font-bold text-yellow-600 uppercase mb-2 block">🟡 Nivel Intermedio</span>
+                        <h4 class="font-bold text-slate-800">Manejo de Errores</h4>
+                        <p class="text-sm text-slate-600 mb-4">Intenta conectar a una URL que no existe. Captura la
+                            excepción y verifica si el status code es 404 antes de procesar el cuerpo.</p>
+                    </div>
+
+                    <div class="mb-8 p-6 bg-slate-900 rounded-xl border border-slate-700 text-white">
+                        <span class="text-xs font-bold text-indigo-500 uppercase mb-2 block">🔴 Nivel Avanzado</span>
+                        <h4 class="font-bold text-white">Race Request</h4>
+                        <p class="text-sm text-slate-400 mb-4">Lanza 3 peticiones asíncronas simultáneas a 3 URLs
+                            diferentes. Usa <code>CompletableFuture.allOf()</code> para esperar a que todas terminen y
+                            luego imprime "¡Todo listo!".</p>
                         <button onclick="toggleSolution('sol-28')"
-                            class="text-sm font-bold text-indigo-600 flex items-center gap-2 hover:bg-indigo-50 px-3 py-2 rounded-lg transition-colors">
-                            <i class="fas fa-eye"></i> Ver Solución
-                        </button>
-                        <div id="sol-28" class="hidden mt-4 bg-slate-900 rounded-xl p-4 border border-slate-700">
-                            <pre><code class="language-java text-xs text-white">List<URI> uris = List.of(uri1, uri2, uri3);
+                            class="text-xs bg-indigo-600 hover:bg-indigo-500 text-white px-3 py-1 rounded transition">Ver
+                            Solución</button>
+                        <div id="sol-28" class="hidden mt-4 pt-4 border-t border-slate-700">
+                            <pre><code class="language-java">var f1 = client.sendAsync(req1, BodyHandlers.ofString());
+var f2 = client.sendAsync(req2, BodyHandlers.ofString());
+var f3 = client.sendAsync(req3, BodyHandlers.ofString());
 
-var futuros = uris.stream()
-    .map(uri -> client.sendAsync(req(uri), BodyHandlers.ofString()))
-    .toArray(CompletableFuture[]::new);
+CompletableFuture.allOf(f1, f2, f3).join();
+System.out.println("Carga masiva completada");</code></pre>
+                        </div>
+                    </div>
 
-CompletableFuture.allOf(futuros).join(); // Espera paralela
-System.out.println("Todas terminadas!");</code></pre>
+                    <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
+                        <h3 class="font-bold text-slate-800 mb-6">Quiz de Validación</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <p class="text-sm font-semibold mb-2">1. ¿Qué clase reemplaza a la antigua
+                                    HttpURLConnection?</p>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <button class="quiz-btn border p-2 rounded text-sm hover:bg-slate-50"
+                                        onclick="checkQuiz(this, false)">WebClient</button>
+                                    <button class="quiz-btn border p-2 rounded text-sm hover:bg-slate-50"
+                                        onclick="checkQuiz(this, true)">HttpClient</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <div id="lesson-29" class="lesson-section hidden animate-fade-in-up lesson-content">
                     <div class="mb-8 border-b border-slate-200 pb-6">
-                        <span
-                            class="px-3 py-1 rounded-full bg-indigo-100 text-indigo-700 text-xs font-bold uppercase tracking-wider">Lección
-                            29</span>
-                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mt-2 mb-4">SOLID y
-                            Patrones</h1>
-                        <p class="text-lg text-slate-600">Escribir código que sobreviva al paso del tiempo.</p>
+                        <div class="flex items-center gap-3 mb-2">
+                            <span
+                                class="px-3 py-1 rounded-full bg-indigo-100 text-indigo-700 text-xs font-bold uppercase tracking-wider">Lección
+                                29</span>
+                        </div>
+                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">Principios SOLID
+                            y Patrones</h1>
                     </div>
 
-                    <h2>1. Teoría Suprema: Arquitectura Sostenible</h2>
-                    <p class="text-slate-600 mb-6">
-                        SOLID no son reglas rígidas, son principios para gestionar las dependencias y evitar que el
-                        código se pudra.
-                    </p>
+                    <div
+                        class="bg-white rounded-2xl p-8 shadow-lg shadow-indigo-900/5 border-l-4 border-indigo-600 mb-10">
+                        <p class="text-slate-600">Escribir código que funcione es fácil. Escribir código que
+                            <strong>sobreviva al cambio</strong> es arte. SOLID son 5 reglas para evitar que tu software
+                            se pudra.
+                        </p>
+                    </div>
+
+                    <h2>1. S.O.L.I.D. Explicado para Humanos</h2>
 
 
 
-                    [Image of SOLID principles diagram]
-
-
-                    <div class="grid md:grid-cols-2 gap-6 mb-8">
-                        <div class="bg-white p-6 rounded-2xl border-l-4 border-blue-500 shadow-sm">
-                            <h4 class="font-bold text-blue-700 mb-2">S - Single Responsibility</h4>
-                            <p class="text-sm text-slate-600">Una clase debe tener una sola razón para cambiar. No
-                                mezcles SQL con HTML.</p>
+                    <div class="space-y-4 mt-6">
+                        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
+                            <h4 class="font-bold text-blue-900">S - Single Responsibility</h4>
+                            <p class="text-xs text-blue-800">Una clase, un motivo para cambiar. No mezcles lógica de BD
+                                con envío de emails.</p>
                         </div>
-                        <div class="bg-white p-6 rounded-2xl border-l-4 border-purple-500 shadow-sm">
-                            <h4 class="font-bold text-purple-700 mb-2">O - Open/Closed</h4>
-                            <p class="text-sm text-slate-600">Abierto a extensión, cerrado a modificación. Usa
-                                polimorfismo para añadir funciones sin tocar código viejo.</p>
+                        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-500">
+                            <h4 class="font-bold text-green-900">O - Open/Closed</h4>
+                            <p class="text-xs text-green-800">Abierto a extensión, cerrado a modificación. Usa
+                                interfaces para añadir funcionalidad sin tocar código viejo.</p>
+                        </div>
+                        <div class="bg-purple-50 p-4 rounded-lg border-l-4 border-purple-500">
+                            <h4 class="font-bold text-purple-900">D - Dependency Inversion</h4>
+                            <p class="text-xs text-purple-800">Depende de abstracciones (Interfaces), no de concreciones
+                                (Clases con <code>new</code>).</p>
                         </div>
                     </div>
 
-                    <div class="rounded-xl overflow-hidden shadow-2xl bg-[#2d2d2d] border border-slate-700 mb-8">
-                        <pre><code class="language-java">// PATRÓN STRATEGY (Para cumplir Open/Closed)
-interface Descuento { double aplicar(double precio); }
+                    <h3 class="text-xl font-bold text-slate-800 mt-8 mb-4">Patrón Strategy (El poder del Polimorfismo)
+                    </h3>
+                    <p class="text-slate-600 mb-4">Este patrón es la encarnación del principio Open/Closed. Permite
+                        cambiar el algoritmo de una clase en tiempo de ejecución.</p>
 
-class SinDescuento implements Descuento {
-    public double aplicar(double p) { return p; }
-}
-class DescuentoVIP implements Descuento {
-    public double aplicar(double p) { return p * 0.80; }
-}
+                    <h2 class="text-slate-900 mt-12 mb-6 border-none"><i
+                            class="fas fa-dumbbell text-indigo-600 mr-2"></i>Training Ground</h2>
 
-// El contexto no sabe qué descuento usa, solo sabe que hay uno.
+                    <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-green-500">
+                        <span class="text-xs font-bold text-green-600 uppercase mb-2 block">🟢 Nivel Básico</span>
+                        <h4 class="font-bold text-slate-800">Refactorización SRP</h4>
+                        <p class="text-sm text-slate-600 mb-4">Tienes una clase <code>Usuario</code> que guarda en BD y
+                            envía emails. Sepárala en <code>UsuarioRepository</code> y <code>EmailService</code>.</p>
+                    </div>
+
+                    <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-yellow-500">
+                        <span class="text-xs font-bold text-yellow-600 uppercase mb-2 block">🟡 Nivel Intermedio</span>
+                        <h4 class="font-bold text-slate-800">Inyección de Dependencias</h4>
+                        <p class="text-sm text-slate-600 mb-4">Crea una clase <code>Motor</code> (interfaz) y dos
+                            implementaciones (<code>Gasolina</code>, <code>Electrico</code>). Inyecta el motor en el
+                            constructor de <code>Coche</code>.</p>
+                    </div>
+
+                    <div class="mb-8 p-6 bg-slate-900 rounded-xl border border-slate-700 text-white">
+                        <span class="text-xs font-bold text-indigo-500 uppercase mb-2 block">🔴 Nivel Avanzado</span>
+                        <h4 class="font-bold text-white">Patrón Strategy Real</h4>
+                        <p class="text-sm text-slate-400 mb-4">Implementa un sistema de descuentos. La clase
+                            <code>Venta</code> debe aceptar una estrategia de descuento (VIP, BlackFriday, SinDescuento)
+                            y calcular el total sin usar <code>if/else</code>.
+                        </p>
+                        <button onclick="toggleSolution('sol-29')"
+                            class="text-xs bg-indigo-600 hover:bg-indigo-500 text-white px-3 py-1 rounded transition">Ver
+                            Solución</button>
+                        <div id="sol-29" class="hidden mt-4 pt-4 border-t border-slate-700">
+                            <pre><code class="language-java">interface Descuento { double aplicar(double total); }
+
 class Venta {
-    private Descuento estrategia; // Inyección
-    public double total(double p) { return estrategia.aplicar(p); }
-}</code></pre>
+    private Descuento estrategia;
+    public Venta(Descuento d) { this.estrategia = d; }
+    public double getTotal(double precio) {
+        return estrategia.aplicar(precio);
+    }
+}
+// Uso: new Venta(new DescuentoVIP());</code></pre>
+                        </div>
                     </div>
                 </div>
 
                 <div id="lesson-30" class="lesson-section hidden animate-fade-in-up lesson-content">
                     <div class="mb-8 border-b border-slate-200 pb-6">
-                        <span
-                            class="px-3 py-1 rounded-full bg-indigo-100 text-indigo-700 text-xs font-bold uppercase tracking-wider">Lección
-                            30</span>
-                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mt-2 mb-4">Proyecto
-                            Final</h1>
-                        <p class="text-lg text-slate-600">Arquitectura en Capas y Despliegue Profesional.</p>
-                    </div>
-
-                    <h2>1. Teoría Suprema: Arquitectura Limpia</h2>
-                    <p class="text-slate-600 mb-6">
-                        El código profesional se divide en responsabilidades horizontales para desacoplar la lógica de
-                        la infraestructura.
-                    </p>
-
-
-
-                    [Image of Layered architecture diagram]
-
-
-                    <div class="space-y-4 mb-8">
-                        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-center gap-4">
-                            <div
-                                class="w-10 h-10 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold">
-                                1</div>
-                            <div>
-                                <h4 class="font-bold text-slate-800">Controller</h4>
-                                <p class="text-xs text-slate-500">Recibe peticiones, valida datos, llama al servicio.
-                                </p>
-                            </div>
+                        <div class="flex items-center gap-3 mb-2">
+                            <span
+                                class="px-3 py-1 rounded-full bg-indigo-100 text-indigo-700 text-xs font-bold uppercase tracking-wider">Lección
+                                30</span>
                         </div>
-                        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-center gap-4">
-                            <div
-                                class="w-10 h-10 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center font-bold">
-                                2</div>
-                            <div>
-                                <h4 class="font-bold text-slate-800">Service</h4>
-                                <p class="text-xs text-slate-500">Lógica de negocio pura. Orquestación.</p>
-                            </div>
-                        </div>
-                        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-center gap-4">
-                            <div
-                                class="w-10 h-10 rounded-full bg-green-100 text-green-600 flex items-center justify-center font-bold">
-                                3</div>
-                            <div>
-                                <h4 class="font-bold text-slate-800">Repository</h4>
-                                <p class="text-xs text-slate-500">Acceso a datos (SQL, Archivos). Detalle de
-                                    implementación.</p>
-                            </div>
-                        </div>
+                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">Arquitectura
+                            Limpia: El Proyecto Final</h1>
                     </div>
 
-                    <div class="rounded-xl overflow-hidden shadow-2xl bg-[#2d2d2d] border border-slate-700 mb-8">
-                        <pre><code class="language-java">// Dependency Injection (Manual)
-// 1. Repo Concreto
-LibroRepository repo = new DatabaseLibroRepository();
-
-// 2. Inyectamos el repo en el servicio (DIP)
-BibliotecaService service = new BibliotecaService(repo);
-
-// 3. Usamos el servicio
-service.registrarLibro("Clean Architecture");</code></pre>
-                    </div>
-
-                    <div class="bg-slate-900 rounded-xl p-6 border border-slate-700 text-green-400 font-mono text-sm">
-                        <p class="mb-2 text-slate-400"># Despliegue: Generar Fat JAR</p>
-                        <p>$ mvn clean package</p>
-                        <p>$ java -jar target/mi-app-final.jar</p>
-                    </div>
-                </div>
-
-                <div class="mt-16 border-t border-slate-200 pt-10">
-                    <h2 class="text-3xl font-bold text-slate-800 mb-6 text-center">Evaluación Final de Maestría</h2>
                     <div
-                        class="bg-gradient-to-br from-white to-indigo-50 p-8 rounded-3xl shadow-xl border border-slate-200">
-                        <div class="space-y-6">
-                            <div>
-                                <p class="font-bold text-slate-800 mb-2">1. ¿Qué principio SOLID promueve el uso de
-                                    Interfaces?</p>
-                                <select
-                                    class="w-full p-3 rounded-xl border border-slate-300 bg-white text-slate-600 outline-none">
-                                    <option>Elegir...</option>
-                                    <option value="a">Single Responsibility</option>
-                                    <option value="b">Dependency Inversion (DIP)</option>
-                                    <option value="c">Liskov Substitution</option>
-                                </select>
+                        class="bg-white rounded-2xl p-8 shadow-lg shadow-indigo-900/5 border-l-4 border-indigo-600 mb-10">
+                        <p class="text-slate-600">Has llegado al final. Ahora ensamblaremos todo lo aprendido en una
+                            arquitectura profesional por capas.</p>
+                    </div>
+
+                    <h2>1. Separación de Responsabilidades</h2>
+                    <p class="text-slate-600 mb-6">Una aplicación Enterprise no es un archivo gigante. Se divide en
+                        capas horizontales para mantener el orden.</p>
+
+
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8 mt-6">
+                        <div class="bg-slate-50 p-4 rounded-xl text-center border border-slate-200">
+                            <div class="font-bold text-indigo-600 mb-1">1. Controller</div>
+                            <p class="text-xs text-slate-500">Recibe HTTP, valida entrada y delega.</p>
+                        </div>
+                        <div class="bg-slate-50 p-4 rounded-xl text-center border border-slate-200">
+                            <div class="font-bold text-indigo-600 mb-1">2. Service</div>
+                            <p class="text-xs text-slate-500">Lógica de negocio pura. Aquí viven las reglas.</p>
+                        </div>
+                        <div class="bg-slate-50 p-4 rounded-xl text-center border border-slate-200">
+                            <div class="font-bold text-indigo-600 mb-1">3. Repository</div>
+                            <p class="text-xs text-slate-500">Habla con la BD (SQL/JPA).</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-900 rounded-xl p-6 text-white font-mono text-sm border border-slate-700">
+                        <p class="text-green-400 mb-2">// Flujo de Ejecución</p>
+                        <p>UserController -> UserService -> UserRepository -> Base de Datos</p>
+                    </div>
+
+                    <div class="mt-16 pt-10 border-t border-slate-200">
+                        <h2 class="text-3xl font-bold text-slate-800 mb-6 text-center">Evaluación Final de Maestría</h2>
+                        <div class="bg-white p-8 rounded-2xl shadow-xl border border-indigo-100">
+                            <div class="space-y-6">
+                                <div>
+                                    <p class="font-bold text-slate-800 mb-2">1. ¿Qué capa debe contener las reglas de
+                                        negocio (ej: validaciones complejas)?</p>
+                                    <select
+                                        class="w-full p-3 rounded-lg border border-slate-300 bg-white text-slate-600">
+                                        <option>Seleccionar...</option>
+                                        <option value="a">Controller</option>
+                                        <option value="b">Service</option>
+                                        <option value="c">Repository</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <p class="font-bold text-slate-800 mb-2">2. ¿Por qué usamos DTOs en lugar de
+                                        Entidades en el Controller?</p>
+                                    <select
+                                        class="w-full p-3 rounded-lg border border-slate-300 bg-white text-slate-600">
+                                        <option>Seleccionar...</option>
+                                        <option value="a">Para exponer la estructura de la base de datos.</option>
+                                        <option value="b">Para desacoplar la API de la BD y por seguridad.</option>
+                                        <option value="c">Porque es obligatorio por Java.</option>
+                                    </select>
+                                </div>
+                                <button onclick="graduar()"
+                                    class="w-full py-4 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl font-bold shadow-lg shadow-indigo-600/30 transition-all active:scale-95 flex justify-center items-center gap-2">
+                                    <i class="fas fa-graduation-cap"></i> Graduarse
+                                </button>
                             </div>
-                            <div>
-                                <p class="font-bold text-slate-800 mb-2">2. ¿Para qué sirve un Controller?</p>
-                                <select
-                                    class="w-full p-3 rounded-xl border border-slate-300 bg-white text-slate-600 outline-none">
-                                    <option>Elegir...</option>
-                                    <option value="a">Para guardar en base de datos.</option>
-                                    <option value="b">Para contener la lógica de negocio compleja.</option>
-                                    <option value="c">Para gestionar la entrada/salida y validar peticiones.</option>
-                                </select>
-                            </div>
-                            <button onclick="checkFinal()"
-                                class="w-full py-4 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl font-bold shadow-lg shadow-indigo-600/30 transition-all active:scale-95 flex justify-center items-center gap-2">
-                                <i class="fas fa-graduation-cap"></i> Graduarse
-                            </button>
                         </div>
                     </div>
                 </div>
@@ -416,7 +391,7 @@ service.registrarLibro("Clean Architecture");</code></pre>
             </div>
 
             <footer class="mt-20 py-8 text-center text-slate-400 text-sm border-t border-slate-200">
-                <p>&copy; 2025 Java Masterclass. ¡Has completado la ruta!</p>
+                <p>&copy; 2025 Java Elite Bootcamp. ¡Misión Cumplida!</p>
             </footer>
         </main>
     </div>
@@ -434,29 +409,23 @@ service.registrarLibro("Clean Architecture");</code></pre>
             selected.classList.remove('hidden');
             setTimeout(() => selected.classList.add('active'), 10);
 
-            // Reset botones
             document.querySelectorAll('.nav-btn').forEach(btn => {
                 btn.classList.remove('active', 'bg-indigo-50', 'border-indigo-100');
                 btn.querySelector('.btn-indicator').classList.remove('opacity-100');
                 btn.querySelector('.btn-indicator').classList.add('opacity-0');
-
                 const icon = btn.querySelector('.btn-icon');
                 icon.classList.remove('bg-indigo-600', 'text-white');
                 icon.classList.add('bg-slate-100', 'text-slate-500');
-
                 btn.querySelector('.btn-text').classList.remove('text-indigo-700', 'font-bold');
             });
 
-            // Activar botón
             const activeBtn = document.getElementById('btn-' + id);
             activeBtn.classList.add('active', 'bg-indigo-50', 'border-indigo-100');
             activeBtn.querySelector('.btn-indicator').classList.add('opacity-100');
             activeBtn.querySelector('.btn-indicator').classList.remove('opacity-0');
-
             const activeIcon = activeBtn.querySelector('.btn-icon');
             activeIcon.classList.remove('bg-slate-100', 'text-slate-500');
             activeIcon.classList.add('bg-indigo-600', 'text-white');
-
             activeBtn.querySelector('.btn-text').classList.add('text-indigo-700', 'font-bold');
 
             document.querySelector('main').scrollTop = 0;
@@ -467,9 +436,20 @@ service.registrarLibro("Clean Architecture");</code></pre>
             el.classList.toggle('hidden');
         }
 
-        function checkFinal() {
-            // Efecto simple de confeti (simulado con alerta por ahora)
-            alert("¡FELICIDADES! 🎓\nHas completado el Curso Profesional de Java.\n\nEstás listo para construir sistemas reales y escalables.");
+        function checkQuiz(btn, isCorrect) {
+            const parent = btn.parentElement;
+            parent.querySelectorAll('.quiz-btn').forEach(b => {
+                b.classList.remove('correct', 'wrong');
+            });
+            if (isCorrect) {
+                btn.classList.add('correct');
+            } else {
+                btn.classList.add('wrong');
+            }
+        }
+
+        function graduar() {
+            alert("🎉 ¡FELICIDADES! 🎉\n\nHas completado el Curso de Ingeniería Java de Nivel Élite.\nEstás listo para diseñar, construir y desplegar sistemas robustos.\n\n¡El mundo del software te espera!");
         }
 
         // Init

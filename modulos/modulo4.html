@@ -4,30 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Módulo 4 | Java Funcional</title>
+    <title>Módulo 4 | Java Funcional Elite</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" href="../assets/style.css">
 
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
-                    animation: {
-                        'fade-in-up': 'fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards',
-                    },
-                    keyframes: {
-                        fadeInUp: {
-                            '0%': { opacity: '0', transform: 'translateY(20px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' },
-                        },
-                    }
+                    fontFamily: { sans: ['Inter', 'sans-serif'], },
+                    animation: { 'fade-in-up': 'fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards', },
+                    keyframes: { fadeInUp: { '0%': { opacity: '0', transform: 'translateY(20px)' }, '100%': { opacity: '1', transform: 'translateY(0)' }, }, }
                 }
             }
         }
@@ -43,7 +33,7 @@
             <a href="../index.html"
                 class="group flex items-center gap-2 text-slate-300 hover:text-white transition-all bg-white/5 hover:bg-white/10 px-4 py-2 rounded-lg border border-white/10 hover:border-white/20">
                 <i class="fas fa-arrow-left text-sm group-hover:-translate-x-1 transition-transform"></i>
-                <span class="text-sm font-medium">Volver al Inicio</span>
+                <span class="text-sm font-medium">Dashboard</span>
             </a>
             <div class="h-6 w-px bg-slate-700 mx-2"></div>
             <div class="flex items-center gap-3">
@@ -52,11 +42,10 @@
                 </div>
                 <div>
                     <h1 class="font-bold text-sm tracking-wide leading-none">Módulo 04</h1>
-                    <span class="text-xs text-slate-400 font-medium">Programación Funcional</span>
+                    <span class="text-xs text-slate-400 font-medium">Paradigma Funcional</span>
                 </div>
             </div>
         </div>
-
         <div class="hidden md:flex items-center gap-4">
             <div class="flex items-center gap-2 px-3 py-1.5 bg-orange-900/30 rounded-full border border-orange-500/20">
                 <span class="relative flex h-2 w-2">
@@ -70,56 +59,51 @@
     </nav>
 
     <div class="flex flex-1 pt-16 h-full overflow-hidden">
-
         <aside class="w-80 bg-white border-r border-slate-200 shadow-xl z-20 hidden md:flex flex-col">
             <div class="p-6 border-b border-slate-100 bg-slate-50/50">
-                <h3 class="text-xs font-black text-slate-400 uppercase tracking-widest mb-1">Contenido del Módulo</h3>
+                <h3 class="text-xs font-black text-slate-400 uppercase tracking-widest mb-1">Plan de Estudio</h3>
                 <p class="text-sm text-slate-600 font-medium">4 Lecciones Avanzadas</p>
             </div>
-
             <div class="flex-1 overflow-y-auto custom-scrollbar p-4 space-y-2">
                 <button onclick="showLesson(16)" id="btn-16"
                     class="nav-btn w-full text-left px-4 py-4 rounded-xl text-sm font-medium transition-all duration-200 border border-transparent hover:bg-slate-50 hover:border-slate-200 group relative overflow-hidden active">
                     <div class="relative z-10 flex items-center gap-3">
                         <span
                             class="flex-shrink-0 w-8 h-8 rounded-lg bg-slate-100 text-slate-500 flex items-center justify-center text-xs font-bold group-hover:bg-white group-hover:shadow-sm transition-all btn-icon">16</span>
-                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">Lambdas e Interfaces</span>
+                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">Lambdas Internals</span>
                     </div>
                     <div
                         class="absolute left-0 top-0 bottom-0 w-1 bg-orange-500 opacity-0 btn-indicator transition-opacity">
                     </div>
                 </button>
-
                 <button onclick="showLesson(17)" id="btn-17"
                     class="nav-btn w-full text-left px-4 py-4 rounded-xl text-sm font-medium transition-all duration-200 border border-transparent hover:bg-slate-50 hover:border-slate-200 group relative overflow-hidden">
                     <div class="relative z-10 flex items-center gap-3">
                         <span
                             class="flex-shrink-0 w-8 h-8 rounded-lg bg-slate-100 text-slate-500 flex items-center justify-center text-xs font-bold group-hover:bg-white group-hover:shadow-sm transition-all btn-icon">17</span>
-                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">Stream API</span>
+                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">Stream API Architecture</span>
                     </div>
                     <div
                         class="absolute left-0 top-0 bottom-0 w-1 bg-orange-500 opacity-0 btn-indicator transition-opacity">
                     </div>
                 </button>
-
                 <button onclick="showLesson(18)" id="btn-18"
                     class="nav-btn w-full text-left px-4 py-4 rounded-xl text-sm font-medium transition-all duration-200 border border-transparent hover:bg-slate-50 hover:border-slate-200 group relative overflow-hidden">
                     <div class="relative z-10 flex items-center gap-3">
                         <span
                             class="flex-shrink-0 w-8 h-8 rounded-lg bg-slate-100 text-slate-500 flex items-center justify-center text-xs font-bold group-hover:bg-white group-hover:shadow-sm transition-all btn-icon">18</span>
-                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">Optional (Adiós Null)</span>
+                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">Optional & Monads</span>
                     </div>
                     <div
                         class="absolute left-0 top-0 bottom-0 w-1 bg-orange-500 opacity-0 btn-indicator transition-opacity">
                     </div>
                 </button>
-
                 <button onclick="showLesson(19)" id="btn-19"
                     class="nav-btn w-full text-left px-4 py-4 rounded-xl text-sm font-medium transition-all duration-200 border border-transparent hover:bg-slate-50 hover:border-slate-200 group relative overflow-hidden">
                     <div class="relative z-10 flex items-center gap-3">
                         <span
                             class="flex-shrink-0 w-8 h-8 rounded-lg bg-slate-100 text-slate-500 flex items-center justify-center text-xs font-bold group-hover:bg-white group-hover:shadow-sm transition-all btn-icon">19</span>
-                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">Date & Time API</span>
+                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">Time API (Thread-Safe)</span>
                     </div>
                     <div
                         class="absolute left-0 top-0 bottom-0 w-1 bg-orange-500 opacity-0 btn-indicator transition-opacity">
@@ -129,10 +113,6 @@
         </aside>
 
         <main class="flex-1 overflow-y-auto relative bg-slate-50 scroll-smooth">
-            <div
-                class="absolute inset-0 pointer-events-none bg-[url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%2364748b\' fill-opacity=\'0.03\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')]">
-            </div>
-
             <div class="max-w-5xl mx-auto px-8 py-12 relative z-10">
 
                 <div id="lesson-16" class="lesson-section active animate-fade-in-up lesson-content">
@@ -144,243 +124,335 @@
                             <span class="text-slate-400 text-sm font-medium"><i class="far fa-clock mr-1"></i> 30
                                 min</span>
                         </div>
-                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">Interfaces
-                            Funcionales y Lambdas</h1>
-                        <p class="text-lg text-slate-600 max-w-3xl">Escribe menos, haz más. El cambio de paradigma de
-                            imperativo a declarativo.</p>
+                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">Comportamiento
+                            como Parámetro</h1>
                     </div>
 
                     <div
                         class="bg-white rounded-2xl p-8 shadow-lg shadow-orange-900/5 border-l-4 border-orange-500 mb-10">
-                        <h3 class="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2">
-                            <i class="fas fa-bullseye text-orange-600"></i> Objetivos de Élite
-                        </h3>
-                        <div class="grid md:grid-cols-2 gap-4">
-                            <div class="flex items-start gap-3">
-                                <i class="fas fa-check-circle text-green-500 mt-1"></i>
-                                <span class="text-slate-600 text-sm">Clases Anónimas vs Lambdas.</span>
-                            </div>
-                            <div class="flex items-start gap-3">
-                                <i class="fas fa-check-circle text-green-500 mt-1"></i>
-                                <span class="text-slate-600 text-sm">Interfaces: Predicate, Consumer, Function.</span>
-                            </div>
-                            <div class="flex items-start gap-3">
-                                <i class="fas fa-check-circle text-green-500 mt-1"></i>
-                                <span class="text-slate-600 text-sm">Method References (::).</span>
-                            </div>
-                            <div class="flex items-start gap-3">
-                                <i class="fas fa-check-circle text-green-500 mt-1"></i>
-                                <span class="text-slate-600 text-sm">Código como datos.</span>
-                            </div>
-                        </div>
+                        <h3 class="!mt-0 text-xl font-bold text-slate-800 mb-4 flex items-center gap-2"><i
+                                class="fas fa-bullseye text-orange-600"></i> Objetivos Senior</h3>
+                        <ul class="list-disc list-inside text-slate-600 text-sm space-y-2">
+                            <li>Dejar de pasar datos y empezar a pasar <strong>comportamiento</strong>.</li>
+                            <li>Entender <code>invokedynamic</code> vs Clases Anónimas (Memoria).</li>
+                            <li>Dominar <code>Predicate</code>, <code>Consumer</code>, <code>Function</code> y
+                                <code>Supplier</code>.
+                            </li>
+                        </ul>
                     </div>
 
-                    <h2>1. Teoría Suprema: Código de Primera Clase</h2>
-                    <p class="text-slate-600 mb-6 leading-relaxed">
-                        Hasta Java 7, para pasar una acción a un botón, tenías que crear un objeto entero. Las
-                        <strong>Lambdas</strong> permiten tratar bloques de código como si fueran objetos, usando la
-                        instrucción `invokedynamic` para evitar el costo de memoria de las clases anónimas.
+                    <h2>1. El Código es un Dato</h2>
+                    <p class="text-slate-600 mb-6">Antes de Java 8, si querías ordenar una lista de formas distintas,
+                        creabas múltiples clases <code>Comparator</code>. Ahora, pasas el código de ordenamiento
+                        directamente.</p>
+
+
+
+                    <p class="text-slate-600 mb-6"><strong>Nota de Ingeniería:</strong> Las Clases Anónimas generan un
+                        archivo <code>.class</code> extra en disco. Las Lambdas NO. Usan la instrucción
+                        <code>invokedynamic</code> de la JVM, lo que las hace más ligeras en memoria y más rápidas al
+                        arrancar.
                     </p>
 
-                    <h3 class="text-xl font-bold text-slate-800 mb-3">1.1 El Kit de Herramientas Funcional</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                        <div class="bg-white p-6 rounded-2xl border-l-4 border-blue-500 shadow-sm">
-                            <h4 class="font-bold text-blue-700 mb-2">Predicate&lt;T&gt;</h4>
-                            <p class="text-sm text-slate-600"><strong>Pregunta.</strong> Devuelve boolean.<br><code
-                                    class="bg-slate-100 px-1 rounded">x -> x > 10</code></p>
+                    <h3 class="text-xl font-bold text-slate-800 mt-8 mb-4">2. El Kit de Herramientas
+                        (java.util.function)</h3>
+                    <div class="grid grid-cols-2 gap-4 mb-8">
+                        <div class="bg-blue-50 p-4 rounded-xl border border-blue-100">
+                            <code class="font-bold text-blue-700">Predicate&lt;T&gt;</code>
+                            <p class="text-xs mt-1 text-slate-600">Recibe T, devuelve <strong>boolean</strong>. Para
+                                filtros.</p>
                         </div>
-                        <div class="bg-white p-6 rounded-2xl border-l-4 border-green-500 shadow-sm">
-                            <h4 class="font-bold text-green-700 mb-2">Function&lt;T, R&gt;</h4>
-                            <p class="text-sm text-slate-600"><strong>Transforma.</strong> T a R.<br><code
-                                    class="bg-slate-100 px-1 rounded">s -> s.length()</code></p>
+                        <div class="bg-green-50 p-4 rounded-xl border border-green-100">
+                            <code class="font-bold text-green-700">Function&lt;T, R&gt;</code>
+                            <p class="text-xs mt-1 text-slate-600">Recibe T, devuelve <strong>R</strong>. Para
+                                transformar.</p>
                         </div>
-                        <div class="bg-white p-6 rounded-2xl border-l-4 border-purple-500 shadow-sm">
-                            <h4 class="font-bold text-purple-700 mb-2">Consumer&lt;T&gt;</h4>
-                            <p class="text-sm text-slate-600"><strong>Ejecuta.</strong> Efecto secundario.<br><code
-                                    class="bg-slate-100 px-1 rounded">msg -> print(msg)</code></p>
+                        <div class="bg-purple-50 p-4 rounded-xl border border-purple-100">
+                            <code class="font-bold text-purple-700">Consumer&lt;T&gt;</code>
+                            <p class="text-xs mt-1 text-slate-600">Recibe T, devuelve <strong>void</strong>. Efectos
+                                secundarios.</p>
                         </div>
-                        <div class="bg-white p-6 rounded-2xl border-l-4 border-yellow-500 shadow-sm">
-                            <h4 class="font-bold text-yellow-700 mb-2">Supplier&lt;T&gt;</h4>
-                            <p class="text-sm text-slate-600"><strong>Provee.</strong> Lazy loading.<br><code
-                                    class="bg-slate-100 px-1 rounded">() -> Math.random()</code></p>
+                        <div class="bg-yellow-50 p-4 rounded-xl border border-yellow-100">
+                            <code class="font-bold text-yellow-700">Supplier&lt;T&gt;</code>
+                            <p class="text-xs mt-1 text-slate-600">Sin input, devuelve <strong>T</strong>. Lazy loading.
+                            </p>
                         </div>
                     </div>
 
-                    <h2>2. Laboratorio de Código</h2>
-                    <div class="rounded-xl overflow-hidden shadow-2xl bg-[#2d2d2d] border border-slate-700 mb-8">
-                        <div class="bg-[#1e1e1e] px-4 py-2 flex items-center gap-2 border-b border-slate-700">
-                            <div class="flex gap-1.5">
-                                <div class="w-3 h-3 rounded-full bg-red-500"></div>
-                                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
-                                <div class="w-3 h-3 rounded-full bg-green-500"></div>
-                            </div>
-                            <span class="text-xs text-slate-400 ml-2 font-mono">LambdasPro.java</span>
-                        </div>
-                        <pre><code class="language-java">public class LambdasPro {
-    public static void main(String[] args) {
-        // Estilo Antiguo (Verboso)
-        Runnable r1 = new Runnable() {
-            public void run() { System.out.println("Viejo"); }
-        };
+                    <h2 class="text-slate-900 mt-12 mb-6 border-none"><i
+                            class="fas fa-dumbbell text-orange-600 mr-2"></i>Training Ground</h2>
 
-        // Estilo Moderno (Lambda) - Inferencia de tipos
-        Runnable r2 = () -> System.out.println("Nuevo");
-
-        // Method Reference (::)
-        List<String> nombres = Arrays.asList("Ana", "Bea");
-        nombres.sort(String::compareTo); // En vez de (a,b) -> a.compareTo(b)
-        nombres.forEach(System.out::println);
-    }
-}</code></pre>
+                    <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-green-500">
+                        <span class="text-xs font-bold text-green-600 uppercase mb-2 block">🟢 Nivel Básico</span>
+                        <h4 class="font-bold text-slate-800">Sintaxis Lambda</h4>
+                        <p class="text-sm text-slate-600 mb-4">Convierte esta clase anónima a Lambda:
+                            <code>new Runnable() { public void run() { System.out.println("Run"); } }</code>.
+                        </p>
+                        <details class="text-xs text-slate-500 cursor-pointer">
+                            <summary>Ver Pista</summary>Elimina el nombre de la interfaz y el método. Usa
+                            <code>() -> {}</code>.
+                        </details>
                     </div>
 
-                    <h2>3. Entrenamiento Progresivo</h2>
-
-                    <div
-                        class="bg-white rounded-2xl p-6 border border-slate-200 shadow-lg mb-6 relative overflow-hidden group hover:border-emerald-400 transition-colors">
-                        <div
-                            class="absolute top-0 right-0 bg-emerald-100 text-emerald-700 text-xs font-bold px-3 py-1 rounded-bl-xl border-l border-b border-emerald-200">
-                            NIVEL BÁSICO</div>
-                        <h4 class="font-bold text-lg text-slate-800 mb-2">El Filtro Humano</h4>
-                        <p class="text-slate-600 text-sm mb-4">Crea un `Predicate&lt;Integer&gt;` llamado `esPar`. Úsalo
-                            para testear números.</p>
+                    <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-yellow-500">
+                        <span class="text-xs font-bold text-yellow-600 uppercase mb-2 block">🟡 Nivel Intermedio</span>
+                        <h4 class="font-bold text-slate-800">Ordenamiento Personalizado</h4>
+                        <p class="text-sm text-slate-600 mb-4">Ordena una lista de Strings por longitud (de menor a
+                            mayor) usando <code>List.sort()</code> y una lambda.</p>
                     </div>
 
-                    <div
-                        class="bg-white rounded-2xl p-6 border border-slate-200 shadow-lg mb-6 relative overflow-hidden group hover:border-red-400 transition-colors">
-                        <div
-                            class="absolute top-0 right-0 bg-red-100 text-red-700 text-xs font-bold px-3 py-1 rounded-bl-xl border-l border-b border-red-200">
-                            NIVEL EXPERTO</div>
-                        <h4 class="font-bold text-lg text-slate-800 mb-2">Cadena de Montaje (Composición)</h4>
-                        <p class="text-slate-600 text-sm mb-4">Crea una función que duplique y otra que sume 10. Únelas
-                            con `.andThen()`.</p>
+                    <div class="mb-8 p-6 bg-slate-900 rounded-xl border border-slate-700 text-white">
+                        <span class="text-xs font-bold text-red-500 uppercase mb-2 block">🔴 Nivel Avanzado</span>
+                        <h4 class="font-bold text-white">Interfaz Funcional Genérica</h4>
+                        <p class="text-sm text-slate-400 mb-4">Crea tu propia interfaz funcional
+                            <code>TriFunction&lt;A,B,C,R&gt;</code> que acepte 3 argumentos y retorne un resultado.
+                            Úsala para sumar 3 números.
+                        </p>
                         <button onclick="toggleSolution('sol-16')"
-                            class="text-sm font-bold text-orange-600 flex items-center gap-2 hover:bg-orange-50 px-3 py-2 rounded-lg transition-colors">
-                            <i class="fas fa-eye"></i> Ver Solución
-                        </button>
-                        <div id="sol-16" class="hidden mt-4 bg-slate-900 rounded-xl p-4 border border-slate-700">
-                            <pre><code class="language-java text-xs text-white">Function<Integer, Integer> duplicar = x -> x * 2;
-Function<Integer, Integer> sumarDiez = x -> x + 10;
+                            class="text-xs bg-orange-600 hover:bg-orange-500 text-white px-3 py-1 rounded transition">Ver
+                            Solución</button>
+                        <div id="sol-16" class="hidden mt-4 pt-4 border-t border-slate-700">
+                            <pre><code class="language-java">@FunctionalInterface
+interface TriFunction&lt;A, B, C, R&gt; {
+    R apply(A a, B b, C c);
+}
 
-// f(g(x)) -> Primero duplica, luego suma
-Function<Integer, Integer> tuberia = duplicar.andThen(sumarDiez);
-System.out.println(tuberia.apply(5)); // 20</code></pre>
+// Uso
+TriFunction&lt;Integer, Integer, Integer, Integer&gt; suma3 = (x, y, z) -> x + y + z;
+int resultado = suma3.apply(1, 2, 3); // 6</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
+                        <h3 class="font-bold text-slate-800 mb-6">Quiz de Validación</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <p class="text-sm font-semibold mb-2">1. ¿Qué anotación asegura que una interfaz es
+                                    válida para Lambdas?</p>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <button class="quiz-btn border p-2 rounded text-sm hover:bg-slate-50"
+                                        onclick="checkQuiz(this, true)">@FunctionalInterface</button>
+                                    <button class="quiz-btn border p-2 rounded text-sm hover:bg-slate-50"
+                                        onclick="checkQuiz(this, false)">@LambdaTarget</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <div id="lesson-17" class="lesson-section hidden animate-fade-in-up lesson-content">
                     <div class="mb-8 border-b border-slate-200 pb-6">
-                        <span
-                            class="px-3 py-1 rounded-full bg-orange-100 text-orange-700 text-xs font-bold uppercase tracking-wider">Lección
-                            17</span>
-                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mt-2 mb-4">Stream API
-                        </h1>
-                        <p class="text-lg text-slate-600">La cinta transportadora de datos. Procesamiento declarativo y
-                            paralelo.</p>
+                        <div class="flex items-center gap-3 mb-2">
+                            <span
+                                class="px-3 py-1 rounded-full bg-orange-100 text-orange-700 text-xs font-bold uppercase tracking-wider">Lección
+                                17</span>
+                        </div>
+                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">Stream API:
+                            Pipelines de Datos</h1>
                     </div>
 
-                    <h2>1. Teoría Suprema: La Cinta Transportadora</h2>
-                    <p class="text-slate-600 mb-6">
-                        Imagina una fábrica. Vuelcas las piezas (`List`) en una cinta (`.stream()`). Los robots
-                        (`filter`, `map`) procesan las piezas en el camino hacia la caja final (`collect`).
-                    </p>
+                    <div
+                        class="bg-white rounded-2xl p-8 shadow-lg shadow-orange-900/5 border-l-4 border-orange-500 mb-10">
+                        <p class="text-slate-600">Olvida los bucles <code>for</code>. Los Streams permiten procesar
+                            colecciones de manera declarativa, paralela y con evaluación perezosa.</p>
+                    </div>
+
+                    <h2>1. Anatomía de un Stream</h2>
+                    <p class="text-slate-600 mb-6">Un Stream no es una estructura de datos. No almacena elementos. Es
+                        una cinta transportadora que mueve datos desde una Fuente hasta un Destino.</p>
 
 
 
-                    <div class="bg-blue-50 border border-blue-200 rounded-xl p-6 mb-8">
-                        <h4 class="font-bold text-blue-800 mb-2">Evaluación Perezosa (Lazy)</h4>
-                        <p class="text-blue-900 text-sm">Si no pones la caja al final (Operación Terminal), la cinta
-                            <strong>no arranca</strong>. Esto permite optimizaciones masivas.
+                    <h3 class="text-xl font-bold text-slate-800 mt-8 mb-4">2. Lazy Evaluation (Evaluación Perezosa)</h3>
+                    <p class="text-slate-600 mb-4">Esta es la clave del rendimiento. Las operaciones intermedias
+                        (<code>filter</code>, <code>map</code>) <strong>NO SE EJECUTAN</strong> hasta que llamas a una
+                        operación terminal (<code>collect</code>, <code>count</code>).</p>
+                    <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-xl text-sm text-blue-800 mb-6">
+                        <strong>Analogía:</strong> Si pides una pizza (Stream), el pizzero no empieza a amasar (filter)
+                        ni a poner queso (map) hasta que realmente pagas el pedido (collect).
+                    </div>
+
+                    <h2 class="text-slate-900 mt-12 mb-6 border-none"><i
+                            class="fas fa-dumbbell text-orange-600 mr-2"></i>Training Ground</h2>
+
+                    <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-green-500">
+                        <span class="text-xs font-bold text-green-600 uppercase mb-2 block">🟢 Nivel Básico</span>
+                        <h4 class="font-bold text-slate-800">Filtrado Simple</h4>
+                        <p class="text-sm text-slate-600 mb-4">Dada una lista de números, filtra los pares,
+                            multiplícalos por 2 y guárdalos en una nueva lista.</p>
+                    </div>
+
+                    <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-yellow-500">
+                        <span class="text-xs font-bold text-yellow-600 uppercase mb-2 block">🟡 Nivel Intermedio</span>
+                        <h4 class="font-bold text-slate-800">Map-Reduce</h4>
+                        <p class="text-sm text-slate-600 mb-4">Dada una lista de precios (Double), calcula el total
+                            sumando todos los valores usando <code>reduce()</code> o <code>mapToDouble().sum()</code>.
                         </p>
                     </div>
 
-                    <div class="rounded-xl overflow-hidden shadow-2xl bg-[#2d2d2d] border border-slate-700 mb-8">
-                        <pre><code class="language-java">List<String> resultado = empleados.stream()
-    .filter(n -> n.startsWith("A"))      // Robot 1: Filtra
-    .map(String::toUpperCase)            // Robot 2: Pinta (Transforma)
-    .sorted()                            // Robot 3: Ordena
-    .collect(Collectors.toList());       // Caja Final (Terminal)</code></pre>
+                    <div class="mb-8 p-6 bg-slate-900 rounded-xl border border-slate-700 text-white">
+                        <span class="text-xs font-bold text-red-500 uppercase mb-2 block">🔴 Nivel Avanzado</span>
+                        <h4 class="font-bold text-white">Agrupación Compleja</h4>
+                        <p class="text-sm text-slate-400 mb-4">Dada una lista de
+                            <code>Empleado(departamento, salario)</code>, agrupa por departamento y calcula el salario
+                            promedio de cada uno usando <code>Collectors.groupingBy</code>.
+                        </p>
+                        <button onclick="toggleSolution('sol-17')"
+                            class="text-xs bg-orange-600 hover:bg-orange-500 text-white px-3 py-1 rounded transition">Ver
+                            Solución</button>
+                        <div id="sol-17" class="hidden mt-4 pt-4 border-t border-slate-700">
+                            <pre><code class="language-java">Map&lt;String, Double&gt; promedioPorDepto = empleados.stream()
+    .collect(Collectors.groupingBy(
+        Empleado::getDepartamento,
+        Collectors.averagingDouble(Empleado::getSalario)
+    ));</code></pre>
+                        </div>
                     </div>
                 </div>
 
                 <div id="lesson-18" class="lesson-section hidden animate-fade-in-up lesson-content">
                     <div class="mb-8 border-b border-slate-200 pb-6">
-                        <span
-                            class="px-3 py-1 rounded-full bg-orange-100 text-orange-700 text-xs font-bold uppercase tracking-wider">Lección
-                            18</span>
-                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mt-2 mb-4">Manejo de
-                            Nulidad (Optional)</h1>
+                        <div class="flex items-center gap-3 mb-2">
+                            <span
+                                class="px-3 py-1 rounded-full bg-orange-100 text-orange-700 text-xs font-bold uppercase tracking-wider">Lección
+                                18</span>
+                        </div>
+                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">Optional: El fin
+                            del NullPointerException</h1>
                     </div>
 
-                    <h2>1. Teoría Suprema: La Caja Cuántica</h2>
-                    <p class="text-slate-600 mb-6">
-                        `Optional&lt;T&gt;` es un contenedor que puede o no tener un valor. Te obliga a pensar en el
-                        caso "vacío" en tiempo de compilación.
+                    <p class="text-slate-600 mb-6"><code>null</code> es el "error del billón de dólares".
+                        <code>Optional&lt;T&gt;</code> es una "caja" (Mónada) que puede estar vacía o llena. Te obliga a
+                        pensar en el caso vacío en tiempo de compilación.
                     </p>
 
 
 
-                    <div class="bg-red-50 border-l-4 border-red-500 p-6 rounded-r-xl mb-8">
-                        <h4 class="font-bold text-red-800 mb-1">Regla de Oro</h4>
-                        <p class="text-red-700 text-sm">NUNCA uses <code>get()</code> sin verificar
-                            <code>isPresent()</code>. Usa <code>orElse()</code> o <code>ifPresent()</code>.
+                    <h3 class="text-xl font-bold text-slate-800 mt-8 mb-4">Buenas Prácticas de Ingeniería</h3>
+                    <ul class="list-disc list-inside text-slate-600 space-y-2 mb-6">
+                        <li><strong>JAMÁS</strong> uses <code>Optional</code> como parámetro de método o atributo de
+                            clase (no es serializable). Úsalo solo como retorno.</li>
+                        <li><strong>EVITA</strong> usar <code>get()</code> sin comprobar <code>isPresent()</code>. Es lo
+                            mismo que un NullPointerException.</li>
+                        <li><strong>USA</strong> <code>orElse()</code> o <code>orElseThrow()</code> para desempaquetar
+                            valores de forma segura.</li>
+                    </ul>
+
+                    <h2 class="text-slate-900 mt-12 mb-6 border-none"><i
+                            class="fas fa-dumbbell text-orange-600 mr-2"></i>Training Ground</h2>
+
+                    <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-green-500">
+                        <span class="text-xs font-bold text-green-600 uppercase mb-2 block">🟢 Nivel Básico</span>
+                        <h4 class="font-bold text-slate-800">Desempaquetado Seguro</h4>
+                        <p class="text-sm text-slate-600 mb-4">Crea un Optional vacío. Intenta obtener el valor usando
+                            <code>orElse("Valor por defecto")</code>.
                         </p>
                     </div>
 
-                    <div class="rounded-xl overflow-hidden shadow-2xl bg-[#2d2d2d] border border-slate-700 mb-8">
-                        <pre><code class="language-java">Optional<String> resultado = buscarUsuario(99);
+                    <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-yellow-500">
+                        <span class="text-xs font-bold text-yellow-600 uppercase mb-2 block">🟡 Nivel Intermedio</span>
+                        <h4 class="font-bold text-slate-800">Transformación Segura</h4>
+                        <p class="text-sm text-slate-600 mb-4">Tienes un <code>Optional&lt;String&gt;</code>. Si existe,
+                            conviértelo a mayúsculas usando <code>map()</code>. Si no, devuelve "VACIO". No uses
+                            <code>if</code>.
+                        </p>
+                    </div>
 
-// Estilo Funcional (Seguro)
-resultado.ifPresent(u -> System.out.println("Encontrado: " + u));
-
-// Valor por defecto
-String nombre = resultado.orElse("Invitado");</code></pre>
+                    <div class="mb-8 p-6 bg-slate-900 rounded-xl border border-slate-700 text-white">
+                        <span class="text-xs font-bold text-red-500 uppercase mb-2 block">🔴 Nivel Avanzado</span>
+                        <h4 class="font-bold text-white">Refactorización Legacy</h4>
+                        <p class="text-sm text-slate-400 mb-4">Refactoriza este código anidado usando
+                            <code>flatMap</code>:
+                        </p>
+                        <pre
+                            class="text-xs bg-slate-800 p-2 rounded mb-2"><code>if(user != null && user.getAddress() != null && user.getAddress().getCity() != null) { ... }</code></pre>
+                        <button onclick="toggleSolution('sol-18')"
+                            class="text-xs bg-orange-600 hover:bg-orange-500 text-white px-3 py-1 rounded transition">Ver
+                            Solución</button>
+                        <div id="sol-18" class="hidden mt-4 pt-4 border-t border-slate-700">
+                            <pre><code class="language-java">Optional.ofNullable(user)
+    .flatMap(User::getAddress) // getAddress devuelve Optional
+    .flatMap(Address::getCity)
+    .ifPresent(System.out::println);</code></pre>
+                        </div>
                     </div>
                 </div>
 
                 <div id="lesson-19" class="lesson-section hidden animate-fade-in-up lesson-content">
                     <div class="mb-8 border-b border-slate-200 pb-6">
-                        <span
-                            class="px-3 py-1 rounded-full bg-orange-100 text-orange-700 text-xs font-bold uppercase tracking-wider">Lección
-                            19</span>
-                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mt-2 mb-4">Date & Time
-                            API</h1>
+                        <div class="flex items-center gap-3 mb-2">
+                            <span
+                                class="px-3 py-1 rounded-full bg-orange-100 text-orange-700 text-xs font-bold uppercase tracking-wider">Lección
+                                19</span>
+                        </div>
+                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">Date & Time API
+                            Moderno</h1>
                     </div>
 
-                    <h2>1. Teoría Suprema: El Tiempo es Relativo</h2>
-                    <p class="text-slate-600 mb-6">
-                        La API moderna (`java.time`) es inmutable y segura. Distingue entre tiempo máquina y tiempo
-                        humano.
-                    </p>
+                    <div class="bg-red-50 border border-red-200 rounded-xl p-6 mb-8">
+                        <h3 class="font-bold text-red-800 mb-2">🚫 Olvida java.util.Date</h3>
+                        <p class="text-sm text-red-800">La antigua clase <code>Date</code> es mutable (no thread-safe) y
+                            sus meses empiezan en 0. Fue un error de diseño corregido en Java 8 con
+                            <code>java.time</code>.
+                        </p>
+                    </div>
+
+                    <h2>1. Máquinas vs Humanos</h2>
+                    <p class="text-slate-600 mb-6">Java separa el tiempo en dos líneas temporales:</p>
 
 
 
-                    <div class="grid md:grid-cols-2 gap-6 mb-8">
-                        <div class="bg-white p-6 rounded-2xl border-l-4 border-indigo-500 shadow-sm">
-                            <h4 class="font-bold text-indigo-700 mb-2">Instant (Máquina)</h4>
-                            <p class="text-sm text-slate-600">Nanosegundos desde 1970 (UTC). Universal para logs.</p>
+                    <div class="grid md:grid-cols-2 gap-6 mb-8 mt-6">
+                        <div class="bg-slate-100 p-4 rounded-lg">
+                            <h4 class="font-bold text-slate-800">Instant (Máquina)</h4>
+                            <p class="text-sm">Conteo de nanosegundos desde 1970 (Epoch). Es universal. Úsalo para logs
+                                y timestamps de base de datos.</p>
                         </div>
-                        <div class="bg-white p-6 rounded-2xl border-l-4 border-teal-500 shadow-sm">
-                            <h4 class="font-bold text-teal-700 mb-2">LocalDate (Humano)</h4>
-                            <p class="text-sm text-slate-600">"25 de Diciembre". Depende de la zona horaria.</p>
+                        <div class="bg-slate-100 p-4 rounded-lg">
+                            <h4 class="font-bold text-slate-800">LocalDateTime (Humano)</h4>
+                            <p class="text-sm">"25 de Diciembre a las 10:00". No tiene zona horaria. No sirve para
+                                coordinar eventos globales.</p>
                         </div>
                     </div>
 
-                    <div class="rounded-xl overflow-hidden shadow-2xl bg-[#2d2d2d] border border-slate-700 mb-8">
-                        <pre><code class="language-java">// Inmutabilidad: Las operaciones crean nuevas copias
-LocalDate hoy = LocalDate.now();
-LocalDate vencimiento = hoy.plusDays(30);
+                    <h2 class="text-slate-900 mt-12 mb-6 border-none"><i
+                            class="fas fa-dumbbell text-orange-600 mr-2"></i>Training Ground</h2>
 
-// Zonas Horarias
-ZonedDateTime tokio = Instant.now().atZone(ZoneId.of("Asia/Tokyo"));</code></pre>
+                    <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-green-500">
+                        <span class="text-xs font-bold text-green-600 uppercase mb-2 block">🟢 Nivel Básico</span>
+                        <h4 class="font-bold text-slate-800">Manipulación de Fechas</h4>
+                        <p class="text-sm text-slate-600 mb-4">Obtén la fecha de hoy. Súmale 2 semanas y réstale 3 días.
+                            Imprime el resultado.</p>
+                    </div>
+
+                    <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-yellow-500">
+                        <span class="text-xs font-bold text-yellow-600 uppercase mb-2 block">🟡 Nivel Intermedio</span>
+                        <h4 class="font-bold text-slate-800">Cálculo de Duración</h4>
+                        <p class="text-sm text-slate-600 mb-4">Calcula exactamente cuántos días, horas y minutos faltan
+                            para el próximo Año Nuevo usando <code>Duration</code> o <code>Period</code>.</p>
+                    </div>
+
+                    <div class="mb-8 p-6 bg-slate-900 rounded-xl border border-slate-700 text-white">
+                        <span class="text-xs font-bold text-red-500 uppercase mb-2 block">🔴 Nivel Avanzado</span>
+                        <h4 class="font-bold text-white">Conversión de Zonas</h4>
+                        <p class="text-sm text-slate-400 mb-4">Un evento ocurre ahora mismo en "America/New_York". ¿Qué
+                            hora es en "Asia/Tokyo"? Usa <code>ZonedDateTime</code>.</p>
+                        <button onclick="toggleSolution('sol-19')"
+                            class="text-xs bg-orange-600 hover:bg-orange-500 text-white px-3 py-1 rounded transition">Ver
+                            Solución</button>
+                        <div id="sol-19" class="hidden mt-4 pt-4 border-t border-slate-700">
+                            <pre><code class="language-java">ZonedDateTime ny = ZonedDateTime.now(ZoneId.of("America/New_York"));
+ZonedDateTime tokio = ny.withZoneSameInstant(ZoneId.of("Asia/Tokyo"));
+System.out.println("NY: " + ny);
+System.out.println("Tokio: " + tokio);</code></pre>
+                        </div>
                     </div>
                 </div>
 
             </div>
 
             <footer class="mt-20 py-8 text-center text-slate-400 text-sm border-t border-slate-200">
-                <p>&copy; 2025 Java Masterclass. Módulo 4 completado.</p>
+                <p>&copy; 2025 Java Elite Bootcamp. Programación Funcional.</p>
             </footer>
         </main>
     </div>
@@ -398,29 +470,23 @@ ZonedDateTime tokio = Instant.now().atZone(ZoneId.of("Asia/Tokyo"));</code></pre
             selected.classList.remove('hidden');
             setTimeout(() => selected.classList.add('active'), 10);
 
-            // Resetear botones
             document.querySelectorAll('.nav-btn').forEach(btn => {
                 btn.classList.remove('active', 'bg-orange-50', 'border-orange-100');
                 btn.querySelector('.btn-indicator').classList.remove('opacity-100');
                 btn.querySelector('.btn-indicator').classList.add('opacity-0');
-
                 const icon = btn.querySelector('.btn-icon');
                 icon.classList.remove('bg-orange-500', 'text-white');
                 icon.classList.add('bg-slate-100', 'text-slate-500');
-
                 btn.querySelector('.btn-text').classList.remove('text-orange-700', 'font-bold');
             });
 
-            // Activar botón
             const activeBtn = document.getElementById('btn-' + id);
             activeBtn.classList.add('active', 'bg-orange-50', 'border-orange-100');
             activeBtn.querySelector('.btn-indicator').classList.add('opacity-100');
             activeBtn.querySelector('.btn-indicator').classList.remove('opacity-0');
-
             const activeIcon = activeBtn.querySelector('.btn-icon');
             activeIcon.classList.remove('bg-slate-100', 'text-slate-500');
             activeIcon.classList.add('bg-orange-500', 'text-white');
-
             activeBtn.querySelector('.btn-text').classList.add('text-orange-700', 'font-bold');
 
             document.querySelector('main').scrollTop = 0;
@@ -431,8 +497,16 @@ ZonedDateTime tokio = Instant.now().atZone(ZoneId.of("Asia/Tokyo"));</code></pre
             el.classList.toggle('hidden');
         }
 
-        function checkQuiz1() {
-            alert("¡Respuestas registradas! Revisa la sección 'Teoría Suprema'.");
+        function checkQuiz(btn, isCorrect) {
+            const parent = btn.parentElement;
+            parent.querySelectorAll('.quiz-btn').forEach(b => {
+                b.classList.remove('correct', 'wrong');
+            });
+            if (isCorrect) {
+                btn.classList.add('correct');
+            } else {
+                btn.classList.add('wrong');
+            }
         }
 
         // Init

@@ -1,5 +1,5 @@
 /* =========================================
-   BASE & TYPOGRAPHY
+   1. BASE & TYPOGRAPHY
    ========================================= */
 body {
     background-color: #f3f4f6;
@@ -29,7 +29,7 @@ h3 {
 }
 
 /* =========================================
-   HERO & BACKGROUNDS
+   2. HERO & BACKGROUNDS
    ========================================= */
 .hero-bg {
     background: #0f172a;
@@ -48,7 +48,7 @@ h3 {
 }
 
 /* =========================================
-   MODULE CARDS & ANIMATIONS
+   3. MODULE CARDS & ANIMATIONS
    ========================================= */
 .module-card {
     background: rgba(255, 255, 255, 0.95);
@@ -66,7 +66,7 @@ h3 {
     box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.3);
 }
 
-/* Utility Classes: Animation Delays */
+/* Animation Utilities */
 .anim-delay-100 {
     animation-delay: 100ms;
 }
@@ -95,44 +95,6 @@ h3 {
     animation-delay: 700ms;
 }
 
-/* =========================================
-   SCROLLBAR (Global)
-   ========================================= */
-::-webkit-scrollbar {
-    width: 8px;
-}
-
-::-webkit-scrollbar-track {
-    background: #0f172a;
-}
-
-::-webkit-scrollbar-thumb {
-    background: #334155;
-    border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: #475569;
-}
-
-/* =========================================
-   LAYOUT COMPONENTS & BOXES
-   ========================================= */
-.code-block {
-    border-radius: 0.5rem;
-    overflow: hidden;
-    margin: 1rem 0;
-}
-
-.lesson-section {
-    display: none;
-}
-
-.lesson-section.active {
-    display: block;
-    animation: fadeIn 0.5s;
-}
-
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -141,6 +103,59 @@ h3 {
     to {
         opacity: 1;
     }
+}
+
+/* =========================================
+   4. SCROLLBAR (Global & Custom)
+   ========================================= */
+::-webkit-scrollbar,
+.custom-scrollbar::-webkit-scrollbar {
+    width: 8px;
+    /* Unificado visualmente a 8px o 5px según preferencia, mantengo el global */
+}
+
+/* Specific override for sidebar if needed based on original code */
+.custom-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-track,
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: #0f172a;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #334155;
+    border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #475569;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+/* =========================================
+   5. LAYOUT COMPONENTS
+   ========================================= */
+.lesson-section {
+    display: none;
+}
+
+.lesson-section.active {
+    display: block;
+    animation: fadeIn 0.5s;
 }
 
 .nav-btn {
@@ -153,7 +168,7 @@ h3 {
     border-left: 4px solid #1e40af;
 }
 
-/* Cajas de Información (Estructura compartida) */
+/* Cajas de Información */
 .tip-box,
 .warning-box,
 .best-practice {
@@ -176,13 +191,12 @@ h3 {
     background-color: #ecfdf5;
     border: 1px solid #10b981;
     border-radius: 0.5rem;
-    /* Sobrescribe el radius específico */
     padding: 1.5rem;
     margin: 1.5rem 0;
 }
 
 /* =========================================
-   EXERCISES & BADGES
+   6. EXERCISES & BADGES
    ========================================= */
 .exercise-card {
     background: white;
@@ -231,34 +245,88 @@ h3 {
 }
 
 /* =========================================
-   LESSON CONTENT & CUSTOM SCROLLBAR
+   7. LESSON CONTENT SPECIFICS
    ========================================= */
-/* Ajustes específicos para el contenido de lección */
 .lesson-content h2 {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #1e293b;
-    margin-top: 2rem;
-    margin-bottom: 1rem;
+    font-size: 1.8rem;
+    /* Se priorizó la definición más específica del final */
+    font-weight: 800;
+    color: #0f172a;
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.75rem;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 0.5rem;
 }
 
-/* Personalización del Scrollbar para el sidebar/contenedores */
-.custom-scrollbar::-webkit-scrollbar {
-    width: 5px;
+.lesson-content h3 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #334155;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
 }
 
-.custom-scrollbar::-webkit-scrollbar-track {
-    background: transparent;
+.lesson-content p {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: #475569;
+    margin-bottom: 1.5rem;
 }
 
-.custom-scrollbar::-webkit-scrollbar-thumb {
-    background: #cbd5e1;
-    border-radius: 20px;
+.lesson-content strong {
+    color: #0f172a;
+    font-weight: 700;
 }
 
-.custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: #94a3b8;
+/* =========================================
+   8. CODE & QUIZ COMPONENTS
+   ========================================= */
+.code-block {
+    border-radius: 0.5rem;
+    overflow: hidden;
+    margin: 1rem 0;
+}
+
+.code-preview,
+.code-window {
+    background-color: #1e1e1e;
+    /* Se asume el fondo oscuro para code-window por contexto */
+    border-radius: 0.75rem;
+    overflow: hidden;
+    margin-bottom: 2rem;
+    border: 1px solid #334155;
+    /* Unificado al color más reciente */
+}
+
+.code-window {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.quiz-option:hover {
+    background-color: #f3e8ff;
+    border-color: #9333ea;
+    cursor: pointer;
+}
+
+.quiz-option.selected {
+    border-color: #9333ea;
+    background-color: #9333ea;
+    color: white;
+}
+
+/* Botones de Quiz - Se mantuvo el color Indigo (#4f46e5) 
+   ya que fue la última definición en la cascada original */
+.quiz-btn.correct {
+    background-color: #4f46e5 !important;
+    color: white !important;
+    border-color: #4f46e5 !important;
+}
+
+.quiz-btn.wrong {
+    background-color: #ef4444 !important;
+    color: white !important;
+    border-color: #ef4444 !important;
 }

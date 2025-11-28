@@ -4,30 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Módulo 6 | Persistencia y Backend</title>
+    <title>Módulo 6 | Arquitectura de Datos Elite</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" href="../assets/style.css">
 
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
-                    animation: {
-                        'fade-in-up': 'fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards',
-                    },
-                    keyframes: {
-                        fadeInUp: {
-                            '0%': { opacity: '0', transform: 'translateY(20px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' },
-                        },
-                    }
+                    fontFamily: { sans: ['Inter', 'sans-serif'], },
+                    animation: { 'fade-in-up': 'fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards', },
+                    keyframes: { fadeInUp: { '0%': { opacity: '0', transform: 'translateY(20px)' }, '100%': { opacity: '1', transform: 'translateY(0)' }, }, }
                 }
             }
         }
@@ -43,7 +33,7 @@
             <a href="../index.html"
                 class="group flex items-center gap-2 text-slate-300 hover:text-white transition-all bg-white/5 hover:bg-white/10 px-4 py-2 rounded-lg border border-white/10 hover:border-white/20">
                 <i class="fas fa-arrow-left text-sm group-hover:-translate-x-1 transition-transform"></i>
-                <span class="text-sm font-medium">Volver al Inicio</span>
+                <span class="text-sm font-medium">Dashboard</span>
             </a>
             <div class="h-6 w-px bg-slate-700 mx-2"></div>
             <div class="flex items-center gap-3">
@@ -52,11 +42,10 @@
                 </div>
                 <div>
                     <h1 class="font-bold text-sm tracking-wide leading-none">Módulo 06</h1>
-                    <span class="text-xs text-slate-400 font-medium">Backend & Datos</span>
+                    <span class="text-xs text-slate-400 font-medium">Persistencia de Datos</span>
                 </div>
             </div>
         </div>
-
         <div class="hidden md:flex items-center gap-4">
             <div
                 class="flex items-center gap-2 px-3 py-1.5 bg-emerald-900/30 rounded-full border border-emerald-500/20">
@@ -71,44 +60,40 @@
     </nav>
 
     <div class="flex flex-1 pt-16 h-full overflow-hidden">
-
         <aside class="w-80 bg-white border-r border-slate-200 shadow-xl z-20 hidden md:flex flex-col">
             <div class="p-6 border-b border-slate-100 bg-slate-50/50">
-                <h3 class="text-xs font-black text-slate-400 uppercase tracking-widest mb-1">Contenido del Módulo</h3>
-                <p class="text-sm text-slate-600 font-medium">3 Lecciones Fundamentales</p>
+                <h3 class="text-xs font-black text-slate-400 uppercase tracking-widest mb-1">Plan de Estudio</h3>
+                <p class="text-sm text-slate-600 font-medium">3 Lecciones Críticas</p>
             </div>
-
             <div class="flex-1 overflow-y-auto custom-scrollbar p-4 space-y-2">
                 <button onclick="showLesson(25)" id="btn-25"
-                    class="nav-btn w-full text-left px-4 py-4 rounded-xl text-sm font-medium transition-all duration-200 border border-transparent hover:bg-slate-50 hover:border-slate-200 group relative overflow-hidden active">
+                    class="nav-btn w-full text-left px-4 py-4 rounded-xl text-sm font-medium transition-all duration-200 border border-transparent hover:bg-emerald-50 hover:border-emerald-200 group relative overflow-hidden active">
                     <div class="relative z-10 flex items-center gap-3">
                         <span
                             class="flex-shrink-0 w-8 h-8 rounded-lg bg-slate-100 text-slate-500 flex items-center justify-center text-xs font-bold group-hover:bg-white group-hover:shadow-sm transition-all btn-icon">25</span>
-                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">SQL y JDBC</span>
+                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">SQL, JDBC & Security</span>
                     </div>
                     <div
                         class="absolute left-0 top-0 bottom-0 w-1 bg-emerald-600 opacity-0 btn-indicator transition-opacity">
                     </div>
                 </button>
-
                 <button onclick="showLesson(26)" id="btn-26"
-                    class="nav-btn w-full text-left px-4 py-4 rounded-xl text-sm font-medium transition-all duration-200 border border-transparent hover:bg-slate-50 hover:border-slate-200 group relative overflow-hidden">
+                    class="nav-btn w-full text-left px-4 py-4 rounded-xl text-sm font-medium transition-all duration-200 border border-transparent hover:bg-emerald-50 hover:border-emerald-200 group relative overflow-hidden">
                     <div class="relative z-10 flex items-center gap-3">
                         <span
                             class="flex-shrink-0 w-8 h-8 rounded-lg bg-slate-100 text-slate-500 flex items-center justify-center text-xs font-bold group-hover:bg-white group-hover:shadow-sm transition-all btn-icon">26</span>
-                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">Intro a JPA y ORM</span>
+                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">JPA & Hibernate Core</span>
                     </div>
                     <div
                         class="absolute left-0 top-0 bottom-0 w-1 bg-emerald-600 opacity-0 btn-indicator transition-opacity">
                     </div>
                 </button>
-
                 <button onclick="showLesson(27)" id="btn-27"
-                    class="nav-btn w-full text-left px-4 py-4 rounded-xl text-sm font-medium transition-all duration-200 border border-transparent hover:bg-slate-50 hover:border-slate-200 group relative overflow-hidden">
+                    class="nav-btn w-full text-left px-4 py-4 rounded-xl text-sm font-medium transition-all duration-200 border border-transparent hover:bg-emerald-50 hover:border-emerald-200 group relative overflow-hidden">
                     <div class="relative z-10 flex items-center gap-3">
                         <span
                             class="flex-shrink-0 w-8 h-8 rounded-lg bg-slate-100 text-slate-500 flex items-center justify-center text-xs font-bold group-hover:bg-white group-hover:shadow-sm transition-all btn-icon">27</span>
-                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">JSON (Jackson)</span>
+                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">JSON & REST Architecture</span>
                     </div>
                     <div
                         class="absolute left-0 top-0 bottom-0 w-1 bg-emerald-600 opacity-0 btn-indicator transition-opacity">
@@ -118,10 +103,6 @@
         </aside>
 
         <main class="flex-1 overflow-y-auto relative bg-slate-50 scroll-smooth">
-            <div
-                class="absolute inset-0 pointer-events-none bg-[url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%2364748b\' fill-opacity=\'0.03\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')]">
-            </div>
-
             <div class="max-w-5xl mx-auto px-8 py-12 relative z-10">
 
                 <div id="lesson-25" class="lesson-section active animate-fade-in-up lesson-content">
@@ -130,264 +111,271 @@
                             <span
                                 class="px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 text-xs font-bold uppercase tracking-wider">Lección
                                 25</span>
-                            <span class="text-slate-400 text-sm font-medium"><i class="far fa-clock mr-1"></i> 35
+                            <span class="text-slate-400 text-sm font-medium"><i class="far fa-clock mr-1"></i> 40
                                 min</span>
                         </div>
-                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">SQL y JDBC</h1>
-                        <p class="text-lg text-slate-600 max-w-3xl">La base de todo backend profesional: conectar,
-                            consultar y transaccionar con bases de datos de forma segura.</p>
+                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">SQL Nativo, JDBC
+                            y Seguridad</h1>
                     </div>
 
                     <div
                         class="bg-white rounded-2xl p-8 shadow-lg shadow-emerald-900/5 border-l-4 border-emerald-600 mb-10">
-                        <h3 class="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2">
-                            <i class="fas fa-bullseye text-emerald-600"></i> Objetivos de Élite
-                        </h3>
-                        <div class="grid md:grid-cols-2 gap-4">
-                            <div class="flex items-start gap-3">
-                                <i class="fas fa-check-circle text-green-500 mt-1"></i>
-                                <span class="text-slate-600 text-sm">Entender Drivers, Connections y Statements.</span>
-                            </div>
-                            <div class="flex items-start gap-3">
-                                <i class="fas fa-check-circle text-green-500 mt-1"></i>
-                                <span class="text-slate-600 text-sm">Prevenir Inyección SQL (PreparedStatement).</span>
-                            </div>
-                            <div class="flex items-start gap-3">
-                                <i class="fas fa-check-circle text-green-500 mt-1"></i>
-                                <span class="text-slate-600 text-sm">Gestión de Transacciones (ACID).</span>
-                            </div>
-                            <div class="flex items-start gap-3">
-                                <i class="fas fa-check-circle text-green-500 mt-1"></i>
-                                <span class="text-slate-600 text-sm">Patrón DAO (Data Access Object).</span>
-                            </div>
-                        </div>
+                        <h3 class="!mt-0 text-xl font-bold text-slate-800 mb-4 flex items-center gap-2"><i
+                                class="fas fa-bullseye text-emerald-600"></i> Objetivos Senior</h3>
+                        <ul class="list-disc list-inside text-slate-600 text-sm space-y-2">
+                            <li>Entender el <strong>Connection Pool</strong> (HikariCP) vs conexiones crudas.</li>
+                            <li>Prevenir <strong>SQL Injection</strong> usando <code>PreparedStatement</code>.</li>
+                            <li>Gestionar Transacciones <strong>ACID</strong> manualmente (commit/rollback).</li>
+                            <li>El patrón <strong>DAO</strong> (Data Access Object) para desacoplar lógica.</li>
+                        </ul>
                     </div>
 
-                    <h2>1. Teoría Suprema: El Puente de Datos</h2>
-                    <p class="text-slate-600 mb-6 leading-relaxed">
-                        JDBC es la API de bajo nivel sobre la que se construyen todos los frameworks modernos. Java
-                        habla métodos, y el <strong>Driver</strong> traduce esos métodos al protocolo nativo de la Base
-                        de Datos (MySQL, PostgreSQL, etc).
-                    </p>
+                    <h2>1. El Puente de Datos (JDBC Driver)</h2>
+                    <p class="text-slate-600 mb-6">JDBC es el protocolo de bajo nivel. El <strong>Driver</strong> actúa
+                        como un traductor universal que convierte llamadas Java en el dialecto nativo de la base de
+                        datos (PostgreSQL, MySQL, Oracle).</p>
 
 
 
-                    [Image of SQL Database connection diagram]
-
-
+                    <h3 class="text-xl font-bold text-slate-800 mt-8 mb-4">2. SQL Injection: El Enemigo #1</h3>
                     <div class="bg-red-50 border-l-4 border-red-500 p-6 rounded-r-xl mb-8">
-                        <h4 class="font-bold text-red-800 mb-1"><i class="fas fa-skull-crossbones mr-2"></i>Peligro
-                            Mortal: Inyección SQL</h4>
-                        <p class="text-red-700 text-sm mb-2">
-                            Jamás concatcnes Strings en una consulta SQL. Si haces
-                            <code>"SELECT * FROM users WHERE pass = '" + pass + "'"</code>, un atacante puede entrar sin
-                            contraseña.
+                        <h4 class="font-bold text-red-800 mb-1"><i class="fas fa-shield-alt mr-2"></i>Vulnerabilidad
+                            Crítica</h4>
+                        <p class="text-red-700 text-sm mb-2">Si concatenas Strings:
+                            <code>"SELECT * FROM users WHERE name = '" + name + "'"</code>, un atacante puede ingresar
+                            <code>' OR '1'='1</code> y borrar tu base de datos.
                         </p>
-                        <p class="text-red-800 font-bold text-sm">Solución: Usa siempre <code>PreparedStatement</code>.
-                        </p>
+                        <p class="text-red-800 font-bold text-sm">Solución: SIEMPRE usa <code>PreparedStatement</code>.
+                            Esto pre-compila la consulta y trata los parámetros como datos puros, no como código
+                            ejecutable.</p>
                     </div>
 
-                    <h2>2. Laboratorio de Código</h2>
-                    <div class="rounded-xl overflow-hidden shadow-2xl bg-[#2d2d2d] border border-slate-700 mb-8">
-                        <div class="bg-[#1e1e1e] px-4 py-2 flex items-center gap-2 border-b border-slate-700">
-                            <div class="flex gap-1.5">
-                                <div class="w-3 h-3 rounded-full bg-red-500"></div>
-                                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
-                                <div class="w-3 h-3 rounded-full bg-green-500"></div>
-                            </div>
-                            <span class="text-xs text-slate-400 ml-2 font-mono">UsuarioDAO.java</span>
+                    <div class="code-window bg-[#1e1e1e] mb-8">
+                        <div class="flex items-center gap-2 px-4 py-2 border-b border-slate-700 bg-slate-800/50">
+                            <span class="text-xs text-slate-400 font-mono ml-2">SecureDAO.java</span>
                         </div>
                         <pre><code class="language-java">public class UsuarioDAO {
-    private static final String SQL = "SELECT id, nombre FROM usuarios WHERE rol = ?";
+    // Consulta parametrizada (?)
+    private static final String SQL_INSERT = "INSERT INTO usuarios (nombre, email) VALUES (?, ?)";
 
-    public List<Usuario> buscarPorRol(String rol) {
-        List<Usuario> usuarios = new ArrayList<>();
-
-        // try-with-resources cierra Connection y Statement automáticamente
-        try (Connection conn = DriverManager.getConnection(URL, USER, PASS);
-             PreparedStatement stmt = conn.prepareStatement(SQL)) {
-
-            // 1. Asignación Segura (Previene Inyección)
-            stmt.setString(1, rol);
-
-            // 2. Ejecución
-            try (ResultSet rs = stmt.executeQuery()) {
-                // 3. Mapeo Relacional -> Objetos
-                while (rs.next()) {
-                    usuarios.add(new Usuario(
-                        rs.getLong("id"),
-                        rs.getString("nombre")
-                    ));
-                }
-            }
+    public void guardar(Usuario u) {
+        // Try-with-resources cierra la conexión automáticamente
+        try (Connection conn = DataSource.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(SQL_INSERT)) {
+            
+            // Asignación segura de tipos
+            stmt.setString(1, u.getNombre());
+            stmt.setString(2, u.getEmail());
+            
+            stmt.executeUpdate(); // Ejecuta
         } catch (SQLException e) {
-            throw new RuntimeException("Error en BD", e);
+            throw new DataAccessException("Error guardando usuario", e);
         }
-        return usuarios;
     }
 }</code></pre>
                     </div>
 
-                    <h2>3. Entrenamiento Progresivo</h2>
+                    <h2 class="text-slate-900 mt-12 mb-6 border-none"><i
+                            class="fas fa-dumbbell text-emerald-600 mr-2"></i>Training Ground</h2>
 
-                    <div
-                        class="bg-white rounded-2xl p-6 border border-slate-200 shadow-lg mb-6 relative overflow-hidden group hover:border-emerald-400 transition-colors">
-                        <div
-                            class="absolute top-0 right-0 bg-emerald-100 text-emerald-700 text-xs font-bold px-3 py-1 rounded-bl-xl border-l border-b border-emerald-200">
-                            NIVEL BÁSICO</div>
-                        <h4 class="font-bold text-lg text-slate-800 mb-2">Conexión H2</h4>
-                        <p class="text-slate-600 text-sm mb-4">Configura una BD en memoria H2. Conéctate y ejecuta
-                            `CREATE TABLE productos`.</p>
+                    <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-green-500">
+                        <span class="text-xs font-bold text-green-600 uppercase mb-2 block">🟢 Nivel Básico</span>
+                        <h4 class="font-bold text-slate-800">Conexión Segura</h4>
+                        <p class="text-sm text-slate-600 mb-4">Escribe un método que se conecte a una base de datos H2
+                            en memoria y cree una tabla <code>productos</code> usando <code>Statement</code>.</p>
                     </div>
 
-                    <div
-                        class="bg-white rounded-2xl p-6 border border-slate-200 shadow-lg mb-6 relative overflow-hidden group hover:border-red-400 transition-colors">
-                        <div
-                            class="absolute top-0 right-0 bg-red-100 text-red-700 text-xs font-bold px-3 py-1 rounded-bl-xl border-l border-b border-red-200">
-                            NIVEL EXPERTO</div>
-                        <h4 class="font-bold text-lg text-slate-800 mb-2">Transacción Bancaria Atómica</h4>
-                        <p class="text-slate-600 text-sm mb-4">Simula una transferencia (Resta a A, Suma a B). Usa
-                            `setAutoCommit(false)`, `commit()` y `rollback()` para asegurar que el dinero no se pierda
-                            si hay error.</p>
+                    <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-yellow-500">
+                        <span class="text-xs font-bold text-yellow-600 uppercase mb-2 block">🟡 Nivel Intermedio</span>
+                        <h4 class="font-bold text-slate-800">Lectura Mapeada</h4>
+                        <p class="text-sm text-slate-600 mb-4">Ejecuta un <code>SELECT * FROM productos</code>. Itera
+                            sobre el <code>ResultSet</code> y mapea cada fila a un objeto Java <code>Producto</code>.
+                            Devuelve una <code>List&lt;Producto&gt;</code>.</p>
+                    </div>
+
+                    <div class="mb-8 p-6 bg-slate-900 rounded-xl border border-slate-700 text-white">
+                        <span class="text-xs font-bold text-emerald-500 uppercase mb-2 block">🔴 Nivel Avanzado</span>
+                        <h4 class="font-bold text-white">Transacción Bancaria (ACID)</h4>
+                        <p class="text-sm text-slate-400 mb-4">Implementa una transferencia de dinero entre dos cuentas.
+                            Debes restar de A y sumar a B. Si algo falla en medio, NADA debe guardarse (Rollback). Usa
+                            <code>conn.setAutoCommit(false)</code>.
+                        </p>
                         <button onclick="toggleSolution('sol-25')"
-                            class="text-sm font-bold text-emerald-600 flex items-center gap-2 hover:bg-emerald-50 px-3 py-2 rounded-lg transition-colors">
-                            <i class="fas fa-eye"></i> Ver Solución
-                        </button>
-                        <div id="sol-25" class="hidden mt-4 bg-slate-900 rounded-xl p-4 border border-slate-700">
-                            <pre><code class="language-java text-xs text-white">try (Connection conn = DriverManager.getConnection(URL)) {
-    conn.setAutoCommit(false); // Inicio Transacción
+                            class="text-xs bg-emerald-600 hover:bg-emerald-500 text-white px-3 py-1 rounded transition">Ver
+                            Solución</button>
+                        <div id="sol-25" class="hidden mt-4 pt-4 border-t border-slate-700">
+                            <pre><code class="language-java">try (Connection conn = ds.getConnection()) {
+    conn.setAutoCommit(false); // Inicio de Transacción
     try {
-        // ... update restar ...
-        // ... update sumar ...
-        conn.commit(); // Confirmar
+        debitar(conn, idOrigen, monto);
+        acreditar(conn, idDestino, monto);
+        conn.commit(); // Todo o nada
     } catch (Exception e) {
-        conn.rollback(); // Deshacer todo
+        conn.rollback(); // Deshacer cambios si hay error
+        throw e;
     }
 }</code></pre>
                         </div>
                     </div>
 
-                    <h2>4. Validación de Conocimientos</h2>
-                    <div
-                        class="bg-gradient-to-br from-white to-emerald-50 p-8 rounded-3xl shadow-xl border border-slate-200">
-                        <div class="space-y-6">
+                    <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
+                        <h3 class="font-bold text-slate-800 mb-6">Quiz de Validación</h3>
+                        <div class="space-y-4">
                             <div>
-                                <p class="font-bold text-slate-800 mb-2">1. ¿Qué es un ResultSet?</p>
-                                <select
-                                    class="w-full p-3 rounded-xl border border-slate-300 bg-white text-slate-600 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all">
-                                    <option value="">Selecciona una respuesta...</option>
-                                    <option value="a">Una lista de Strings.</option>
-                                    <option value="b">Un cursor que apunta a los resultados y permite iterarlos.
-                                    </option>
-                                    <option value="c">La conexión a la base de datos.</option>
-                                </select>
+                                <p class="text-sm font-semibold mb-2">1. ¿Qué objeto previene la Inyección SQL?</p>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <button class="quiz-btn border p-2 rounded text-sm hover:bg-slate-50"
+                                        onclick="checkQuiz(this, false)">Statement</button>
+                                    <button class="quiz-btn border p-2 rounded text-sm hover:bg-slate-50"
+                                        onclick="checkQuiz(this, true)">PreparedStatement</button>
+                                </div>
                             </div>
-                            <div>
-                                <p class="font-bold text-slate-800 mb-2">2. ¿Qué hace rollback()?</p>
-                                <select
-                                    class="w-full p-3 rounded-xl border border-slate-300 bg-white text-slate-600 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all">
-                                    <option value="">Selecciona una respuesta...</option>
-                                    <option value="a">Borra la base de datos.</option>
-                                    <option value="b">Cierra la conexión.</option>
-                                    <option value="c">Deshace los cambios de la transacción actual.</option>
-                                </select>
-                            </div>
-                            <button onclick="checkQuiz1()"
-                                class="w-full py-4 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl font-bold shadow-lg shadow-emerald-600/30 transition-all active:scale-95">
-                                Validar Respuestas
-                            </button>
                         </div>
                     </div>
                 </div>
 
                 <div id="lesson-26" class="lesson-section hidden animate-fade-in-up lesson-content">
                     <div class="mb-8 border-b border-slate-200 pb-6">
-                        <span
-                            class="px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 text-xs font-bold uppercase tracking-wider">Lección
-                            26</span>
-                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mt-2 mb-4">Intro a JPA
-                            y ORM</h1>
-                        <p class="text-lg text-slate-600">Automatiza el acceso a datos mapeando objetos a tablas.</p>
+                        <div class="flex items-center gap-3 mb-2">
+                            <span
+                                class="px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 text-xs font-bold uppercase tracking-wider">Lección
+                                26</span>
+                        </div>
+                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">JPA y ORM:
+                            Automatización de Datos</h1>
                     </div>
 
-                    <h2>1. Teoría Suprema: La Magia del ORM</h2>
-                    <p class="text-slate-600 mb-6">
-                        JPA (Java Persistence API) automatiza el trabajo de JDBC. Un concepto crítico es el
-                        <strong>Persistence Context</strong>: una caché donde los objetos están "vigilados" (Managed).
-                    </p>
+                    <div
+                        class="bg-white rounded-2xl p-8 shadow-lg shadow-emerald-900/5 border-l-4 border-emerald-600 mb-10">
+                        <p class="text-slate-600">Escribir SQL a mano es tedioso y propenso a errores. <strong>JPA (Java
+                                Persistence API)</strong> es el estándar para mapear objetos Java a tablas relacionales
+                            automáticamente. Hibernate es la implementación más famosa.</p>
+                    </div>
+
+                    <h2>1. Ciclo de Vida de una Entidad</h2>
+                    <p class="text-slate-600 mb-6">Los objetos en JPA no son simples POJOs. Tienen estados gestionados
+                        por el <strong>EntityManager</strong> (Contexto de Persistencia).</p>
 
 
 
-                    [Image of ORM mapping diagram]
+                    <h3 class="text-xl font-bold text-slate-800 mt-8 mb-4">2. Dirty Checking</h3>
+                    <p class="text-slate-600 mb-4">Si un objeto está en estado <strong>Managed</strong>, no necesitas
+                        llamar a <code>save()</code> para actualizarlo. JPA detecta automáticamente si cambiaste algún
+                        atributo y lanza el <code>UPDATE</code> al hacer commit.</p>
 
+                    <h2 class="text-slate-900 mt-12 mb-6 border-none"><i
+                            class="fas fa-dumbbell text-emerald-600 mr-2"></i>Training Ground</h2>
 
-                    <div class="bg-yellow-50 border border-yellow-200 rounded-xl p-6 mb-8">
-                        <h4 class="font-bold text-yellow-800 mb-2">Eager vs Lazy Loading</h4>
-                        <p class="text-yellow-900 text-sm">
-                            <strong>Eager:</strong> Carga todo (Usuario + 1000 pedidos). Lento.<br>
-                            <strong>Lazy:</strong> Carga solo el Usuario. Los pedidos se traen solo si los pides.
-                            (Recomendado).
+                    <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-green-500">
+                        <span class="text-xs font-bold text-green-600 uppercase mb-2 block">🟢 Nivel Básico</span>
+                        <h4 class="font-bold text-slate-800">Mapeo de Entidad</h4>
+                        <p class="text-sm text-slate-600 mb-4">Crea una clase <code>Estudiante</code> y anótala con
+                            <code>@Entity</code>, <code>@Id</code> y <code>@GeneratedValue</code>. Mapea un campo
+                            <code>nombre</code>.
                         </p>
                     </div>
 
-                    <div class="rounded-xl overflow-hidden shadow-2xl bg-[#2d2d2d] border border-slate-700 mb-8">
-                        <pre><code class="language-java">@Entity
-public class Empleado {
-    @Id @GeneratedValue
-    private Long id;
-    private String nombre;
-}
+                    <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-yellow-500">
+                        <span class="text-xs font-bold text-yellow-600 uppercase mb-2 block">🟡 Nivel Intermedio</span>
+                        <h4 class="font-bold text-slate-800">Relaciones (1:N)</h4>
+                        <p class="text-sm text-slate-600 mb-4">Modelar la relación: Un <code>Autor</code> tiene muchos
+                            <code>Libros</code>. Usa <code>@OneToMany(mappedBy="...")</code> y <code>@ManyToOne</code>.
+                            Asegúrate de usar <code>FetchType.LAZY</code> para rendimiento.
+                        </p>
+                    </div>
 
-// Uso
-em.getTransaction().begin();
-Empleado e = new Empleado("Ana");
-em.persist(e); // Managed
-e.setNombre("Ana María"); // JPA detecta el cambio y hará UPDATE solo
-em.getTransaction().commit();</code></pre>
+                    <div class="mb-8 p-6 bg-slate-900 rounded-xl border border-slate-700 text-white">
+                        <span class="text-xs font-bold text-emerald-500 uppercase mb-2 block">🔴 Nivel Avanzado</span>
+                        <h4 class="font-bold text-white">LazyInitializationException</h4>
+                        <p class="text-sm text-slate-400 mb-4">Simula el error clásico: Carga una entidad Lazy, cierra
+                            la sesión (transaction commit), e intenta acceder a la colección Lazy fuera de la
+                            transacción. Explica por qué falla y cómo arreglarlo (JOIN FETCH).</p>
+                        <button onclick="toggleSolution('sol-26')"
+                            class="text-xs bg-emerald-600 hover:bg-emerald-500 text-white px-3 py-1 rounded transition">Ver
+                            Solución</button>
+                        <div id="sol-26" class="hidden mt-4 pt-4 border-t border-slate-700">
+                            <pre><code class="language-java">// Solución: Traer los datos ANTES de cerrar la sesión
+// JPQL con JOIN FETCH
+String jpql = "SELECT a FROM Autor a JOIN FETCH a.libros WHERE a.id = :id";
+Autor autor = em.createQuery(jpql, Autor.class)
+                .setParameter("id", 1L)
+                .getSingleResult();
+// Ahora puedes usar autor.getLibros() fuera de la transacción</code></pre>
+                        </div>
                     </div>
                 </div>
 
                 <div id="lesson-27" class="lesson-section hidden animate-fade-in-up lesson-content">
                     <div class="mb-8 border-b border-slate-200 pb-6">
-                        <span
-                            class="px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 text-xs font-bold uppercase tracking-wider">Lección
-                            27</span>
-                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mt-2 mb-4">JSON
-                            (Jackson)</h1>
-                        <p class="text-lg text-slate-600">El lenguaje universal para comunicar tu backend con el mundo.
+                        <div class="flex items-center gap-3 mb-2">
+                            <span
+                                class="px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 text-xs font-bold uppercase tracking-wider">Lección
+                                27</span>
+                        </div>
+                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">JSON y
+                            Arquitectura REST</h1>
+                    </div>
+
+                    <p class="text-slate-600 mb-6">Tus objetos Java viven en la memoria RAM. Para enviarlos por internet
+                        a una App móvil o Web, deben serializarse a texto. El estándar mundial es <strong>JSON</strong>
+                        y la librería reina es <strong>Jackson</strong>.</p>
+
+                    <h3 class="text-xl font-bold text-slate-800 mt-8 mb-4">El Patrón DTO (Data Transfer Object)</h3>
+                    <div class="bg-red-50 border border-red-200 rounded-xl p-6 mb-8">
+                        <h4 class="font-bold text-red-800 mb-2">🛑 Anti-Patrón: Exponer Entidades</h4>
+                        <p class="text-sm text-red-800">Nunca devuelvas tus entidades JPA (<code>@Entity</code>)
+                            directamente en un controlador REST. Podrías exponer contraseñas, crear bucles infinitos
+                            JSON o romper el contrato si cambias la base de datos. Usa DTOs (Records).</p>
+                    </div>
+
+
+
+                    <h2 class="text-slate-900 mt-12 mb-6 border-none"><i
+                            class="fas fa-dumbbell text-emerald-600 mr-2"></i>Training Ground</h2>
+
+                    <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-green-500">
+                        <span class="text-xs font-bold text-green-600 uppercase mb-2 block">🟢 Nivel Básico</span>
+                        <h4 class="font-bold text-slate-800">Serialización Simple</h4>
+                        <p class="text-sm text-slate-600 mb-4">Crea un Record <code>UsuarioDTO</code>. Usa
+                            <code>ObjectMapper</code> de Jackson para convertirlo a un String JSON.
                         </p>
                     </div>
 
-                    <h2>1. Teoría Suprema: La Lingua Franca</h2>
-                    <p class="text-slate-600 mb-6">
-                        Tus objetos viven en RAM. Para enviarlos a un Frontend, deben viajar como texto JSON.
-                        <strong>Jackson</strong> es la librería estándar para esto.
-                    </p>
-
-                    <div class="bg-red-50 border-l-4 border-red-500 p-6 rounded-r-xl mb-8">
-                        <h4 class="font-bold text-red-800 mb-1">Anti-Patrón: Exponer Entidades</h4>
-                        <p class="text-red-700 text-sm">
-                            Nunca devuelvas una `@Entity` JPA en un controlador REST. Podrías exponer contraseñas o
-                            causar bucles infinitos. Usa <strong>DTOs</strong> (Records).
-                        </p>
+                    <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-yellow-500">
+                        <span class="text-xs font-bold text-yellow-600 uppercase mb-2 block">🟡 Nivel Intermedio</span>
+                        <h4 class="font-bold text-slate-800">Ignorar Campos Sensibles</h4>
+                        <p class="text-sm text-slate-600 mb-4">Añade un campo <code>password</code> a tu DTO. Configura
+                            Jackson para que ese campo NUNCA se envíe en el JSON (usando <code>@JsonIgnore</code>).</p>
                     </div>
 
-                    <div class="rounded-xl overflow-hidden shadow-2xl bg-[#2d2d2d] border border-slate-700 mb-8">
-                        <pre><code class="language-java">// DTO Inmutable
-public record UsuarioDTO(String nombre, String email, @JsonIgnore String password) {}
+                    <div class="mb-8 p-6 bg-slate-900 rounded-xl border border-slate-700 text-white">
+                        <span class="text-xs font-bold text-emerald-500 uppercase mb-2 block">🔴 Nivel Avanzado</span>
+                        <h4 class="font-bold text-white">Deserialización Polimórfica</h4>
+                        <p class="text-sm text-slate-400 mb-4">Tienes un JSON que puede representar un
+                            <code>Perro</code> o un <code>Gato</code> (ambos <code>Animal</code>). Configura Jackson con
+                            <code>@JsonTypeInfo</code> y <code>@JsonSubTypes</code> para que cree la instancia correcta
+                            automáticamente según un campo "tipo".
+                        </p>
+                        <button onclick="toggleSolution('sol-27')"
+                            class="text-xs bg-emerald-600 hover:bg-emerald-500 text-white px-3 py-1 rounded transition">Ver
+                            Solución</button>
+                        <div id="sol-27" class="hidden mt-4 pt-4 border-t border-slate-700">
+                            <pre><code class="language-java">@JsonTypeInfo(use = Id.NAME, property = "tipo")
+@JsonSubTypes({
+    @Type(value = Perro.class, name = "dog"),
+    @Type(value = Gato.class, name = "cat")
+})
+abstract class Animal {}
 
-// Serialización
-ObjectMapper mapper = new ObjectMapper();
-UsuarioDTO user = new UsuarioDTO("Carlos", "c@test.com", "123");
-String json = mapper.writeValueAsString(user);
-// Resultado: {"nombre":"Carlos","email":"c@test.com"} (Sin password)</code></pre>
+// JSON: { "tipo": "dog", "ladrido": "guau" } -> Crea objeto Perro</code></pre>
+                        </div>
                     </div>
                 </div>
 
             </div>
 
             <footer class="mt-20 py-8 text-center text-slate-400 text-sm border-t border-slate-200">
-                <p>&copy; 2025 Java Masterclass. Módulo 6 completado.</p>
+                <p>&copy; 2025 Java Elite Bootcamp. Persistencia y Backend.</p>
             </footer>
         </main>
     </div>
@@ -405,29 +393,23 @@ String json = mapper.writeValueAsString(user);
             selected.classList.remove('hidden');
             setTimeout(() => selected.classList.add('active'), 10);
 
-            // Reset botones
             document.querySelectorAll('.nav-btn').forEach(btn => {
                 btn.classList.remove('active', 'bg-emerald-50', 'border-emerald-100');
                 btn.querySelector('.btn-indicator').classList.remove('opacity-100');
                 btn.querySelector('.btn-indicator').classList.add('opacity-0');
-
                 const icon = btn.querySelector('.btn-icon');
                 icon.classList.remove('bg-emerald-600', 'text-white');
                 icon.classList.add('bg-slate-100', 'text-slate-500');
-
                 btn.querySelector('.btn-text').classList.remove('text-emerald-700', 'font-bold');
             });
 
-            // Activar botón
             const activeBtn = document.getElementById('btn-' + id);
             activeBtn.classList.add('active', 'bg-emerald-50', 'border-emerald-100');
             activeBtn.querySelector('.btn-indicator').classList.add('opacity-100');
             activeBtn.querySelector('.btn-indicator').classList.remove('opacity-0');
-
             const activeIcon = activeBtn.querySelector('.btn-icon');
             activeIcon.classList.remove('bg-slate-100', 'text-slate-500');
             activeIcon.classList.add('bg-emerald-600', 'text-white');
-
             activeBtn.querySelector('.btn-text').classList.add('text-emerald-700', 'font-bold');
 
             document.querySelector('main').scrollTop = 0;
@@ -438,8 +420,16 @@ String json = mapper.writeValueAsString(user);
             el.classList.toggle('hidden');
         }
 
-        function checkQuiz1() {
-            alert("¡Respuestas registradas! Estás listo para construir Backends reales.");
+        function checkQuiz(btn, isCorrect) {
+            const parent = btn.parentElement;
+            parent.querySelectorAll('.quiz-btn').forEach(b => {
+                b.classList.remove('correct', 'wrong');
+            });
+            if (isCorrect) {
+                btn.classList.add('correct');
+            } else {
+                btn.classList.add('wrong');
+            }
         }
 
         // Init
