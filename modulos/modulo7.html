@@ -10,6 +10,7 @@
         rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="../assets/syle.css">
     <script src="../assets/scriptHead.js"></script>
 </head>
 
@@ -51,37 +52,59 @@
         <aside class="w-80 bg-white border-r border-slate-200 shadow-xl z-20 hidden md:flex flex-col">
             <div class="p-6 border-b border-slate-100 bg-slate-50/50">
                 <h3 class="text-xs font-black text-slate-400 uppercase tracking-widest mb-1">Plan de Estudio</h3>
-                <p class="text-sm text-slate-600 font-medium">3 Pasos a la Maestría</p>
+                <p class="text-sm text-slate-600 font-medium">5 Lecciones Maestras</p>
             </div>
             <div class="flex-1 overflow-y-auto custom-scrollbar p-4 space-y-2">
-                <button onclick="showLesson(28)" id="btn-28"
+                <button onclick="showLesson(30)" id="btn-30"
                     class="nav-btn w-full text-left px-4 py-4 rounded-xl text-sm font-medium transition-all duration-200 border border-transparent hover:bg-indigo-50 hover:border-indigo-200 group relative overflow-hidden active">
                     <div class="relative z-10 flex items-center gap-3">
                         <span
-                            class="flex-shrink-0 w-8 h-8 rounded-lg bg-slate-100 text-slate-500 flex items-center justify-center text-xs font-bold group-hover:bg-white group-hover:shadow-sm transition-all btn-icon">28</span>
-                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">HTTP Client Moderno</span>
-                    </div>
-                    <div
-                        class="absolute left-0 top-0 bottom-0 w-1 bg-indigo-600 opacity-0 btn-indicator transition-opacity">
-                    </div>
-                </button>
-                <button onclick="showLesson(29)" id="btn-29"
-                    class="nav-btn w-full text-left px-4 py-4 rounded-xl text-sm font-medium transition-all duration-200 border border-transparent hover:bg-indigo-50 hover:border-indigo-200 group relative overflow-hidden">
-                    <div class="relative z-10 flex items-center gap-3">
-                        <span
-                            class="flex-shrink-0 w-8 h-8 rounded-lg bg-slate-100 text-slate-500 flex items-center justify-center text-xs font-bold group-hover:bg-white group-hover:shadow-sm transition-all btn-icon">29</span>
+                            class="flex-shrink-0 w-8 h-8 rounded-lg bg-slate-100 text-slate-500 flex items-center justify-center text-xs font-bold group-hover:bg-white group-hover:shadow-sm transition-all btn-icon">30</span>
                         <span class="text-slate-600 group-hover:text-slate-900 btn-text">Principios SOLID</span>
                     </div>
                     <div
                         class="absolute left-0 top-0 bottom-0 w-1 bg-indigo-600 opacity-0 btn-indicator transition-opacity">
                     </div>
                 </button>
-                <button onclick="showLesson(30)" id="btn-30"
+                <button onclick="showLesson(31)" id="btn-31"
                     class="nav-btn w-full text-left px-4 py-4 rounded-xl text-sm font-medium transition-all duration-200 border border-transparent hover:bg-indigo-50 hover:border-indigo-200 group relative overflow-hidden">
                     <div class="relative z-10 flex items-center gap-3">
                         <span
-                            class="flex-shrink-0 w-8 h-8 rounded-lg bg-slate-100 text-slate-500 flex items-center justify-center text-xs font-bold group-hover:bg-white group-hover:shadow-sm transition-all btn-icon">30</span>
+                            class="flex-shrink-0 w-8 h-8 rounded-lg bg-slate-100 text-slate-500 flex items-center justify-center text-xs font-bold group-hover:bg-white group-hover:shadow-sm transition-all btn-icon">31</span>
+                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">Patrones de Diseño</span>
+                    </div>
+                    <div
+                        class="absolute left-0 top-0 bottom-0 w-1 bg-indigo-600 opacity-0 btn-indicator transition-opacity">
+                    </div>
+                </button>
+                <button onclick="showLesson(32)" id="btn-32"
+                    class="nav-btn w-full text-left px-4 py-4 rounded-xl text-sm font-medium transition-all duration-200 border border-transparent hover:bg-indigo-50 hover:border-indigo-200 group relative overflow-hidden">
+                    <div class="relative z-10 flex items-center gap-3">
+                        <span
+                            class="flex-shrink-0 w-8 h-8 rounded-lg bg-slate-100 text-slate-500 flex items-center justify-center text-xs font-bold group-hover:bg-white group-hover:shadow-sm transition-all btn-icon">32</span>
                         <span class="text-slate-600 group-hover:text-slate-900 btn-text">Arquitectura Limpia</span>
+                    </div>
+                    <div
+                        class="absolute left-0 top-0 bottom-0 w-1 bg-indigo-600 opacity-0 btn-indicator transition-opacity">
+                    </div>
+                </button>
+                <button onclick="showLesson(33)" id="btn-33"
+                    class="nav-btn w-full text-left px-4 py-4 rounded-xl text-sm font-medium transition-all duration-200 border border-transparent hover:bg-indigo-50 hover:border-indigo-200 group relative overflow-hidden">
+                    <div class="relative z-10 flex items-center gap-3">
+                        <span
+                            class="flex-shrink-0 w-8 h-8 rounded-lg bg-slate-100 text-slate-500 flex items-center justify-center text-xs font-bold group-hover:bg-white group-hover:shadow-sm transition-all btn-icon">33</span>
+                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">Build Engineering</span>
+                    </div>
+                    <div
+                        class="absolute left-0 top-0 bottom-0 w-1 bg-indigo-600 opacity-0 btn-indicator transition-opacity">
+                    </div>
+                </button>
+                <button onclick="showLesson(34)" id="btn-34"
+                    class="nav-btn w-full text-left px-4 py-4 rounded-xl text-sm font-medium transition-all duration-200 border border-transparent hover:bg-indigo-50 hover:border-indigo-200 group relative overflow-hidden">
+                    <div class="relative z-10 flex items-center gap-3">
+                        <span
+                            class="flex-shrink-0 w-8 h-8 rounded-lg bg-slate-100 text-slate-500 flex items-center justify-center text-xs font-bold group-hover:bg-white group-hover:shadow-sm transition-all btn-icon">34</span>
+                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">Git Internals & CI/CD</span>
                     </div>
                     <div
                         class="absolute left-0 top-0 bottom-0 w-1 bg-indigo-600 opacity-0 btn-indicator transition-opacity">
@@ -93,170 +116,73 @@
         <main class="flex-1 overflow-y-auto relative bg-slate-50 scroll-smooth">
             <div class="max-w-5xl mx-auto px-8 py-12 relative z-10">
 
-                <div id="lesson-28" class="lesson-section active animate-fade-in-up lesson-content">
+                <!-- LECCIÓN 30 -->
+                <div id="lesson-30" class="lesson-section active animate-fade-in-up lesson-content">
                     <div class="mb-8 border-b border-slate-200 pb-6">
                         <div class="flex items-center gap-3 mb-2">
                             <span
                                 class="px-3 py-1 rounded-full bg-indigo-100 text-indigo-700 text-xs font-bold uppercase tracking-wider">Lección
-                                28</span>
-                            <span class="text-slate-400 text-sm font-medium"><i class="far fa-clock mr-1"></i> 35
+                                30</span>
+                            <span class="text-slate-400 text-sm font-medium"><i class="far fa-clock mr-1"></i> 45
                                 min</span>
                         </div>
-                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">Integración de
-                            Servicios: HTTP Client Moderno</h1>
+                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">Principios SOLID:
+                            La Física del Buen Software</h1>
                     </div>
 
                     <div
                         class="bg-white rounded-2xl p-8 shadow-lg shadow-indigo-900/5 border-l-4 border-indigo-600 mb-10">
-                        <h3 class="!mt-0 text-xl font-bold text-slate-800 mb-4 flex items-center gap-2"><i
-                                class="fas fa-bullseye text-indigo-600"></i> Objetivos Senior</h3>
+                        <h3 class="!mt-0 text-xl font-bold text-slate-800 mb-4 flex items-center gap-2">
+                            <i class="fas fa-bullseye text-indigo-600"></i> Objetivos Senior
+                        </h3>
+                        <p class="text-slate-600 mb-4">El código "funciona" cuando compila. El código es "mantenible"
+                            cuando respeta SOLID. Estos principios son la base de la ingeniería de software escalable.
+                        </p>
                         <ul class="list-disc list-inside text-slate-600 text-sm space-y-2">
-                            <li>Deprecación de <code>HttpURLConnection</code>: El legado bloqueante.</li>
-                            <li><strong>Asincronía Real:</strong> Non-blocking I/O con <code>CompletableFuture</code>.
-                            </li>
-                            <li>Patrones de Resiliencia: Timeouts y Backpressure.</li>
+                            <li>Comprender el costo de acoplamiento (Coupling) y la cohesión.</li>
+                            <li>Aplicar polimorfismo para lograr sistemas extensibles (OCP).</li>
+                            <li>La inversión de dependencias como base de la arquitectura moderna.</li>
                         </ul>
                     </div>
 
-                    <h2>1. El Estándar Moderno: java.net.http.HttpClient</h2>
-                    <p class="text-slate-600 mb-6">Desde Java 11, tenemos un cliente HTTP nativo que soporta
-                        <strong>HTTP/2</strong> (multiplexación de streams) y <strong>WebSocket</strong>. A diferencia
-                        de las librerías externas (Apache HttpClient, OkHttp), este viene integrado en el JDK y es
-                        altamente eficiente.
-                    </p>
 
-                    <h3 class="text-xl font-bold text-slate-800 mt-8 mb-4">2. Programación Reactiva y Asíncrona</h3>
-                    <p class="text-slate-600 mb-4">Las llamadas a APIs externas son lentas (latencia de red). Bloquear
-                        el hilo principal esperando una respuesta es un error de diseño. El método
-                        <code>sendAsync()</code> devuelve un <code>CompletableFuture</code>, permitiendo encadenar
-                        operaciones sin bloquear el hilo actual.
-                    </p>
 
-                    <div class="code-window bg-[#1e1e1e] mb-8">
-                        <div class="flex items-center gap-2 px-4 py-2 border-b border-slate-700 bg-slate-800/50">
-                            <span class="text-xs text-slate-400 font-mono ml-2">AsyncClient.java</span>
-                        </div>
-                        <pre><code class="language-java">// 1. Construcción Inmutable del Cliente
-HttpClient client = HttpClient.newBuilder()
-    .version(HttpClient.Version.HTTP_2)
-    .connectTimeout(Duration.ofSeconds(5)) // Fail Fast
-    .build();
-
-// 2. Definición de la Petición
-HttpRequest request = HttpRequest.newBuilder()
-    .uri(URI.create("https://api.github.com/zen"))
-    .header("Accept", "text/plain")
-    .GET()
-    .build();
-
-// 3. Ejecución Asíncrona (Non-Blocking)
-client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
-    .thenApply(HttpResponse::body)
-    .thenAccept(System.out::println) // Callback
-    .join(); // Solo para demo, en producción no bloquees</code></pre>
-                    </div>
-
-                    <h2 class="text-slate-900 mt-12 mb-6 border-none"><i
-                            class="fas fa-dumbbell text-indigo-600 mr-2"></i>Training Ground</h2>
-
-                    <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-green-500">
-                        <span class="text-xs font-bold text-green-600 uppercase mb-2 block">🟢 Nivel Básico</span>
-                        <h4 class="font-bold text-slate-800">Consumo REST Básico</h4>
-                        <p class="text-sm text-slate-600 mb-4">Realiza una petición GET síncrona a
-                            <code>https://jsonplaceholder.typicode.com/posts/1</code>. Parsea el JSON manualmente (o con
-                            regex simple) para extraer el título.
-                        </p>
-                    </div>
-
-                    <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-yellow-500">
-                        <span class="text-xs font-bold text-yellow-600 uppercase mb-2 block">🟡 Nivel Intermedio</span>
-                        <h4 class="font-bold text-slate-800">Manejo de Errores HTTP</h4>
-                        <p class="text-sm text-slate-600 mb-4">Intenta acceder a una URL inexistente (404). Inspecciona
-                            el <code>statusCode()</code> de la respuesta antes de intentar leer el cuerpo. Lanza una
-                            excepción personalizada si el código no es 200 OK.</p>
-                    </div>
-
-                    <div class="mb-8 p-6 bg-slate-900 rounded-xl border border-slate-700 text-white">
-                        <span class="text-xs font-bold text-indigo-500 uppercase mb-2 block">🔴 Nivel Avanzado</span>
-                        <h4 class="font-bold text-white">Orquestación Paralela (Scatter-Gather)</h4>
-                        <p class="text-sm text-slate-400 mb-4">Lanza 3 peticiones simultáneas a diferentes endpoints.
-                            Usa <code>CompletableFuture.allOf(...)</code> para esperar a que todas terminen y combina
-                            sus resultados en un reporte final.</p>
-                        <button onclick="toggleSolution('sol-28')"
-                            class="text-xs bg-indigo-600 hover:bg-indigo-500 text-white px-3 py-1 rounded transition">Ver
-                            Solución</button>
-                        <div id="sol-28" class="hidden mt-4 pt-4 border-t border-slate-700">
-                            <pre><code class="language-java">var f1 = client.sendAsync(req1, BodyHandlers.ofString());
-var f2 = client.sendAsync(req2, BodyHandlers.ofString());
-var f3 = client.sendAsync(req3, BodyHandlers.ofString());
-
-// Esperar a todos (Barrier)
-CompletableFuture.allOf(f1, f2, f3).join();
-
-// Procesar resultados
-System.out.println("Result 1: " + f1.get().body());
-System.out.println("Result 2: " + f2.get().body());</code></pre>
-                        </div>
-                    </div>
-
-                    <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
-                        <h3 class="font-bold text-slate-800 mb-6">Quiz de Validación</h3>
-                        <div class="space-y-4">
-                            <div>
-                                <p class="text-sm font-semibold mb-2">1. ¿Qué ventaja tiene HttpClient sobre
-                                    HttpURLConnection?</p>
-                                <div class="grid grid-cols-2 gap-2">
-                                    <button class="quiz-btn border p-2 rounded text-sm hover:bg-slate-50"
-                                        onclick="checkQuiz(this, false)">Es más antiguo</button>
-                                    <button class="quiz-btn border p-2 rounded text-sm hover:bg-slate-50"
-                                        onclick="checkQuiz(this, true)">Soporta HTTP/2 y Asincronía</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="lesson-29" class="lesson-section hidden animate-fade-in-up lesson-content">
-                    <div class="mb-8 border-b border-slate-200 pb-6">
-                        <div class="flex items-center gap-3 mb-2">
-                            <span
-                                class="px-3 py-1 rounded-full bg-indigo-100 text-indigo-700 text-xs font-bold uppercase tracking-wider">Lección
-                                29</span>
-                        </div>
-                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">Principios SOLID
-                            y Patrones de Diseño</h1>
-                    </div>
-
-                    <div
-                        class="bg-white rounded-2xl p-8 shadow-lg shadow-indigo-900/5 border-l-4 border-indigo-600 mb-10">
-                        <p class="text-slate-600">El código "funciona" cuando compila. El código es "mantenible" cuando
-                            respeta SOLID. Estos principios son la base de la ingeniería de software escalable.</p>
-                    </div>
-
-                    <h2>1. S.O.L.I.D.: La Constitución del Software</h2>
+                    <h2>1. S.O.L.I.D.: De la Teoría a la JVM</h2>
                     <div class="space-y-4 mt-6">
                         <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
                             <h4 class="font-bold text-blue-900">S - Single Responsibility Principle (SRP)</h4>
-                            <p class="text-xs text-blue-800">Una clase debe tener una sola razón para cambiar. Separar
-                                la lógica de negocio de la lógica de presentación o persistencia.</p>
+                            <p class="text-sm text-blue-800">Una clase debe tener <strong>una sola razón para
+                                    cambiar</strong>. No mezcles lógica de negocio con lógica de presentación (UI) o
+                                persistencia (SQL).
+                                <br><em>Impacto:</em> Alta cohesión, bajo acoplamiento, tests unitarios triviales.
+                            </p>
                         </div>
                         <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-500">
                             <h4 class="font-bold text-green-900">O - Open/Closed Principle (OCP)</h4>
-                            <p class="text-xs text-green-800">El software debe estar abierto a extensión pero cerrado a
-                                modificación. Usa polimorfismo para evitar modificar código existente al añadir
-                                features.</p>
+                            <p class="text-sm text-green-800">Abierto a extensión, cerrado a modificación. Usa
+                                interfaces y polimorfismo (VTables) para añadir funcionalidades nuevas creando clases
+                                nuevas, sin tocar el código antiguo (evitando regresiones).</p>
                         </div>
                         <div class="bg-purple-50 p-4 rounded-lg border-l-4 border-purple-500">
-                            <h4 class="font-bold text-purple-900">D - Dependency Inversion Principle (DIP)</h4>
-                            <p class="text-xs text-purple-800">Los módulos de alto nivel no deben depender de detalles
-                                de bajo nivel. Ambos deben depender de abstracciones (Interfaces).</p>
+                            <h4 class="font-bold text-purple-900">L - Liskov Substitution Principle (LSP)</h4>
+                            <p class="text-sm text-purple-800">Si <code>S</code> es subtipo de <code>T</code>, los
+                                objetos de tipo <code>T</code> pueden ser sustituidos por objetos de tipo <code>S</code>
+                                sin alterar la corrección del programa.
+                                <br><em>Clave:</em> No lances excepciones inesperadas ni cambies la semántica del padre.
+                            </p>
+                        </div>
+                        <div class="bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-500">
+                            <h4 class="font-bold text-yellow-900">I - Interface Segregation Principle (ISP)</h4>
+                            <p class="text-sm text-yellow-800">Los clientes no deben depender de interfaces que no usan.
+                                Divide las "Interfaces Dios" en interfaces pequeñas y específicas (Role Interfaces).</p>
+                        </div>
+                        <div class="bg-red-50 p-4 rounded-lg border-l-4 border-red-500">
+                            <h4 class="font-bold text-red-900">D - Dependency Inversion Principle (DIP)</h4>
+                            <p class="text-sm text-red-800">Los módulos de alto nivel no deben depender de detalles de
+                                bajo nivel. Ambos deben depender de abstracciones. Esto habilita la Inyección de
+                                Dependencias.</p>
                         </div>
                     </div>
-
-                    <h3 class="text-xl font-bold text-slate-800 mt-8 mb-4">Patrón Strategy (Behavioral)</h3>
-                    <p class="text-slate-600 mb-4">El patrón Strategy permite definir una familia de algoritmos,
-                        encapsular cada uno y hacerlos intercambiables. Es la implementación directa del principio OCP.
-                    </p>
 
                     <h2 class="text-slate-900 mt-12 mb-6 border-none"><i
                             class="fas fa-dumbbell text-indigo-600 mr-2"></i>Training Ground</h2>
@@ -270,28 +196,18 @@ System.out.println("Result 2: " + f2.get().body());</code></pre>
                         </p>
                     </div>
 
-                    <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-yellow-500">
-                        <span class="text-xs font-bold text-yellow-600 uppercase mb-2 block">🟡 Nivel Intermedio</span>
-                        <h4 class="font-bold text-slate-800">Inyección de Dependencias (DI)</h4>
-                        <p class="text-sm text-slate-600 mb-4">Crea una interfaz <code>Motor</code> y dos
-                            implementaciones: <code>Gasolina</code> y <code>Electrico</code>. Modifica la clase
-                            <code>Coche</code> para que reciba el <code>Motor</code> en el constructor, en lugar de
-                            instanciarlo dentro (Hardcoding).
-                        </p>
-                    </div>
-
                     <div class="mb-8 p-6 bg-slate-900 rounded-xl border border-slate-700 text-white">
                         <span class="text-xs font-bold text-indigo-500 uppercase mb-2 block">🔴 Nivel Avanzado</span>
-                        <h4 class="font-bold text-white">Sistema de Descuentos (Strategy)</h4>
+                        <h4 class="font-bold text-white">Sistema de Descuentos (OCP + Strategy)</h4>
                         <p class="text-sm text-slate-400 mb-4">Implementa un sistema de precios flexible. La clase
                             <code>CalculadoraPrecios</code> debe aceptar una estrategia de descuento (<code>VIP</code>,
-                            <code>BlackFriday</code>, <code>SinDescuento</code>) en tiempo de ejecución para calcular el
-                            total sin usar condicionales <code>if/else</code>.
+                            <code>BlackFriday</code>) en tiempo de ejecución para calcular el total sin usar un solo
+                            <code>if/else</code>.
                         </p>
-                        <button onclick="toggleSolution('sol-29')"
+                        <button onclick="toggleSolution('sol-30')"
                             class="text-xs bg-indigo-600 hover:bg-indigo-500 text-white px-3 py-1 rounded transition">Ver
                             Solución</button>
-                        <div id="sol-29" class="hidden mt-4 pt-4 border-t border-slate-700">
+                        <div id="sol-30" class="hidden mt-4 pt-4 border-t border-slate-700">
                             <pre><code class="language-java">interface EstrategiaDescuento {
     double aplicar(double precio);
 }
@@ -301,64 +217,222 @@ class DescuentoVIP implements EstrategiaDescuento {
 }
 
 class Venta {
-    private EstrategiaDescuento estrategia;
+    private final EstrategiaDescuento estrategia; // Inmutable
     
-    // Inyección de la estrategia
+    // Inyección de la estrategia (Polimorfismo)
     public Venta(EstrategiaDescuento e) { this.estrategia = e; }
     
     public double total(double precioBase) {
-        return estrategia.aplicar(precioBase);
+        return estrategia.aplicar(precioBase); // Dynamic Dispatch
     }
 }</code></pre>
                         </div>
                     </div>
                 </div>
 
-                <div id="lesson-30" class="lesson-section hidden animate-fade-in-up lesson-content">
+                <!-- LECCIÓN 31 -->
+                <div id="lesson-31" class="lesson-section hidden animate-fade-in-up lesson-content">
                     <div class="mb-8 border-b border-slate-200 pb-6">
                         <div class="flex items-center gap-3 mb-2">
                             <span
                                 class="px-3 py-1 rounded-full bg-indigo-100 text-indigo-700 text-xs font-bold uppercase tracking-wider">Lección
-                                30</span>
+                                31</span>
                         </div>
-                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">Clean
-                            Architecture: El Proyecto Final</h1>
+                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">Patrones de
+                            Diseño en la JVM</h1>
+                    </div>
+
+                    <p class="text-slate-600 mb-6">Los patrones de diseño (GoF) son soluciones probadas a problemas
+                        recurrentes. Pero implementarlos en Java requiere conocer las sutilezas de la concurrencia y el
+                        Classloading.</p>
+
+                    <h3 class="text-xl font-bold text-slate-800 mt-8 mb-4">1. Singleton: La Forma Correcta</h3>
+                    <p class="text-slate-600 mb-4">Hacer un Singleton thread-safe y lazy es difícil.
+                        <br>❌ <strong>Double-Checked Locking:</strong> Propenso a errores sutiles de memoria si no se
+                        usa <code>volatile</code>.
+                        <br>✅ <strong>Enum Singleton:</strong> La forma recomendada por Joshua Bloch. La JVM garantiza
+                        la instanciación única, thread-safety y protección contra serialización/reflexión de forma
+                        nativa.
+                    </p>
+
+                    <h3 class="text-xl font-bold text-slate-800 mt-8 mb-4">2. Builder Pattern</h3>
+                    <p class="text-slate-600 mb-4">Esencial para construir objetos inmutables complejos sin tener
+                        constructores telescópicos con 10 parámetros null.</p>
+
+                    <h2 class="text-slate-900 mt-12 mb-6 border-none"><i
+                            class="fas fa-dumbbell text-indigo-600 mr-2"></i>Training Ground</h2>
+
+                    <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-yellow-500">
+                        <span class="text-xs font-bold text-yellow-600 uppercase mb-2 block">🟡 Nivel Intermedio</span>
+                        <h4 class="font-bold text-slate-800">Implementación de Singleton</h4>
+                        <p class="text-sm text-slate-600 mb-4">Implementa un Singleton usando un <code>enum</code> para
+                            una clase <code>ConfiguracionGlobal</code>. Intenta romperlo usando Reflexión (no podrás).
+                        </p>
+                    </div>
+
+                    <div class="mb-8 p-6 bg-slate-900 rounded-xl border border-slate-700 text-white">
+                        <span class="text-xs font-bold text-indigo-500 uppercase mb-2 block">🔴 Nivel Avanzado</span>
+                        <h4 class="font-bold text-white">Fluent Builder</h4>
+                        <p class="text-sm text-slate-400 mb-4">Implementa un Builder para una clase
+                            <code>HttpRequest</code> inmutable. Debe permitir encadenamiento:
+                            <code>new HttpRequest.Builder().url("...").method("GET").build();</code>.
+                        </p>
+                        <button onclick="toggleSolution('sol-31')"
+                            class="text-xs bg-indigo-600 hover:bg-indigo-500 text-white px-3 py-1 rounded transition">Ver
+                            Solución</button>
+                        <div id="sol-31" class="hidden mt-4 pt-4 border-t border-slate-700">
+                            <pre><code class="language-java">public class HttpRequest {
+    private final String url;
+    private final String method;
+
+    private HttpRequest(Builder b) { // Constructor privado
+        this.url = b.url;
+        this.method = b.method;
+    }
+
+    public static class Builder {
+        private String url;
+        private String method = "GET"; // Default
+
+        public Builder url(String url) { this.url = url; return this; }
+        public Builder method(String method) { this.method = method; return this; }
+        
+        public HttpRequest build() {
+            if (url == null) throw new IllegalStateException("URL requerida");
+            return new HttpRequest(this);
+        }
+    }
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- LECCIÓN 32 -->
+                <div id="lesson-32" class="lesson-section hidden animate-fade-in-up lesson-content">
+                    <div class="mb-8 border-b border-slate-200 pb-6">
+                        <div class="flex items-center gap-3 mb-2">
+                            <span
+                                class="px-3 py-1 rounded-full bg-indigo-100 text-indigo-700 text-xs font-bold uppercase tracking-wider">Lección
+                                32</span>
+                        </div>
+                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">Arquitectura
+                            Limpia & Hexagonal</h1>
                     </div>
 
                     <div
                         class="bg-white rounded-2xl p-8 shadow-lg shadow-indigo-900/5 border-l-4 border-indigo-600 mb-10">
                         <p class="text-slate-600">La arquitectura de software no se trata de frameworks, se trata de
                             <strong>independencia</strong>. Tu lógica de negocio no debe saber que existe una base de
-                            datos o una web.
+                            datos o una web. Debe ser agnóstica a la infraestructura.
                         </p>
                     </div>
 
-                    <h2>1. Separación por Capas (Layered Architecture)</h2>
-                    <p class="text-slate-600 mb-6">El estándar en la industria Enterprise es la separación de intereses
-                        en capas horizontales:</p>
 
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8 mt-6">
-                        <div class="bg-slate-50 p-4 rounded-xl text-center border border-slate-200">
-                            <div class="font-bold text-indigo-600 mb-1">1. Controller (Web)</div>
-                            <p class="text-xs text-slate-500">Maneja HTTP, JSON y validación de entrada. Delega al
-                                Service.</p>
+
+                    <h2>1. Puertos y Adaptadores</h2>
+                    <p class="text-slate-600 mb-6">La Arquitectura Hexagonal divide el sistema en:</p>
+                    <ul class="list-disc list-inside text-slate-600 ml-4 mb-4">
+                        <li><strong>Dominio (Core):</strong> Lógica de negocio pura. No tiene dependencias externas (ni
+                            Spring, ni JPA).</li>
+                        <li><strong>Puertos (Interfaces):</strong> Contratos que definen cómo el dominio se comunica con
+                            el mundo exterior (ej: <code>RepositorioUsuario</code>).</li>
+                        <li><strong>Adaptadores (Infraestructura):</strong> Implementaciones concretas de los puertos
+                            (ej: <code>RepositorioUsuarioJPA</code>, <code>ControladorRest</code>).</li>
+                    </ul>
+
+                    <h2>2. DTOs y Mappers</h2>
+                    <p class="text-slate-600 mb-6">Nunca expongas tus Entidades de Dominio o de Base de Datos
+                        directamente a la API. Usa <strong>DTOs (Data Transfer Objects)</strong> para desacoplar las
+                        capas.
+                        <br><strong>Performance Tip:</strong> Librerías como MapStruct generan código de mapeo en tiempo
+                        de compilación (Annotation Processing), siendo tan rápidas como el código manual y evitando el
+                        costo de Reflexión en tiempo de ejecución (como ModelMapper).
+                    </p>
+
+                    <h2 class="text-slate-900 mt-12 mb-6 border-none"><i
+                            class="fas fa-dumbbell text-indigo-600 mr-2"></i>Training Ground</h2>
+
+                    <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-green-500">
+                        <span class="text-xs font-bold text-green-600 uppercase mb-2 block">🟢 Nivel Básico</span>
+                        <h4 class="font-bold text-slate-800">Inversión de Control</h4>
+                        <p class="text-sm text-slate-600 mb-4">Define una interfaz <code>Notificador</code> en el
+                            paquete de dominio. Implementa un adaptador <code>EmailNotificador</code> en el paquete de
+                            infraestructura. Inyecta la implementación en el servicio de dominio.</p>
+                    </div>
+                </div>
+
+                <!-- LECCIÓN 33 -->
+                <div id="lesson-33" class="lesson-section hidden animate-fade-in-up lesson-content">
+                    <div class="mb-8 border-b border-slate-200 pb-6">
+                        <div class="flex items-center gap-3 mb-2">
+                            <span
+                                class="px-3 py-1 rounded-full bg-indigo-100 text-indigo-700 text-xs font-bold uppercase tracking-wider">Lección
+                                33</span>
                         </div>
-                        <div class="bg-slate-50 p-4 rounded-xl text-center border border-slate-200">
-                            <div class="font-bold text-indigo-600 mb-1">2. Service (Domain)</div>
-                            <p class="text-xs text-slate-500">El corazón. Contiene la lógica de negocio pura y casos de
-                                uso.</p>
-                        </div>
-                        <div class="bg-slate-50 p-4 rounded-xl text-center border border-slate-200">
-                            <div class="font-bold text-indigo-600 mb-1">3. Repository (Data)</div>
-                            <p class="text-xs text-slate-500">Abstracción de la base de datos. Habla SQL/JPA.</p>
-                        </div>
+                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">Build
+                            Engineering: Maven Internals</h1>
                     </div>
 
-                    <div class="bg-slate-900 rounded-xl p-6 text-white font-mono text-sm border border-slate-700">
-                        <p class="text-green-400 mb-2">// Flujo de Dependencia Unidireccional</p>
-                        <p>Controller -> Service -> Repository</p>
-                        <p class="text-slate-500 mt-2">// El Repositorio NO debe conocer al Controller.</p>
+                    <p class="text-slate-600 mb-6">Maven no es solo para bajar librerías. Es un motor de gestión de
+                        proyectos basado en el <strong>Project Object Model (POM)</strong>.</p>
+
+                    <h3 class="text-xl font-bold text-slate-800 mt-8 mb-4">Dependency Hell & Resolution</h3>
+                    <p class="text-slate-600 mb-4">¿Qué pasa si Lib A pide Log4j 1.0 y Lib B pide Log4j 2.0? Maven usa
+                        la estrategia <strong>"Nearest Definition"</strong> en el árbol de dependencias.
+                        <br><strong>Comando Vital:</strong> <code>mvn dependency:tree</code>. Úsalo para diagnosticar
+                        conflictos y excluir dependencias transitivas problemáticas.
+                    </p>
+
+                    <div class="code-window bg-[#1e1e1e] mb-8 p-4 rounded-lg overflow-x-auto">
+                        <pre><code class="language-xml">&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;
+    &lt;exclusions&gt;
+        &lt;!-- Excluir logback para usar log4j2 --&gt;
+        &lt;exclusion&gt;
+            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-boot-starter-logging&lt;/artifactId&gt;
+        &lt;/exclusion&gt;
+    &lt;/exclusions&gt;
+&lt;/dependency&gt;</code></pre>
                     </div>
+                </div>
+
+                <!-- LECCIÓN 34 -->
+                <div id="lesson-34" class="lesson-section hidden animate-fade-in-up lesson-content">
+                    <div class="mb-8 border-b border-slate-200 pb-6">
+                        <div class="flex items-center gap-3 mb-2">
+                            <span
+                                class="px-3 py-1 rounded-full bg-indigo-100 text-indigo-700 text-xs font-bold uppercase tracking-wider">Lección
+                                34</span>
+                        </div>
+                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">Git Internals &
+                            CI/CD Pipelines</h1>
+                    </div>
+
+                    <div
+                        class="bg-white rounded-2xl p-8 shadow-lg shadow-indigo-900/5 border-l-4 border-indigo-600 mb-10">
+                        <p class="text-slate-600">Git no es mágico. Es un sistema de archivos direccionable por
+                            contenido (Content-Addressable Filesystem). Entender su grafo acíclico dirigido (DAG) te da
+                            el control total.</p>
+                    </div>
+
+
+
+                    <h2>1. Anatomía de un Commit</h2>
+                    <p class="text-slate-600 mb-6">Un commit es un objeto que apunta a un <strong>Tree</strong>
+                        (estructura de directorios), que apunta a <strong>Blobs</strong> (contenido de archivos). Cada
+                        objeto se identifica por un hash SHA-1 de su contenido. Si cambias un byte, cambia el hash.</p>
+
+                    <h2>2. Pipelines de Integración Continua (CI)</h2>
+                    <p class="text-slate-600 mb-6">Un pipeline es código (YAML). Define el proceso de:</p>
+                    <ol class="list-decimal list-inside text-slate-600 ml-4 mb-4">
+                        <li><strong>Checkout:</strong> Clonar el repo.</li>
+                        <li><strong>Build:</strong> Compilar con Maven/Gradle (Clean Slate).</li>
+                        <li><strong>Test:</strong> Ejecutar JUnit. Si falla, el pipeline se detiene (Quality Gate).</li>
+                        <li><strong>Package:</strong> Generar el JAR/Docker Image.</li>
+                        <li><strong>Deploy:</strong> Enviar a producción/staging.</li>
+                    </ol>
 
                     <div class="mt-16 pt-10 border-t border-slate-200">
                         <h2 class="text-3xl font-bold text-slate-800 mb-6 text-center">Evaluación Final de Maestría</h2>

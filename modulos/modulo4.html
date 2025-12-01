@@ -10,7 +10,8 @@
         rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" rel="stylesheet" />
-    <script src="../assets/script.js"></script>
+    <link rel="stylesheet" type="text/css" href="../assets/syle.css">
+    <script src="../assets/scriptHead.js"></script>
 </head>
 
 <body
@@ -31,7 +32,7 @@
                 </div>
                 <div>
                     <h1 class="font-bold text-sm tracking-wide leading-none">Módulo 04</h1>
-                    <span class="text-xs text-slate-400 font-medium">Paradigma Funcional</span>
+                    <span class="text-xs text-slate-400 font-medium">Paradigma Funcional & APIs Modernas</span>
                 </div>
             </div>
         </div>
@@ -104,6 +105,7 @@
         <main class="flex-1 overflow-y-auto relative bg-slate-50 scroll-smooth">
             <div class="max-w-5xl mx-auto px-8 py-12 relative z-10">
 
+                <!-- LECCIÓN 16 -->
                 <div id="lesson-16" class="lesson-section active animate-fade-in-up lesson-content">
                     <div class="mb-8 border-b border-slate-200 pb-6">
                         <div class="flex items-center gap-3 mb-2">
@@ -119,40 +121,43 @@
 
                     <div
                         class="bg-white rounded-2xl p-8 shadow-lg shadow-orange-900/5 border-l-4 border-orange-500 mb-10">
-                        <h3 class="!mt-0 text-xl font-bold text-slate-800 mb-4 flex items-center gap-2"><i
-                                class="fas fa-bullseye text-orange-600"></i> Objetivos Senior</h3>
+                        <h3 class="!mt-0 text-xl font-bold text-slate-800 mb-4 flex items-center gap-2">
+                            <i class="fas fa-bullseye text-orange-600"></i> Objetivos Senior
+                        </h3>
                         <ul class="list-disc list-inside text-slate-600 text-sm space-y-2">
                             <li>Diferencia crítica entre Clases Anónimas y Lambdas (Memoria/Disco).</li>
-                            <li>La instrucción <code>invokedynamic</code> y el <code>LambdaMetafactory</code>.</li>
-                            <li>Interfaces Funcionales (JLS §9.8): <code>Predicate</code>, <code>Function</code>,
-                                <code>Consumer</code>.
+                            <li>La instrucción <strong>invokedynamic (indy)</strong> y el rol del
+                                <code>LambdaMetafactory</code>.
                             </li>
+                            <li>Costos de captura (Closure): Lambdas Stateless vs Stateful.</li>
                         </ul>
                     </div>
 
-                    <h2>1. No es "Syntactic Sugar": La instrucción Invokedynamic</h2>
-                    <p class="text-slate-600 mb-6">Muchos desarrolladores creen que las Lambdas son simplemente una
-                        forma corta de escribir Clases Anónimas. <strong>Incorrecto.</strong></p>
 
-                    <p class="text-slate-600 mb-6">Una Clase Anónima (ej: <code>new Runnable...</code>) genera un
-                        archivo físico <code>.class</code> en disco (ej: <code>Main$1.class</code>) y carga una clase
-                        completa en el Metaspace. Las Lambdas, en cambio, utilizan la instrucción de bytecode
-                        <strong><code>invokedynamic</code></strong> (introducida en Java 7, explotada en Java 8).
+
+                    <h2>1. No es "Syntactic Sugar": La Revolución Invokedynamic</h2>
+                    <p>Muchos desarrolladores creen que las Lambdas son solo una forma corta de escribir Clases
+                        Anónimas. <strong>Incorrecto.</strong></p>
+                    <p>Una Clase Anónima (<code>new Runnable...</code>) genera un archivo físico <code>.class</code> en
+                        disco (ej: <code>Main$1.class</code>) y carga una clase completa en el Metaspace en cada
+                        ejecución. Las Lambdas, en cambio, utilizan la instrucción de bytecode
+                        <strong><code>invokedynamic</code></strong> (introducida en Java 7).
                     </p>
 
-                    <p class="text-slate-600 mb-6">En tiempo de ejecución, la JVM llama al
-                        <strong>LambdaMetafactory</strong>, que genera la implementación de la interfaz funcional "al
-                        vuelo", optimizando el uso de memoria y evitando la carga de clases innecesarias.
+                    <p>En tiempo de ejecución, la primera vez que se encuentra la instrucción
+                        <code>invokedynamic</code>, la JVM llama a un método especial (Bootstrap Method) en
+                        <code>java.lang.invoke.LambdaMetafactory</code>. Este genera la implementación de la interfaz
+                        funcional "al vuelo" directamente en memoria, optimizando el uso de recursos y permitiendo
+                        optimizaciones JIT futuras sin recompilar el código fuente.
                     </p>
 
-                    <h3 class="text-xl font-bold text-slate-800 mt-8 mb-4">2. El Kit de Herramientas
-                        (java.util.function)</h3>
-                    <p class="text-slate-600 mb-4">La JLS define una <strong>Functional Interface</strong> como una
-                        interfaz con <strong>exactamente un método abstracto</strong>. El paquete
-                        <code>java.util.function</code> cubre el 90% de los casos de uso:
+                    <h3 class="text-xl font-bold text-slate-800 mt-8 mb-4">2. Costo de Captura (Effective Final)</h3>
+                    <p>Una lambda que no usa variables externas (Stateless) es instanciada una sola vez (Singleton).
+                        <br>Una lambda que "captura" variables del entorno (Closure) debe crear una nueva instancia cada
+                        vez que se ejecuta para guardar ese estado. Esto genera presión en el Garbage Collector.
                     </p>
 
-                    <div class="grid grid-cols-2 gap-4 mb-8">
+                    <div class="grid grid-cols-2 gap-4 mb-8 mt-6">
                         <div class="bg-blue-50 p-4 rounded-xl border border-blue-100">
                             <code class="font-bold text-blue-700">Predicate&lt;T&gt;</code>
                             <p class="text-xs mt-1 text-slate-600"><code>boolean test(T t)</code>. Evalúa condiciones.
@@ -164,13 +169,12 @@
                         </div>
                         <div class="bg-purple-50 p-4 rounded-xl border border-purple-100">
                             <code class="font-bold text-purple-700">Consumer&lt;T&gt;</code>
-                            <p class="text-xs mt-1 text-slate-600"><code>void accept(T t)</code>. Ejecuta efectos
-                                secundarios (side-effects).</p>
+                            <p class="text-xs mt-1 text-slate-600"><code>void accept(T t)</code>. Efectos secundarios.
+                            </p>
                         </div>
                         <div class="bg-yellow-50 p-4 rounded-xl border border-yellow-100">
                             <code class="font-bold text-yellow-700">Supplier&lt;T&gt;</code>
-                            <p class="text-xs mt-1 text-slate-600"><code>T get()</code>. Generación perezosa (Lazy
-                                loading).</p>
+                            <p class="text-xs mt-1 text-slate-600"><code>T get()</code>. Generación perezosa (Lazy).</p>
                         </div>
                     </div>
 
@@ -183,27 +187,29 @@
                         <p class="text-sm text-slate-600 mb-4">Toma el siguiente código legacy y conviértelo a una
                             expresión Lambda. Observa cómo el IDE sugiere automáticamente la reducción.</p>
                         <code
-                            class="text-xs block bg-white p-2 rounded mb-2">Runnable r = new Runnable() { public void run() { System.out.println("Run"); } };</code>
-                        <details class="text-xs text-slate-500 cursor-pointer">
-                            <summary>Ver Solución</summary><code>Runnable r = () -> System.out.println("Run");</code>
+                            class="text-xs block bg-white p-2 rounded mb-2 border border-slate-200">Runnable r = new Runnable() { public void run() { System.out.println("Run"); } };</code>
+                        <details class="text-xs text-slate-500 cursor-pointer group">
+                            <summary class="group-hover:text-orange-600 font-bold">Ver Solución</summary>
+                            <p class="mt-2 pl-4 border-l-2 border-orange-200">
+                                <code>Runnable r = () -> System.out.println("Run");</code>
+                            </p>
                         </details>
                     </div>
 
                     <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-yellow-500">
                         <span class="text-xs font-bold text-yellow-600 uppercase mb-2 block">🟡 Nivel Intermedio</span>
                         <h4 class="font-bold text-slate-800">Method References (::)</h4>
-                        <p class="text-sm text-slate-600 mb-4">Utiliza la referencia a métodos para simplificar una
-                            lambda. Ordena una lista de Strings ignorando mayúsculas/minúsculas usando
-                            <code>String::compareToIgnoreCase</code>.
-                        </p>
+                        <p class="text-sm text-slate-600 mb-4">Las referencias a métodos son lambdas compactas.
+                            Sustituye <code>(s) -> System.out.println(s)</code> por <code>System.out::println</code>.
+                            Ordena una lista ignorando mayúsculas usando <code>String::compareToIgnoreCase</code>.</p>
                     </div>
 
                     <div class="mb-8 p-6 bg-slate-900 rounded-xl border border-slate-700 text-white">
                         <span class="text-xs font-bold text-red-500 uppercase mb-2 block">🔴 Nivel Avanzado</span>
                         <h4 class="font-bold text-white">Diseño de APIs Funcionales</h4>
                         <p class="text-sm text-slate-400 mb-4">Crea tu propia Interfaz Funcional
-                            <code>TriFunction&lt;A,B,C,R&gt;</code> que acepte 3 argumentos. Implementa un método que la
-                            use para componer lógica de negocio compleja.
+                            <code>TriFunction&lt;A,B,C,R&gt;</code> que acepte 3 argumentos. Usa la anotación
+                            <code>@FunctionalInterface</code> para asegurar el contrato en tiempo de compilación.
                         </p>
                         <button onclick="toggleSolution('sol-16')"
                             class="text-xs bg-orange-600 hover:bg-orange-500 text-white px-3 py-1 rounded transition">Ver
@@ -237,6 +243,7 @@ int total = suma.apply(10, 20, 30); // 60</code></pre>
                     </div>
                 </div>
 
+                <!-- LECCIÓN 17 -->
                 <div id="lesson-17" class="lesson-section hidden animate-fade-in-up lesson-content">
                     <div class="mb-8 border-b border-slate-200 pb-6">
                         <div class="flex items-center gap-3 mb-2">
@@ -252,35 +259,38 @@ int total = suma.apply(10, 20, 30); // 60</code></pre>
                         class="bg-white rounded-2xl p-8 shadow-lg shadow-orange-900/5 border-l-4 border-orange-500 mb-10">
                         <p class="text-slate-600">Un Stream <strong>NO es una estructura de datos</strong>. Es una
                             abstracción de un flujo de datos que permite procesamiento declarativo. No almacena
-                            elementos; los transporta.</p>
+                            elementos; los transporta bajo demanda.</p>
                     </div>
 
 
 
                     <h2>1. Arquitectura del Pipeline</h2>
-                    <p class="text-slate-600 mb-6">Un Stream se compone de tres partes:</p>
+                    <p class="text-slate-600 mb-6">Un Stream se compone de tres fases estrictas:</p>
                     <ol class="list-decimal list-inside text-slate-600 ml-4 mb-4">
-                        <li><strong>Fuente (Source):</strong> Colección, Array, I/O Channel.</li>
+                        <li><strong>Fuente (Source):</strong> Colección, Array, I/O Channel. El <code>Spliterator</code>
+                            define cómo se recorre y divide.</li>
                         <li><strong>Operaciones Intermedias:</strong> <code>filter</code>, <code>map</code>,
-                            <code>sorted</code>. Son <strong>Lazy</strong> (perezosas). Retornan un nuevo Stream.
+                            <code>sorted</code>. Son <strong>Lazy</strong> (perezosas). Retornan un nuevo Stream y solo
+                            configuran la tubería, no ejecutan nada.
                         </li>
                         <li><strong>Operación Terminal:</strong> <code>collect</code>, <code>forEach</code>,
-                            <code>reduce</code>. Desencadenan el procesamiento y cierran el Stream.
+                            <code>reduce</code>. Desencadenan el procesamiento ("pull" de datos) y cierran el Stream.
                         </li>
                     </ol>
 
                     <h3 class="text-xl font-bold text-slate-800 mt-8 mb-4">2. Lazy Evaluation & Loop Fusion</h3>
-                    <p class="text-slate-600 mb-4">Esta es la clave del rendimiento en Java 8+. Cuando encadenas
-                        <code>.filter().map().sorted()</code>, la JVM no itera la lista 3 veces. Utiliza una técnica
-                        llamada <strong>Loop Fusion</strong> para combinar operaciones en una sola pasada (cuando es
-                        posible) y solo procesa los elementos necesarios (Short-circuiting).
+                    <p class="text-slate-600 mb-4">Esta es la clave del rendimiento. Cuando encadenas
+                        <code>.filter().map().findFirst()</code>, la JVM no itera la lista 3 veces. Utiliza una técnica
+                        llamada <strong>Loop Fusion</strong> para combinar operaciones en una sola pasada y
+                        <strong>Short-circuiting</strong> para detenerse tan pronto como se satisface el resultado (ej:
+                        encontrar el primero).
                     </p>
 
-                    <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-xl text-sm text-blue-800 mb-6">
-                        <strong>Analogía Industrial:</strong> Una línea de montaje de coches. El chasis (Stream) se
-                        mueve. El robot de pintura (map) y el control de calidad (filter) están en la misma línea. No
-                        pintas todos los coches, los guardas en un almacén y luego los sacas para el control de calidad.
-                        Todo ocurre en flujo continuo hasta la entrega (Terminal Operation).
+                    <div class="bg-red-50 border-l-4 border-red-500 p-4 rounded-r-xl text-sm text-red-800 mb-6">
+                        <strong>Alerta de Performance (Boxing):</strong> Usar <code>Stream&lt;Integer&gt;</code> en
+                        lugar de <code>IntStream</code> provoca un overhead masivo por el Auto-boxing (convertir
+                        <code>int</code> a <code>Integer</code>). Para primitivos, usa siempre las especializaciones:
+                        <code>IntStream</code>, <code>LongStream</code>, <code>DoubleStream</code>.
                     </div>
 
                     <h2 class="text-slate-900 mt-12 mb-6 border-none"><i
@@ -290,24 +300,24 @@ int total = suma.apply(10, 20, 30); // 60</code></pre>
                         <span class="text-xs font-bold text-green-600 uppercase mb-2 block">🟢 Nivel Básico</span>
                         <h4 class="font-bold text-slate-800">Filtrado y Transformación</h4>
                         <p class="text-sm text-slate-600 mb-4">Dada una lista de números, usa Streams para filtrar los
-                            números pares, elevarlos al cuadrado y recogerlos en una nueva lista.</p>
+                            números pares, elevarlos al cuadrado y recogerlos en una nueva lista inmutable
+                            (<code>toList()</code>).</p>
                     </div>
 
                     <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-yellow-500">
                         <span class="text-xs font-bold text-yellow-600 uppercase mb-2 block">🟡 Nivel Intermedio</span>
                         <h4 class="font-bold text-slate-800">Reducción (Map-Reduce)</h4>
                         <p class="text-sm text-slate-600 mb-4">Calcula el precio total de un carrito de compras. Mapea
-                            los productos a sus precios (Double) y usa <code>reduce</code> o <code>sum()</code> para
-                            obtener el total.</p>
+                            los productos a sus precios (Double) y usa <code>reduce(0.0, Double::sum)</code> o la
+                            especialización <code>mapToDouble().sum()</code> para evitar boxing.</p>
                     </div>
 
                     <div class="mb-8 p-6 bg-slate-900 rounded-xl border border-slate-700 text-white">
                         <span class="text-xs font-bold text-red-500 uppercase mb-2 block">🔴 Nivel Avanzado</span>
                         <h4 class="font-bold text-white">Collectors Complejos (GroupingBy)</h4>
                         <p class="text-sm text-slate-400 mb-4">Tienes una lista de transacciones. Agrúpalas por moneda
-                            (Currency) y calcula la suma total de montos para cada moneda en un solo paso usando
-                            <code>Collectors.groupingBy</code> y <code>Collectors.summingDouble</code>.
-                        </p>
+                            (Currency) y calcula la suma total de montos para cada moneda en un solo paso, devolviendo
+                            un Map.</p>
                         <button onclick="toggleSolution('sol-17')"
                             class="text-xs bg-orange-600 hover:bg-orange-500 text-white px-3 py-1 rounded transition">Ver
                             Solución</button>
@@ -315,12 +325,13 @@ int total = suma.apply(10, 20, 30); // 60</code></pre>
                             <pre><code class="language-java">Map&lt;Currency, Double&gt; totalPorMoneda = transactions.stream()
     .collect(Collectors.groupingBy(
         Transaction::getCurrency,
-        Collectors.summingDouble(Transaction::getAmount)
+        Collectors.summingDouble(Transaction::getAmount) // Downstream collector
     ));</code></pre>
                         </div>
                     </div>
                 </div>
 
+                <!-- LECCIÓN 18 -->
                 <div id="lesson-18" class="lesson-section hidden animate-fade-in-up lesson-content">
                     <div class="mb-8 border-b border-slate-200 pb-6">
                         <div class="flex items-center gap-3 mb-2">
@@ -333,24 +344,27 @@ int total = suma.apply(10, 20, 30); // 60</code></pre>
                     </div>
 
                     <p class="text-slate-600 mb-6">El <code>null</code> es conocido como "el error del billón de
-                        dólares". <code>Optional&lt;T&gt;</code> es una implementación del patrón
-                        <strong>Mónada</strong>. Es un contenedor que puede o no contener un valor no nulo. Su objetivo
-                        no es eliminar <code>null</code> por completo, sino forzar al desarrollador a pensar en el caso
-                        "ausente" a nivel de API.
+                        dólares". <code>Optional&lt;T&gt;</code> es una implementación del patrón matemático
+                        <strong>Mónada</strong>. Es un contenedor que puede o no contener un valor no nulo.
                     </p>
+
+                    <p class="text-slate-600 mb-4"><strong>Costo Interno:</strong> <code>Optional</code> es un objeto
+                        envoltorio. Crear un Optional añade overhead de memoria (cabecera del objeto + referencia) y
+                        presión al GC. No es "gratis". Úsalo solo cuando la ausencia de valor es una posibilidad de
+                        negocio válida, no para ocultar cualquier null.</p>
 
                     <h3 class="text-xl font-bold text-slate-800 mt-8 mb-4">Reglas de Ingeniería para Optional</h3>
                     <ul class="list-disc list-inside text-slate-600 space-y-2 mb-6">
-                        <li><strong>Retorno, no Estado:</strong> Úsalo principalmente como tipo de retorno de métodos.
-                            <strong>NO</strong> lo uses como campo de clase (no es Serializable) ni como parámetro de
-                            método (añade complejidad innecesaria).
+                        <li><strong>Retorno, no Estado:</strong> Úsalo principalmente como tipo de retorno de métodos
+                            públicos. <strong>NO</strong> lo uses como campo de clase (no es Serializable, aumenta
+                            consumo de memoria) ni como parámetro de método (obliga al llamante a envolver valores).
                         </li>
                         <li><strong>Prohibido .get():</strong> Usar <code>get()</code> sin verificar
-                            <code>isPresent()</code> lanza <code>NoSuchElementException</code>, lo cual es esencialmente
-                            lo mismo que un <code>NullPointerException</code>. Usa <code>orElseThrow()</code>.
+                            <code>isPresent()</code> lanza <code>NoSuchElementException</code>. Es cambiar un NPE por
+                            otra excepción igual de mala. Usa <code>orElseThrow()</code> o <code>orElse()</code>.
                         </li>
                         <li><strong>FlatMap es tu amigo:</strong> Evita el anidamiento de chequeos ("Arrow Code") usando
-                            la composición monádica.</li>
+                            la composición monádica (encadenamiento de operaciones seguras).</li>
                     </ul>
 
                     <h2 class="text-slate-900 mt-12 mb-6 border-none"><i
@@ -360,7 +374,7 @@ int total = suma.apply(10, 20, 30); // 60</code></pre>
                         <span class="text-xs font-bold text-green-600 uppercase mb-2 block">🟢 Nivel Básico</span>
                         <h4 class="font-bold text-slate-800">Recuperación Segura</h4>
                         <p class="text-sm text-slate-600 mb-4">Simula una búsqueda en base de datos que puede devolver
-                            vacío. Usa <code>Optional.ofNullable()</code> y provee un valor por defecto con
+                            vacío. Usa <code>Optional.ofNullable()</code> y provee un valor por defecto (fallback) con
                             <code>orElse()</code>.
                         </p>
                     </div>
@@ -370,29 +384,30 @@ int total = suma.apply(10, 20, 30); // 60</code></pre>
                         <h4 class="font-bold text-slate-800">Transformación Condicional (Map)</h4>
                         <p class="text-sm text-slate-600 mb-4">Tienes un <code>Optional&lt;String&gt;</code>. Si el
                             valor está presente, pásalo a mayúsculas y imprímelo. Si no, no hagas nada. Usa
-                            <code>map()</code> e <code>ifPresent()</code>.
+                            <code>map()</code> e <code>ifPresent()</code>. Nota cómo no hay `if (x != null)` explícitos.
                         </p>
                     </div>
 
                     <div class="mb-8 p-6 bg-slate-900 rounded-xl border border-slate-700 text-white">
                         <span class="text-xs font-bold text-red-500 uppercase mb-2 block">🔴 Nivel Avanzado</span>
-                        <h4 class="font-bold text-white">Refactorización con FlatMap</h4>
+                        <h4 class="font-bold text-white">Refactorización Monádica con FlatMap</h4>
                         <p class="text-sm text-slate-400 mb-4">Elimina la cascada de nulos. Tienes
-                            <code>User -> getAddress() -> getCity()</code>. Cada método puede devolver null. Refactoriza
-                            usando <code>Optional</code> y <code>flatMap</code> para obtener la ciudad de forma segura.
+                            <code>User -> getAddress() -> getCity()</code>. Cada método puede devolver null o Optional.
+                            Refactoriza usando <code>flatMap</code> para obtener la ciudad de forma plana y segura.
                         </p>
                         <button onclick="toggleSolution('sol-18')"
                             class="text-xs bg-orange-600 hover:bg-orange-500 text-white px-3 py-1 rounded transition">Ver
                             Solución</button>
                         <div id="sol-18" class="hidden mt-4 pt-4 border-t border-slate-700">
                             <pre><code class="language-java">String ciudad = Optional.ofNullable(user)
-    .flatMap(User::getAddress) // getAddress debe devolver Optional&lt;Address&gt;
-    .flatMap(Address::getCity) // getCity debe devolver Optional&lt;String&gt;
+    .flatMap(User::getAddress) // getAddress devuelve Optional&lt;Address&gt;
+    .flatMap(Address::getCity) // getCity devuelve Optional&lt;String&gt;
     .orElse("Desconocida");</code></pre>
                         </div>
                     </div>
                 </div>
 
+                <!-- LECCIÓN 19 -->
                 <div id="lesson-19" class="lesson-section hidden animate-fade-in-up lesson-content">
                     <div class="mb-8 border-b border-slate-200 pb-6">
                         <div class="flex items-center gap-3 mb-2">
@@ -408,17 +423,17 @@ int total = suma.apply(10, 20, 30); // 60</code></pre>
                         <h3 class="font-bold text-red-800 mb-2">🚫 Deprecated: java.util.Date</h3>
                         <p class="text-sm text-red-800">La antigua clase <code>Date</code> es <strong>mutable</strong>
                             (no thread-safe), sus meses empiezan en 0 (Enero=0) y mezcla fechas con tiempos de forma
-                            confusa. Fue reemplazada en Java 8 por la API <code>java.time</code>, basada en
-                            <strong>Joda-Time</strong>.
-                        </p>
+                            confusa. Fue reemplazada en Java 8 por la API <code>java.time</code>, basada en principios
+                            de diseño de <strong>Joda-Time</strong>.</p>
                     </div>
 
                     <h2>1. Inmutabilidad y Thread-Safety</h2>
                     <p class="text-slate-600 mb-6">Todas las clases de <code>java.time</code> (como
-                        <code>LocalDate</code>, <code>Instant</code>) son <strong>inmutables</strong>. Esto significa
-                        que cualquier operación de modificación (ej: <code>plusDays(1)</code>) retorna una <strong>nueva
-                            instancia</strong>, dejando la original intacta. Esto garantiza seguridad total en entornos
-                        concurrentes (Multithreading).
+                        <code>LocalDate</code>, <code>Instant</code>) son <strong>inmutables</strong> y
+                        <strong>Value-Based Classes</strong> (candidatas a Value Types en Project Valhalla). Esto
+                        significa que cualquier operación de modificación (ej: <code>plusDays(1)</code>) retorna una
+                        <strong>nueva instancia</strong>, dejando la original intacta. Esto garantiza seguridad total en
+                        entornos concurrentes sin necesidad de sincronización externa.
                     </p>
 
                     <div class="grid md:grid-cols-2 gap-6 mb-8 mt-6">
@@ -430,7 +445,8 @@ int total = suma.apply(10, 20, 30); // 60</code></pre>
                         <div class="bg-slate-100 p-4 rounded-lg">
                             <h4 class="font-bold text-slate-800">LocalDateTime (Tiempo Humano)</h4>
                             <p class="text-sm">Representa una fecha/hora sin zona horaria ("Muro de calendario"). No
-                                sirve para coordinar eventos globales, solo locales.</p>
+                                sirve para coordinar eventos globales, solo conceptos locales (ej: "Navidad es el 25 de
+                                Dic").</p>
                         </div>
                     </div>
 
@@ -441,14 +457,15 @@ int total = suma.apply(10, 20, 30); // 60</code></pre>
                         <span class="text-xs font-bold text-green-600 uppercase mb-2 block">🟢 Nivel Básico</span>
                         <h4 class="font-bold text-slate-800">Aritmética de Fechas</h4>
                         <p class="text-sm text-slate-600 mb-4">Obtén la fecha actual. Usa métodos fluidos para sumarle 2
-                            semanas, restar 3 días y formatearla a ISO-8601.</p>
+                            semanas, restar 3 días y formatearla a ISO-8601 estándar.</p>
                     </div>
 
                     <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-yellow-500">
                         <span class="text-xs font-bold text-yellow-600 uppercase mb-2 block">🟡 Nivel Intermedio</span>
                         <h4 class="font-bold text-slate-800">Cálculo de Periodos</h4>
                         <p class="text-sm text-slate-600 mb-4">Calcula la edad exacta de una persona (años, meses, días)
-                            dada su fecha de nacimiento usando la clase <code>Period.between()</code>.</p>
+                            dada su fecha de nacimiento usando la clase <code>Period.between()</code>. Para diferencias
+                            precisas de tiempo (nanosegundos) usa <code>Duration</code>.</p>
                     </div>
 
                     <div class="mb-8 p-6 bg-slate-900 rounded-xl border border-slate-700 text-white">
@@ -456,12 +473,12 @@ int total = suma.apply(10, 20, 30); // 60</code></pre>
                         <h4 class="font-bold text-white">Manejo de Zonas Horarias (ZonedDateTime)</h4>
                         <p class="text-sm text-slate-400 mb-4">Un servidor en "UTC" recibe una petición de un usuario en
                             "America/Santiago". Convierte el <code>Instant</code> actual a la hora local del usuario
-                            respetando el horario de verano (DST).</p>
+                            respetando el horario de verano (DST) usando la base de datos de zonas IANA.</p>
                         <button onclick="toggleSolution('sol-19')"
                             class="text-xs bg-orange-600 hover:bg-orange-500 text-white px-3 py-1 rounded transition">Ver
                             Solución</button>
                         <div id="sol-19" class="hidden mt-4 pt-4 border-t border-slate-700">
-                            <pre><code class="language-java">Instant ahora = Instant.now();
+                            <pre><code class="language-java">Instant ahora = Instant.now(); // Siempre UTC
 ZonedDateTime horaChile = ahora.atZone(ZoneId.of("America/Santiago"));
 System.out.println("UTC: " + ahora);
 System.out.println("Santiago: " + horaChile); // Maneja DST automáticamente</code></pre>

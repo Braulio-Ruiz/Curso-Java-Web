@@ -10,6 +10,7 @@
         rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="../assets/syle.css">
     <script src="../assets/scriptHead.js"></script>
 </head>
 
@@ -70,7 +71,7 @@
                     <div class="relative z-10 flex items-center gap-3">
                         <span
                             class="flex-shrink-0 w-8 h-8 rounded-lg bg-slate-100 text-slate-500 flex items-center justify-center text-xs font-bold group-hover:bg-white group-hover:shadow-sm transition-all btn-icon">02</span>
-                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">Tooling & IDE</span>
+                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">Tooling & IDE Internals</span>
                     </div>
                     <div
                         class="absolute left-0 top-0 bottom-0 w-1 bg-blue-600 opacity-0 btn-indicator transition-opacity">
@@ -81,7 +82,7 @@
                     <div class="relative z-10 flex items-center gap-3">
                         <span
                             class="flex-shrink-0 w-8 h-8 rounded-lg bg-slate-100 text-slate-500 flex items-center justify-center text-xs font-bold group-hover:bg-white group-hover:shadow-sm transition-all btn-icon">03</span>
-                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">Sistema de Tipos</span>
+                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">Tipos & Memoria</span>
                     </div>
                     <div
                         class="absolute left-0 top-0 bottom-0 w-1 bg-blue-600 opacity-0 btn-indicator transition-opacity">
@@ -92,7 +93,8 @@
                     <div class="relative z-10 flex items-center gap-3">
                         <span
                             class="flex-shrink-0 w-8 h-8 rounded-lg bg-slate-100 text-slate-500 flex items-center justify-center text-xs font-bold group-hover:bg-white group-hover:shadow-sm transition-all btn-icon">04</span>
-                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">Control de Flujo</span>
+                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">Control de Flujo
+                            Avanzado</span>
                     </div>
                     <div
                         class="absolute left-0 top-0 bottom-0 w-1 bg-blue-600 opacity-0 btn-indicator transition-opacity">
@@ -103,7 +105,7 @@
                     <div class="relative z-10 flex items-center gap-3">
                         <span
                             class="flex-shrink-0 w-8 h-8 rounded-lg bg-slate-100 text-slate-500 flex items-center justify-center text-xs font-bold group-hover:bg-white group-hover:shadow-sm transition-all btn-icon">05</span>
-                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">Métodos & Stack</span>
+                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">Stack & Heap Mechanics</span>
                     </div>
                     <div
                         class="absolute left-0 top-0 bottom-0 w-1 bg-blue-600 opacity-0 btn-indicator transition-opacity">
@@ -115,6 +117,7 @@
         <main class="flex-1 overflow-y-auto relative bg-slate-50 scroll-smooth">
             <div class="max-w-5xl mx-auto px-8 py-12 relative z-10">
 
+                <!-- LECCIÓN 1 -->
                 <div id="lesson-1" class="lesson-section active animate-fade-in-up lesson-content">
                     <div class="mb-8 border-b border-slate-200 pb-6">
                         <div class="flex items-center gap-3 mb-2">
@@ -125,7 +128,7 @@
                                 min</span>
                         </div>
                         <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">La Máquina
-                            Virtual (JVM): Internals & Memory Model</h1>
+                            Virtual (JVM): Internals & Compilation</h1>
                     </div>
 
                     <div class="bg-white rounded-2xl p-8 shadow-lg shadow-blue-900/5 border-l-4 border-blue-600 mb-10">
@@ -136,36 +139,36 @@
                             <div class="flex items-start gap-3"><i
                                     class="fas fa-check-circle text-green-500 mt-1"></i><span
                                     class="text-slate-600 text-sm">Disección del motor <strong>HotSpot JVM</strong>:
-                                    Compilación Escalonada (Tiered Compilation) y Profiling.</span>
-                            </div>
+                                    Compilación Escalonada (Tiered Compilation) y Profiling.</span></div>
                             <div class="flex items-start gap-3"><i
                                     class="fas fa-check-circle text-green-500 mt-1"></i><span
                                     class="text-slate-600 text-sm">Mecanismo de <strong>Classloading
-                                        Delegation</strong>:
-                                    Bootstrap, Platform y App Loaders.</span></div>
+                                        Delegation</strong>: Bootstrap, Platform y App Loaders.</span></div>
                             <div class="flex items-start gap-3"><i
                                     class="fas fa-check-circle text-green-500 mt-1"></i><span
-                                    class="text-slate-600 text-sm">Gestión avanzada de memoria: <strong>Weak
-                                        Generational
-                                        Hypothesis</strong>, TLABs y regiones de Heap.</span></div>
+                                    class="text-slate-600 text-sm">El mito del "Write Once, Run Anywhere": Entendiendo
+                                    el <strong>Bytecode</strong> como lenguaje intermedio.</span></div>
                             <div class="flex items-start gap-3"><i
                                     class="fas fa-check-circle text-green-500 mt-1"></i><span
-                                    class="text-slate-600 text-sm">Bytecode Internals: Operaciones de una
-                                    <strong>Stack-based VM</strong> vs Register-based (x86).</span></div>
+                                    class="text-slate-600 text-sm">Diferencia entre JDK, JRE y JVM en entornos de
+                                    producción.</span></div>
                         </div>
                     </div>
+
+
 
                     <h2>1. Más allá de la compilación: El ciclo de vida HotSpot</h2>
                     <p>En entornos críticos, entender la JVM no es opcional. Java utiliza un modelo de ejecución híbrido
                         para balancear <strong>Startup Time</strong> vs <strong>Peak Throughput</strong>. El código
-                        fuente no se traduce a lenguaje máquina directamente, sino a un set de instrucciones intermedio
-                        (Bytecode) que garantiza portabilidad, pero exige una VM sofisticada.</p>
+                        fuente (<code>.java</code>) no se traduce a lenguaje máquina directamente, sino a un set de
+                        instrucciones intermedio (Bytecode) que garantiza portabilidad, pero exige una VM sofisticada.
+                    </p>
 
                     <p>El proceso de ejecución en <strong>Oracle HotSpot</strong> sigue una estrategia de "Tiered
                         Compilation":</p>
 
                     <ol class="list-decimal list-inside space-y-2 ml-4 text-slate-600 mb-6">
-                        <li><strong>Interpreter (Tier 0):</strong> Ejecuta bytecode opcode por opcode. Es lento
+                        <li><strong>Interpreter (Tier 0):</strong> Ejecuta bytecode opcode por opcode. Es "lento"
                             (relativo a código nativo), pero permite un arranque inmediato y comienza la recolección de
                             metadatos de ejecución (profiling).</li>
                         <li><strong>Profiling (C0):</strong> La JVM inserta contadores en métodos y bucles. Detecta "Hot
@@ -196,43 +199,17 @@
                         </div>
                     </div>
 
-                    <h2>2. Arquitectura de Memoria Runtime</h2>
-                    <p>La gestión automática de memoria es la característica definitoria de Java. Se basa en la
-                        <strong>Weak Generational Hypothesis</strong>: "La mayoría de los objetos mueren jóvenes".
-                    </p>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                        <div
-                            class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm relative overflow-hidden">
-                            <div class="absolute top-0 right-0 w-20 h-20 bg-purple-100 rounded-bl-full -mr-10 -mt-10">
-                            </div>
-                            <h4 class="font-bold text-lg text-slate-800 mb-2 relative z-10">JVM Stack (Thread Local)
-                            </h4>
-                            <p class="text-sm text-slate-500 mb-3 relative z-10">
-                                Memoria privada por hilo. Estructura LIFO. Almacena <strong>Stack Frames</strong> (cada
-                                llamada a método). Contiene variables primitivas y referencias a objetos, pero NUNCA
-                                objetos completos.
-                                <br><strong>Error Crítico:</strong> <code>StackOverflowError</code> (Recursividad
-                                infinita agota los frames). No requiere Garbage Collection (limpieza automática al
-                                cerrar scope).
-                            </p>
-                        </div>
-                        <div
-                            class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm relative overflow-hidden">
-                            <div class="absolute top-0 right-0 w-20 h-20 bg-emerald-100 rounded-bl-full -mr-10 -mt-10">
-                            </div>
-                            <h4 class="font-bold text-lg text-slate-800 mb-2 relative z-10">The Heap (Shared)</h4>
-                            <p class="text-sm text-slate-500 mb-3 relative z-10">
-                                Área compartida global.
-                                <br><strong>Young Gen (Eden + Survivor):</strong> Donde nacen los objetos. Limpieza
-                                frecuente y rápida (Minor GC).
-                                <br><strong>Old Gen (Tenured):</strong> Objetos que sobrevivieron múltiples GCs.
-                                Limpieza costosa (Major GC).
-                                <br><strong>Metaspace (Non-Heap):</strong> Almacena metadatos de clases (antes PermGen).
-                                Reside en memoria nativa del OS.
-                            </p>
-                        </div>
-                    </div>
+                    <h2>2. Classloading: El guardián de la seguridad</h2>
+                    <p>Java no carga todo el programa en memoria al inicio. Usa un sistema de <strong>Lazy
+                            Loading</strong> jerárquico. Cuando tu código referencia una clase, la JVM delega la
+                        búsqueda hacia arriba (Parent Delegation Model):</p>
+                    <ul class="list-disc list-inside text-slate-600 mb-6 ml-4">
+                        <li><strong>Bootstrap ClassLoader:</strong> Carga el núcleo de Java (<code>java.lang.*</code>)
+                            desde <code>modules</code>. Escrito en C++.</li>
+                        <li><strong>Platform ClassLoader:</strong> Carga módulos de la plataforma (SQL, XML, etc.).</li>
+                        <li><strong>Application ClassLoader:</strong> Carga <em>tu código</em> y las librerías del
+                            Classpath.</li>
+                    </ul>
 
                     <h2 class="text-slate-900 border-none mb-6"><i
                             class="fas fa-dumbbell text-blue-600 mr-2"></i>Training Ground: Laboratorio de Ingeniería
@@ -240,24 +217,20 @@
 
                     <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-green-500">
                         <span class="text-xs font-bold text-green-600 uppercase mb-2 block">🟢 Nivel Básico</span>
-                        <p class="font-medium text-slate-800 mb-2">Compilación y Trazabilidad de Classloading</p>
-                        <p class="text-sm text-slate-600 mb-4">Comprende la jerarquía de carga. El <strong>Application
-                                ClassLoader</strong> no puede cargar clases del núcleo. Verifica el orden de carga y
-                            bloqueo.</p>
+                        <p class="font-medium text-slate-800 mb-2">Trazabilidad de Classloading</p>
+                        <p class="text-sm text-slate-600 mb-4">Verifica el orden de carga y bloqueo. El Application
+                            ClassLoader no puede cargar clases del núcleo.</p>
                         <details class="group">
                             <summary
                                 class="flex cursor-pointer items-center text-sm font-medium text-green-600 hover:text-green-700">
                                 <i class="fas fa-lightbulb mr-2"></i>Ver Procedimiento Técnico
                             </summary>
                             <div class="mt-2 text-sm text-slate-600 pl-6 border-l-2 border-slate-300 space-y-2">
-                                <p>1. Crea <code>App.java</code> sin package.</p>
-                                <p>2. Compila: <code>javac App.java</code>.</p>
-                                <p>3. Ejecuta con flag de trazabilidad: <code>java -verbose:class App</code>.</p>
+                                <p>1. Compila tu código: <code>javac App.java</code>.</p>
+                                <p>2. Ejecuta con flag de trazabilidad: <code>java -verbose:class App</code>.</p>
                                 <p><strong>Análisis:</strong> Observa cómo <code>java.lang.Object</code> es cargado por
-                                    el Bootstrap Loader (mostrado como null o interno) antes que tu clase. Identifica el
-                                    punto exacto donde el JIT empieza a cargar clases auxiliares como
-                                    <code>LambdaMetafactory</code>.
-                                </p>
+                                    el Bootstrap Loader antes que tu clase. Identifica el punto exacto donde el JIT
+                                    empieza a cargar clases auxiliares como <code>LambdaMetafactory</code>.</p>
                             </div>
                         </details>
                     </div>
@@ -278,47 +251,12 @@
                                 <br>Busca el método <code>main</code>. Observa instrucciones como:
                                 <br><code>iconst_1</code> (Push int 1 al stack).
                                 <br><code>istore_1</code> (Pop del stack y guardar en variable local 1).
-                                <br>Esto demuestra la independencia del hardware de la JVM.
                             </p>
                         </details>
                     </div>
-
-                    <div class="mb-10 p-6 bg-slate-100 rounded-xl border-l-4 border-red-500">
-                        <span class="text-xs font-bold text-red-600 uppercase mb-2 block">🔴 Nivel Avanzado</span>
-                        <p class="font-medium text-slate-800 mb-2">Simulación de Fallos Críticos (OOM & StackOverflow)
-                        </p>
-                        <p class="text-sm text-slate-600 mb-4">
-                            Demuestra los límites físicos. Provoca deliberadamente un <code>StackOverflowError</code>
-                            y un <code>OutOfMemoryError</code>. Analiza el comportamiento del GC antes del crash usando
-                            flags como <code>-Xlog:gc*</code> (Java 9+).
-                        </p>
-                        <div class="mt-4">
-                            <button onclick="toggleSolution('sol-l1-adv')"
-                                class="text-xs font-bold text-white bg-slate-800 px-4 py-2 rounded hover:bg-slate-700 transition-colors">
-                                <i class="fas fa-code mr-2"></i>Ver Código de Prueba
-                            </button>
-                            <div id="sol-l1-adv" class="hidden mt-4">
-                                <pre><code class="language-java">// Caso 1: StackOverflowError
-// Límite default: -Xss1m (1MB por hilo).
-// Cada llamada añade un Frame (~100 bytes + locals) al Stack.
-public void recursiveDeath(long counter) {
-    // long ocupa 2 slots en Local Variable Array, acelerando el crash
-    recursiveDeath(counter + 1); 
-}
-
-// Caso 2: OutOfMemoryError (Heap Space)
-// Heap Dump Analysis: Esencial para post-mortem.
-// Ejecutar con: -Xmx64m -XX:+HeapDumpOnOutOfMemoryError
-List<byte[]> leak = new ArrayList<>();
-while(true) {
-    // Asigna arrays de 1MB. Sobreviven a Young Gen y saturan Old Gen.
-    leak.add(new byte[1024 * 1024]); 
-}</code></pre>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
+                <!-- LECCIÓN 2 -->
                 <div id="lesson-2" class="lesson-section hidden animate-fade-in-up lesson-content">
                     <div class="mb-8 border-b border-slate-200 pb-6">
                         <div class="flex items-center gap-3 mb-2">
@@ -346,6 +284,8 @@ while(true) {
                                 instrumentación.</li>
                         </ul>
                     </div>
+
+
 
                     <h2>1. Tu IDE es un Motor de Análisis Estático</h2>
                     <p>Un editor de texto ve una secuencia plana de caracteres. IntelliJ o Eclipse construyen un
@@ -437,6 +377,7 @@ while(true) {
                     </div>
                 </div>
 
+                <!-- LECCIÓN 3 -->
                 <div id="lesson-3" class="lesson-section hidden animate-fade-in-up lesson-content">
                     <div class="mb-8 border-b border-slate-200 pb-6">
                         <div class="flex items-center gap-3 mb-2">
@@ -462,6 +403,8 @@ while(true) {
                             <li>String Pool: Mecanismo de <code>intern()</code> y gestión de memoria Flyweight.</li>
                         </ul>
                     </div>
+
+
 
                     <h2>1. Primitivos vs Wrappers: Coste de Memoria Real</h2>
                     <p>La eficiencia de memoria es crítica en sistemas de alta escala. Un <code>int</code> ocupa 4 bytes
@@ -583,6 +526,7 @@ BigDecimal impuesto = precio.multiply(tasa)
                     </div>
                 </div>
 
+                <!-- LECCIÓN 4 -->
                 <div id="lesson-4" class="lesson-section hidden animate-fade-in-up lesson-content">
                     <div class="mb-8 border-b border-slate-200 pb-6">
                         <div class="flex items-center gap-3 mb-2">
@@ -608,6 +552,8 @@ BigDecimal impuesto = precio.multiply(tasa)
                             <li>Seguridad: Timing attacks en comparaciones de Strings y bucles.</li>
                         </ul>
                     </div>
+
+
 
                     <h2>1. Complejidad Ciclomática (McCabe)</h2>
                     <p>Mide el número de caminos linealmente independientes a través del código. Matemáticamente, define
@@ -709,6 +655,7 @@ public boolean constantTimeEquals(String a, String b) {
                     </div>
                 </div>
 
+                <!-- LECCIÓN 5 -->
                 <div id="lesson-5" class="lesson-section hidden animate-fade-in-up lesson-content">
                     <div class="mb-8 border-b border-slate-200 pb-6">
                         <div class="flex items-center gap-3 mb-2">
@@ -733,6 +680,8 @@ public boolean constantTimeEquals(String a, String b) {
                             <li>Diseño: Cohesión, Acoplamiento y gestión de estado mutable.</li>
                         </ul>
                     </div>
+
+
 
                     <h2>1. Anatomía de una llamada: El Stack Frame</h2>
                     <p>Cada vez que invocas un método, la JVM empuja un nuevo <strong>Frame</strong> en el Java Stack

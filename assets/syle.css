@@ -1,32 +1,6 @@
-/* Fondo del Hero con gradiente radial profundo */
-.hero-bg {
-    background: radial-gradient(circle at 50% 0%, #1e293b 0%, #0f172a 100%);
-    overflow: hidden;
-}
-
-/* Blobs animados para el fondo */
-.blob-bg {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(80px);
-    opacity: 0.4;
-    z-index: 0;
-    animation: blob 10s infinite;
-}
-
-/* Efecto de tarjeta con transición suave */
-.module-card {
-    background-color: white;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    z-index: 1;
-}
-
-.module-card:hover {
-    transform: translateY(-8px);
-}
-
-/* Scrollbar personalizado */
+/* =========================================
+   1. Global Scrollbar (Clean Slate Theme)
+   ========================================= */
 ::-webkit-scrollbar {
     width: 8px;
 }
@@ -38,13 +12,66 @@
 ::-webkit-scrollbar-thumb {
     background: #cbd5e1;
     border-radius: 4px;
+    transition: background 0.3s ease;
 }
 
 ::-webkit-scrollbar-thumb:hover {
     background: #94a3b8;
 }
 
-/* Utilidad para delays de animación */
+/* =========================================
+   2. Animation Keyframes
+   ========================================= */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+@keyframes float-blob {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    100% {
+        transform: translate(20px, 40px);
+    }
+}
+
+/* =========================================
+   3. Animation Utilities
+   ========================================= */
+.animate-fade-in-up {
+    animation: fadeInUp 0.5s ease-out forwards;
+}
+
+.animate-float {
+    animation: float 6s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+    animation: float 6s ease-in-out 3s infinite;
+}
+
+/* Staggered Delays */
 .anim-delay-100 {
     animation-delay: 100ms;
 }
@@ -71,4 +98,38 @@
 
 .anim-delay-700 {
     animation-delay: 700ms;
+}
+
+/* =========================================
+   4. Component Styles
+   ========================================= */
+
+/* Hero Section */
+.hero-bg {
+    background: radial-gradient(circle at 50% 0%, #1e293b 0%, #0f172a 100%);
+    overflow: hidden;
+    position: relative;
+}
+
+.blob-bg {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.4;
+    z-index: 0;
+    animation: float-blob 10s infinite alternate;
+}
+
+/* Module Cards */
+.module-card {
+    background-color: white;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    z-index: 1;
+    will-change: transform;
+    /* Optimización de renderizado */
+}
+
+.module-card:hover {
+    transform: translateY(-8px);
 }

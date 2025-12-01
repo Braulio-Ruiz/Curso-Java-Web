@@ -10,6 +10,7 @@
         rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="../assets/syle.css">
     <script src="../assets/scriptHead.js"></script>
 </head>
 
@@ -115,6 +116,7 @@
         <main class="flex-1 overflow-y-auto relative bg-slate-50 scroll-smooth">
             <div class="max-w-5xl mx-auto px-8 py-12 relative z-10">
 
+                <!-- LECCIÓN 11 -->
                 <div id="lesson-11" class="lesson-section active animate-fade-in-up lesson-content">
                     <div class="mb-8 border-b border-slate-200 pb-6">
                         <div class="flex items-center gap-3 mb-2">
@@ -130,48 +132,60 @@
 
                     <div
                         class="bg-white rounded-2xl p-8 shadow-lg shadow-yellow-900/5 border-l-4 border-yellow-500 mb-10">
-                        <h3 class="!mt-0 text-xl font-bold text-slate-800 mb-4 flex items-center gap-2"><i
-                                class="fas fa-bullseye text-yellow-600"></i> Objetivos Senior</h3>
+                        <h3 class="!mt-0 text-xl font-bold text-slate-800 mb-4 flex items-center gap-2">
+                            <i class="fas fa-bullseye text-yellow-600"></i> Objetivos Senior
+                        </h3>
                         <ul class="list-disc list-inside text-slate-600 text-sm space-y-2">
-                            <li>Localidad de referencia espacial (CPU Cache Lines L1/L2).</li>
-                            <li>Aritmética de punteros en la JVM: Acceso <strong>O(1)</strong> real.</li>
-                            <li>String Pool Internals: Desduplicación y <strong>Compact Strings</strong> (Latin-1).</li>
+                            <li>Comprender la <strong>Localidad de Referencia</strong> espacial y su impacto en las
+                                líneas de caché de la CPU (L1/L2).</li>
+                            <li>Analizar la aritmética de punteros en la JVM: Por qué el acceso es realmente
+                                <strong>O(1)</strong>.
+                            </li>
+                            <li>Disección de Strings modernos: Desduplicación, <code>intern()</code> y <strong>Compact
+                                    Strings</strong> (JEP 254).</li>
                         </ul>
                     </div>
 
 
 
-                    <h2>1. Arrays y la Caché del CPU</h2>
-                    <p>En Ciencias de la Computación, un Array no es solo una lista. Es un bloque de <strong>memoria
-                            física contigua</strong>. Cuando la JLS (Java Language Specification) garantiza esto, nos
-                        otorga el beneficio del <strong>CPU Prefetching</strong>.</p>
+                    <h2>1. Arrays y la Caché del CPU: La verdad del Hardware</h2>
+                    <p>En Ciencias de la Computación teórica, un Array es una secuencia indexada. En ingeniería real, un
+                        Array es un bloque de <strong>memoria física contigua</strong>. Cuando la JLS (Java Language
+                        Specification) garantiza esto, nos otorga el beneficio crítico del <strong>CPU
+                            Prefetching</strong>.</p>
 
-                    <p>Si la dirección base del array es <code>0x100</code> y almacena <code>int</code> (4 bytes):</p>
+                    <p>Supongamos un array de <code>int</code> (4 bytes) en la dirección de memoria <code>0x100</code>:
+                    </p>
                     <ul class="list-disc list-inside text-slate-600 ml-4 mb-4">
                         <li>Elemento 0: <code>0x100</code></li>
                         <li>Elemento 1: <code>0x104</code></li>
                         <li>Elemento 5: <code>0x100 + (5 * 4) = 0x114</code></li>
                     </ul>
-                    <p>La CPU no carga un solo entero; carga una "Cache Line" completa (usualmente 64 bytes). Al leer
-                        <code>arr[0]</code>, la CPU probablemente ya cargó <code>arr[1]</code> a <code>arr[15]</code> en
-                        la caché L1. Esto hace que iterar un array sea órdenes de magnitud más rápido que una
-                        <code>LinkedList</code>, cuyos nodos están dispersos en el Heap.
-                    </p>
+                    <p>Cuando la CPU solicita <code>arr[0]</code>, el controlador de memoria no trae solo 4 bytes. Trae
+                        una <strong>Cache Line</strong> completa (típicamente 64 bytes) a la caché L1. Esto significa
+                        que al leer el primer elemento, la CPU <em>ya tiene</em> disponibles los siguientes 15 enteros
+                        (<code>arr[1]</code> a <code>arr[15]</code>) en el registro más rápido posible. Iterar un array
+                        es órdenes de magnitud más rápido que una <code>LinkedList</code>, donde cada nodo vive en una
+                        dirección aleatoria del Heap, provocando constantes "Cache Misses".</p>
 
                     <h3 class="text-2xl font-bold text-slate-800 mt-8 mb-4">2. Strings: Compact Strings y el Pool</h3>
-                    <p>Desde Java 9, la JVM usa <strong>Compact Strings</strong>. Antes, un String era un array de
-                        caracteres <code>char[]</code> (UTF-16, 2 bytes por letra). Ahora, si el texto es solo ASCII
-                        (ISO-8859-1), Java usa internamente un <code>byte[]</code> (1 byte por letra), reduciendo el
-                        consumo de memoria del Heap hasta en un 50%.</p>
+                    <p>Antes de Java 9, un <code>String</code> era internamente un array de caracteres
+                        <code>char[]</code> (UTF-16, 2 bytes por carácter). Esto desperdiciaba memoria si el texto era
+                        solo ASCII (ISO-8859-1).
+                        <br><strong>JEP 254 (Compact Strings):</strong> Ahora, la JVM usa internamente un
+                        <code>byte[]</code>. Si el string detecta que no necesita UTF-16, usa 1 byte por carácter
+                        (codificación Latin-1), reduciendo el consumo de memoria del Heap hasta en un 50%.
+                    </p>
 
                     <div class="bg-red-50 border-l-4 border-red-500 p-6 rounded-r-xl mb-6">
                         <p class="text-red-800 font-bold">¡Impacto en GC (Garbage Collection)!</p>
                         <p class="text-red-700 text-sm mt-1">
-                            La concatenación con <code>+</code> en bucles es un suicidio de rendimiento.
+                            La concatenación con <code>+</code> dentro de bucles es un suicidio de rendimiento.
                             <code>String s = ""; for(...) s += "a";</code> genera una complejidad temporal de
-                            <strong>O(N²)</strong> porque copia el array completo en cada iteración.
-                            <strong>Solución:</strong> <code>StringBuilder</code> (que usa un array mutable
-                            redimensionable).
+                            <strong>O(N²)</strong> porque, al ser inmutable, copia el array completo en cada iteración
+                            para crear un nuevo objeto, generando toneladas de basura para el GC.
+                            <br><strong>Solución:</strong> <code>StringBuilder</code> (usa un array mutable
+                            redimensionable con estrategia de amortización).
                         </p>
                     </div>
 
@@ -183,7 +197,7 @@
                         <h4 class="font-bold text-slate-800">Recorrido sin Asignación</h4>
                         <p class="text-sm text-slate-600 mb-4">Imprime un array en orden inverso.
                             <strong>Restricción:</strong> Complejidad espacial O(1). No puedes crear un nuevo array ni
-                            usar <code>Collections.reverse()</code>.
+                            usar <code>Collections.reverse()</code>. Debes iterar sobre el original mediante índices.
                         </p>
                     </div>
 
@@ -191,15 +205,16 @@
                         <span class="text-xs font-bold text-yellow-600 uppercase mb-2 block">🟡 Nivel Intermedio</span>
                         <h4 class="font-bold text-slate-800">Two Pointers Technique</h4>
                         <p class="text-sm text-slate-600 mb-4">Verifica si un String es palíndromo usando dos punteros
-                            (inicio y fin) que convergen al centro. Esto evita crear el reverso del String, ahorrando
-                            O(N) de memoria.</p>
+                            (inicio y fin) que convergen al centro. Esto evita crear el reverso del String
+                            (<code>new StringBuilder(s).reverse()</code>), ahorrando O(N) de memoria en el Heap.</p>
                     </div>
 
                     <div class="mb-8 p-6 bg-slate-900 rounded-xl border border-slate-700 text-white">
                         <span class="text-xs font-bold text-red-500 uppercase mb-2 block">🔴 Nivel Avanzado</span>
                         <h4 class="font-bold text-white">Algoritmo de Rotación O(1) Espacial</h4>
                         <p class="text-sm text-slate-400 mb-4">Rota un array <code>k</code> posiciones a la derecha
-                            modificando el array original (in-place). La solución ingenieril usa tres reversiones.</p>
+                            modificando el array original (in-place). La solución ingenieril usa tres reversiones
+                            estratégicas.</p>
                         <button onclick="toggleSolution('sol-11')"
                             class="text-xs bg-yellow-600 hover:bg-yellow-500 text-white px-3 py-1 rounded transition">Ver
                             Solución</button>
@@ -222,9 +237,11 @@
                                     LinkedList para lectura secuencial?</p>
                                 <div class="grid grid-cols-2 gap-2">
                                     <button class="quiz-btn border p-2 rounded text-sm hover:bg-slate-50"
-                                        onclick="checkQuiz(this, true)">Localidad de Caché (CPU)</button>
+                                        onclick="alert('¡Correcto! La memoria contigua permite al hardware predecir y cargar datos.')">Localidad
+                                        de Caché (CPU)</button>
                                     <button class="quiz-btn border p-2 rounded text-sm hover:bg-slate-50"
-                                        onclick="checkQuiz(this, false)">Menor uso de RAM</button>
+                                        onclick="alert('Incorrecto. Ambos usan RAM, pero el patrón de acceso difiere.')">Menor
+                                        uso de RAM</button>
                                 </div>
                             </div>
                             <div>
@@ -233,15 +250,18 @@
                                 </p>
                                 <div class="grid grid-cols-2 gap-2">
                                     <button class="quiz-btn border p-2 rounded text-sm hover:bg-slate-50"
-                                        onclick="checkQuiz(this, false)">Se modifica el String original</button>
+                                        onclick="alert('Incorrecto. Los Strings son inmutables.')">Se modifica el String
+                                        original</button>
                                     <button class="quiz-btn border p-2 rounded text-sm hover:bg-slate-50"
-                                        onclick="checkQuiz(this, true)">Se crea un nuevo objeto</button>
+                                        onclick="alert('¡Correcto! Se asigna nueva memoria en el Heap.')">Se crea un
+                                        nuevo objeto</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
+                <!-- LECCIÓN 12 -->
                 <div id="lesson-12" class="lesson-section hidden animate-fade-in-up lesson-content">
                     <div class="mb-8 border-b border-slate-200 pb-6">
                         <div class="flex items-center gap-3 mb-2">
@@ -262,34 +282,34 @@
 
 
 
-                    [Image of Java Exception class hierarchy diagram]
-
-
                     <h2 class="mt-8">1. El Costo Oculto: <code>fillInStackTrace()</code></h2>
-                    <p class="text-slate-600 mb-4">Instanciar una excepción (<code>new Exception()</code>) es muy
-                        costoso. La JVM debe ejecutar el método nativo <code>fillInStackTrace()</code>, que recorre la
-                        pila de ejecución para poblar el "Stack Trace".</p>
+                    <p class="text-slate-600 mb-4">Instanciar una excepción (<code>new Exception()</code>) es
+                        extremadamente costoso. La JVM debe ejecutar el método nativo <code>fillInStackTrace()</code>,
+                        que congela el hilo y recorre la pila de ejecución frame por frame para poblar el "Stack Trace"
+                        (clase, método, línea de código). Si lanzas excepciones en bucles o para lógica de negocio
+                        normal, estás matando el throughput.</p>
                     <p class="text-slate-600 mb-4"><strong>Regla Senior:</strong> Jamás uses excepciones para control de
                         flujo lógico (ej: salir de un bucle lanzando una excepción). Eso es un anti-patrón catastrófico
-                        para el rendimiento.</p>
+                        para el rendimiento conocido como "Exception-Driven Development".</p>
 
                     <h3 class="text-2xl font-bold text-slate-800 mt-8 mb-4">2. Checked vs Unchecked (JLS §11.2)</h3>
                     <div class="grid md:grid-cols-2 gap-6 mb-8">
                         <div class="bg-orange-50 p-6 rounded-xl border border-orange-200">
                             <h4 class="font-bold text-orange-800 mb-2">RuntimeException (Unchecked)</h4>
                             <p class="text-sm text-orange-900">
-                                Errores de programación (bugs). Ej: <code>NullPointerException</code>,
-                                <code>IndexOutOfBounds</code>.
-                                <strong>Filosofía:</strong> No se capturan, se corrigen en el código.
+                                Errores de programación (bugs o precondiciones rotas). Ej:
+                                <code>NullPointerException</code>, <code>IndexOutOfBounds</code>.
+                                <br><strong>Filosofía:</strong> No se capturan para recuperar el programa; se corrigen
+                                en el código fuente.
                             </p>
                         </div>
                         <div class="bg-blue-50 p-6 rounded-xl border border-blue-200">
                             <h4 class="font-bold text-blue-800 mb-2">Checked Exception</h4>
                             <p class="text-sm text-blue-900">
-                                Fallos externos anticipables y recuperables. Ej: <code>IOException</code>,
-                                <code>SQLException</code>.
-                                <strong>Filosofía:</strong> El compilador obliga a manejarlas (Try-Catch) o declararlas
-                                (Throws).
+                                Fallos externos anticipables y recuperables. Ej: <code>IOException</code> (disco lleno),
+                                <code>SQLException</code> (DB caída).
+                                <br><strong>Filosofía:</strong> El compilador obliga a manejarlas (Try-Catch) o
+                                declararlas (Throws) para forzar un plan de recuperación.
                             </p>
                         </div>
                     </div>
@@ -301,7 +321,8 @@
                         <span class="text-xs font-bold text-green-600 uppercase mb-2 block">🟢 Nivel Básico</span>
                         <h4 class="font-bold text-slate-800">Bloque Finally</h4>
                         <p class="text-sm text-slate-600 mb-4">Demuestra que el bloque <code>finally</code> se ejecuta
-                            incluso si hay un <code>return</code> dentro del <code>try</code>.</p>
+                            siempre, incluso si hay un <code>return</code> dentro del <code>try</code>. Útil para
+                            limpieza manual de recursos, aunque obsoleto frente a try-with-resources.</p>
                     </div>
 
                     <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-yellow-500">
@@ -309,17 +330,17 @@
                         <h4 class="font-bold text-slate-800">Try-With-Resources (AutoCloseable)</h4>
                         <p class="text-sm text-slate-600 mb-4">Implementa una clase que implemente
                             <code>AutoCloseable</code>. Úsala en un <code>try()</code> y verifica que el método
-                            <code>close()</code> se llama automáticamente. Esto previene fugas de recursos (Memory
-                            Leaks).
+                            <code>close()</code> se llama automáticamente al salir del bloque. Esto previene fugas de
+                            recursos (Memory Leaks) en conexiones a DB o archivos.
                         </p>
                     </div>
 
                     <div class="mb-8 p-6 bg-slate-900 rounded-xl border border-slate-700 text-white">
                         <span class="text-xs font-bold text-red-500 uppercase mb-2 block">🔴 Nivel Avanzado</span>
                         <h4 class="font-bold text-white">Patrón Retry con Exponential Backoff</h4>
-                        <p class="text-sm text-slate-400 mb-4">En sistemas distribuidos, la red falla. Implementa un
-                            mecanismo de reintento inteligente que espere exponencialmente (2s, 4s, 8s) antes de volver
-                            a intentar una operación fallida.</p>
+                        <p class="text-sm text-slate-400 mb-4">En sistemas distribuidos, la red falla (Fallacies of
+                            Distributed Computing). No falles inmediatamente. Implementa un mecanismo de reintento
+                            inteligente que espere tiempos crecientes (2s, 4s, 8s) antes de rendirse.</p>
                         <button onclick="toggleSolution('sol-12')"
                             class="text-xs bg-yellow-600 hover:bg-yellow-500 text-white px-3 py-1 rounded transition">Ver
                             Solución</button>
@@ -330,7 +351,7 @@ while (true) {
         servicioInestable.conectar();
         break; // Éxito
     } catch (NetworkException e) {
-        if (++retries > 3) throw e; // Rendirse
+        if (++retries > 3) throw e; // Rendirse tras 3 intentos
         // Espera exponencial: 2^1, 2^2, 2^3 segundos
         Thread.sleep(1000 * (long)Math.pow(2, retries)); 
     }
@@ -346,15 +367,16 @@ while (true) {
                                     try-with-resources?</p>
                                 <div class="grid grid-cols-2 gap-2">
                                     <button class="quiz-btn border p-2 rounded text-sm hover:bg-slate-50"
-                                        onclick="checkQuiz(this, true)">AutoCloseable</button>
+                                        onclick="alert('¡Correcto!')">AutoCloseable</button>
                                     <button class="quiz-btn border p-2 rounded text-sm hover:bg-slate-50"
-                                        onclick="checkQuiz(this, false)">Serializable</button>
+                                        onclick="alert('Incorrecto. Serializable es para convertir objetos a bytes.')">Serializable</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
+                <!-- LECCIÓN 13 -->
                 <div id="lesson-13" class="lesson-section hidden animate-fade-in-up lesson-content">
                     <div class="mb-8 border-b border-slate-200 pb-6">
                         <div class="flex items-center gap-3 mb-2">
@@ -369,28 +391,31 @@ while (true) {
                     <div
                         class="bg-white rounded-2xl p-8 shadow-lg shadow-yellow-900/5 border-l-4 border-yellow-500 mb-10">
                         <p class="text-slate-600">Elegir la colección incorrecta puede degradar el rendimiento
-                            exponencialmente. Aquí analizamos <code>java.util.Collection</code> bajo el microscopio.</p>
+                            exponencialmente. Aquí analizamos <code>java.util.Collection</code> bajo el microscopio de
+                            la JVM.</p>
                     </div>
 
                     <h2>1. ArrayList vs LinkedList: Desmintiendo Mitos</h2>
-                    <p>La teoría clásica dice: "Usa LinkedList para inserciones frecuentes". <strong>En hardware
-                            moderno, esto suele ser falso.</strong></p>
+                    <p>La teoría clásica de estructuras de datos dice: "Usa LinkedList para inserciones frecuentes en el
+                        medio". <strong>En hardware moderno, esto suele ser falso.</strong></p>
                     <ul class="list-disc list-inside text-slate-600 ml-4 mb-4">
                         <li><strong>ArrayList:</strong> Usa <code>System.arraycopy()</code> (método intrínseco nativo
-                            optimizado en ensamblador) para mover bloques de memoria. Es extremadamente rápido debido a
-                            la localidad de caché.</li>
-                        <li><strong>LinkedList:</strong> Cada nodo es un objeto nuevo en el Heap (overhead de memoria).
-                            Recorrerla provoca "Cache Misses" constantes en la CPU. Solo úsala si necesitas garantizar
-                            O(1) al insertar en el inicio o final y no vas a iterar mucho.</li>
+                            optimizado en ensamblador) para desplazar bloques de memoria. Es extremadamente rápido
+                            debido a la localidad de caché. Su redimensionamiento (grow strategy) suele ser 1.5x.</li>
+                        <li><strong>LinkedList:</strong> Cada nodo es un objeto envoltorio (Wrapper) nuevo en el Heap
+                            (overhead de memoria: ~24 bytes por nodo + datos). Recorrerla provoca "Cache Misses"
+                            constantes en la CPU al saltar punteros. Solo úsala si necesitas garantizar estrictamente
+                            O(1) al insertar en los extremos y no vas a iterar mucho.</li>
                     </ul>
 
                     <h2>2. HashSet y la Teoría de Hashing</h2>
                     <p>Un <code>HashSet</code> garantiza unicidad en tiempo <strong>O(1)</strong> promedio.
-                        Internamente, es un <code>HashMap</code> donde el valor es una constante dummy.</p>
+                        Internamente, es simplemente un <code>HashMap</code> donde el valor es un objeto constante dummy
+                        (<code>PRESENT</code>).</p>
                     <p>La clave de su rendimiento es el contrato <code>hashCode()</code> y <code>equals()</code>. Si dos
-                        objetos tienen el mismo hash (colisión), el rendimiento se degrada. Java 8 mitiga esto
-                        transformando la lista de colisiones en un <strong>Árbol Rojo-Negro</strong> (O(log n)) cuando
-                        hay muchos conflictos.</p>
+                        objetos distintos tienen el mismo hash (colisión), el rendimiento se degrada a O(N). Java 8
+                        mitiga esto transformando la lista enlazada de colisiones en un <strong>Árbol
+                            Rojo-Negro</strong> equilibrado (O(log n)) cuando un bucket supera los 8 elementos.</p>
 
                     <h2 class="text-slate-900 mt-12 mb-6 border-none"><i
                             class="fas fa-dumbbell text-yellow-600 mr-2"></i>Training Ground</h2>
@@ -399,24 +424,27 @@ while (true) {
                         <span class="text-xs font-bold text-green-600 uppercase mb-2 block">🟢 Nivel Básico</span>
                         <h4 class="font-bold text-slate-800">Algoritmo de Unicidad</h4>
                         <p class="text-sm text-slate-600 mb-4">Tienes una lista con 1 millón de emails duplicados.
-                            Elimínalos en una sola línea de código utilizando la propiedad de los Sets.</p>
+                            Elimínalos en una sola línea de código utilizando la propiedad de unicidad de los Sets.
+                            <code>new ArrayList<>(new HashSet<>(listaConDuplicados));</code>
+                        </p>
                     </div>
 
                     <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-yellow-500">
                         <span class="text-xs font-bold text-yellow-600 uppercase mb-2 block">🟡 Nivel Intermedio</span>
                         <h4 class="font-bold text-slate-800">Rompiendo el HashSet</h4>
                         <p class="text-sm text-slate-600 mb-4">Crea una clase <code>Producto</code> pero no sobrescribas
-                            <code>hashCode()</code>. Añade dos productos con el mismo ID al Set. Observa cómo se
-                            duplican (bug grave) y arréglalo implementando el contrato correctamente.
+                            <code>hashCode()</code>. Añade dos instancias de productos con el mismo ID al Set. Observa
+                            cómo se duplican (bug grave) porque la JVM usa la dirección de memoria por defecto.
+                            Arréglalo implementando el contrato.
                         </p>
                     </div>
 
                     <div class="mb-8 p-6 bg-slate-900 rounded-xl border border-slate-700 text-white">
                         <span class="text-xs font-bold text-red-500 uppercase mb-2 block">🔴 Nivel Avanzado</span>
-                        <h4 class="font-bold text-white">Álgebra de Conjuntos</h4>
+                        <h4 class="font-bold text-white">Álgebra de Conjuntos (Bulk Operations)</h4>
                         <p class="text-sm text-slate-400 mb-4">Implementa operaciones matemáticas de conjuntos: Unión,
                             Intersección y Diferencia Simétrica usando métodos <code>bulk operations</code> de la
-                            interfaz Set.</p>
+                            interfaz Set. Es mucho más eficiente que iterar manualmente.</p>
                         <button onclick="toggleSolution('sol-13')"
                             class="text-xs bg-yellow-600 hover:bg-yellow-500 text-white px-3 py-1 rounded transition">Ver
                             Solución</button>
@@ -433,6 +461,7 @@ diferencia.removeAll(b); // A - B</code></pre>
                     </div>
                 </div>
 
+                <!-- LECCIÓN 14 -->
                 <div id="lesson-14" class="lesson-section hidden animate-fade-in-up lesson-content">
                     <div class="mb-8 border-b border-slate-200 pb-6">
                         <div class="flex items-center gap-3 mb-2">
@@ -446,21 +475,25 @@ diferencia.removeAll(b); // A - B</code></pre>
 
                     <h2>1. HashMap Internals: Buckets y Load Factor</h2>
                     <p>El <code>HashMap</code> es la estructura más ubicua. Internamente gestiona un array de
-                        <code>Node&lt;K,V&gt;</code> (buckets). El índice se calcula como <code>(n - 1) & hash</code>.
+                        <code>Node&lt;K,V&gt;</code> llamados "buckets". El índice donde se guarda un elemento se
+                        calcula mediante operaciones bitwise: <code>(n - 1) & hash</code>.
                     </p>
 
 
 
-                    <p>Cuando el mapa se llena al 75% (Load Factor 0.75), ocurre un <strong>Rehashing</strong>: se
-                        duplica el tamaño del array y se recalculan las posiciones de todos los elementos. Esta es una
-                        operación costosa O(N) que debes evitar inicializando el mapa con la capacidad correcta si
-                        conoces el tamaño: <code>new HashMap<>(10000)</code>.</p>
+                    <p>Cuando el mapa se llena al 75% (Load Factor default 0.75), ocurre un <strong>Rehashing</strong>:
+                        se duplica el tamaño del array interno y se recalculan las posiciones de todos los elementos
+                        existentes. Esta es una operación costosa O(N).
+                        <br><strong>Pro Tip:</strong> Si conoces el tamaño estimado, inicializa el mapa con la capacidad
+                        correcta para evitar rehashings: <code>new HashMap<>(10000)</code>.
+                    </p>
 
                     <h2>2. PriorityQueue y Binary Heaps</h2>
-                    <p>Una <code>PriorityQueue</code> no es FIFO. Es una implementación de un <strong>Min-Heap</strong>
-                        (o Max-Heap) sobre un array. Garantiza que el elemento en la cabeza (head) siempre sea el
-                        "menor" según el <code>Comparator</code>, con un costo de acceso O(1) y de inserción/borrado
-                        O(log n).</p>
+                    <p>Una <code>PriorityQueue</code> no es FIFO (First-In-First-Out). Es una implementación de un
+                        <strong>Min-Heap</strong> (o Max-Heap) sobre un array simple. Garantiza que el elemento en la
+                        cabeza (head) siempre sea el "menor" según el <code>Comparator</code>, con un costo de acceso
+                        O(1) y de inserción/borrado O(log n). Es fundamental para algoritmos como Dijkstra o A*.
+                    </p>
 
                     <h2 class="text-slate-900 mt-12 mb-6 border-none"><i
                             class="fas fa-dumbbell text-yellow-600 mr-2"></i>Training Ground</h2>
@@ -469,7 +502,8 @@ diferencia.removeAll(b); // A - B</code></pre>
                         <span class="text-xs font-bold text-green-600 uppercase mb-2 block">🟢 Nivel Básico</span>
                         <h4 class="font-bold text-slate-800">Frequency Counter</h4>
                         <p class="text-sm text-slate-600 mb-4">Dado un texto, usa un
-                            <code>Map&lt;String, Integer&gt;</code> para contar la frecuencia de cada palabra.
+                            <code>Map&lt;String, Integer&gt;</code> para contar la frecuencia de cada palabra. Usa
+                            <code>map.getOrDefault(palabra, 0) + 1</code>.
                         </p>
                     </div>
 
@@ -477,23 +511,24 @@ diferencia.removeAll(b); // A - B</code></pre>
                         <span class="text-xs font-bold text-yellow-600 uppercase mb-2 block">🟡 Nivel Intermedio</span>
                         <h4 class="font-bold text-slate-800">LRU Cache (Concepto)</h4>
                         <p class="text-sm text-slate-600 mb-4">Investiga <code>LinkedHashMap</code>. Configúralo con
-                            <code>accessOrder = true</code> para crear una caché que elimine automáticamente el elemento
-                            menos usado recientemente (LRU) al sobrepasar un tamaño.
+                            <code>accessOrder = true</code> y sobrescribe <code>removeEldestEntry</code> para crear una
+                            caché que elimine automáticamente el elemento menos usado recientemente (LRU) al sobrepasar
+                            un tamaño fijo.
                         </p>
                     </div>
 
                     <div class="mb-8 p-6 bg-slate-900 rounded-xl border border-slate-700 text-white">
                         <span class="text-xs font-bold text-red-500 uppercase mb-2 block">🔴 Nivel Avanzado</span>
                         <h4 class="font-bold text-white">Top K Elements (Heap)</h4>
-                        <p class="text-sm text-slate-400 mb-4">Encuentra los 3 números más grandes en un stream de 1
-                            millón de datos usando memoria constante. Usa una <code>PriorityQueue</code> (Min-Heap) de
-                            tamaño fijo 3. Si el nuevo número es mayor que el <code>peek()</code> del heap, saca el
-                            menor y mete el nuevo.</p>
+                        <p class="text-sm text-slate-400 mb-4">Encuentra los 3 números más grandes en un stream infinito
+                            de datos usando memoria constante. Usa una <code>PriorityQueue</code> (Min-Heap) de tamaño
+                            fijo 3. Si el nuevo número es mayor que el <code>peek()</code> del heap, saca el menor y
+                            mete el nuevo.</p>
                         <button onclick="toggleSolution('sol-14')"
                             class="text-xs bg-yellow-600 hover:bg-yellow-500 text-white px-3 py-1 rounded transition">Ver
                             Solución</button>
                         <div id="sol-14" class="hidden mt-4 pt-4 border-t border-slate-700">
-                            <pre><code class="language-java">// Mantenemos solo los 3 más grandes
+                            <pre><code class="language-java">// Mantenemos solo los 3 más grandes en memoria
 PriorityQueue&lt;Integer&gt; heap = new PriorityQueue&lt;&gt;(); 
 
 for (int n : streamDatos) {
@@ -507,6 +542,7 @@ for (int n : streamDatos) {
                     </div>
                 </div>
 
+                <!-- LECCIÓN 15 -->
                 <div id="lesson-15" class="lesson-section hidden animate-fade-in-up lesson-content">
                     <div class="mb-8 border-b border-slate-200 pb-6">
                         <div class="flex items-center gap-3 mb-2">
@@ -521,32 +557,30 @@ for (int n : streamDatos) {
                     <div
                         class="bg-white rounded-2xl p-8 shadow-lg shadow-yellow-900/5 border-l-4 border-yellow-500 mb-10">
                         <p class="text-slate-600">Los genéricos proveen seguridad de tipos en tiempo de compilación,
-                            pero son una ilusión en tiempo de ejecución. Entender el "Type Erasure" separa a los juniors
-                            de los seniors.</p>
+                            pero son una "ilusión" en tiempo de ejecución. Entender el "Type Erasure" y los Bridge
+                            Methods separa a los juniors de los seniors.</p>
                     </div>
 
                     <h2>1. Type Erasure (Borrado de Tipos)</h2>
                     <p>La JVM no sabe qué es <code>List&lt;String&gt;</code>. Durante la compilación, <code>javac</code>
                         elimina la información de tipos genéricos.
                         <code>List&lt;String&gt;</code> se convierte en <code>List</code> (raw type) y el compilador
-                        inserta "Casteos" (checkcast) automáticos donde recuperas datos.
+                        inserta "Casteos" (<code>checkcast</code>) automáticos donde recuperas datos.
                     </p>
 
-
-
-                    <p>Esto se hizo para mantener compatibilidad con versiones antiguas de Java, pero genera
-                        limitaciones como no poder instanciar arrays genéricos (<code>new T[]</code>) o comprobar tipos
-                        con <code>instanceof T</code>.</p>
+                    <p>Esto se hizo para mantener compatibilidad con versiones antiguas de Java (pre-Java 5), pero
+                        genera limitaciones como no poder instanciar arrays genéricos (<code>new T[]</code> es ilegal) o
+                        comprobar tipos con <code>instanceof T</code> en runtime.</p>
 
                     <h2>2. Wildcards y el Principio PECS</h2>
-                    <p>Para escribir APIs flexibles (como las de Colecciones), usamos comodines (<code>?</code>). La
-                        regla mnemotécnica creada por Joshua Bloch es <strong>PECS</strong>:</p>
+                    <p>Para escribir APIs flexibles, usamos comodines (<code>?</code>). La regla mnemotécnica creada por
+                        Joshua Bloch es <strong>PECS</strong> (Producer Extends, Consumer Super):</p>
                     <ul class="list-disc list-inside text-slate-600 mb-6">
-                        <li><strong>Producer Extends:</strong> Si tu método LEE de una lista, usa
-                            <code>&lt;? extends T&gt;</code>.
+                        <li><strong>Producer Extends:</strong> Si tu método solo LEE de una lista (produce datos), usa
+                            <code>&lt;? extends T&gt;</code>. Puedes leer T, pero no añadir nada (excepto null).
                         </li>
-                        <li><strong>Consumer Super:</strong> Si tu método ESCRIBE en una lista, usa
-                            <code>&lt;? super T&gt;</code>.
+                        <li><strong>Consumer Super:</strong> Si tu método ESCRIBE en una lista (consume datos), usa
+                            <code>&lt;? super T&gt;</code>. Puedes añadir T, pero solo puedes leer Objects.
                         </li>
                     </ul>
 
@@ -558,7 +592,7 @@ for (int n : streamDatos) {
                         <h4 class="font-bold text-slate-800">La Caja Genérica</h4>
                         <p class="text-sm text-slate-600 mb-4">Crea una clase <code>Caja&lt;T&gt;</code>. Intenta
                             guardar un Integer y sacarlo como String sin hacer casting explícito. Observa el error de
-                            compilación (Type Safety).</p>
+                            compilación (Type Safety) que te protege de <code>ClassCastException</code> en runtime.</p>
                     </div>
 
                     <div class="mb-8 p-6 bg-slate-900 rounded-xl border border-slate-700 text-white">
@@ -566,21 +600,21 @@ for (int n : streamDatos) {
                         <h4 class="font-bold text-white">Implementando PECS</h4>
                         <p class="text-sm text-slate-400 mb-4">Escribe un método
                             <code>copiar(List src, List dest)</code>. Debe ser capaz de copiar una lista de
-                            <code>Integer</code> a una lista de <code>Number</code> o <code>Object</code>. Usa los
-                            Wildcards correctos.
+                            <code>Integer</code> a una lista de <code>Number</code> o <code>Object</code>. Esto solo es
+                            posible usando los Wildcards correctos.
                         </p>
                         <button onclick="toggleSolution('sol-15')"
                             class="text-xs bg-yellow-600 hover:bg-yellow-500 text-white px-3 py-1 rounded transition">Ver
                             Solución</button>
                         <div id="sol-15" class="hidden mt-4 pt-4 border-t border-slate-700">
-                            <pre><code class="language-java">// src PRODUCE datos (extends)
-// dest CONSUME datos (super)
+                            <pre><code class="language-java">// src PRODUCE datos (extends) -> Lectura
+// dest CONSUME datos (super)   -> Escritura
 public static &lt;T&gt; void copiar(List&lt;? extends T&gt; src, List&lt;? super T&gt; dest) {
     for (T elemento : src) {
         dest.add(elemento);
     }
 }
-// Esto permite copiar List&lt;Integer&gt; a List&lt;Number&gt;</code></pre>
+// Esto permite copiar List&lt;Integer&gt; a List&lt;Number&gt; con seguridad de tipos</code></pre>
                         </div>
                     </div>
                 </div>

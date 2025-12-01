@@ -10,6 +10,7 @@
         rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="../assets/syle.css">
     <script src="../assets/scriptHead.js"></script>
 </head>
 
@@ -31,7 +32,7 @@
                 </div>
                 <div>
                     <h1 class="font-bold text-sm tracking-wide leading-none">Módulo 05</h1>
-                    <span class="text-xs text-slate-400 font-medium">Arquitectura Concurrente</span>
+                    <span class="text-xs text-slate-400 font-medium">Arquitectura Concurrente & Calidad</span>
                 </div>
             </div>
         </div>
@@ -70,7 +71,7 @@
                     <div class="relative z-10 flex items-center gap-3">
                         <span
                             class="flex-shrink-0 w-8 h-8 rounded-lg bg-slate-100 text-slate-500 flex items-center justify-center text-xs font-bold group-hover:bg-white group-hover:shadow-sm transition-all btn-icon">21</span>
-                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">Concurrency & Threads</span>
+                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">Concurrency Internals</span>
                     </div>
                     <div
                         class="absolute left-0 top-0 bottom-0 w-1 bg-red-600 opacity-0 btn-indicator transition-opacity">
@@ -92,7 +93,7 @@
                     <div class="relative z-10 flex items-center gap-3">
                         <span
                             class="flex-shrink-0 w-8 h-8 rounded-lg bg-slate-100 text-slate-500 flex items-center justify-center text-xs font-bold group-hover:bg-white group-hover:shadow-sm transition-all btn-icon">23</span>
-                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">Testing & JUnit 5</span>
+                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">Testing Architecture</span>
                     </div>
                     <div
                         class="absolute left-0 top-0 bottom-0 w-1 bg-red-600 opacity-0 btn-indicator transition-opacity">
@@ -103,7 +104,7 @@
                     <div class="relative z-10 flex items-center gap-3">
                         <span
                             class="flex-shrink-0 w-8 h-8 rounded-lg bg-slate-100 text-slate-500 flex items-center justify-center text-xs font-bold group-hover:bg-white group-hover:shadow-sm transition-all btn-icon">24</span>
-                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">Debugging & Profiling</span>
+                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">Forensics & Profiling</span>
                     </div>
                     <div
                         class="absolute left-0 top-0 bottom-0 w-1 bg-red-600 opacity-0 btn-indicator transition-opacity">
@@ -115,6 +116,7 @@
         <main class="flex-1 overflow-y-auto relative bg-slate-50 scroll-smooth">
             <div class="max-w-5xl mx-auto px-8 py-12 relative z-10">
 
+                <!-- LECCIÓN 20 -->
                 <div id="lesson-20" class="lesson-section active animate-fade-in-up lesson-content">
                     <div class="mb-8 border-b border-slate-200 pb-6">
                         <div class="flex items-center gap-3 mb-2">
@@ -129,13 +131,15 @@
                     </div>
 
                     <div class="bg-white rounded-2xl p-8 shadow-lg shadow-red-900/5 border-l-4 border-red-600 mb-10">
-                        <h3 class="!mt-0 text-xl font-bold text-slate-800 mb-4 flex items-center gap-2"><i
-                                class="fas fa-bullseye text-red-600"></i> Objetivos Senior</h3>
+                        <h3 class="!mt-0 text-xl font-bold text-slate-800 mb-4 flex items-center gap-2">
+                            <i class="fas fa-bullseye text-red-600"></i> Objetivos Senior
+                        </h3>
                         <ul class="list-disc list-inside text-slate-600 text-sm space-y-2">
                             <li>Deprecación mental de <code>java.io.File</code>: Adopción de <strong>Path & Files
                                     (NIO.2)</strong>.</li>
+                            <li>Buffers Directos vs Heap Buffers: Cómo evitar la copia de memoria en el Kernel
+                                (Zero-Copy).</li>
                             <li>Streaming de archivos grandes (10GB+): Evitar <code>OutOfMemoryError</code>.</li>
-                            <li>Operaciones atómicas en sistema de archivos.</li>
                         </ul>
                     </div>
 
@@ -144,19 +148,23 @@
                         <code>java.io.File</code>. La clase <code>Path</code> es una representación abstracta, inmutable
                         y segura de una ruta en el sistema de archivos, independiente del SO (Windows/Linux).
                     </p>
+                    <p class="text-slate-600 mb-6">NIO.2 interactúa más directamente con los <strong>Descriptores de
+                            Archivos</strong> del Sistema Operativo, permitiendo operaciones atómicas y manejo eficiente
+                        de enlaces simbólicos que la API antigua no podía garantizar.</p>
 
                     <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-r-xl mb-8">
                         <h4 class="font-bold text-yellow-800 mb-1">¡Peligro Crítico: RAM Overflow!</h4>
-                        <p class="text-yellow-800 text-sm">El error más común en producción es usar
-                            <code>Files.readAllLines()</code> en archivos que no controlas (logs, CSVs externos). Este
-                            método carga <strong>TODO</strong> el contenido en el Heap. Si el archivo pesa 2GB y tu JVM
-                            tiene 1GB, la aplicación colapsa.
+                        <p class="text-yellow-800 text-sm">
+                            El error más común en producción es usar <code>Files.readAllLines()</code> en archivos que
+                            no controlas (logs, CSVs externos). Este método carga <strong>TODO</strong> el contenido en
+                            el Heap. Si el archivo pesa 2GB y tu JVM tiene 1GB, la aplicación colapsa con
+                            <code>OutOfMemoryError</code>.
                         </p>
                         <p class="text-yellow-800 text-sm font-bold mt-2">Solución: Usa Streams (Files.lines).</p>
                     </div>
 
-                    <div class="code-window bg-[#1e1e1e] mb-8">
-                        <div class="flex items-center gap-2 px-4 py-2 border-b border-slate-700 bg-slate-800/50">
+                    <div class="code-window bg-[#1e1e1e] mb-8 p-4 rounded-lg overflow-x-auto">
+                        <div class="flex items-center gap-2 mb-2">
                             <div class="w-3 h-3 rounded-full bg-red-500"></div>
                             <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
                             <div class="w-3 h-3 rounded-full bg-green-500"></div>
@@ -168,6 +176,7 @@ import java.util.stream.Stream;
 Path logFile = Path.of("var", "logs", "app.log"); // OS Agnostic Path
 
 // Try-with-resources asegura el cierre del File Channel
+// Files.lines devuelve un Stream perezoso que lee línea a línea
 try (Stream&lt;String&gt; lines = Files.lines(logFile)) {
     lines.filter(line -> line.contains("ERROR")) // Lazy filtering
          .forEach(System.err::println);          // Procesamiento línea a línea
@@ -175,6 +184,16 @@ try (Stream&lt;String&gt; lines = Files.lines(logFile)) {
     // Manejo robusto de errores de disco
 }</code></pre>
                     </div>
+
+                    <h2>2. Zero-Copy y Memory Mapped Files</h2>
+                    <p class="text-slate-600 mb-4">Para aplicaciones de alto rendimiento (como Kafka o bases de datos),
+                        copiar datos del disco al Kernel Space y luego al User Space (JVM Heap) es lento. NIO introduce
+                        <code>FileChannel.transferTo()</code> y <code>MappedByteBuffer</code>.
+                    </p>
+                    <p class="text-slate-600 mb-4"><strong>MappedByteBuffer</strong> mapea una región del archivo
+                        directamente a la memoria virtual del proceso. El Sistema Operativo se encarga de cargar las
+                        páginas de memoria desde el disco bajo demanda (Page Faults), permitiendo leer archivos de
+                        Terabytes como si fueran arrays en memoria, sin ocupar Heap de Java.</p>
 
                     <h2 class="text-slate-900 mt-12 mb-6 border-none"><i
                             class="fas fa-dumbbell text-red-600 mr-2"></i>Training Ground</h2>
@@ -184,7 +203,8 @@ try (Stream&lt;String&gt; lines = Files.lines(logFile)) {
                         <h4 class="font-bold text-slate-800">Atomicidad en I/O</h4>
                         <p class="text-sm text-slate-600 mb-4">Investiga <code>Files.move()</code> con la opción
                             <code>StandardCopyOption.ATOMIC_MOVE</code>. Esto garantiza que el renombrado de un archivo
-                            sea una operación "todo o nada" a nivel de sistema operativo.
+                            sea una operación "todo o nada" a nivel de sistema operativo, crucial para sistemas
+                            transaccionales de archivos.
                         </p>
                     </div>
 
@@ -192,16 +212,18 @@ try (Stream&lt;String&gt; lines = Files.lines(logFile)) {
                         <span class="text-xs font-bold text-yellow-600 uppercase mb-2 block">🟡 Nivel Intermedio</span>
                         <h4 class="font-bold text-slate-800">Recorrido Recursivo (Walk File Tree)</h4>
                         <p class="text-sm text-slate-600 mb-4">Utiliza <code>Files.walk()</code> (que retorna un Stream)
-                            para encontrar todos los archivos <code>.class</code> en tu proyecto, calculando el tamaño
-                            total en bytes.</p>
+                            para encontrar todos los archivos <code>.class</code> en tu proyecto recursivamente,
+                            calculando el tamaño total en bytes. Recuerda cerrar el Stream.</p>
                     </div>
 
                     <div class="mb-8 p-6 bg-slate-900 rounded-xl border border-slate-700 text-white">
                         <span class="text-xs font-bold text-red-500 uppercase mb-2 block">🔴 Nivel Avanzado</span>
-                        <h4 class="font-bold text-white">Memory Mapped Files</h4>
-                        <p class="text-sm text-slate-400 mb-4">Para acceso ultra-rápido a archivos gigantes (Gigabytes),
-                            usa <code>FileChannel.map()</code> para mapear una región del archivo directamente a la
-                            memoria virtual (Off-Heap), permitiendo al SO gestionar la paginación.</p>
+                        <h4 class="font-bold text-white">Memory Mapped Files Implementation</h4>
+                        <p class="text-sm text-slate-400 mb-4">Implementa un lector de archivos que use
+                            <code>FileChannel.map()</code>. Compara el rendimiento de leer un archivo de 1GB usando
+                            <code>FileInputStream</code> vs <code>MappedByteBuffer</code>. La diferencia debería ser
+                            notable.
+                        </p>
                         <button onclick="toggleSolution('sol-20')"
                             class="text-xs bg-red-600 hover:bg-red-500 text-white px-3 py-1 rounded transition">Ver
                             Solución</button>
@@ -209,7 +231,10 @@ try (Stream&lt;String&gt; lines = Files.lines(logFile)) {
                             <pre><code class="language-java">// Mapear 1GB de archivo a memoria
 try (FileChannel channel = FileChannel.open(path, StandardOpenOption.READ)) {
     MappedByteBuffer buffer = channel.map(FileChannel.MapMode.READ_ONLY, 0, channel.size());
-    // Leer bytes directamente de la memoria virtual
+    // Leer bytes directamente de la memoria virtual (Off-Heap)
+    while(buffer.hasRemaining()) {
+        byte b = buffer.get(); // Operación extremadamente rápida
+    }
 }</code></pre>
                         </div>
                     </div>
@@ -231,6 +256,7 @@ try (FileChannel channel = FileChannel.open(path, StandardOpenOption.READ)) {
                     </div>
                 </div>
 
+                <!-- LECCIÓN 21 -->
                 <div id="lesson-21" class="lesson-section hidden animate-fade-in-up lesson-content">
                     <div class="mb-8 border-b border-slate-200 pb-6">
                         <div class="flex items-center gap-3 mb-2">
@@ -238,27 +264,47 @@ try (FileChannel channel = FileChannel.open(path, StandardOpenOption.READ)) {
                                 class="px-3 py-1 rounded-full bg-red-100 text-red-700 text-xs font-bold uppercase tracking-wider">Lección
                                 21</span>
                         </div>
-                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">Concurrencia
-                            Clásica: Threads & Locks</h1>
+                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">Concurrency
+                            Internals: JMM & Hardware</h1>
                     </div>
 
                     <div class="bg-white rounded-2xl p-8 shadow-lg shadow-red-900/5 border-l-4 border-red-600 mb-10">
-                        <p class="text-slate-600">La concurrencia introduce indeterminismo. Si dos hilos modifican una
-                            variable compartida sin sincronización, el resultado es impredecible (Race Condition). El
-                            <strong>Java Memory Model (JMM)</strong> define las reglas de visibilidad entre hilos.
-                        </p>
+                        <p class="text-slate-600">La concurrencia introduce indeterminismo. El <strong>Java Memory Model
+                                (JMM)</strong> define las reglas de juego entre tu código, la JVM y el hardware (Cachés
+                            de CPU L1/L2/L3) para garantizar consistencia.</p>
                     </div>
 
-                    <h2>1. El Problema del Estado Compartido (Race Condition)</h2>
-                    <p class="text-slate-600 mb-6">Una operación <code>count++</code> NO es atómica. A nivel de CPU son
-                        3 pasos: Leer memoria, Incrementar registro, Escribir memoria. Si dos hilos lo hacen a la vez,
-                        uno sobreescribirá el trabajo del otro.</p>
 
-                    <h3 class="text-xl font-bold text-slate-800 mt-8 mb-4">2. Synchronized vs Atomics</h3>
-                    <p class="text-slate-600 mb-4"><code>synchronized</code> es un bloqueo intrínseco (Monitor Lock) que
-                        fuerza exclusión mutua. Es seguro pero puede ser lento (Context Switch). Las clases en
-                        <code>java.util.concurrent.atomic</code> (como <code>AtomicInteger</code>) usan instrucciones de
-                        CPU de bajo nivel (CAS - Compare And Swap) para lograr thread-safety sin bloqueos pesados.
+
+                    <h2>1. El Problema del Estado Compartido (Race Condition)</h2>
+                    <p class="text-slate-600 mb-6">Una operación <code>count++</code> <strong>NO</strong> es atómica. A
+                        nivel de CPU son 3 pasos distintos:
+                    <ol class="list-decimal list-inside text-slate-600 mb-4 ml-4">
+                        <li><strong>Read:</strong> Leer valor de memoria al registro.</li>
+                        <li><strong>Modify:</strong> Incrementar registro.</li>
+                        <li><strong>Write:</strong> Escribir registro a memoria.</li>
+                    </ol>
+                    Si dos hilos lo hacen a la vez, se produce una condición de carrera donde actualizaciones se
+                    pierden.</p>
+
+                    <h3 class="text-xl font-bold text-slate-800 mt-8 mb-4">2. Visibilidad y la keyword
+                        <code>volatile</code>
+                    </h3>
+                    <p class="text-slate-600 mb-4">Cada núcleo de CPU tiene su propia caché. Si el Hilo A modifica una
+                        variable, el Hilo B (en otro núcleo) podría estar leyendo un valor obsoleto de su propia caché.
+                        <br><strong><code>volatile</code></strong> garantiza <strong>visibilidad</strong>: fuerza a que
+                        cualquier lectura/escritura vaya directamente a la memoria principal (RAM), ignorando la caché
+                        local para esa variable. Establece una relación "Happens-Before".
+                    </p>
+
+                    <h3 class="text-xl font-bold text-slate-800 mt-8 mb-4">3. Synchronized vs Atomics (CAS)</h3>
+                    <p class="text-slate-600 mb-4">
+                        <strong>Synchronized:</strong> Es un bloqueo pesimista (Monitor Lock). Fuerza al SO a detener
+                        hilos (Context Switch), lo cual es costoso (miles de ciclos de CPU).
+                        <br><strong>Atomics (<code>java.util.concurrent.atomic</code>):</strong> Usan instrucciones de
+                        hardware optimistas llamadas <strong>CAS (Compare-And-Swap)</strong>. No bloquean el hilo; si
+                        fallan (porque otro hilo modificó el valor), reintentan en un bucle (Spin-Lock). Son mucho más
+                        rápidos para contadores o banderas.
                     </p>
 
                     <h2 class="text-slate-900 mt-12 mb-6 border-none"><i
@@ -266,25 +312,27 @@ try (FileChannel channel = FileChannel.open(path, StandardOpenOption.READ)) {
 
                     <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-green-500">
                         <span class="text-xs font-bold text-green-600 uppercase mb-2 block">🟢 Nivel Básico</span>
-                        <h4 class="font-bold text-slate-800">Hilos Huérfanos</h4>
+                        <h4 class="font-bold text-slate-800">Hilos Huérfanos (Daemon Threads)</h4>
                         <p class="text-sm text-slate-600 mb-4">Crea un hilo demonio (<code>setDaemon(true)</code>).
                             Demuestra que si el hilo principal termina, la JVM mata al hilo demonio instantáneamente,
-                            interrumpiendo su trabajo.</p>
+                            interrumpiendo su trabajo, a diferencia de los hilos de usuario normales.</p>
                     </div>
 
                     <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-yellow-500">
                         <span class="text-xs font-bold text-yellow-600 uppercase mb-2 block">🟡 Nivel Intermedio</span>
                         <h4 class="font-bold text-slate-800">Simulación de Race Condition</h4>
-                        <p class="text-sm text-slate-600 mb-4">Crea una clase <code>Contador</code> insegura. Lanza 1000
-                            hilos que incrementen +1. Imprime el resultado final y observa que rara vez es 1000.</p>
+                        <p class="text-sm text-slate-600 mb-4">Crea una clase <code>Contador</code> con un
+                            <code>int count</code> simple. Lanza 1000 hilos que incrementen +1. Imprime el resultado
+                            final y observa que rara vez es 1000 debido a la falta de atomicidad.
+                        </p>
                     </div>
 
                     <div class="mb-8 p-6 bg-slate-900 rounded-xl border border-slate-700 text-white">
                         <span class="text-xs font-bold text-red-500 uppercase mb-2 block">🔴 Nivel Avanzado</span>
-                        <h4 class="font-bold text-white">Corrección con Atomics</h4>
+                        <h4 class="font-bold text-white">Corrección con Atomics (CAS)</h4>
                         <p class="text-sm text-slate-400 mb-4">Refactoriza el contador usando
-                            <code>AtomicInteger</code>. Explica por qué esto es más rápido que usar
-                            <code>synchronized</code> en el método incrementar.
+                            <code>AtomicInteger</code>. Explica por qué <code>incrementAndGet()</code> es thread-safe y
+                            más eficiente que sincronizar todo el método.
                         </p>
                         <button onclick="toggleSolution('sol-21')"
                             class="text-xs bg-red-600 hover:bg-red-500 text-white px-3 py-1 rounded transition">Ver
@@ -302,6 +350,7 @@ try (FileChannel channel = FileChannel.open(path, StandardOpenOption.READ)) {
                     </div>
                 </div>
 
+                <!-- LECCIÓN 22 -->
                 <div id="lesson-22" class="lesson-section hidden animate-fade-in-up lesson-content">
                     <div class="mb-8 border-b border-slate-200 pb-6">
                         <div class="flex items-center gap-3 mb-2">
@@ -316,16 +365,20 @@ try (FileChannel channel = FileChannel.open(path, StandardOpenOption.READ)) {
                     <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-xl mb-8">
                         <h3 class="font-bold text-blue-900 mb-2">Cambio de Paradigma</h3>
                         <p class="text-sm text-blue-800">Tradicionalmente, 1 Hilo Java mapeaba a 1 Hilo del Sistema
-                            Operativo (OS Thread), limitando la escalabilidad a ~5,000 hilos. Los <strong>Hilos
-                                Virtuales</strong> son entidades de la JVM, ultraligeros, permitiendo millones de hilos
-                            concurrentes.</p>
+                            Operativo (OS Thread/Platform Thread). Los hilos del OS son caros (1MB stack) y limitados
+                            (~5,000 hilos). Los <strong>Hilos Virtuales</strong> son entidades de la JVM, ultraligeros
+                            (KB stack), permitiendo millones de hilos concurrentes.</p>
                     </div>
 
                     <h2>1. Modelo Thread-per-Request Renacido</h2>
-                    <p class="text-slate-600 mb-6">Antes de Java 21, usábamos programación reactiva (WebFlux) para
-                        escalar. Con Loom, podemos volver al estilo síncrono bloqueante (más fácil de leer y debuggear).
-                        Cuando un Virtual Thread se bloquea (ej: esperando I/O de base de datos), la JVM lo "desmonta"
-                        del hilo del OS, liberando la CPU para otro Virtual Thread.</p>
+                    <p class="text-slate-600 mb-6">Antes de Java 21, usábamos programación reactiva asíncrona (WebFlux,
+                        Netty) para escalar, lo que complicaba el código ("Callback Hell"). Con Loom, podemos volver al
+                        estilo síncrono bloqueante (más fácil de leer, debuggear y perfilar).</p>
+                    <p class="text-slate-600 mb-6"><strong>Arquitectura Carrier Threads:</strong> Los Virtual Threads se
+                        ejecutan "encima" de un pool pequeño de Platform Threads (ForkJoinPool). Cuando un Virtual
+                        Thread se bloquea (ej: esperando I/O de base de datos), la JVM "desmonta" su stack del hilo del
+                        OS, guardándolo en el Heap, y libera el hilo del OS para ejecutar otro Virtual Thread. Esto
+                        maximiza el uso de CPU.</p>
 
                     <h2 class="text-slate-900 mt-12 mb-6 border-none"><i
                             class="fas fa-dumbbell text-red-600 mr-2"></i>Training Ground</h2>
@@ -342,8 +395,9 @@ try (FileChannel channel = FileChannel.open(path, StandardOpenOption.READ)) {
                         <span class="text-xs font-bold text-yellow-600 uppercase mb-2 block">🟡 Nivel Intermedio</span>
                         <h4 class="font-bold text-slate-800">El Millón de Hilos</h4>
                         <p class="text-sm text-slate-600 mb-4">Intenta lanzar 1 millón de hilos tradicionales (Platform
-                            Threads) y observa cómo la JVM colapsa (OOM). Luego haz lo mismo con Virtual Threads y
-                            sorpréndete.</p>
+                            Threads) y observa cómo la JVM colapsa con <code>OutOfMemoryError</code> o el OS rechaza la
+                            creación. Luego haz lo mismo con Virtual Threads y sorpréndete al ver que tarda segundos.
+                        </p>
                     </div>
 
                     <div class="mb-8 p-6 bg-slate-900 rounded-xl border border-slate-700 text-white">
@@ -351,7 +405,7 @@ try (FileChannel channel = FileChannel.open(path, StandardOpenOption.READ)) {
                         <h4 class="font-bold text-white">Structured Concurrency (Preview)</h4>
                         <p class="text-sm text-slate-400 mb-4">Utiliza un <code>ExecutorService</code> virtual para
                             lanzar múltiples tareas en paralelo y esperar a que todas terminen. Esto simplifica
-                            drásticamente la orquestación de tareas.</p>
+                            drásticamente la orquestación de tareas comparado con <code>CompletableFuture</code>.</p>
                         <button onclick="toggleSolution('sol-22')"
                             class="text-xs bg-red-600 hover:bg-red-500 text-white px-3 py-1 rounded transition">Ver
                             Solución</button>
@@ -360,15 +414,16 @@ try (FileChannel channel = FileChannel.open(path, StandardOpenOption.READ)) {
 try (var executor = Executors.newVirtualThreadPerTaskExecutor()) {
     IntStream.range(0, 100_000).forEach(i -> {
         executor.submit(() -> {
-            Thread.sleep(Duration.ofSeconds(1)); // Bloqueo barato
+            Thread.sleep(Duration.ofSeconds(1)); // Bloqueo barato, desmonta el hilo
             return i;
         });
     });
-} // try-with-resources espera automáticamente a que todos terminen</code></pre>
+} // try-with-resources espera automáticamente a que todos terminen (join)</code></pre>
                         </div>
                     </div>
                 </div>
 
+                <!-- LECCIÓN 23 -->
                 <div id="lesson-23" class="lesson-section hidden animate-fade-in-up lesson-content">
                     <div class="mb-8 border-b border-slate-200 pb-6">
                         <div class="flex items-center gap-3 mb-2">
@@ -377,21 +432,28 @@ try (var executor = Executors.newVirtualThreadPerTaskExecutor()) {
                                 23</span>
                         </div>
                         <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">Testing
-                            Profesional: JUnit 5 & AssertJ</h1>
+                            Profesional: Arquitectura JUnit 5</h1>
                     </div>
 
                     <p class="text-slate-600 mb-6">El testing no es opcional. Es la única forma de garantizar que tu
-                        refactorización no rompió la lógica de negocio. JUnit 5 (Jupiter) es el estándar de facto.</p>
+                        refactorización no rompió la lógica de negocio. JUnit 5 (Jupiter) es el estándar de facto, con
+                        una arquitectura modular (Platform + Jupiter + Vintage).</p>
 
-                    <h3 class="text-xl font-bold text-slate-800 mt-8 mb-4">Ciclo de Vida del Test</h3>
-                    <div class="code-window bg-[#1e1e1e] mb-8">
+                    <h3 class="text-xl font-bold text-slate-800 mt-8 mb-4">Lifecycle y Aislamiento</h3>
+                    <p class="text-slate-600 mb-4">JUnit crea una <strong>nueva instancia</strong> de la clase de test
+                        para cada método <code>@Test</code>. Esto garantiza aislamiento total: el estado sucio de un
+                        test no afecta al siguiente.
+                        <br><code>@BeforeAll</code> debe ser estático porque se ejecuta antes de instanciar la clase.
+                    </p>
+
+                    <div class="code-window bg-[#1e1e1e] mb-8 p-4 rounded-lg overflow-x-auto">
                         <pre><code class="language-java">class CalculadoraTest {
-    // Se ejecuta antes de CADA test
+    // Se ejecuta antes de CADA test. Útil para resetear mocks.
     @BeforeEach
     void setup() { ... }
 
     @Test
-    @DisplayName("Suma de positivos")
+    @DisplayName("Suma de positivos") // Documentación viva
     void sumarPositivos() {
         // Assertions estándar
         assertEquals(5, calc.sumar(2, 3), "2+3 debe ser 5");
@@ -406,7 +468,8 @@ try (var executor = Executors.newVirtualThreadPerTaskExecutor()) {
                         <span class="text-xs font-bold text-green-600 uppercase mb-2 block">🟢 Nivel Básico</span>
                         <h4 class="font-bold text-slate-800">Assertions</h4>
                         <p class="text-sm text-slate-600 mb-4">Escribe un test para verificar que una lista no esté
-                            vacía y contenga un elemento específico.</p>
+                            vacía y contenga un elemento específico. Explora <code>assertAll</code> para agrupamiento de
+                            aserciones.</p>
                     </div>
 
                     <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-yellow-500">
@@ -414,15 +477,15 @@ try (var executor = Executors.newVirtualThreadPerTaskExecutor()) {
                         <h4 class="font-bold text-slate-800">Testing de Excepciones</h4>
                         <p class="text-sm text-slate-600 mb-4">Usa <code>assertThrows</code> para verificar que tu
                             código lanza la excepción correcta ante inputs inválidos. Es crucial testear los "caminos
-                            tristes".</p>
+                            tristes" (Sad Paths).</p>
                     </div>
 
                     <div class="mb-8 p-6 bg-slate-900 rounded-xl border border-slate-700 text-white">
                         <span class="text-xs font-bold text-red-500 uppercase mb-2 block">🔴 Nivel Avanzado</span>
                         <h4 class="font-bold text-white">Tests Parametrizados</h4>
-                        <p class="text-sm text-slate-400 mb-4">Evita duplicar código de test. Usa
+                        <p class="text-sm text-slate-400 mb-4">Evita duplicar código de test (Copy-Paste). Usa
                             <code>@ParameterizedTest</code> con <code>@CsvSource</code> para ejecutar la misma lógica de
-                            prueba con múltiples sets de datos.
+                            prueba con múltiples sets de datos (Data-Driven Testing).
                         </p>
                         <button onclick="toggleSolution('sol-23')"
                             class="text-xs bg-red-600 hover:bg-red-500 text-white px-3 py-1 rounded transition">Ver
@@ -441,6 +504,7 @@ void testSuma(int a, int b, int esperado) {
                     </div>
                 </div>
 
+                <!-- LECCIÓN 24 -->
                 <div id="lesson-24" class="lesson-section hidden animate-fade-in-up lesson-content">
                     <div class="mb-8 border-b border-slate-200 pb-6">
                         <div class="flex items-center gap-3 mb-2">
@@ -449,24 +513,33 @@ void testSuma(int a, int b, int esperado) {
                                 24</span>
                         </div>
                         <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">Debugging &
-                            Profiling: Diagnóstico Avanzado</h1>
+                            Profiling: Diagnóstico Forense</h1>
                     </div>
 
                     <div class="bg-white rounded-2xl p-8 shadow-lg shadow-red-900/5 border-l-4 border-red-600 mb-10">
                         <p class="text-slate-600">Un Senior no adivina, <strong>observa</strong>. Aprender a usar el
-                            Debugger es más valioso que aprender 10 frameworks.</p>
+                            Debugger y el Profiler es más valioso que aprender 10 frameworks nuevos.</p>
                     </div>
 
                     <h2>1. Técnicas de Breakpoints</h2>
                     <p class="text-slate-600 mb-6">No pongas breakpoints a lo loco. Usa <strong>Conditional
                             Breakpoints</strong>: el IDE solo detendrá la ejecución cuando una condición específica se
-                        cumpla (ej: <code>usuario.getId() == 543</code>). Esto es vital para depurar bucles masivos.</p>
+                        cumpla (ej: <code>usuario.getId() == 543</code>). Esto es vital para depurar bucles masivos o
+                        problemas que ocurren solo en la iteración 10,000.</p>
 
                     <h3 class="text-xl font-bold text-slate-800 mt-8 mb-4">2. Profiling: Encontrando Cuellos de Botella
                     </h3>
-                    <p class="text-slate-600 mb-4">El Profiling (usando VisualVM o herramientas integradas) te permite
-                        ver en tiempo real qué métodos consumen más CPU y qué objetos están llenando el Heap (Memory
-                        Leaks).</p>
+                    <p class="text-slate-600 mb-4">El Profiling (usando JVisualVM, JProfiler o herramientas integradas)
+                        te permite ver en tiempo real:</p>
+                    <ul class="list-disc list-inside text-slate-600 mb-6 ml-4">
+                        <li><strong>CPU Sampling:</strong> Qué métodos consumen más ciclos de CPU.</li>
+                        <li><strong>Memory Allocation:</strong> Qué objetos están llenando el Heap y quién los crea.
+                        </li>
+                        <li><strong>Thread States:</strong> Detectar hilos bloqueados (BLOCKED) o esperando
+                            indefinidamente.</li>
+                    </ul>
+
+
 
                     <h2 class="text-slate-900 mt-12 mb-6 border-none"><i
                             class="fas fa-dumbbell text-red-600 mr-2"></i>Training Ground</h2>
@@ -475,23 +548,26 @@ void testSuma(int a, int b, int esperado) {
                         <span class="text-xs font-bold text-green-600 uppercase mb-2 block">🟢 Nivel Básico</span>
                         <h4 class="font-bold text-slate-800">Evaluate Expression</h4>
                         <p class="text-sm text-slate-600 mb-4">Detén el programa en un breakpoint. Usa la ventana
-                            "Evaluate Expression" para ejecutar código arbitrario en el contexto actual (ej: llamar a la
-                            base de datos, cambiar el valor de una variable en vivo).</p>
+                            "Evaluate Expression" (Alt+F8) para ejecutar código arbitrario en el contexto actual (ej:
+                            consultar la base de datos, cambiar el valor de una variable en memoria viva).</p>
                     </div>
 
                     <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-yellow-500">
                         <span class="text-xs font-bold text-yellow-600 uppercase mb-2 block">🟡 Nivel Intermedio</span>
-                        <h4 class="font-bold text-slate-800">Caza de Memory Leaks</h4>
+                        <h4 class="font-bold text-slate-800">Caza de Memory Leaks (Heap Dump)</h4>
                         <p class="text-sm text-slate-600 mb-4">Crea un programa que llene una lista estática
-                            infinitamente. Usa un Profiler para observar la gráfica "Heap Memory" subir hasta que salte
-                            el <code>OutOfMemoryError</code>.</p>
+                            <code>static List</code> infinitamente. Usa un Profiler para observar la gráfica "Heap
+                            Memory" subir hasta que salte el <code>OutOfMemoryError</code>. Genera un <strong>Heap
+                                Dump</strong> y analízalo para encontrar el objeto "Dominator".
+                        </p>
                     </div>
 
                     <div class="mb-8 p-6 bg-slate-900 rounded-xl border border-slate-700 text-white">
                         <span class="text-xs font-bold text-red-500 uppercase mb-2 block">🔴 Nivel Avanzado</span>
-                        <h4 class="font-bold text-white">Stack Overflow Analysis</h4>
-                        <p class="text-sm text-slate-400 mb-4">Crea una recursividad infinita deliberada. Depúrala y
-                            observa la ventana "Frames". Verás cómo la pila crece indefinidamente hasta agotarse.</p>
+                        <h4 class="font-bold text-white">Thread Dump Analysis (Deadlocks)</h4>
+                        <p class="text-sm text-slate-400 mb-4">Crea un Deadlock intencional (Hilo A espera lock B, Hilo
+                            B espera lock A). La aplicación se congelará. Genera un <strong>Thread Dump</strong> y busca
+                            la sección "Found one Java-level deadlock". Aprende a leer los stack traces cruzados.</p>
                     </div>
                 </div>
 

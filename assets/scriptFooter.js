@@ -1,17 +1,20 @@
-// Configuración de temas por rango de lecciones
-// Esto permite que el script sepa qué colores usar según el ID de la lección
+/**
+ * Configuración Maestra de Temas
+ * Define el esquema de colores para cada rango de lecciones.
+ */
 const MODULE_THEMES = [
     { range: [1, 5], color: 'blue', shade: 600, textShade: 700, bgShade: 50 },
     { range: [6, 10], color: 'purple', shade: 600, textShade: 700, bgShade: 50 },
-    { range: [11, 15], color: 'yellow', shade: 500, textShade: 700, bgShade: 50 }, // Nota: Yellow usa shade 500
-    { range: [16, 19], color: 'orange', shade: 500, textShade: 700, bgShade: 50 }, // Nota: Orange usa shade 500
+    { range: [11, 15], color: 'yellow', shade: 500, textShade: 700, bgShade: 50 }, // Yellow usa shade 500 para mejor contraste
+    { range: [16, 19], color: 'orange', shade: 500, textShade: 700, bgShade: 50 },
     { range: [20, 24], color: 'red', shade: 600, textShade: 700, bgShade: 50 },
-    { range: [25, 27], color: 'emerald', shade: 600, textShade: 700, bgShade: 50 },
-    { range: [28, 30], color: 'indigo', shade: 600, textShade: 700, bgShade: 50 }
+    { range: [25, 27], color: 'cyan', shade: 600, textShade: 700, bgShade: 50 }, // Corregido a cyan según módulo 6
+    { range: [28, 30], color: 'indigo', shade: 600, textShade: 700, bgShade: 50 },
+    { range: [31, 34], color: 'indigo', shade: 600, textShade: 700, bgShade: 50 }  // Extensión para módulo 7
 ];
 
 /**
- * Encuentra la configuración del tema para una lección específica
+ * Obtiene la configuración de tema para una ID de lección dada.
  */
 function getThemeConfig(lessonId) {
     const id = parseInt(lessonId);
@@ -19,7 +22,10 @@ function getThemeConfig(lessonId) {
 }
 
 /**
- * Función Principal de Navegación
+ * Controla la navegación entre lecciones:
+ * 1. Oculta la lección actual.
+ * 2. Muestra la nueva lección.
+ * 3. Actualiza los estilos de la barra lateral según el tema del módulo.
  */
 function showLesson(id) {
     const theme = getThemeConfig(id);
@@ -33,71 +39,72 @@ function showLesson(id) {
     const selected = document.getElementById('lesson-' + id);
     if (selected) {
         selected.classList.remove('hidden');
+        // Timeout pequeño para permitir que el navegador procese el cambio de display:none antes de animar
         setTimeout(() => selected.classList.add('active'), 10);
     }
 
-    // 2. Gestión de Botones (Navegación)
+    // 2. Gestión de Botones (Navegación Lateral)
     document.querySelectorAll('.nav-btn').forEach(btn => {
-        // Limpiar estilos activos de TODOS los temas posibles para evitar conflictos
+        // Limpieza agresiva de clases de temas anteriores
         MODULE_THEMES.forEach(t => {
-            btn.classList.remove(`bg-${t.color}-50`, `border-${t.color}-100`);
+            btn.classList.remove(`bg-${t.color}-50`, `border-${t.color}-200`, 'active');
 
             const icon = btn.querySelector('.btn-icon');
-            if (icon) icon.classList.remove(`bg-${t.color}-${t.shade}`, `bg-${t.color}-600`, `bg-${t.color}-500`, 'text-white');
+            if (icon) icon.classList.remove(`bg-${t.color}-100`, `text-${t.color}-600`, `bg-${t.color}-600`, `bg-${t.color}-500`, 'text-white');
 
             const text = btn.querySelector('.btn-text');
             if (text) text.classList.remove(`text-${t.color}-${t.textShade}`, 'font-bold');
+
+            const indicator = btn.querySelector('.btn-indicator');
+            if (indicator) indicator.classList.remove(`bg-${t.color}-600`, `bg-${t.color}-500`, 'opacity-100');
         });
 
-        // Resetear a estado inactivo base
-        const indicator = btn.querySelector('.btn-indicator');
-        if (indicator) {
-            indicator.classList.remove('opacity-100');
-            indicator.classList.add('opacity-0');
-            // Limpiar color del indicador
-            MODULE_THEMES.forEach(t => indicator.classList.remove(`bg-${t.color}-600`, `bg-${t.color}-500`));
+        // Estado base inactivo
+        const icon = btn.querySelector('.btn-icon');
+        if (icon) icon.classList.add('bg-slate-100', 'text-slate-500');
+
+        const text = btn.querySelector('.btn-text');
+        if (text) {
+            text.classList.add('text-slate-600');
+            text.classList.remove('text-slate-900');
         }
 
-        const icon = btn.querySelector('.btn-icon');
-        if (icon) {
-            icon.classList.add('bg-slate-100', 'text-slate-500');
-        }
+        const indicator = btn.querySelector('.btn-indicator');
+        if (indicator) indicator.classList.add('opacity-0');
     });
 
-    // 3. Activar el botón seleccionado con el tema correcto
+    // 3. Activar el botón seleccionado con el tema específico
     const activeBtn = document.getElementById('btn-' + id);
     if (activeBtn) {
-        // Fondo y borde del botón
-        activeBtn.classList.add(`bg-${theme.color}-50`, `border-${theme.color}-100`, 'active');
+        activeBtn.classList.add(`bg-${theme.color}-50`, `border-${theme.color}-200`, 'active');
 
-        // Indicador lateral
+        const icon = activeBtn.querySelector('.btn-icon');
+        if (icon) {
+            icon.classList.remove('bg-slate-100', 'text-slate-500');
+            // Para iconos activos, usamos el tono fuerte del tema
+            icon.classList.add(`bg-${theme.color}-100`, `text-${theme.color}-600`);
+        }
+
+        const text = activeBtn.querySelector('.btn-text');
+        if (text) {
+            text.classList.remove('text-slate-600');
+            text.classList.add(`text-${theme.color}-${theme.textShade}`, 'font-bold');
+        }
+
         const indicator = activeBtn.querySelector('.btn-indicator');
         if (indicator) {
             indicator.classList.remove('opacity-0');
-            indicator.classList.add('opacity-100', `bg-${theme.color}-${theme.shade === 500 ? 500 : 600}`);
-        }
-
-        // Icono
-        const activeIcon = activeBtn.querySelector('.btn-icon');
-        if (activeIcon) {
-            activeIcon.classList.remove('bg-slate-100', 'text-slate-500');
-            activeIcon.classList.add(`bg-${theme.color}-${theme.shade}`, 'text-white');
-        }
-
-        // Texto
-        const activeText = activeBtn.querySelector('.btn-text');
-        if (activeText) {
-            activeText.classList.add(`text-${theme.color}-${theme.textShade}`, 'font-bold');
+            indicator.classList.add('opacity-100', `bg-${theme.color}-${theme.shade}`);
         }
     }
 
-    // Scroll top
+    // Scroll al inicio del contenido
     const main = document.querySelector('main');
-    if (main) main.scrollTop = 0;
+    if (main) main.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 /**
- * Utilidad: Mostrar/Ocultar Soluciones
+ * Muestra/Oculta bloques de código de solución
  */
 function toggleSolution(id) {
     const el = document.getElementById(id);
@@ -105,50 +112,45 @@ function toggleSolution(id) {
 }
 
 /**
- * Utilidad: Validación de Quizzes
+ * Valida respuestas de los quizzes interactivos
  */
 function checkQuiz(btn, isCorrect) {
     const parent = btn.parentElement;
-    parent.querySelectorAll('.quiz-btn, .quiz-option').forEach(b => {
-        // Resetear estilos inline y clases
-        b.classList.remove('correct', 'wrong');
-        b.style.borderColor = '';
-        b.style.color = '';
-        b.style.fontWeight = '';
-        b.style.backgroundColor = '';
+
+    // Resetear estado visual de hermanos
+    parent.querySelectorAll('.quiz-btn').forEach(b => {
+        b.classList.remove('bg-green-100', 'text-green-800', 'border-green-500', 'bg-red-100', 'text-red-800', 'border-red-500');
+        // Limpiar iconos previos si existen
+        b.innerHTML = b.innerText.replace(' ✅', '').replace(' ❌', '');
     });
 
+    // Aplicar estado
     if (isCorrect) {
-        // Estilo de éxito unificado
-        btn.classList.add('correct');
-        btn.style.borderColor = '#22c55e'; // Green 500
-        btn.style.color = '#15803d';      // Green 700
-        btn.style.backgroundColor = '#dcfce7'; // Green 100
-        btn.style.fontWeight = 'bold';
+        btn.classList.add('bg-green-100', 'text-green-800', 'border-green-500');
+        btn.innerHTML += ' ✅';
     } else {
-        // Estilo de error unificado
-        btn.classList.add('wrong');
-        btn.style.borderColor = '#ef4444'; // Red 500
-        btn.style.color = '#b91c1c';      // Red 700
-        btn.style.backgroundColor = '#fee2e2'; // Red 100
+        btn.classList.add('bg-red-100', 'text-red-800', 'border-red-500');
+        btn.innerHTML += ' ❌';
     }
 }
 
 /**
- * Utilidad: Graduación (Solo Módulo 7)
+ * Evento especial para final del curso
  */
 function graduar() {
-    // Efecto de confeti simple usando alert por ahora, o integración futura
-    alert("🎉 ¡FELICIDADES! 🎉\n\nHas completado el Curso de Ingeniería Java de Nivel Élite.\nEstás listo para diseñar, construir y desplegar sistemas robustos.\n\n¡El mundo del software te espera!");
+    alert("🎓 ¡FELICIDADES! 🎓\n\nHas completado el camino del Arquitecto Java.\nEstás listo para diseñar sistemas de clase mundial.");
 }
 
-// Auto-inicialización inteligente
+// Inicialización Automática al cargar el DOM
 document.addEventListener('DOMContentLoaded', () => {
-    // Busca el primer botón de navegación disponible en el HTML actual para saber dónde empezar
+    // Detectar cuál es la primera lección disponible en este archivo HTML
     const firstBtn = document.querySelector('.nav-btn');
     if (firstBtn) {
-        // Extrae el ID del botón (ej: "btn-6" -> 6)
-        const startLessonId = firstBtn.id.replace('btn-', '');
-        showLesson(parseInt(startLessonId));
+        // Extraer ID (ej: "btn-25" -> 25)
+        const lessonId = parseInt(firstBtn.id.replace('btn-', ''));
+        // Inicializar esa lección si tiene la clase 'active' o es la primera
+        if (firstBtn.classList.contains('active') || document.querySelectorAll('.lesson-section.active').length === 0) {
+            showLesson(lessonId);
+        }
     }
 });

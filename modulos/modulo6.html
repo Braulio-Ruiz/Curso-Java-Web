@@ -4,17 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Módulo 6 | Arquitectura de Datos Elite</title>
+    <title>Módulo 6 | Arquitectura Web & Servicios</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="../assets/syle.css">
     <script src="../assets/scriptHead.js"></script>
 </head>
 
 <body
-    class="flex flex-col h-screen bg-slate-50 text-slate-800 antialiased selection:bg-emerald-500 selection:text-white overflow-hidden">
+    class="flex flex-col h-screen bg-slate-50 text-slate-800 antialiased selection:bg-cyan-500 selection:text-white overflow-hidden">
 
     <nav
         class="fixed w-full z-50 bg-slate-900/95 backdrop-blur-md border-b border-slate-700/50 text-white h-16 flex items-center justify-between px-6 shadow-lg">
@@ -26,24 +27,23 @@
             </a>
             <div class="h-6 w-px bg-slate-700 mx-2"></div>
             <div class="flex items-center gap-3">
-                <div class="bg-emerald-600/20 p-2 rounded-lg border border-emerald-500/30 text-emerald-400">
-                    <i class="fas fa-database text-lg"></i>
+                <div class="bg-cyan-600/20 p-2 rounded-lg border border-cyan-500/30 text-cyan-400">
+                    <i class="fas fa-network-wired text-lg"></i>
                 </div>
                 <div>
                     <h1 class="font-bold text-sm tracking-wide leading-none">Módulo 06</h1>
-                    <span class="text-xs text-slate-400 font-medium">Persistencia de Datos</span>
+                    <span class="text-xs text-slate-400 font-medium">Arquitectura Web & Servicios</span>
                 </div>
             </div>
         </div>
         <div class="hidden md:flex items-center gap-4">
-            <div
-                class="flex items-center gap-2 px-3 py-1.5 bg-emerald-900/30 rounded-full border border-emerald-500/20">
+            <div class="flex items-center gap-2 px-3 py-1.5 bg-cyan-900/30 rounded-full border border-cyan-500/20">
                 <span class="relative flex h-2 w-2">
                     <span
-                        class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                    <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                        class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
                 </span>
-                <span class="text-xs font-semibold text-emerald-300">Java 21 LTS</span>
+                <span class="text-xs font-semibold text-cyan-300">Java 21 LTS</span>
             </div>
         </div>
     </nav>
@@ -52,40 +52,64 @@
         <aside class="w-80 bg-white border-r border-slate-200 shadow-xl z-20 hidden md:flex flex-col">
             <div class="p-6 border-b border-slate-100 bg-slate-50/50">
                 <h3 class="text-xs font-black text-slate-400 uppercase tracking-widest mb-1">Plan de Estudio</h3>
-                <p class="text-sm text-slate-600 font-medium">3 Lecciones Críticas</p>
+                <p class="text-sm text-slate-600 font-medium">5 Lecciones Avanzadas</p>
             </div>
             <div class="flex-1 overflow-y-auto custom-scrollbar p-4 space-y-2">
                 <button onclick="showLesson(25)" id="btn-25"
-                    class="nav-btn w-full text-left px-4 py-4 rounded-xl text-sm font-medium transition-all duration-200 border border-transparent hover:bg-emerald-50 hover:border-emerald-200 group relative overflow-hidden active">
+                    class="nav-btn w-full text-left px-4 py-4 rounded-xl text-sm font-medium transition-all duration-200 border border-transparent hover:bg-slate-50 hover:border-slate-200 group relative overflow-hidden active">
                     <div class="relative z-10 flex items-center gap-3">
                         <span
                             class="flex-shrink-0 w-8 h-8 rounded-lg bg-slate-100 text-slate-500 flex items-center justify-center text-xs font-bold group-hover:bg-white group-hover:shadow-sm transition-all btn-icon">25</span>
-                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">SQL, JDBC & Security</span>
+                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">Servlets & Containers</span>
                     </div>
                     <div
-                        class="absolute left-0 top-0 bottom-0 w-1 bg-emerald-600 opacity-0 btn-indicator transition-opacity">
+                        class="absolute left-0 top-0 bottom-0 w-1 bg-cyan-500 opacity-0 btn-indicator transition-opacity">
                     </div>
                 </button>
                 <button onclick="showLesson(26)" id="btn-26"
-                    class="nav-btn w-full text-left px-4 py-4 rounded-xl text-sm font-medium transition-all duration-200 border border-transparent hover:bg-emerald-50 hover:border-emerald-200 group relative overflow-hidden">
+                    class="nav-btn w-full text-left px-4 py-4 rounded-xl text-sm font-medium transition-all duration-200 border border-transparent hover:bg-slate-50 hover:border-slate-200 group relative overflow-hidden">
                     <div class="relative z-10 flex items-center gap-3">
                         <span
                             class="flex-shrink-0 w-8 h-8 rounded-lg bg-slate-100 text-slate-500 flex items-center justify-center text-xs font-bold group-hover:bg-white group-hover:shadow-sm transition-all btn-icon">26</span>
-                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">JPA & Hibernate Core</span>
+                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">SSR Engines (Thymeleaf)</span>
                     </div>
                     <div
-                        class="absolute left-0 top-0 bottom-0 w-1 bg-emerald-600 opacity-0 btn-indicator transition-opacity">
+                        class="absolute left-0 top-0 bottom-0 w-1 bg-cyan-500 opacity-0 btn-indicator transition-opacity">
                     </div>
                 </button>
                 <button onclick="showLesson(27)" id="btn-27"
-                    class="nav-btn w-full text-left px-4 py-4 rounded-xl text-sm font-medium transition-all duration-200 border border-transparent hover:bg-emerald-50 hover:border-emerald-200 group relative overflow-hidden">
+                    class="nav-btn w-full text-left px-4 py-4 rounded-xl text-sm font-medium transition-all duration-200 border border-transparent hover:bg-slate-50 hover:border-slate-200 group relative overflow-hidden">
                     <div class="relative z-10 flex items-center gap-3">
                         <span
                             class="flex-shrink-0 w-8 h-8 rounded-lg bg-slate-100 text-slate-500 flex items-center justify-center text-xs font-bold group-hover:bg-white group-hover:shadow-sm transition-all btn-icon">27</span>
-                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">JSON & REST Architecture</span>
+                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">REST Architecture</span>
                     </div>
                     <div
-                        class="absolute left-0 top-0 bottom-0 w-1 bg-emerald-600 opacity-0 btn-indicator transition-opacity">
+                        class="absolute left-0 top-0 bottom-0 w-1 bg-cyan-500 opacity-0 btn-indicator transition-opacity">
+                    </div>
+                </button>
+                <button onclick="showLesson(28)" id="btn-28"
+                    class="nav-btn w-full text-left px-4 py-4 rounded-xl text-sm font-medium transition-all duration-200 border border-transparent hover:bg-slate-50 hover:border-slate-200 group relative overflow-hidden">
+                    <div class="relative z-10 flex items-center gap-3">
+                        <span
+                            class="flex-shrink-0 w-8 h-8 rounded-lg bg-slate-100 text-slate-500 flex items-center justify-center text-xs font-bold group-hover:bg-white group-hover:shadow-sm transition-all btn-icon">28</span>
+                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">SOAP & Enterprise
+                            Integration</span>
+                    </div>
+                    <div
+                        class="absolute left-0 top-0 bottom-0 w-1 bg-cyan-500 opacity-0 btn-indicator transition-opacity">
+                    </div>
+                </button>
+                <button onclick="showLesson(29)" id="btn-29"
+                    class="nav-btn w-full text-left px-4 py-4 rounded-xl text-sm font-medium transition-all duration-200 border border-transparent hover:bg-slate-50 hover:border-slate-200 group relative overflow-hidden">
+                    <div class="relative z-10 flex items-center gap-3">
+                        <span
+                            class="flex-shrink-0 w-8 h-8 rounded-lg bg-slate-100 text-slate-500 flex items-center justify-center text-xs font-bold group-hover:bg-white group-hover:shadow-sm transition-all btn-icon">29</span>
+                        <span class="text-slate-600 group-hover:text-slate-900 btn-text">Modern HTTP Clients &
+                            Async</span>
+                    </div>
+                    <div
+                        class="absolute left-0 top-0 bottom-0 w-1 bg-cyan-500 opacity-0 btn-indicator transition-opacity">
                     </div>
                 </button>
             </div>
@@ -94,294 +118,306 @@
         <main class="flex-1 overflow-y-auto relative bg-slate-50 scroll-smooth">
             <div class="max-w-5xl mx-auto px-8 py-12 relative z-10">
 
+                <!-- LECCIÓN 25 -->
                 <div id="lesson-25" class="lesson-section active animate-fade-in-up lesson-content">
                     <div class="mb-8 border-b border-slate-200 pb-6">
                         <div class="flex items-center gap-3 mb-2">
                             <span
-                                class="px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 text-xs font-bold uppercase tracking-wider">Lección
+                                class="px-3 py-1 rounded-full bg-cyan-100 text-cyan-700 text-xs font-bold uppercase tracking-wider">Lección
                                 25</span>
                             <span class="text-slate-400 text-sm font-medium"><i class="far fa-clock mr-1"></i> 40
                                 min</span>
                         </div>
-                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">SQL Nativo, JDBC
-                            y Seguridad</h1>
+                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">Servlets y el
+                            Servlet Container Internals</h1>
                     </div>
 
-                    <div
-                        class="bg-white rounded-2xl p-8 shadow-lg shadow-emerald-900/5 border-l-4 border-emerald-600 mb-10">
-                        <h3 class="!mt-0 text-xl font-bold text-slate-800 mb-4 flex items-center gap-2"><i
-                                class="fas fa-bullseye text-emerald-600"></i> Objetivos Senior</h3>
+                    <div class="bg-white rounded-2xl p-8 shadow-lg shadow-cyan-900/5 border-l-4 border-cyan-500 mb-10">
+                        <h3 class="!mt-0 text-xl font-bold text-slate-800 mb-4 flex items-center gap-2">
+                            <i class="fas fa-bullseye text-cyan-600"></i> Objetivos Senior
+                        </h3>
                         <ul class="list-disc list-inside text-slate-600 text-sm space-y-2">
-                            <li><strong>Connection Pooling:</strong> Por qué HikariCP es superior a
-                                <code>DriverManager</code>.
+                            <li>Entender qué hace realmente Tomcat/Jetty: <strong>El Ciclo de Vida del Servlet</strong>.
                             </li>
-                            <li><strong>SQL Injection:</strong> Anatomía de un ataque y prevención con
-                                <code>PreparedStatement</code>.
-                            </li>
-                            <li><strong>Transacciones ACID:</strong> Commit, Rollback y niveles de aislamiento.</li>
+                            <li>El modelo <strong>Thread-Per-Request</strong> y su impacto en la escalabilidad.</li>
+                            <li>Arquitectura bajo el capó: <code>HttpServletRequest</code> sobre Sockets TCP.</li>
                         </ul>
                     </div>
 
-                    <h2>1. El Puente de Datos (JDBC Driver)</h2>
-                    <p class="text-slate-600 mb-6">JDBC (Java Database Connectivity) es la especificación de bajo nivel.
-                        El <strong>Driver</strong> actúa como un traductor universal que convierte llamadas Java en el
-                        protocolo binario nativo de la base de datos (PostgreSQL Wire Protocol, MySQL Protocol, etc.).
-                    </p>
-                    <p class="text-slate-600 mb-6">Abrir una conexión TCP es costoso (3-way handshake). En producción,
-                        NUNCA uses <code>DriverManager.getConnection()</code> directamente para cada petición. Usa un
-                        <strong>Pool de Conexiones</strong> (como HikariCP) que mantiene conexiones vivas listas para
-                        reusar.
-                    </p>
 
-                    <h3 class="text-xl font-bold text-slate-800 mt-8 mb-4">2. SQL Injection: El Enemigo #1</h3>
-                    <div class="bg-red-50 border-l-4 border-red-500 p-6 rounded-r-xl mb-8">
-                        <h4 class="font-bold text-red-800 mb-1"><i class="fas fa-shield-alt mr-2"></i>Vulnerabilidad
-                            Crítica</h4>
-                        <p class="text-red-700 text-sm mb-2">Si concatenas Strings:
-                            <code>"SELECT * FROM users WHERE name = '" + name + "'"</code>, un atacante puede ingresar
-                            <code>' OR '1'='1</code> y acceder a todos los registros o borrar la tabla
-                            (<code>DROP TABLE</code>).
+
+                    <h2>1. El Motor de la Web Java: Servlet Container</h2>
+                    <p class="text-slate-600 mb-6">Spring Boot no es magia; corre sobre Servlets. Un <strong>Servlet
+                            Container</strong> (como Apache Tomcat) es una aplicación Java que escucha en un puerto (ej.
+                        8080).
+                        <br>Cuando llega una petición HTTP:
+                    </p>
+                    <ol class="list-decimal list-inside text-slate-600 ml-4 mb-4">
+                        <li>El contenedor acepta la conexión TCP.</li>
+                        <li>Asigna un <strong>Hilo de Trabajo (Worker Thread)</strong> de su pool interno.</li>
+                        <li>Convierte los bytes crudos del socket en objetos <code>HttpServletRequest</code> y
+                            <code>HttpServletResponse</code>.
+                        </li>
+                        <li>Invoca el método <code>service()</code> de tu Servlet (que delega en <code>doGet</code>,
+                            <code>doPost</code>, etc.).
+                        </li>
+                    </ol>
+
+                    <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-r-xl mb-8">
+                        <h4 class="font-bold text-yellow-800 mb-1">¡Cuidado con el Estado!</h4>
+                        <p class="text-yellow-800 text-sm">
+                            Los Servlets son <strong>Singletons</strong>. Solo existe una instancia de tu clase Servlet
+                            en memoria, compartida por millones de peticiones concurrentes.
+                            <br><strong>Regla de Oro:</strong> NUNCA uses variables de instancia (campos de clase) para
+                            guardar datos de la petición (como usuario o carrito). Eso causará condiciones de carrera
+                            catastróficas. Usa variables locales o el objeto <code>request</code>.
                         </p>
-                        <p class="text-red-800 font-bold text-sm">Solución: SIEMPRE usa <code>PreparedStatement</code>.
-                            Esto envía la plantilla SQL y los datos por separado al motor de base de datos, tratando los
-                            inputs como literales puros, nunca como código ejecutable.</p>
-                    </div>
-
-                    <div class="code-window bg-[#1e1e1e] mb-8">
-                        <div class="flex items-center gap-2 px-4 py-2 border-b border-slate-700 bg-slate-800/50">
-                            <span class="text-xs text-slate-400 font-mono ml-2">SecureDAO.java</span>
-                        </div>
-                        <pre><code class="language-java">public class UsuarioDAO {
-    // 1. Consulta parametrizada (Placeholders '?')
-    private static final String SQL_INSERT = "INSERT INTO usuarios (nombre, email) VALUES (?, ?)";
-
-    public void guardar(Usuario u) {
-        // 2. Try-with-resources cierra Connection y Statement automáticamente
-        try (Connection conn = DataSource.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(SQL_INSERT)) {
-            
-            // 3. Asignación segura de tipos (Setters)
-            stmt.setString(1, u.getNombre());
-            stmt.setString(2, u.getEmail());
-            
-            stmt.executeUpdate(); // Ejecuta
-        } catch (SQLException e) {
-            throw new DataAccessException("Error guardando usuario", e);
-        }
-    }
-}</code></pre>
                     </div>
 
                     <h2 class="text-slate-900 mt-12 mb-6 border-none"><i
-                            class="fas fa-dumbbell text-emerald-600 mr-2"></i>Training Ground</h2>
+                            class="fas fa-dumbbell text-cyan-600 mr-2"></i>Training Ground</h2>
 
                     <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-green-500">
                         <span class="text-xs font-bold text-green-600 uppercase mb-2 block">🟢 Nivel Básico</span>
-                        <h4 class="font-bold text-slate-800">Conexión Segura</h4>
-                        <p class="text-sm text-slate-600 mb-4">Escribe un método que se conecte a una base de datos H2
-                            en memoria y cree una tabla <code>productos</code> usando <code>Statement</code>.</p>
-                    </div>
-
-                    <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-yellow-500">
-                        <span class="text-xs font-bold text-yellow-600 uppercase mb-2 block">🟡 Nivel Intermedio</span>
-                        <h4 class="font-bold text-slate-800">Lectura Mapeada (ResultSet)</h4>
-                        <p class="text-sm text-slate-600 mb-4">Ejecuta un <code>SELECT * FROM productos</code>. Itera
-                            sobre el <code>ResultSet</code> y mapea cada fila a un objeto Java <code>Producto</code>.
-                            Devuelve una <code>List&lt;Producto&gt;</code>.</p>
+                        <h4 class="font-bold text-slate-800">Hello World "Bare Metal"</h4>
+                        <p class="text-sm text-slate-600 mb-4">Crea un Servlet sin Spring. Extiende
+                            <code>HttpServlet</code>, anota con <code>@WebServlet("/hola")</code> e implementa
+                            <code>doGet</code> escribiendo HTML crudo en el <code>PrintWriter</code>.
+                        </p>
                     </div>
 
                     <div class="mb-8 p-6 bg-slate-900 rounded-xl border border-slate-700 text-white">
-                        <span class="text-xs font-bold text-emerald-500 uppercase mb-2 block">🔴 Nivel Avanzado</span>
-                        <h4 class="font-bold text-white">Transacción Bancaria (ACID)</h4>
-                        <p class="text-sm text-slate-400 mb-4">Implementa una transferencia de dinero atómica. Debes
-                            restar de la cuenta A y sumar a la cuenta B. Si la suma falla, la resta debe revertirse
-                            (Rollback). Usa <code>conn.setAutoCommit(false)</code>.</p>
+                        <span class="text-xs font-bold text-red-500 uppercase mb-2 block">🔴 Nivel Avanzado</span>
+                        <h4 class="font-bold text-white">Simulación del Front Controller</h4>
+                        <p class="text-sm text-slate-400 mb-4">Spring MVC usa un único Servlet
+                            (<code>DispatcherServlet</code>) para todo. Implementa tu propio "Mini-Spring": Un solo
+                            Servlet que reciba todas las peticiones (<code>/*</code>), analice la URL
+                            (<code>request.getRequestURI()</code>) y use reflexión para invocar métodos en otras clases
+                            "Controller".</p>
                         <button onclick="toggleSolution('sol-25')"
-                            class="text-xs bg-emerald-600 hover:bg-emerald-500 text-white px-3 py-1 rounded transition">Ver
+                            class="text-xs bg-cyan-600 hover:bg-cyan-500 text-white px-3 py-1 rounded transition">Ver
                             Solución</button>
                         <div id="sol-25" class="hidden mt-4 pt-4 border-t border-slate-700">
-                            <pre><code class="language-java">try (Connection conn = ds.getConnection()) {
-    conn.setAutoCommit(false); // Inicio de la Transacción
-    try {
-        debitar(conn, idOrigen, monto);
-        acreditar(conn, idDestino, monto);
-        conn.commit(); // Confirmar cambios (Todo o nada)
-    } catch (Exception e) {
-        conn.rollback(); // Deshacer cambios si hay error
-        throw e;
+                            <pre><code class="language-java">@WebServlet("/*")
+public class FrontController extends HttpServlet {
+    protected void service(HttpServletRequest req, HttpServletResponse resp) {
+        String path = req.getRequestURI();
+        if (path.equals("/users")) {
+            new UserController().listar(req, resp);
+        } else if (path.equals("/products")) {
+            new ProductController().ver(req, resp);
+        } else {
+            resp.sendError(404);
+        }
     }
 }</code></pre>
-                        </div>
-                    </div>
-
-                    <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
-                        <h3 class="font-bold text-slate-800 mb-6">Quiz de Validación</h3>
-                        <div class="space-y-4">
-                            <div>
-                                <p class="text-sm font-semibold mb-2">1. ¿Qué objeto JDBC previene la Inyección SQL?</p>
-                                <div class="grid grid-cols-2 gap-2">
-                                    <button class="quiz-btn border p-2 rounded text-sm hover:bg-slate-50"
-                                        onclick="checkQuiz(this, false)">Statement</button>
-                                    <button class="quiz-btn border p-2 rounded text-sm hover:bg-slate-50"
-                                        onclick="checkQuiz(this, true)">PreparedStatement</button>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
 
+                <!-- LECCIÓN 26 -->
                 <div id="lesson-26" class="lesson-section hidden animate-fade-in-up lesson-content">
                     <div class="mb-8 border-b border-slate-200 pb-6">
                         <div class="flex items-center gap-3 mb-2">
                             <span
-                                class="px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 text-xs font-bold uppercase tracking-wider">Lección
+                                class="px-3 py-1 rounded-full bg-cyan-100 text-cyan-700 text-xs font-bold uppercase tracking-wider">Lección
                                 26</span>
                         </div>
-                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">JPA y Hibernate:
-                            ORM Avanzado</h1>
+                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">Motores de
+                            Plantillas: Thymeleaf & Server-Side Rendering (SSR)</h1>
                     </div>
 
-                    <div
-                        class="bg-white rounded-2xl p-8 shadow-lg shadow-emerald-900/5 border-l-4 border-emerald-600 mb-10">
-                        <p class="text-slate-600">Escribir SQL a mano es tedioso. <strong>JPA (Java Persistence
-                                API)</strong> es el estándar para mapear objetos Java a tablas relacionales. Hibernate
-                            es el motor (provider) más robusto. Entender el "Entity Lifecycle" es crucial para evitar
-                            bugs de persistencia.</p>
-                    </div>
+                    <p class="text-slate-600 mb-6">Aunque las SPAs (React/Angular) dominan, el <strong>SSR (Server-Side
+                            Rendering)</strong> sigue siendo vital para emails transaccionales, generación de PDFs y SEO
+                        crítico. Thymeleaf es el estándar moderno en Java.</p>
 
-
-
-                    <h2>1. Ciclo de Vida de una Entidad</h2>
-                    <p class="text-slate-600 mb-6">Una entidad JPA no es un simple objeto. Puede estar en 4 estados
-                        gestionados por el <code>EntityManager</code> (Persistence Context):</p>
-                    <ul class="list-disc list-inside text-slate-600 ml-4 mb-4">
-                        <li><strong>Transient:</strong> Objeto nuevo, no asociado a DB.</li>
-                        <li><strong>Managed:</strong> Asociado a la sesión actual. Cambios se sincronizan
-                            automáticamente.</li>
-                        <li><strong>Detached:</strong> Sesión cerrada. Cambios no se guardan.</li>
-                        <li><strong>Removed:</strong> Marcado para eliminar.</li>
-                    </ul>
-
-                    <h3 class="text-xl font-bold text-slate-800 mt-8 mb-4">2. Dirty Checking (Optimización)</h3>
-                    <p class="text-slate-600 mb-4">Si una entidad está en estado <strong>Managed</strong>, no necesitas
-                        llamar a <code>save()</code> o <code>update()</code> explícitamente. Hibernate detecta
-                        automáticamente si modificaste algún atributo al hacer commit de la transacción y lanza el
-                        <code>UPDATE</code> SQL necesario. Esto minimiza las consultas innecesarias.
+                    <h3 class="text-xl font-bold text-slate-800 mt-8 mb-4">Natural Templates & Context</h3>
+                    <p class="text-slate-600 mb-4">A diferencia de JSP (que compila a Servlets Java), Thymeleaf es un
+                        parseador de XML/HTML que funciona en el navegador.
+                        <br><strong>El Contexto:</strong> El servidor crea un mapa de variables (<code>Context</code>).
+                        El motor recorre el DOM del HTML y sustituye los atributos <code>th:text</code> con los valores
+                        del contexto.
                     </p>
 
+                    <div class="code-window bg-[#1e1e1e] mb-8 p-4 rounded-lg overflow-x-auto">
+                        <pre><code class="language-html">&lt;!-- Natural Template: Se ve bien incluso abriendo el archivo en Chrome sin servidor --&gt;
+&lt;h1 th:text="${usuario.nombre}"&gt;Nombre Placeholder&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li th:each="item : ${items}" th:text="${item.descripcion}"&gt;Item 1&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+                    </div>
+
                     <h2 class="text-slate-900 mt-12 mb-6 border-none"><i
-                            class="fas fa-dumbbell text-emerald-600 mr-2"></i>Training Ground</h2>
+                            class="fas fa-dumbbell text-cyan-600 mr-2"></i>Training Ground</h2>
 
                     <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-green-500">
                         <span class="text-xs font-bold text-green-600 uppercase mb-2 block">🟢 Nivel Básico</span>
-                        <h4 class="font-bold text-slate-800">Mapeo de Entidad</h4>
-                        <p class="text-sm text-slate-600 mb-4">Crea una clase <code>Estudiante</code>. Anótala con
-                            <code>@Entity</code>, define una clave primaria con <code>@Id</code> y
-                            <code>@GeneratedValue(strategy = GenerationType.IDENTITY)</code>.
-                        </p>
+                        <h4 class="font-bold text-slate-800">Renderizado Condicional</h4>
+                        <p class="text-sm text-slate-600 mb-4">Usa <code>th:if</code> y <code>th:unless</code> para
+                            mostrar un mensaje de "Bienvenido, Admin" solo si el objeto usuario tiene el rol adecuado, y
+                            "Hola Usuario" en caso contrario.</p>
                     </div>
 
                     <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-yellow-500">
                         <span class="text-xs font-bold text-yellow-600 uppercase mb-2 block">🟡 Nivel Intermedio</span>
-                        <h4 class="font-bold text-slate-800">Relaciones 1:N</h4>
-                        <p class="text-sm text-slate-600 mb-4">Modela la relación: Un <code>Autor</code> tiene muchos
-                            <code>Libros</code>. Usa <code>@OneToMany(mappedBy="autor")</code> en el lado del Autor y
-                            <code>@ManyToOne</code> en el lado del Libro. Configura <code>FetchType.LAZY</code> para
-                            evitar cargar toda la base de datos en memoria.
+                        <h4 class="font-bold text-slate-800">Fragments & Layouts</h4>
+                        <p class="text-sm text-slate-600 mb-4">No copies y pegues el menú de navegación. Crea un archivo
+                            <code>layout.html</code> con fragmentos (<code>th:fragment</code>) e inclúyelos en tus
+                            páginas (<code>th:replace</code>). Esto es reutilización de código a nivel de vista.
                         </p>
-                    </div>
-
-                    <div class="mb-8 p-6 bg-slate-900 rounded-xl border border-slate-700 text-white">
-                        <span class="text-xs font-bold text-emerald-500 uppercase mb-2 block">🔴 Nivel Avanzado</span>
-                        <h4 class="font-bold text-white">Solución al LazyInitializationException</h4>
-                        <p class="text-sm text-slate-400 mb-4">El error más común en JPA: intentar acceder a una
-                            colección LAZY fuera de la transacción. Soluciónalo usando una consulta <strong>JOIN
-                                FETCH</strong> en JPQL para cargar los datos en una sola query optimizada.</p>
-                        <button onclick="toggleSolution('sol-26')"
-                            class="text-xs bg-emerald-600 hover:bg-emerald-500 text-white px-3 py-1 rounded transition">Ver
-                            Solución</button>
-                        <div id="sol-26" class="hidden mt-4 pt-4 border-t border-slate-700">
-                            <pre><code class="language-java">// JPQL Optimizado: Trae el Autor Y sus Libros en una sola query
-String jpql = "SELECT a FROM Autor a JOIN FETCH a.libros WHERE a.id = :id";
-
-Autor autor = entityManager.createQuery(jpql, Autor.class)
-    .setParameter("id", 1L)
-    .getSingleResult();
-
-// Ahora es seguro acceder a .getLibros() incluso si se cierra el EntityManager
-System.out.println(autor.getLibros().size());</code></pre>
-                        </div>
                     </div>
                 </div>
 
+                <!-- LECCIÓN 27 -->
                 <div id="lesson-27" class="lesson-section hidden animate-fade-in-up lesson-content">
                     <div class="mb-8 border-b border-slate-200 pb-6">
                         <div class="flex items-center gap-3 mb-2">
                             <span
-                                class="px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 text-xs font-bold uppercase tracking-wider">Lección
+                                class="px-3 py-1 rounded-full bg-cyan-100 text-cyan-700 text-xs font-bold uppercase tracking-wider">Lección
                                 27</span>
                         </div>
-                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">Arquitectura REST
-                            & Serialización JSON</h1>
+                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">Arquitectura
+                            REST: Protocolo HTTP y JSON Internals</h1>
                     </div>
 
-                    <p class="text-slate-600 mb-6">En la arquitectura moderna, el backend expone datos, no HTML. El
-                        formato de intercambio universal es <strong>JSON</strong>. En Java, la librería estándar de
-                        facto para esto es <strong>Jackson</strong>.</p>
-
-                    <h3 class="text-xl font-bold text-slate-800 mt-8 mb-4">El Patrón DTO (Data Transfer Object)</h3>
-                    <div class="bg-red-50 border border-red-200 rounded-xl p-6 mb-8">
-                        <h4 class="font-bold text-red-800 mb-2">🛑 Anti-Patrón: Exponer Entidades</h4>
-                        <p class="text-sm text-red-800">Nunca devuelvas tus entidades JPA (<code>@Entity</code>)
-                            directamente en un controlador REST. Esto acopla tu API a tu base de datos (Security Leak),
-                            puede exponer datos sensibles (password) y causar errores de recursión infinita en JSON. Usa
-                            siempre <strong>DTOs</strong> (preferiblemente Java Records) para definir el contrato de la
-                            API.</p>
+                    <div class="bg-white rounded-2xl p-8 shadow-lg shadow-cyan-900/5 border-l-4 border-cyan-500 mb-10">
+                        <p class="text-slate-600">REST no es solo retornar JSON. Es un estilo arquitectónico basado en
+                            recursos. Entenderemos la semántica HTTP, los códigos de estado y cómo Jackson serializa
+                            objetos usando Reflexión.</p>
                     </div>
+
+
+
+                    <h2>1. Serialización: El Costo de Jackson</h2>
+                    <p class="text-slate-600 mb-6">Cuando tu controlador retorna un objeto <code>User</code>, Spring usa
+                        la librería <strong>Jackson</strong> para convertirlo a texto JSON.
+                        <br><strong>Internals:</strong> Jackson usa Reflexión (Reflection API) para inspeccionar los
+                        "Getters" de tu clase.
+                        <br><strong>Optimización:</strong> Evita "Entity Exposure". No retornes tus entidades JPA (base
+                        de datos) directamente. Crea <strong>DTOs (Data Transfer Objects)</strong> planos para controlar
+                        exactamente qué JSON se envía y evitar problemas de Lazy Loading o recursividad infinita.
+                    </p>
 
                     <h2 class="text-slate-900 mt-12 mb-6 border-none"><i
-                            class="fas fa-dumbbell text-emerald-600 mr-2"></i>Training Ground</h2>
+                            class="fas fa-dumbbell text-cyan-600 mr-2"></i>Training Ground</h2>
 
                     <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-green-500">
                         <span class="text-xs font-bold text-green-600 uppercase mb-2 block">🟢 Nivel Básico</span>
-                        <h4 class="font-bold text-slate-800">Serialización Simple con Jackson</h4>
-                        <p class="text-sm text-slate-600 mb-4">Crea un Record
-                            <code>UsuarioDTO(String nombre, String email)</code>. Usa la clase <code>ObjectMapper</code>
-                            para convertir una instancia a un String JSON.
-                        </p>
-                    </div>
-
-                    <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-yellow-500">
-                        <span class="text-xs font-bold text-yellow-600 uppercase mb-2 block">🟡 Nivel Intermedio</span>
-                        <h4 class="font-bold text-slate-800">Control de Visibilidad</h4>
-                        <p class="text-sm text-slate-600 mb-4">Añade un campo <code>password</code> a tu clase. Usa la
-                            anotación <code>@JsonIgnore</code> para asegurar que Jackson nunca incluya este campo en el
-                            JSON generado.</p>
+                        <h4 class="font-bold text-slate-800">Semántica de Verbos</h4>
+                        <p class="text-sm text-slate-600 mb-4">Diseña una API para "Libros". Usa correctamente GET
+                            (lectura), POST (creación, no idempotente), PUT (reemplazo total, idempotente) y DELETE.</p>
                     </div>
 
                     <div class="mb-8 p-6 bg-slate-900 rounded-xl border border-slate-700 text-white">
-                        <span class="text-xs font-bold text-emerald-500 uppercase mb-2 block">🔴 Nivel Avanzado</span>
-                        <h4 class="font-bold text-white">Polimorfismo en JSON</h4>
-                        <p class="text-sm text-slate-400 mb-4">Tienes una lista heterogénea de <code>Animal</code>
-                            (Perro, Gato). Configura Jackson con <code>@JsonTypeInfo</code> y <code>@JsonSubTypes</code>
-                            para que al recibir un JSON, sepa instanciar automáticamente la subclase correcta basándose
-                            en un campo discriminador "tipo".</p>
+                        <span class="text-xs font-bold text-red-500 uppercase mb-2 block">🔴 Nivel Avanzado</span>
+                        <h4 class="font-bold text-white">Content Negotiation</h4>
+                        <p class="text-sm text-slate-400 mb-4">Implementa un endpoint que pueda retornar JSON o XML
+                            dependiendo del header <code>Accept</code> que envíe el cliente. Configura Jackson XML
+                            support en tu proyecto.</p>
                         <button onclick="toggleSolution('sol-27')"
-                            class="text-xs bg-emerald-600 hover:bg-emerald-500 text-white px-3 py-1 rounded transition">Ver
+                            class="text-xs bg-cyan-600 hover:bg-cyan-500 text-white px-3 py-1 rounded transition">Ver
                             Solución</button>
                         <div id="sol-27" class="hidden mt-4 pt-4 border-t border-slate-700">
-                            <pre><code class="language-java">@JsonTypeInfo(
-  use = JsonTypeInfo.Id.NAME, 
-  include = JsonTypeInfo.As.PROPERTY, 
-  property = "tipo"
-)
-@JsonSubTypes({
-  @Type(value = Perro.class, name = "dog"),
-  @Type(value = Gato.class, name = "cat")
+                            <pre><code class="language-java">@GetMapping(value = "/datos", produces = { 
+    MediaType.APPLICATION_JSON_VALUE, 
+    MediaType.APPLICATION_XML_VALUE 
 })
-public abstract class Animal { ... }
+public ResponseEntity<DatoDTO> obtenerDatos() {
+    // Spring elegirá el formato según el header 'Accept' del cliente
+    return ResponseEntity.ok(new DatoDTO("info"));
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
 
-// Un JSON { "tipo": "dog", "raza": "Labrador" } creará un objeto Perro.</code></pre>
+                <!-- LECCIÓN 28 -->
+                <div id="lesson-28" class="lesson-section hidden animate-fade-in-up lesson-content">
+                    <div class="mb-8 border-b border-slate-200 pb-6">
+                        <div class="flex items-center gap-3 mb-2">
+                            <span
+                                class="px-3 py-1 rounded-full bg-cyan-100 text-cyan-700 text-xs font-bold uppercase tracking-wider">Lección
+                                28</span>
+                        </div>
+                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">SOAP & Enterprise
+                            Integration: Contratos Estrictos</h1>
+                    </div>
+
+                    <p class="text-slate-600 mb-6">Mientras REST es flexible, <strong>SOAP (Simple Object Access
+                            Protocol)</strong> es estricto. Se usa en banca y gobierno por su capacidad de definir
+                        contratos formales (WSDL) y transacciones ACID distribuidas.</p>
+
+                    <h3 class="text-xl font-bold text-slate-800 mt-8 mb-4">XML y WSDL</h3>
+                    <p class="text-slate-600 mb-4">El WSDL (Web Services Description Language) es el contrato. Define
+                        exactamente qué métodos existen, qué tipos de datos aceptan y qué retornan.
+                        <br><strong>JAX-WS:</strong> Es la especificación de Java para SOAP. Permite generar clases Java
+                        automáticamente a partir de un WSDL (Top-Down) o generar el WSDL desde clases Java (Bottom-Up).
+                    </p>
+
+                    <h2 class="text-slate-900 mt-12 mb-6 border-none"><i
+                            class="fas fa-dumbbell text-cyan-600 mr-2"></i>Training Ground</h2>
+
+                    <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-yellow-500">
+                        <span class="text-xs font-bold text-yellow-600 uppercase mb-2 block">🟡 Nivel Intermedio</span>
+                        <h4 class="font-bold text-slate-800">Generación de Clientes (wsimport)</h4>
+                        <p class="text-sm text-slate-600 mb-4">Usa la herramienta <code>wsimport</code> del JDK para
+                            generar el código cliente de un servicio SOAP público (ej: conversor de divisas o
+                            calculadora). Observa la cantidad de código "boilerplate" generado para manejar el XML.</p>
+                    </div>
+                </div>
+
+                <!-- LECCIÓN 29 -->
+                <div id="lesson-29" class="lesson-section hidden animate-fade-in-up lesson-content">
+                    <div class="mb-8 border-b border-slate-200 pb-6">
+                        <div class="flex items-center gap-3 mb-2">
+                            <span
+                                class="px-3 py-1 rounded-full bg-cyan-100 text-cyan-700 text-xs font-bold uppercase tracking-wider">Lección
+                                29</span>
+                        </div>
+                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">Modern HTTP
+                            Clients & Async Programming</h1>
+                    </div>
+
+                    <p class="text-slate-600 mb-6">Java ha evolucionado. El viejo <code>HttpURLConnection</code> es
+                        difícil de usar y bloqueante. Desde Java 11, tenemos el moderno
+                        <strong><code>HttpClient</code></strong>.
+                    </p>
+
+                    <h3 class="text-xl font-bold text-slate-800 mt-8 mb-4">Síncrono vs Asíncrono</h3>
+                    <p class="text-slate-600 mb-4">
+                        <strong>Bloqueante (Synchronous):</strong> El hilo se detiene esperando la respuesta del
+                        servidor. Ineficiente si haces muchas llamadas.
+                        <br><strong>No Bloqueante (Asynchronous):</strong> El hilo envía la petición y sigue trabajando.
+                        Cuando llega la respuesta, se ejecuta un "Callback" (usando <code>CompletableFuture</code>).
+                        Esto es vital para clientes de escritorio (Swing) para no congelar la interfaz (EDT).
+                    </p>
+
+                    <div class="code-window bg-[#1e1e1e] mb-8 p-4 rounded-lg overflow-x-auto">
+                        <pre><code class="language-java">// Cliente Moderno (Java 11+)
+HttpClient client = HttpClient.newHttpClient();
+HttpRequest request = HttpRequest.newBuilder()
+    .uri(URI.create("https://api.github.com/users/octocat"))
+    .build();
+
+// Llamada asíncrona: No bloquea el hilo principal
+client.sendAsync(request, BodyHandlers.ofString())
+    .thenApply(HttpResponse::body)
+    .thenAccept(System.out::println)
+    .join(); // Esperar al final (solo para demo)</code></pre>
+                    </div>
+
+                    <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 mt-8">
+                        <h3 class="font-bold text-slate-800 mb-6">Quiz de Validación</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <p class="text-sm font-semibold mb-2">1. ¿Qué hilo maneja la interfaz gráfica en Swing?
+                                </p>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <button class="quiz-btn border p-2 rounded text-sm hover:bg-slate-50"
+                                        onclick="checkQuiz(this, false)">Main Thread</button>
+                                    <button class="quiz-btn border p-2 rounded text-sm hover:bg-slate-50"
+                                        onclick="checkQuiz(this, true)">Event Dispatch Thread (EDT)</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -389,7 +425,7 @@ public abstract class Animal { ... }
             </div>
 
             <footer class="mt-20 py-8 text-center text-slate-400 text-sm border-t border-slate-200">
-                <p>&copy; 2025 Java Elite Bootcamp. Arquitectura de Datos y Backend.</p>
+                <p>&copy; 2025 Java Elite Bootcamp. Arquitectura Web & Servicios.</p>
             </footer>
         </main>
     </div>
