@@ -8,20 +8,9 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
-
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: { sans: ['Inter', 'sans-serif'], },
-                    animation: { 'fade-in-up': 'fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards', },
-                    keyframes: { fadeInUp: { '0%': { opacity: '0', transform: 'translateY(20px)' }, '100%': { opacity: '1', transform: 'translateY(0)' }, }, }
-                }
-            }
-        }
-    </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" rel="stylesheet" />
+    <script src="../assets/scriptHead.js"></script>
 </head>
 
 <body
@@ -159,13 +148,15 @@
                     <p>Al ejecutar <code>new Usuario()</code>, la JVM realiza una operación compleja descrita en la JLS
                         §12.5. Primero, verifica si la clase <code>Usuario</code> está cargada en el
                         <strong>Metaspace</strong> (memoria nativa fuera del Heap donde residen los metadatos de las
-                        clases). Si no, el <em>ClassLoader</em> la carga.</p>
+                        clases). Si no, el <em>ClassLoader</em> la carga.
+                    </p>
 
                     <p>Posteriormente, se reserva espacio en el <strong>Heap</strong>. Un objeto Java no son solo sus
                         datos. Cada objeto tiene una cabecera (Header) de 12-16 bytes que contiene:</p>
                     <ul class="list-disc list-inside text-slate-600 ml-4 mb-4">
                         <li><strong>Mark Word:</strong> Contiene el hashcode, bits de bloqueo (para
-                            <code>synchronized</code>) y bits para el Garbage Collector (GC Age).</li>
+                            <code>synchronized</code>) y bits para el Garbage Collector (GC Age).
+                        </li>
                         <li><strong>Klass Pointer:</strong> Un puntero comprimido que indica a qué clase pertenece este
                             objeto en el Metaspace.</li>
                     </ul>
@@ -222,7 +213,8 @@
                         <h4 class="font-bold text-white mb-2">Reference Aliasing y Mutabilidad</h4>
                         <p class="text-sm text-slate-400 mb-4">Demuestra el peligro de compartir referencias. Crea
                             <code>v1</code>. Asigna <code>v2 = v1</code>. Modifica el estado interno de <code>v2</code>
-                            y demuestra que <code>v1</code> ha sido "corrompido" sin tocarlo directamente.</p>
+                            y demuestra que <code>v1</code> ha sido "corrompido" sin tocarlo directamente.
+                        </p>
                         <button onclick="toggleSolution('sol-6')"
                             class="text-xs bg-purple-600 hover:bg-purple-500 text-white px-3 py-1 rounded transition">Ver
                             Solución</button>
@@ -335,7 +327,8 @@ try {
                         <p class="text-sm text-slate-400 mb-4">Diseña una clase <code>PuntoGPS</code> inmutable. Usa
                             <code>final</code> en todos los campos. Según la JLS §17.5, los campos finales tienen una
                             semántica de memoria especial (Freeze Action) que garantiza que otros hilos vean los valores
-                            correctamente inicializados sin necesidad de sincronización explícita.</p>
+                            correctamente inicializados sin necesidad de sincronización explícita.
+                        </p>
                         <button onclick="toggleSolution('sol-7')"
                             class="text-xs bg-purple-600 hover:bg-purple-500 text-white px-3 py-1 rounded transition">Ver
                             Solución</button>
@@ -385,12 +378,14 @@ try {
                         </h3>
                         <p class="text-slate-600 mb-4">El polimorfismo no es magia; es una estructura de datos. Cuando
                             llamas a <code>animal.hacerSonido()</code>, el compilador emite la instrucción de bytecode
-                            <code>invokevirtual</code>.</p>
+                            <code>invokevirtual</code>.
+                        </p>
                         <p class="text-slate-600">En <strong>Runtime</strong>, la JVM no sabe qué método ejecutar hasta
                             que mira la cabecera del objeto en el Heap. Allí encuentra un puntero a la
                             <strong>vtable</strong> de la clase concreta, busca el índice del método y salta a la
                             dirección de memoria del código ejecutable. Esto se llama <strong>Late Binding</strong> o
-                            Despacho Dinámico.</p>
+                            Despacho Dinámico.
+                        </p>
 
                     </div>
 
@@ -514,7 +509,8 @@ for (Empleado e : nomina) {
                         <p class="text-sm text-slate-600 mb-4">Implementa dos interfaces que tengan un método
                             <code>default</code> con el mismo nombre. Resuelve el conflicto del "Diamond Problem"
                             sobrescribiendo el método en la clase concreta y eligiendo cuál llamar
-                            (<code>InterfazA.super.metodo()</code>).</p>
+                            (<code>InterfazA.super.metodo()</code>).
+                        </p>
                     </div>
 
                     <div
@@ -606,7 +602,8 @@ class Juego {
                         <h4 class="font-bold text-slate-800 mb-2">Enums con Estado y Comportamiento</h4>
                         <p class="text-sm text-slate-600 mb-4">Crea un enum <code>Planeta</code> con atributos
                             <code>masa</code> y <code>radio</code>. Implementa un método <code>gravedad()</code> que
-                            calcule la física real para cada constante.</p>
+                            calcule la física real para cada constante.
+                        </p>
                     </div>
 
                     <div
@@ -618,7 +615,8 @@ class Juego {
                         <p class="text-sm text-slate-400 mb-4">Utiliza el polimorfismo de constantes (Constant-specific
                             class bodies). Crea un Enum <code>Operacion</code> donde cada constante (SUMA, RESTA)
                             implemente su propia versión de un método abstracto <code>aplicar</code>. Esto elimina los
-                            <code>switch</code> y sigue el principio Open/Closed.</p>
+                            <code>switch</code> y sigue el principio Open/Closed.
+                        </p>
                         <button onclick="toggleSolution('sol-10')"
                             class="text-xs bg-purple-600 hover:bg-purple-500 text-white px-3 py-1 rounded transition">Ver
                             Solución</button>
@@ -659,53 +657,9 @@ class Juego {
         </main>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
-    <script>
-        function showLesson(id) {
-            document.querySelectorAll('.lesson-section').forEach(el => {
-                el.classList.add('hidden');
-                el.classList.remove('active');
-            });
-
-            const selected = document.getElementById('lesson-' + id);
-            selected.classList.remove('hidden');
-            setTimeout(() => selected.classList.add('active'), 10);
-
-            document.querySelectorAll('.nav-btn').forEach(btn => {
-                btn.classList.remove('active', 'bg-purple-50', 'border-purple-100');
-                btn.querySelector('.btn-indicator').classList.remove('opacity-100');
-                btn.querySelector('.btn-indicator').classList.add('opacity-0');
-
-                const icon = btn.querySelector('.btn-icon');
-                icon.classList.remove('bg-purple-600', 'text-white');
-                icon.classList.add('bg-slate-100', 'text-slate-500');
-
-                btn.querySelector('.btn-text').classList.remove('text-purple-700', 'font-bold');
-            });
-
-            const activeBtn = document.getElementById('btn-' + id);
-            activeBtn.classList.add('active', 'bg-purple-50', 'border-purple-100');
-            activeBtn.querySelector('.btn-indicator').classList.add('opacity-100');
-            activeBtn.querySelector('.btn-indicator').classList.remove('opacity-0');
-
-            const activeIcon = activeBtn.querySelector('.btn-icon');
-            activeIcon.classList.remove('bg-slate-100', 'text-slate-500');
-            activeIcon.classList.add('bg-purple-600', 'text-white');
-
-            activeBtn.querySelector('.btn-text').classList.add('text-purple-700', 'font-bold');
-
-            document.querySelector('main').scrollTop = 0;
-        }
-
-        function toggleSolution(id) {
-            const el = document.getElementById(id);
-            el.classList.toggle('hidden');
-        }
-
-        // Init
-        showLesson(6);
-    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/components/prism-java.min.js"></script>
+    <script src="../assets/scriptFooter.js"></script>
 </body>
 
 </html>

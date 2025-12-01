@@ -8,20 +8,9 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
-
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: { sans: ['Inter', 'sans-serif'], },
-                    animation: { 'fade-in-up': 'fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards', },
-                    keyframes: { fadeInUp: { '0%': { opacity: '0', transform: 'translateY(20px)' }, '100%': { opacity: '1', transform: 'translateY(0)' }, }, }
-                }
-            }
-        }
-    </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" rel="stylesheet" />
+    <script src="../assets/scriptHead.js"></script>
 </head>
 
 <body
@@ -166,7 +155,8 @@
                     <p>La CPU no carga un solo entero; carga una "Cache Line" completa (usualmente 64 bytes). Al leer
                         <code>arr[0]</code>, la CPU probablemente ya cargó <code>arr[1]</code> a <code>arr[15]</code> en
                         la caché L1. Esto hace que iterar un array sea órdenes de magnitud más rápido que una
-                        <code>LinkedList</code>, cuyos nodos están dispersos en el Heap.</p>
+                        <code>LinkedList</code>, cuyos nodos están dispersos en el Heap.
+                    </p>
 
                     <h3 class="text-2xl font-bold text-slate-800 mt-8 mb-4">2. Strings: Compact Strings y el Pool</h3>
                     <p>Desde Java 9, la JVM usa <strong>Compact Strings</strong>. Antes, un String era un array de
@@ -193,7 +183,8 @@
                         <h4 class="font-bold text-slate-800">Recorrido sin Asignación</h4>
                         <p class="text-sm text-slate-600 mb-4">Imprime un array en orden inverso.
                             <strong>Restricción:</strong> Complejidad espacial O(1). No puedes crear un nuevo array ni
-                            usar <code>Collections.reverse()</code>.</p>
+                            usar <code>Collections.reverse()</code>.
+                        </p>
                     </div>
 
                     <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-yellow-500">
@@ -238,7 +229,8 @@
                             </div>
                             <div>
                                 <p class="text-sm font-semibold mb-2">2. ¿Qué ocurre internamente al hacer
-                                    <code>"Hola" + "Mundo"</code>?</p>
+                                    <code>"Hola" + "Mundo"</code>?
+                                </p>
                                 <div class="grid grid-cols-2 gap-2">
                                     <button class="quiz-btn border p-2 rounded text-sm hover:bg-slate-50"
                                         onclick="checkQuiz(this, false)">Se modifica el String original</button>
@@ -318,7 +310,8 @@
                         <p class="text-sm text-slate-600 mb-4">Implementa una clase que implemente
                             <code>AutoCloseable</code>. Úsala en un <code>try()</code> y verifica que el método
                             <code>close()</code> se llama automáticamente. Esto previene fugas de recursos (Memory
-                            Leaks).</p>
+                            Leaks).
+                        </p>
                     </div>
 
                     <div class="mb-8 p-6 bg-slate-900 rounded-xl border border-slate-700 text-white">
@@ -414,7 +407,8 @@ while (true) {
                         <h4 class="font-bold text-slate-800">Rompiendo el HashSet</h4>
                         <p class="text-sm text-slate-600 mb-4">Crea una clase <code>Producto</code> pero no sobrescribas
                             <code>hashCode()</code>. Añade dos productos con el mismo ID al Set. Observa cómo se
-                            duplican (bug grave) y arréglalo implementando el contrato correctamente.</p>
+                            duplican (bug grave) y arréglalo implementando el contrato correctamente.
+                        </p>
                     </div>
 
                     <div class="mb-8 p-6 bg-slate-900 rounded-xl border border-slate-700 text-white">
@@ -475,7 +469,8 @@ diferencia.removeAll(b); // A - B</code></pre>
                         <span class="text-xs font-bold text-green-600 uppercase mb-2 block">🟢 Nivel Básico</span>
                         <h4 class="font-bold text-slate-800">Frequency Counter</h4>
                         <p class="text-sm text-slate-600 mb-4">Dado un texto, usa un
-                            <code>Map&lt;String, Integer&gt;</code> para contar la frecuencia de cada palabra.</p>
+                            <code>Map&lt;String, Integer&gt;</code> para contar la frecuencia de cada palabra.
+                        </p>
                     </div>
 
                     <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-yellow-500">
@@ -483,7 +478,8 @@ diferencia.removeAll(b); // A - B</code></pre>
                         <h4 class="font-bold text-slate-800">LRU Cache (Concepto)</h4>
                         <p class="text-sm text-slate-600 mb-4">Investiga <code>LinkedHashMap</code>. Configúralo con
                             <code>accessOrder = true</code> para crear una caché que elimine automáticamente el elemento
-                            menos usado recientemente (LRU) al sobrepasar un tamaño.</p>
+                            menos usado recientemente (LRU) al sobrepasar un tamaño.
+                        </p>
                     </div>
 
                     <div class="mb-8 p-6 bg-slate-900 rounded-xl border border-slate-700 text-white">
@@ -547,9 +543,11 @@ for (int n : streamDatos) {
                         regla mnemotécnica creada por Joshua Bloch es <strong>PECS</strong>:</p>
                     <ul class="list-disc list-inside text-slate-600 mb-6">
                         <li><strong>Producer Extends:</strong> Si tu método LEE de una lista, usa
-                            <code>&lt;? extends T&gt;</code>.</li>
+                            <code>&lt;? extends T&gt;</code>.
+                        </li>
                         <li><strong>Consumer Super:</strong> Si tu método ESCRIBE en una lista, usa
-                            <code>&lt;? super T&gt;</code>.</li>
+                            <code>&lt;? super T&gt;</code>.
+                        </li>
                     </ul>
 
                     <h2 class="text-slate-900 mt-12 mb-6 border-none"><i
@@ -569,7 +567,8 @@ for (int n : streamDatos) {
                         <p class="text-sm text-slate-400 mb-4">Escribe un método
                             <code>copiar(List src, List dest)</code>. Debe ser capaz de copiar una lista de
                             <code>Integer</code> a una lista de <code>Number</code> o <code>Object</code>. Usa los
-                            Wildcards correctos.</p>
+                            Wildcards correctos.
+                        </p>
                         <button onclick="toggleSolution('sol-15')"
                             class="text-xs bg-yellow-600 hover:bg-yellow-500 text-white px-3 py-1 rounded transition">Ver
                             Solución</button>
@@ -594,76 +593,9 @@ public static &lt;T&gt; void copiar(List&lt;? extends T&gt; src, List&lt;? super
         </main>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
-    <script>
-        function showLesson(id) {
-            // Ocultar todas las lecciones
-            document.querySelectorAll('.lesson-section').forEach(el => {
-                el.classList.add('hidden');
-                el.classList.remove('active');
-            });
-
-            // Mostrar la seleccionada
-            const selected = document.getElementById('lesson-' + id);
-            selected.classList.remove('hidden');
-            setTimeout(() => selected.classList.add('active'), 10);
-
-            // Resetear estilos de botones
-            document.querySelectorAll('.nav-btn').forEach(btn => {
-                btn.classList.remove('active', 'bg-yellow-50', 'border-yellow-100');
-                btn.querySelector('.btn-indicator').classList.remove('opacity-100');
-                btn.querySelector('.btn-indicator').classList.add('opacity-0');
-
-                const icon = btn.querySelector('.btn-icon');
-                icon.classList.remove('bg-yellow-500', 'text-white');
-                icon.classList.add('bg-slate-100', 'text-slate-500');
-
-                btn.querySelector('.btn-text').classList.remove('text-yellow-700', 'font-bold');
-            });
-
-            // Activar botón seleccionado
-            const activeBtn = document.getElementById('btn-' + id);
-            activeBtn.classList.add('active', 'bg-yellow-50', 'border-yellow-100');
-            activeBtn.querySelector('.btn-indicator').classList.add('opacity-100');
-            activeBtn.querySelector('.btn-indicator').classList.remove('opacity-0');
-
-            const activeIcon = activeBtn.querySelector('.btn-icon');
-            activeIcon.classList.remove('bg-slate-100', 'text-slate-500');
-            activeIcon.classList.add('bg-yellow-500', 'text-white');
-
-            activeBtn.querySelector('.btn-text').classList.add('text-yellow-700', 'font-bold');
-
-            document.querySelector('main').scrollTop = 0;
-        }
-
-        function toggleSolution(id) {
-            const el = document.getElementById(id);
-            el.classList.toggle('hidden');
-        }
-
-        function checkQuiz(btn, isCorrect) {
-            // Reset siblings
-            const parent = btn.parentElement;
-            parent.querySelectorAll('.quiz-btn').forEach(b => {
-                b.classList.remove('correct', 'wrong');
-            });
-
-            if (isCorrect) {
-                btn.classList.add('correct');
-                // Simular feedback visual simple (en producción usaría clases CSS)
-                btn.style.backgroundColor = "#dcfce7";
-                btn.style.borderColor = "#22c55e";
-            } else {
-                btn.classList.add('wrong');
-                btn.style.backgroundColor = "#fee2e2";
-                btn.style.borderColor = "#ef4444";
-            }
-        }
-
-        // Init
-        showLesson(11);
-    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/components/prism-java.min.js"></script>
+    <script src="../assets/scriptFooter.js"></script>
 </body>
 
 </html>

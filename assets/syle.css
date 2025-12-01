@@ -1,72 +1,50 @@
-/* =========================================
-   1. BASE & TYPOGRAPHY
-   ========================================= */
-body {
-    background-color: #f3f4f6;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-header {
-    cursor: pointer;
-}
-
-h2 {
-    color: #1e3a8a;
-    border-bottom: 2px solid #3b82f6;
-    padding-bottom: 0.5rem;
-    margin-top: 2rem;
-    margin-bottom: 1rem;
-    font-weight: bold;
-    font-size: 1.5rem;
-}
-
-h3 {
-    color: #1f2937;
-    margin-top: 1.5rem;
-    margin-bottom: 0.5rem;
-    font-weight: 600;
-    font-size: 1.25rem;
-}
-
-/* =========================================
-   2. HERO & BACKGROUNDS
-   ========================================= */
+/* Fondo del Hero con gradiente radial profundo */
 .hero-bg {
-    background: #0f172a;
-    position: relative;
+    background: radial-gradient(circle at 50% 0%, #1e293b 0%, #0f172a 100%);
     overflow: hidden;
 }
 
+/* Blobs animados para el fondo */
 .blob-bg {
     position: absolute;
-    background: linear-gradient(to right, #3b82f6, #8b5cf6);
-    filter: blur(80px);
-    opacity: 0.5;
     border-radius: 50%;
-    animation: blob 10s infinite cubic-bezier(0.4, 0, 0.2, 1);
-    mix-blend-mode: screen;
+    filter: blur(80px);
+    opacity: 0.4;
+    z-index: 0;
+    animation: blob 10s infinite;
 }
 
-/* =========================================
-   3. MODULE CARDS & ANIMATIONS
-   ========================================= */
+/* Efecto de tarjeta con transición suave */
 .module-card {
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out, background-color 0.2s;
-    will-change: transform, box-shadow;
+    background-color: white;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    z-index: 1;
 }
 
 .module-card:hover {
-    transform: translateY(-8px) scale(1.02);
-    z-index: 10;
-    background: #ffffff;
-    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.3);
+    transform: translateY(-8px);
 }
 
-/* Animation Utilities */
+/* Scrollbar personalizado */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+/* Utilidad para delays de animación */
 .anim-delay-100 {
     animation-delay: 100ms;
 }
@@ -93,240 +71,4 @@ h3 {
 
 .anim-delay-700 {
     animation-delay: 700ms;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
-}
-
-/* =========================================
-   4. SCROLLBAR (Global & Custom)
-   ========================================= */
-::-webkit-scrollbar,
-.custom-scrollbar::-webkit-scrollbar {
-    width: 8px;
-    /* Unificado visualmente a 8px o 5px según preferencia, mantengo el global */
-}
-
-/* Specific override for sidebar if needed based on original code */
-.custom-scrollbar::-webkit-scrollbar {
-    width: 5px;
-}
-
-::-webkit-scrollbar-track,
-.custom-scrollbar::-webkit-scrollbar-track {
-    background: #0f172a;
-}
-
-.custom-scrollbar::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-    background: #334155;
-    border-radius: 4px;
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb {
-    background: #cbd5e1;
-    border-radius: 20px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: #475569;
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: #94a3b8;
-}
-
-/* =========================================
-   5. LAYOUT COMPONENTS
-   ========================================= */
-.lesson-section {
-    display: none;
-}
-
-.lesson-section.active {
-    display: block;
-    animation: fadeIn 0.5s;
-}
-
-.nav-btn {
-    transition: all 0.3s;
-}
-
-.nav-btn.active {
-    background-color: #2563eb;
-    color: white;
-    border-left: 4px solid #1e40af;
-}
-
-/* Cajas de Información */
-.tip-box,
-.warning-box,
-.best-practice {
-    padding: 1rem;
-    margin: 1rem 0;
-    border-radius: 0 0.5rem 0.5rem 0;
-}
-
-.tip-box {
-    background-color: #eff6ff;
-    border-left: 4px solid #3b82f6;
-}
-
-.warning-box {
-    background-color: #fef2f2;
-    border-left: 4px solid #ef4444;
-}
-
-.best-practice {
-    background-color: #ecfdf5;
-    border: 1px solid #10b981;
-    border-radius: 0.5rem;
-    padding: 1.5rem;
-    margin: 1.5rem 0;
-}
-
-/* =========================================
-   6. EXERCISES & BADGES
-   ========================================= */
-.exercise-card {
-    background: white;
-    padding: 1.5rem;
-    border-radius: 0.5rem;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-    margin-bottom: 1rem;
-    border: 1px solid #e5e7eb;
-    position: relative;
-}
-
-.difficulty-badge {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    padding: 0.25rem 0.75rem;
-    border-radius: 999px;
-    font-size: 0.75rem;
-    font-weight: bold;
-    text-transform: uppercase;
-}
-
-.badge-green {
-    background-color: #dcfce7;
-    color: #166534;
-}
-
-.badge-yellow {
-    background-color: #fef9c3;
-    color: #854d0e;
-}
-
-.badge-red {
-    background-color: #fee2e2;
-    color: #991b1b;
-}
-
-.solution-spoiler {
-    display: none;
-    background: #1f2937;
-    color: #e5e7eb;
-    padding: 1rem;
-    border-radius: 0.5rem;
-    margin-top: 0.5rem;
-    border-left: 4px solid #4f46e5;
-}
-
-/* =========================================
-   7. LESSON CONTENT SPECIFICS
-   ========================================= */
-.lesson-content h2 {
-    font-size: 1.8rem;
-    /* Se priorizó la definición más específica del final */
-    font-weight: 800;
-    color: #0f172a;
-    margin-top: 3rem;
-    margin-bottom: 1.5rem;
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    border-bottom: 2px solid #e2e8f0;
-    padding-bottom: 0.5rem;
-}
-
-.lesson-content h3 {
-    font-size: 1.4rem;
-    font-weight: 700;
-    color: #334155;
-    margin-top: 2rem;
-    margin-bottom: 1rem;
-}
-
-.lesson-content p {
-    font-size: 1.05rem;
-    line-height: 1.8;
-    color: #475569;
-    margin-bottom: 1.5rem;
-}
-
-.lesson-content strong {
-    color: #0f172a;
-    font-weight: 700;
-}
-
-/* =========================================
-   8. CODE & QUIZ COMPONENTS
-   ========================================= */
-.code-block {
-    border-radius: 0.5rem;
-    overflow: hidden;
-    margin: 1rem 0;
-}
-
-.code-preview,
-.code-window {
-    background-color: #1e1e1e;
-    /* Se asume el fondo oscuro para code-window por contexto */
-    border-radius: 0.75rem;
-    overflow: hidden;
-    margin-bottom: 2rem;
-    border: 1px solid #334155;
-    /* Unificado al color más reciente */
-}
-
-.code-window {
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-}
-
-.quiz-option:hover {
-    background-color: #f3e8ff;
-    border-color: #9333ea;
-    cursor: pointer;
-}
-
-.quiz-option.selected {
-    border-color: #9333ea;
-    background-color: #9333ea;
-    color: white;
-}
-
-/* Botones de Quiz - Se mantuvo el color Indigo (#4f46e5) 
-   ya que fue la última definición en la cascada original */
-.quiz-btn.correct {
-    background-color: #4f46e5 !important;
-    color: white !important;
-    border-color: #4f46e5 !important;
-}
-
-.quiz-btn.wrong {
-    background-color: #ef4444 !important;
-    color: white !important;
-    border-color: #ef4444 !important;
 }

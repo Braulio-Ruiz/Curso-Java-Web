@@ -8,20 +8,9 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
-
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: { sans: ['Inter', 'sans-serif'], },
-                    animation: { 'fade-in-up': 'fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards', },
-                    keyframes: { fadeInUp: { '0%': { opacity: '0', transform: 'translateY(20px)' }, '100%': { opacity: '1', transform: 'translateY(0)' }, }, }
-                }
-            }
-        }
-    </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" rel="stylesheet" />
+    <script src="../assets/scriptHead.js"></script>
 </head>
 
 <body
@@ -124,9 +113,11 @@
                                 class="fas fa-bullseye text-emerald-600"></i> Objetivos Senior</h3>
                         <ul class="list-disc list-inside text-slate-600 text-sm space-y-2">
                             <li><strong>Connection Pooling:</strong> Por qué HikariCP es superior a
-                                <code>DriverManager</code>.</li>
+                                <code>DriverManager</code>.
+                            </li>
                             <li><strong>SQL Injection:</strong> Anatomía de un ataque y prevención con
-                                <code>PreparedStatement</code>.</li>
+                                <code>PreparedStatement</code>.
+                            </li>
                             <li><strong>Transacciones ACID:</strong> Commit, Rollback y niveles de aislamiento.</li>
                         </ul>
                     </div>
@@ -139,7 +130,8 @@
                     <p class="text-slate-600 mb-6">Abrir una conexión TCP es costoso (3-way handshake). En producción,
                         NUNCA uses <code>DriverManager.getConnection()</code> directamente para cada petición. Usa un
                         <strong>Pool de Conexiones</strong> (como HikariCP) que mantiene conexiones vivas listas para
-                        reusar.</p>
+                        reusar.
+                    </p>
 
                     <h3 class="text-xl font-bold text-slate-800 mt-8 mb-4">2. SQL Injection: El Enemigo #1</h3>
                     <div class="bg-red-50 border-l-4 border-red-500 p-6 rounded-r-xl mb-8">
@@ -148,7 +140,8 @@
                         <p class="text-red-700 text-sm mb-2">Si concatenas Strings:
                             <code>"SELECT * FROM users WHERE name = '" + name + "'"</code>, un atacante puede ingresar
                             <code>' OR '1'='1</code> y acceder a todos los registros o borrar la tabla
-                            (<code>DROP TABLE</code>).</p>
+                            (<code>DROP TABLE</code>).
+                        </p>
                         <p class="text-red-800 font-bold text-sm">Solución: SIEMPRE usa <code>PreparedStatement</code>.
                             Esto envía la plantilla SQL y los datos por separado al motor de base de datos, tratando los
                             inputs como literales puros, nunca como código ejecutable.</p>
@@ -273,7 +266,8 @@
                     <p class="text-slate-600 mb-4">Si una entidad está en estado <strong>Managed</strong>, no necesitas
                         llamar a <code>save()</code> o <code>update()</code> explícitamente. Hibernate detecta
                         automáticamente si modificaste algún atributo al hacer commit de la transacción y lanza el
-                        <code>UPDATE</code> SQL necesario. Esto minimiza las consultas innecesarias.</p>
+                        <code>UPDATE</code> SQL necesario. Esto minimiza las consultas innecesarias.
+                    </p>
 
                     <h2 class="text-slate-900 mt-12 mb-6 border-none"><i
                             class="fas fa-dumbbell text-emerald-600 mr-2"></i>Training Ground</h2>
@@ -283,7 +277,8 @@
                         <h4 class="font-bold text-slate-800">Mapeo de Entidad</h4>
                         <p class="text-sm text-slate-600 mb-4">Crea una clase <code>Estudiante</code>. Anótala con
                             <code>@Entity</code>, define una clave primaria con <code>@Id</code> y
-                            <code>@GeneratedValue(strategy = GenerationType.IDENTITY)</code>.</p>
+                            <code>@GeneratedValue(strategy = GenerationType.IDENTITY)</code>.
+                        </p>
                     </div>
 
                     <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-yellow-500">
@@ -292,7 +287,8 @@
                         <p class="text-sm text-slate-600 mb-4">Modela la relación: Un <code>Autor</code> tiene muchos
                             <code>Libros</code>. Usa <code>@OneToMany(mappedBy="autor")</code> en el lado del Autor y
                             <code>@ManyToOne</code> en el lado del Libro. Configura <code>FetchType.LAZY</code> para
-                            evitar cargar toda la base de datos en memoria.</p>
+                            evitar cargar toda la base de datos en memoria.
+                        </p>
                     </div>
 
                     <div class="mb-8 p-6 bg-slate-900 rounded-xl border border-slate-700 text-white">
@@ -351,7 +347,8 @@ System.out.println(autor.getLibros().size());</code></pre>
                         <h4 class="font-bold text-slate-800">Serialización Simple con Jackson</h4>
                         <p class="text-sm text-slate-600 mb-4">Crea un Record
                             <code>UsuarioDTO(String nombre, String email)</code>. Usa la clase <code>ObjectMapper</code>
-                            para convertir una instancia a un String JSON.</p>
+                            para convertir una instancia a un String JSON.
+                        </p>
                     </div>
 
                     <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-yellow-500">
@@ -397,61 +394,9 @@ public abstract class Animal { ... }
         </main>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
-    <script>
-        function showLesson(id) {
-            document.querySelectorAll('.lesson-section').forEach(el => {
-                el.classList.add('hidden');
-                el.classList.remove('active');
-            });
-
-            const selected = document.getElementById('lesson-' + id);
-            selected.classList.remove('hidden');
-            setTimeout(() => selected.classList.add('active'), 10);
-
-            document.querySelectorAll('.nav-btn').forEach(btn => {
-                btn.classList.remove('active', 'bg-emerald-50', 'border-emerald-100');
-                btn.querySelector('.btn-indicator').classList.remove('opacity-100');
-                btn.querySelector('.btn-indicator').classList.add('opacity-0');
-                const icon = btn.querySelector('.btn-icon');
-                icon.classList.remove('bg-emerald-600', 'text-white');
-                icon.classList.add('bg-slate-100', 'text-slate-500');
-                btn.querySelector('.btn-text').classList.remove('text-emerald-700', 'font-bold');
-            });
-
-            const activeBtn = document.getElementById('btn-' + id);
-            activeBtn.classList.add('active', 'bg-emerald-50', 'border-emerald-100');
-            activeBtn.querySelector('.btn-indicator').classList.add('opacity-100');
-            activeBtn.querySelector('.btn-indicator').classList.remove('opacity-0');
-            const activeIcon = activeBtn.querySelector('.btn-icon');
-            activeIcon.classList.remove('bg-slate-100', 'text-slate-500');
-            activeIcon.classList.add('bg-emerald-600', 'text-white');
-            activeBtn.querySelector('.btn-text').classList.add('text-emerald-700', 'font-bold');
-
-            document.querySelector('main').scrollTop = 0;
-        }
-
-        function toggleSolution(id) {
-            const el = document.getElementById(id);
-            el.classList.toggle('hidden');
-        }
-
-        function checkQuiz(btn, isCorrect) {
-            const parent = btn.parentElement;
-            parent.querySelectorAll('.quiz-btn').forEach(b => {
-                b.classList.remove('correct', 'wrong');
-            });
-            if (isCorrect) {
-                btn.classList.add('correct');
-            } else {
-                btn.classList.add('wrong');
-            }
-        }
-
-        // Init
-        showLesson(25);
-    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/components/prism-java.min.js"></script>
+    <script src="../assets/scriptFooter.js"></script>
 </body>
 
 </html>

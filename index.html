@@ -4,52 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Java Masterclass | De Cero a Experto</title>
+    <title>Java Masterclass | Ingeniería de Software Elite</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="assets/syle.css">
-
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
-                    animation: {
-                        'float': 'float 6s ease-in-out infinite',
-                        'float-delayed': 'float 6s ease-in-out 3s infinite',
-                        'fade-in-up': 'fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
-                        'blob': 'blob 10s infinite',
-                    },
-                    keyframes: {
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-20px)' },
-                        },
-                        fadeInUp: {
-                            '0%': { opacity: '0', transform: 'translateY(40px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' },
-                        },
-                        blob: {
-                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
-                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
-                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
-                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
-                        }
-                    }
-                }
-            }
-        }
-    </script>
+    <script src="assets/scriptHead.js"></script>
 </head>
 
 <body
     class="flex flex-col min-h-screen text-slate-800 antialiased selection:bg-blue-500 selection:text-white overflow-x-hidden">
 
-    <!-- Navbar Flotante -->
     <nav
         class="fixed w-full z-50 bg-slate-900/80 backdrop-blur-md border-b border-slate-700/50 text-white transition-all duration-300">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
@@ -61,12 +27,12 @@
                 <div class="flex flex-col">
                     <span
                         class="font-bold text-lg tracking-tight leading-none group-hover:text-blue-400 transition-colors">Java</span>
-                    <span class="text-xs text-blue-400 font-medium tracking-widest uppercase">Masterclass</span>
+                    <span class="text-xs text-blue-400 font-medium tracking-widest uppercase">Engineering Path</span>
                 </div>
             </div>
             <div class="hidden md:flex items-center gap-8 text-sm font-medium">
-                <a href="#ruta" class="text-slate-300 hover:text-white hover:scale-105 transition-all">Ruta de
-                    Aprendizaje</a>
+                <a href="#ruta" class="text-slate-300 hover:text-white hover:scale-105 transition-all">Curriculum
+                    Técnico</a>
                 <span
                     class="bg-slate-800/80 px-4 py-1.5 rounded-full text-xs font-semibold border border-slate-600 text-emerald-400 flex items-center gap-2 shadow-sm shadow-emerald-900/20">
                     <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
@@ -76,15 +42,12 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
     <header class="hero-bg text-white pt-48 pb-32 relative">
-        <!-- Fondo Animado (Blobs) -->
         <div class="blob-bg w-96 h-96 bg-purple-600 top-0 -left-20"></div>
         <div class="blob-bg w-96 h-96 bg-blue-600 bottom-0 -right-20" style="animation-delay: -2s"></div>
         <div class="blob-bg w-80 h-80 bg-pink-600 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
             style="animation-delay: -4s"></div>
 
-        <!-- Elementos flotantes -->
         <i class="fas fa-code absolute top-40 left-[10%] text-white/5 text-8xl animate-float pointer-events-none"></i>
         <i
             class="fas fa-database absolute bottom-20 right-[15%] text-white/5 text-7xl animate-float-delayed pointer-events-none"></i>
@@ -93,65 +56,63 @@
         <div class="container mx-auto px-6 relative z-10 text-center">
             <div
                 class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-md mb-8 animate-fade-in-up opacity-0 shadow-xl">
-                <span class="text-xs font-bold tracking-wider uppercase text-blue-300">🎓 Ingeniería de Software
-                    Profesional</span>
+                <span class="text-xs font-bold tracking-wider uppercase text-blue-300">🎓 Arquitectura & High
+                    Performance</span>
             </div>
 
             <h1
                 class="text-5xl md:text-7xl font-extrabold tracking-tight mb-8 leading-tight animate-fade-in-up anim-delay-100 opacity-0 drop-shadow-2xl">
-                De Programador a <br>
+                De Coder a <br>
                 <span
-                    class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 filter drop-shadow-lg">Arquitecto
-                    Java</span>
+                    class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 filter drop-shadow-lg">Ingeniero
+                    de Software</span>
             </h1>
 
             <p
-                class="text-lg md:text-xl text-slate-300 max-w-2xl mx-auto mb-12 leading-relaxed animate-fade-in-up anim-delay-200 opacity-0 font-light">
-                Domina el ecosistema completo: Desde la JVM y la Concurrencia Avanzada hasta Microservicios y
-                Arquitectura Limpia.
+                class="text-lg md:text-xl text-slate-300 max-w-3xl mx-auto mb-12 leading-relaxed animate-fade-in-up anim-delay-200 opacity-0 font-light">
+                Un viaje profundo desde los <strong>Internals de la JVM (HotSpot)</strong> hasta la <strong>Arquitectura
+                    Distribuida</strong>. Domina la gestión de memoria, la concurrencia con Virtual Threads y los
+                patrones de diseño que rigen la industria Enterprise.
             </p>
 
             <div class="flex flex-col sm:flex-row justify-center gap-6 animate-fade-in-up anim-delay-300 opacity-0">
                 <a href="#ruta"
                     class="px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-bold transition-all shadow-xl shadow-blue-600/30 hover:shadow-blue-600/50 hover:-translate-y-1 flex items-center justify-center gap-3 group ring-4 ring-transparent hover:ring-blue-500/30">
-                    Comenzar la Ruta
+                    Iniciar Ruta de Ingeniería
                     <i class="fas fa-arrow-down transform group-hover:translate-y-1 transition-transform"></i>
                 </a>
-                <a href="https://docs.oracle.com/en/java/" target="_blank"
+                <a href="https://docs.oracle.com/javase/specs/index.html" target="_blank"
                     class="px-8 py-4 bg-white/5 hover:bg-white/10 text-slate-200 hover:text-white rounded-xl font-bold transition-all border border-white/10 hover:border-white/30 backdrop-blur-sm flex items-center justify-center gap-2 hover:-translate-y-1">
-                    <i class="fas fa-external-link-alt text-sm"></i> Documentación Oficial
+                    <i class="fas fa-book text-sm"></i> Java Language Spec (JLS)
                 </a>
             </div>
         </div>
     </header>
 
-    <!-- Stats Bar -->
     <div class="relative z-20 -mt-12 mx-4 md:mx-auto max-w-5xl animate-fade-in-up anim-delay-400 opacity-0">
         <div
             class="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl shadow-black/20 border border-white/40 flex flex-wrap justify-around py-8 px-4 ring-1 ring-white/50 hover:bg-white/90 transition-colors duration-300">
             <div class="text-center px-6 w-1/2 md:w-auto border-r border-slate-200/50">
                 <div class="text-4xl font-black text-slate-800 mb-1">7</div>
-                <div class="text-xs text-slate-500 font-bold uppercase tracking-widest">Módulos</div>
+                <div class="text-xs text-slate-500 font-bold uppercase tracking-widest">Módulos Core</div>
             </div>
             <div class="text-center px-6 w-1/2 md:w-auto md:border-r border-slate-200/50">
                 <div class="text-4xl font-black text-blue-600 mb-1">30</div>
-                <div class="text-xs text-slate-500 font-bold uppercase tracking-widest">Lecciones</div>
+                <div class="text-xs text-slate-500 font-bold uppercase tracking-widest">Deep Dives</div>
             </div>
             <div
                 class="text-center px-6 w-1/2 md:w-auto border-r border-slate-200/50 pt-6 md:pt-0 border-t md:border-t-0 border-slate-200/50">
                 <div class="text-4xl font-black text-purple-600 mb-1">100%</div>
-                <div class="text-xs text-slate-500 font-bold uppercase tracking-widest">Práctico</div>
+                <div class="text-xs text-slate-500 font-bold uppercase tracking-widest">Architecture Focus</div>
             </div>
             <div class="text-center px-6 w-1/2 md:w-auto pt-6 md:pt-0 border-t md:border-t-0 border-slate-200/50">
                 <div class="text-4xl font-black text-emerald-600 mb-1">LTS</div>
-                <div class="text-xs text-slate-500 font-bold uppercase tracking-widest">Java 21</div>
+                <div class="text-xs text-slate-500 font-bold uppercase tracking-widest">Modern Java 21</div>
             </div>
         </div>
     </div>
 
-    <!-- Main Content: Ruta de Aprendizaje -->
     <main id="ruta" class="flex-grow bg-slate-50 w-full pt-28 pb-32 relative">
-        <!-- Trama de fondo sutil -->
         <div
             class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%2364748b\' fill-opacity=\'0.03\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')]">
         </div>
@@ -161,9 +122,9 @@
             <div class="flex flex-col items-center mb-20 animate-fade-in-up anim-delay-500 opacity-0">
                 <span
                     class="text-blue-600 font-bold tracking-widest uppercase text-xs mb-4 bg-blue-50 px-4 py-2 rounded-full border border-blue-100 shadow-sm">Roadmap
-                    Profesional</span>
-                <h2 class="text-4xl md:text-5xl font-black text-slate-900 text-center mb-4 tracking-tight">Tu Ruta hacia
-                    la Maestría</h2>
+                    de Ingeniería</span>
+                <h2 class="text-4xl md:text-5xl font-black text-slate-900 text-center mb-4 tracking-tight">Arquitectura
+                    del Conocimiento</h2>
                 <div
                     class="w-32 h-1.5 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full shadow-lg shadow-purple-500/30">
                 </div>
@@ -171,7 +132,6 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
 
-                <!-- MÓDULO 1: Fundamentos (Azul) -->
                 <a href="./modulos/modulo1.html"
                     class="module-card group rounded-2xl overflow-hidden animate-fade-in-up anim-delay-100 opacity-0 flex flex-col h-full hover:ring-4 hover:ring-blue-500/50 hover:ring-offset-2 ring-offset-slate-50 shadow-lg hover:shadow-2xl hover:shadow-blue-500/20">
                     <div class="h-2 bg-gradient-to-r from-blue-500 to-blue-600 w-full"></div>
@@ -179,7 +139,7 @@
                         <div class="flex justify-between items-start mb-6">
                             <div
                                 class="w-14 h-14 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center text-2xl group-hover:scale-110 group-hover:rotate-6 transition duration-300 shadow-inner border border-blue-100">
-                                <i class="fas fa-laptop-code"></i>
+                                <i class="fas fa-microchip"></i>
                             </div>
                             <span
                                 class="px-3 py-1 bg-slate-100 text-slate-600 text-[10px] font-bold rounded-full uppercase tracking-wider border border-slate-200 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-200">Módulo
@@ -187,26 +147,25 @@
                         </div>
                         <h3
                             class="text-2xl font-bold text-slate-800 mb-3 group-hover:text-blue-600 transition-colors duration-200">
-                            Fundamentos y Clean Code</h3>
+                            JVM Internals & Memory</h3>
                         <p class="text-slate-500 text-sm leading-relaxed mb-6">
-                            Establece bases sólidas. Domina la JVM, el ecosistema, configura IntelliJ IDEA y aprende las
-                            bases del código limpio.
+                            Disección del <strong>HotSpot JVM</strong>. Entiende la compilación JIT (C1/C2), el modelo
+                            de memoria (Stack vs Heap), Bytecode y el ciclo de vida del ClassLoader.
                         </p>
                         <div class="mt-auto pt-6 border-t border-slate-100 flex items-center justify-between">
                             <div class="flex items-center gap-2">
                                 <span
                                     class="inline-flex h-6 w-6 rounded-full bg-blue-100 items-center justify-center text-[10px] text-blue-700 font-bold">5</span>
-                                <span class="text-xs text-slate-400 font-medium">Lecciones</span>
+                                <span class="text-xs text-slate-400 font-medium">Deep Dives</span>
                             </div>
                             <span
                                 class="text-blue-600 text-sm font-bold flex items-center gap-2 group-hover:translate-x-1 transition-transform">
-                                Entrar <i class="fas fa-chevron-right text-xs"></i>
+                                Acceder <i class="fas fa-chevron-right text-xs"></i>
                             </span>
                         </div>
                     </div>
                 </a>
 
-                <!-- MÓDULO 2: POO (Morado) -->
                 <a href="./modulos/modulo2.html"
                     class="module-card group rounded-2xl overflow-hidden animate-fade-in-up anim-delay-200 opacity-0 flex flex-col h-full hover:ring-4 hover:ring-purple-500/50 hover:ring-offset-2 ring-offset-slate-50 shadow-lg hover:shadow-2xl hover:shadow-purple-500/20">
                     <div class="h-2 bg-gradient-to-r from-purple-500 to-purple-600 w-full"></div>
@@ -222,26 +181,25 @@
                         </div>
                         <h3
                             class="text-2xl font-bold text-slate-800 mb-3 group-hover:text-purple-600 transition-colors duration-200">
-                            POO: El Núcleo</h3>
+                            Object Layout & Design</h3>
                         <p class="text-slate-500 text-sm leading-relaxed mb-6">
-                            El corazón de Java. Aprende a pensar en objetos, encapsulamiento, polimorfismo y los
-                            modernos Records de Java 21.
+                            Gestión avanzada de memoria de objetos. Encapsulamiento real vs Anemic Models. Polimorfismo
+                            a nivel de <strong>vTables</strong> y semántica de datos con Records (JEP 395).
                         </p>
                         <div class="mt-auto pt-6 border-t border-slate-100 flex items-center justify-between">
                             <div class="flex items-center gap-2">
                                 <span
                                     class="inline-flex h-6 w-6 rounded-full bg-purple-100 items-center justify-center text-[10px] text-purple-700 font-bold">5</span>
-                                <span class="text-xs text-slate-400 font-medium">Lecciones</span>
+                                <span class="text-xs text-slate-400 font-medium">Deep Dives</span>
                             </div>
                             <span
                                 class="text-purple-600 text-sm font-bold flex items-center gap-2 group-hover:translate-x-1 transition-transform">
-                                Entrar <i class="fas fa-chevron-right text-xs"></i>
+                                Acceder <i class="fas fa-chevron-right text-xs"></i>
                             </span>
                         </div>
                     </div>
                 </a>
 
-                <!-- MÓDULO 3: Estructuras (Amarillo) -->
                 <a href="./modulos/modulo3.html"
                     class="module-card group rounded-2xl overflow-hidden animate-fade-in-up anim-delay-300 opacity-0 flex flex-col h-full hover:ring-4 hover:ring-yellow-500/50 hover:ring-offset-2 ring-offset-slate-50 shadow-lg hover:shadow-2xl hover:shadow-yellow-500/20">
                     <div class="h-2 bg-gradient-to-r from-yellow-400 to-yellow-600 w-full"></div>
@@ -257,26 +215,25 @@
                         </div>
                         <h3
                             class="text-2xl font-bold text-slate-800 mb-3 group-hover:text-yellow-600 transition-colors duration-200">
-                            Estructuras de Datos</h3>
+                            Algoritmos & Complejidad</h3>
                         <p class="text-slate-500 text-sm leading-relaxed mb-6">
-                            Optimiza el rendimiento. Domina Collections Framework, Listas, Mapas, Sets y el uso avanzado
-                            de Genéricos.
+                            Análisis de Big O. Localidad de caché (CPU L1/L2) en Arrays vs LinkedLists. <strong>Type
+                                Erasure</strong> en Genéricos y colisiones en HashMaps.
                         </p>
                         <div class="mt-auto pt-6 border-t border-slate-100 flex items-center justify-between">
                             <div class="flex items-center gap-2">
                                 <span
                                     class="inline-flex h-6 w-6 rounded-full bg-yellow-100 items-center justify-center text-[10px] text-yellow-700 font-bold">5</span>
-                                <span class="text-xs text-slate-400 font-medium">Lecciones</span>
+                                <span class="text-xs text-slate-400 font-medium">Deep Dives</span>
                             </div>
                             <span
                                 class="text-yellow-600 text-sm font-bold flex items-center gap-2 group-hover:translate-x-1 transition-transform">
-                                Entrar <i class="fas fa-chevron-right text-xs"></i>
+                                Acceder <i class="fas fa-chevron-right text-xs"></i>
                             </span>
                         </div>
                     </div>
                 </a>
 
-                <!-- MÓDULO 4: Funcional (Naranja) -->
                 <a href="./modulos/modulo4.html"
                     class="module-card group rounded-2xl overflow-hidden animate-fade-in-up anim-delay-400 opacity-0 flex flex-col h-full hover:ring-4 hover:ring-orange-500/50 hover:ring-offset-2 ring-offset-slate-50 shadow-lg hover:shadow-2xl hover:shadow-orange-500/20">
                     <div class="h-2 bg-gradient-to-r from-orange-500 to-orange-600 w-full"></div>
@@ -292,26 +249,25 @@
                         </div>
                         <h3
                             class="text-2xl font-bold text-slate-800 mb-3 group-hover:text-orange-600 transition-colors duration-200">
-                            Java Funcional</h3>
+                            Functional Paradigm</h3>
                         <p class="text-slate-500 text-sm leading-relaxed mb-6">
-                            Escribe menos, haz más. Programación declarativa con Lambdas, Streams API, Optional y la API
-                            moderna de Fechas.
+                            Mecanismo de <strong>invokedynamic</strong>. Optimización de Pipelines con Streams (Lazy
+                            Eval). Manejo de nulidad con Mónadas (Optional).
                         </p>
                         <div class="mt-auto pt-6 border-t border-slate-100 flex items-center justify-between">
                             <div class="flex items-center gap-2">
                                 <span
                                     class="inline-flex h-6 w-6 rounded-full bg-orange-100 items-center justify-center text-[10px] text-orange-700 font-bold">4</span>
-                                <span class="text-xs text-slate-400 font-medium">Lecciones</span>
+                                <span class="text-xs text-slate-400 font-medium">Deep Dives</span>
                             </div>
                             <span
                                 class="text-orange-600 text-sm font-bold flex items-center gap-2 group-hover:translate-x-1 transition-transform">
-                                Entrar <i class="fas fa-chevron-right text-xs"></i>
+                                Acceder <i class="fas fa-chevron-right text-xs"></i>
                             </span>
                         </div>
                     </div>
                 </a>
 
-                <!-- MÓDULO 5: Concurrencia (Rojo) -->
                 <a href="./modulos/modulo5.html"
                     class="module-card group rounded-2xl overflow-hidden animate-fade-in-up anim-delay-500 opacity-0 flex flex-col h-full hover:ring-4 hover:ring-red-500/50 hover:ring-offset-2 ring-offset-slate-50 shadow-lg hover:shadow-2xl hover:shadow-red-500/20">
                     <div class="h-2 bg-gradient-to-r from-red-500 to-red-600 w-full"></div>
@@ -319,7 +275,7 @@
                         <div class="flex justify-between items-start mb-6">
                             <div
                                 class="w-14 h-14 rounded-2xl bg-red-50 text-red-600 flex items-center justify-center text-2xl group-hover:scale-110 group-hover:rotate-6 transition duration-300 shadow-inner border border-red-100">
-                                <i class="fas fa-microchip"></i>
+                                <i class="fas fa-network-wired"></i>
                             </div>
                             <span
                                 class="px-3 py-1 bg-slate-100 text-slate-600 text-[10px] font-bold rounded-full uppercase tracking-wider border border-slate-200 group-hover:bg-red-600 group-hover:text-white transition-colors duration-200">Módulo
@@ -327,26 +283,25 @@
                         </div>
                         <h3
                             class="text-2xl font-bold text-slate-800 mb-3 group-hover:text-red-600 transition-colors duration-200">
-                            Concurrencia y Calidad</h3>
+                            Concurrency & Loom</h3>
                         <p class="text-slate-500 text-sm leading-relaxed mb-6">
-                            Potencia y Robustez. Virtual Threads, I/O moderno, Testing con JUnit 5 y técnicas avanzadas
-                            de Debugging y Profiling.
+                            <strong>Java Memory Model (JMM)</strong>. Diferencia entre Platform Threads y Virtual
+                            Threads (Project Loom). Atomicidad, CAS y Testing Concurrente.
                         </p>
                         <div class="mt-auto pt-6 border-t border-slate-100 flex items-center justify-between">
                             <div class="flex items-center gap-2">
                                 <span
                                     class="inline-flex h-6 w-6 rounded-full bg-red-100 items-center justify-center text-[10px] text-red-700 font-bold">5</span>
-                                <span class="text-xs text-slate-400 font-medium">Lecciones</span>
+                                <span class="text-xs text-slate-400 font-medium">Deep Dives</span>
                             </div>
                             <span
                                 class="text-red-600 text-sm font-bold flex items-center gap-2 group-hover:translate-x-1 transition-transform">
-                                Entrar <i class="fas fa-chevron-right text-xs"></i>
+                                Acceder <i class="fas fa-chevron-right text-xs"></i>
                             </span>
                         </div>
                     </div>
                 </a>
 
-                <!-- MÓDULO 6: Backend (Esmeralda) -->
                 <a href="./modulos/modulo6.html"
                     class="module-card group rounded-2xl overflow-hidden animate-fade-in-up anim-delay-600 opacity-0 flex flex-col h-full hover:ring-4 hover:ring-emerald-500/50 hover:ring-offset-2 ring-offset-slate-50 shadow-lg hover:shadow-2xl hover:shadow-emerald-500/20">
                     <div class="h-2 bg-gradient-to-r from-emerald-500 to-emerald-600 w-full"></div>
@@ -362,26 +317,25 @@
                         </div>
                         <h3
                             class="text-2xl font-bold text-slate-800 mb-3 group-hover:text-emerald-600 transition-colors duration-200">
-                            Backend & Datos</h3>
+                            Persistence & ACID</h3>
                         <p class="text-slate-500 text-sm leading-relaxed mb-6">
-                            Persistencia profesional. JDBC, JPA (Hibernate), patrones DAO y serialización de datos JSON
-                            con Jackson.
+                            Seguridad contra SQL Injection. Gestión de Transacciones ACID. <strong>Hibernate Entity
+                                Lifecycle</strong>, Connection Pooling (HikariCP) y JSON.
                         </p>
                         <div class="mt-auto pt-6 border-t border-slate-100 flex items-center justify-between">
                             <div class="flex items-center gap-2">
                                 <span
                                     class="inline-flex h-6 w-6 rounded-full bg-emerald-100 items-center justify-center text-[10px] text-emerald-700 font-bold">3</span>
-                                <span class="text-xs text-slate-400 font-medium">Lecciones</span>
+                                <span class="text-xs text-slate-400 font-medium">Deep Dives</span>
                             </div>
                             <span
                                 class="text-emerald-600 text-sm font-bold flex items-center gap-2 group-hover:translate-x-1 transition-transform">
-                                Entrar <i class="fas fa-chevron-right text-xs"></i>
+                                Acceder <i class="fas fa-chevron-right text-xs"></i>
                             </span>
                         </div>
                     </div>
                 </a>
 
-                <!-- MÓDULO 7: Arquitectura (Índigo) - Destacado -->
                 <a href="./modulos/modulo7.html"
                     class="module-card group rounded-2xl overflow-hidden animate-fade-in-up anim-delay-700 opacity-0 flex flex-col h-full md:col-span-2 lg:col-span-3 hover:ring-4 hover:ring-indigo-500/50 hover:ring-offset-2 ring-offset-slate-50 shadow-xl hover:shadow-2xl hover:shadow-indigo-500/20">
                     <div class="h-2 bg-gradient-to-r from-indigo-500 to-indigo-600 w-full"></div>
@@ -395,28 +349,29 @@
                         <div class="flex-1 text-center md:text-left">
                             <div class="flex justify-center md:justify-start items-center gap-3 mb-2">
                                 <span
-                                    class="bg-indigo-100 text-indigo-700 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider border border-indigo-200">Módulo
-                                    Final</span>
+                                    class="bg-indigo-100 text-indigo-700 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider border border-indigo-200">Capstone
+                                    Project</span>
                                 <h3
                                     class="text-3xl font-bold text-slate-800 group-hover:text-indigo-600 transition-colors duration-200">
-                                    Arquitectura y Proyecto Final</h3>
+                                    Clean Architecture & SOLID</h3>
                             </div>
                             <p class="text-slate-500 text-base mb-6 max-w-2xl leading-relaxed">
-                                La integración total. Aprende a consumir APIs REST, aplica Principios SOLID y Patrones
-                                de Diseño, y despliega una aplicación completa con Arquitectura en Capas.
+                                Integración final. Consumo de APIs REST asíncronas con <code>HttpClient</code>.
+                                Aplicación de principios <strong>SOLID</strong>, Patrones de Diseño (Strategy, Factory)
+                                y estructuración de capas para software mantenible y escalable.
                             </p>
 
-                            <!-- Badges -->
                             <div class="flex flex-wrap justify-center md:justify-start gap-2">
                                 <span
                                     class="px-3 py-1 bg-slate-50 text-slate-600 text-xs font-semibold rounded border border-slate-200"><i
-                                        class="fas fa-globe mr-1 text-indigo-500"></i> REST API</span>
+                                        class="fas fa-project-diagram mr-1 text-indigo-500"></i> Distributed
+                                    Systems</span>
                                 <span
                                     class="px-3 py-1 bg-slate-50 text-slate-600 text-xs font-semibold rounded border border-slate-200"><i
-                                        class="fas fa-drafting-compass mr-1 text-indigo-500"></i> SOLID</span>
+                                        class="fas fa-shield-alt mr-1 text-indigo-500"></i> Resilience Patterns</span>
                                 <span
                                     class="px-3 py-1 bg-slate-50 text-slate-600 text-xs font-semibold rounded border border-slate-200"><i
-                                        class="fas fa-box-open mr-1 text-indigo-500"></i> Despliegue JAR</span>
+                                        class="fas fa-code-branch mr-1 text-indigo-500"></i> Hexagonal Arch</span>
                             </div>
                         </div>
                         <div class="flex-shrink-0 mt-6 md:mt-0">
@@ -432,7 +387,6 @@
         </div>
     </main>
 
-    <!-- Footer -->
     <footer class="bg-slate-900 text-slate-400 py-16 border-t border-slate-800 relative overflow-hidden">
         <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500"></div>
         <div class="container mx-auto px-6">
@@ -446,7 +400,7 @@
                         <h4 class="text-white font-bold text-2xl tracking-tight">Java Elite</h4>
                     </div>
                     <p class="text-sm text-slate-500 max-w-xs leading-relaxed">
-                        Formando a la próxima generación de Ingenieros de Software.
+                        Formando a la próxima generación de Ingenieros de Software de clase mundial.
                     </p>
                 </div>
                 <div class="flex gap-6 text-2xl">
@@ -462,7 +416,7 @@
             </div>
             <div
                 class="border-t border-slate-800 mt-12 pt-8 text-center text-xs text-slate-600 flex flex-col md:flex-row justify-between items-center">
-                <p>&copy; 2025 Braulio Ruiz Niñoles. Todos los derechos reservados.</p>
+                <p>&copy; 2025 Braulio Ruiz Niñoles. Ingeniería de Software.</p>
                 <div class="mt-4 md:mt-0 space-x-4">
                     <a href="#" class="hover:text-white transition">Privacidad</a>
                     <a href="#" class="hover:text-white transition">Términos</a>
@@ -471,7 +425,6 @@
             </div>
         </div>
     </footer>
-
 </body>
 
 </html>

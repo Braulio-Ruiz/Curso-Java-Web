@@ -8,20 +8,9 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
-
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: { sans: ['Inter', 'sans-serif'], },
-                    animation: { 'fade-in-up': 'fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards', },
-                    keyframes: { fadeInUp: { '0%': { opacity: '0', transform: 'translateY(20px)' }, '100%': { opacity: '1', transform: 'translateY(0)' }, }, }
-                }
-            }
-        }
-    </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" rel="stylesheet" />
+    <script src="../assets/script.js"></script>
 </head>
 
 <body
@@ -136,7 +125,8 @@
                             <li>Diferencia crítica entre Clases Anónimas y Lambdas (Memoria/Disco).</li>
                             <li>La instrucción <code>invokedynamic</code> y el <code>LambdaMetafactory</code>.</li>
                             <li>Interfaces Funcionales (JLS §9.8): <code>Predicate</code>, <code>Function</code>,
-                                <code>Consumer</code>.</li>
+                                <code>Consumer</code>.
+                            </li>
                         </ul>
                     </div>
 
@@ -147,17 +137,20 @@
                     <p class="text-slate-600 mb-6">Una Clase Anónima (ej: <code>new Runnable...</code>) genera un
                         archivo físico <code>.class</code> en disco (ej: <code>Main$1.class</code>) y carga una clase
                         completa en el Metaspace. Las Lambdas, en cambio, utilizan la instrucción de bytecode
-                        <strong><code>invokedynamic</code></strong> (introducida en Java 7, explotada en Java 8).</p>
+                        <strong><code>invokedynamic</code></strong> (introducida en Java 7, explotada en Java 8).
+                    </p>
 
                     <p class="text-slate-600 mb-6">En tiempo de ejecución, la JVM llama al
                         <strong>LambdaMetafactory</strong>, que genera la implementación de la interfaz funcional "al
-                        vuelo", optimizando el uso de memoria y evitando la carga de clases innecesarias.</p>
+                        vuelo", optimizando el uso de memoria y evitando la carga de clases innecesarias.
+                    </p>
 
                     <h3 class="text-xl font-bold text-slate-800 mt-8 mb-4">2. El Kit de Herramientas
                         (java.util.function)</h3>
                     <p class="text-slate-600 mb-4">La JLS define una <strong>Functional Interface</strong> como una
                         interfaz con <strong>exactamente un método abstracto</strong>. El paquete
-                        <code>java.util.function</code> cubre el 90% de los casos de uso:</p>
+                        <code>java.util.function</code> cubre el 90% de los casos de uso:
+                    </p>
 
                     <div class="grid grid-cols-2 gap-4 mb-8">
                         <div class="bg-blue-50 p-4 rounded-xl border border-blue-100">
@@ -201,7 +194,8 @@
                         <h4 class="font-bold text-slate-800">Method References (::)</h4>
                         <p class="text-sm text-slate-600 mb-4">Utiliza la referencia a métodos para simplificar una
                             lambda. Ordena una lista de Strings ignorando mayúsculas/minúsculas usando
-                            <code>String::compareToIgnoreCase</code>.</p>
+                            <code>String::compareToIgnoreCase</code>.
+                        </p>
                     </div>
 
                     <div class="mb-8 p-6 bg-slate-900 rounded-xl border border-slate-700 text-white">
@@ -209,7 +203,8 @@
                         <h4 class="font-bold text-white">Diseño de APIs Funcionales</h4>
                         <p class="text-sm text-slate-400 mb-4">Crea tu propia Interfaz Funcional
                             <code>TriFunction&lt;A,B,C,R&gt;</code> que acepte 3 argumentos. Implementa un método que la
-                            use para componer lógica de negocio compleja.</p>
+                            use para componer lógica de negocio compleja.
+                        </p>
                         <button onclick="toggleSolution('sol-16')"
                             class="text-xs bg-orange-600 hover:bg-orange-500 text-white px-3 py-1 rounded transition">Ver
                             Solución</button>
@@ -267,16 +262,19 @@ int total = suma.apply(10, 20, 30); // 60</code></pre>
                     <ol class="list-decimal list-inside text-slate-600 ml-4 mb-4">
                         <li><strong>Fuente (Source):</strong> Colección, Array, I/O Channel.</li>
                         <li><strong>Operaciones Intermedias:</strong> <code>filter</code>, <code>map</code>,
-                            <code>sorted</code>. Son <strong>Lazy</strong> (perezosas). Retornan un nuevo Stream.</li>
+                            <code>sorted</code>. Son <strong>Lazy</strong> (perezosas). Retornan un nuevo Stream.
+                        </li>
                         <li><strong>Operación Terminal:</strong> <code>collect</code>, <code>forEach</code>,
-                            <code>reduce</code>. Desencadenan el procesamiento y cierran el Stream.</li>
+                            <code>reduce</code>. Desencadenan el procesamiento y cierran el Stream.
+                        </li>
                     </ol>
 
                     <h3 class="text-xl font-bold text-slate-800 mt-8 mb-4">2. Lazy Evaluation & Loop Fusion</h3>
                     <p class="text-slate-600 mb-4">Esta es la clave del rendimiento en Java 8+. Cuando encadenas
                         <code>.filter().map().sorted()</code>, la JVM no itera la lista 3 veces. Utiliza una técnica
                         llamada <strong>Loop Fusion</strong> para combinar operaciones en una sola pasada (cuando es
-                        posible) y solo procesa los elementos necesarios (Short-circuiting).</p>
+                        posible) y solo procesa los elementos necesarios (Short-circuiting).
+                    </p>
 
                     <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-xl text-sm text-blue-800 mb-6">
                         <strong>Analogía Industrial:</strong> Una línea de montaje de coches. El chasis (Stream) se
@@ -308,7 +306,8 @@ int total = suma.apply(10, 20, 30); // 60</code></pre>
                         <h4 class="font-bold text-white">Collectors Complejos (GroupingBy)</h4>
                         <p class="text-sm text-slate-400 mb-4">Tienes una lista de transacciones. Agrúpalas por moneda
                             (Currency) y calcula la suma total de montos para cada moneda en un solo paso usando
-                            <code>Collectors.groupingBy</code> y <code>Collectors.summingDouble</code>.</p>
+                            <code>Collectors.groupingBy</code> y <code>Collectors.summingDouble</code>.
+                        </p>
                         <button onclick="toggleSolution('sol-17')"
                             class="text-xs bg-orange-600 hover:bg-orange-500 text-white px-3 py-1 rounded transition">Ver
                             Solución</button>
@@ -337,16 +336,19 @@ int total = suma.apply(10, 20, 30); // 60</code></pre>
                         dólares". <code>Optional&lt;T&gt;</code> es una implementación del patrón
                         <strong>Mónada</strong>. Es un contenedor que puede o no contener un valor no nulo. Su objetivo
                         no es eliminar <code>null</code> por completo, sino forzar al desarrollador a pensar en el caso
-                        "ausente" a nivel de API.</p>
+                        "ausente" a nivel de API.
+                    </p>
 
                     <h3 class="text-xl font-bold text-slate-800 mt-8 mb-4">Reglas de Ingeniería para Optional</h3>
                     <ul class="list-disc list-inside text-slate-600 space-y-2 mb-6">
                         <li><strong>Retorno, no Estado:</strong> Úsalo principalmente como tipo de retorno de métodos.
                             <strong>NO</strong> lo uses como campo de clase (no es Serializable) ni como parámetro de
-                            método (añade complejidad innecesaria).</li>
+                            método (añade complejidad innecesaria).
+                        </li>
                         <li><strong>Prohibido .get():</strong> Usar <code>get()</code> sin verificar
                             <code>isPresent()</code> lanza <code>NoSuchElementException</code>, lo cual es esencialmente
-                            lo mismo que un <code>NullPointerException</code>. Usa <code>orElseThrow()</code>.</li>
+                            lo mismo que un <code>NullPointerException</code>. Usa <code>orElseThrow()</code>.
+                        </li>
                         <li><strong>FlatMap es tu amigo:</strong> Evita el anidamiento de chequeos ("Arrow Code") usando
                             la composición monádica.</li>
                     </ul>
@@ -359,7 +361,8 @@ int total = suma.apply(10, 20, 30); // 60</code></pre>
                         <h4 class="font-bold text-slate-800">Recuperación Segura</h4>
                         <p class="text-sm text-slate-600 mb-4">Simula una búsqueda en base de datos que puede devolver
                             vacío. Usa <code>Optional.ofNullable()</code> y provee un valor por defecto con
-                            <code>orElse()</code>.</p>
+                            <code>orElse()</code>.
+                        </p>
                     </div>
 
                     <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-yellow-500">
@@ -367,7 +370,8 @@ int total = suma.apply(10, 20, 30); // 60</code></pre>
                         <h4 class="font-bold text-slate-800">Transformación Condicional (Map)</h4>
                         <p class="text-sm text-slate-600 mb-4">Tienes un <code>Optional&lt;String&gt;</code>. Si el
                             valor está presente, pásalo a mayúsculas y imprímelo. Si no, no hagas nada. Usa
-                            <code>map()</code> e <code>ifPresent()</code>.</p>
+                            <code>map()</code> e <code>ifPresent()</code>.
+                        </p>
                     </div>
 
                     <div class="mb-8 p-6 bg-slate-900 rounded-xl border border-slate-700 text-white">
@@ -405,7 +409,8 @@ int total = suma.apply(10, 20, 30); // 60</code></pre>
                         <p class="text-sm text-red-800">La antigua clase <code>Date</code> es <strong>mutable</strong>
                             (no thread-safe), sus meses empiezan en 0 (Enero=0) y mezcla fechas con tiempos de forma
                             confusa. Fue reemplazada en Java 8 por la API <code>java.time</code>, basada en
-                            <strong>Joda-Time</strong>.</p>
+                            <strong>Joda-Time</strong>.
+                        </p>
                     </div>
 
                     <h2>1. Inmutabilidad y Thread-Safety</h2>
@@ -413,7 +418,8 @@ int total = suma.apply(10, 20, 30); // 60</code></pre>
                         <code>LocalDate</code>, <code>Instant</code>) son <strong>inmutables</strong>. Esto significa
                         que cualquier operación de modificación (ej: <code>plusDays(1)</code>) retorna una <strong>nueva
                             instancia</strong>, dejando la original intacta. Esto garantiza seguridad total en entornos
-                        concurrentes (Multithreading).</p>
+                        concurrentes (Multithreading).
+                    </p>
 
                     <div class="grid md:grid-cols-2 gap-6 mb-8 mt-6">
                         <div class="bg-slate-100 p-4 rounded-lg">
@@ -471,61 +477,9 @@ System.out.println("Santiago: " + horaChile); // Maneja DST automáticamente</co
         </main>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
-    <script>
-        function showLesson(id) {
-            document.querySelectorAll('.lesson-section').forEach(el => {
-                el.classList.add('hidden');
-                el.classList.remove('active');
-            });
-
-            const selected = document.getElementById('lesson-' + id);
-            selected.classList.remove('hidden');
-            setTimeout(() => selected.classList.add('active'), 10);
-
-            document.querySelectorAll('.nav-btn').forEach(btn => {
-                btn.classList.remove('active', 'bg-orange-50', 'border-orange-100');
-                btn.querySelector('.btn-indicator').classList.remove('opacity-100');
-                btn.querySelector('.btn-indicator').classList.add('opacity-0');
-                const icon = btn.querySelector('.btn-icon');
-                icon.classList.remove('bg-orange-500', 'text-white');
-                icon.classList.add('bg-slate-100', 'text-slate-500');
-                btn.querySelector('.btn-text').classList.remove('text-orange-700', 'font-bold');
-            });
-
-            const activeBtn = document.getElementById('btn-' + id);
-            activeBtn.classList.add('active', 'bg-orange-50', 'border-orange-100');
-            activeBtn.querySelector('.btn-indicator').classList.add('opacity-100');
-            activeBtn.querySelector('.btn-indicator').classList.remove('opacity-0');
-            const activeIcon = activeBtn.querySelector('.btn-icon');
-            activeIcon.classList.remove('bg-slate-100', 'text-slate-500');
-            activeIcon.classList.add('bg-orange-500', 'text-white');
-            activeBtn.querySelector('.btn-text').classList.add('text-orange-700', 'font-bold');
-
-            document.querySelector('main').scrollTop = 0;
-        }
-
-        function toggleSolution(id) {
-            const el = document.getElementById(id);
-            el.classList.toggle('hidden');
-        }
-
-        function checkQuiz(btn, isCorrect) {
-            const parent = btn.parentElement;
-            parent.querySelectorAll('.quiz-btn').forEach(b => {
-                b.classList.remove('correct', 'wrong');
-            });
-            if (isCorrect) {
-                btn.classList.add('correct');
-            } else {
-                btn.classList.add('wrong');
-            }
-        }
-
-        // Init
-        showLesson(16);
-    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/components/prism-java.min.js"></script>
+    <script src="../assets/scriptFooter.js"></script>
 </body>
 
 </html>

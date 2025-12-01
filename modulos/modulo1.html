@@ -8,20 +8,9 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
-
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: { sans: ['Inter', 'sans-serif'], },
-                    animation: { 'fade-in-up': 'fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards', },
-                    keyframes: { fadeInUp: { '0%': { opacity: '0', transform: 'translateY(20px)' }, '100%': { opacity: '1', transform: 'translateY(0)' }, }, }
-                }
-            }
-        }
-    </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" rel="stylesheet" />
+    <script src="../assets/scriptHead.js"></script>
 </head>
 
 <body
@@ -132,11 +121,11 @@
                             <span
                                 class="px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-bold uppercase tracking-wider">Lección
                                 01</span>
-                            <span class="text-slate-400 text-sm font-medium"><i class="far fa-clock mr-1"></i> 45
+                            <span class="text-slate-400 text-sm font-medium"><i class="far fa-clock mr-1"></i> 90
                                 min</span>
                         </div>
                         <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">La Máquina
-                            Virtual (JVM) Internals: HotSpot & Memory Model</h1>
+                            Virtual (JVM): Internals & Memory Model</h1>
                     </div>
 
                     <div class="bg-white rounded-2xl p-8 shadow-lg shadow-blue-900/5 border-l-4 border-blue-600 mb-10">
@@ -147,100 +136,100 @@
                             <div class="flex items-start gap-3"><i
                                     class="fas fa-check-circle text-green-500 mt-1"></i><span
                                     class="text-slate-600 text-sm">Disección del motor <strong>HotSpot JVM</strong>:
-                                    Interpreter vs C1/C2 JIT Compilers.</span>
+                                    Compilación Escalonada (Tiered Compilation) y Profiling.</span>
                             </div>
                             <div class="flex items-start gap-3"><i
                                     class="fas fa-check-circle text-green-500 mt-1"></i><span
-                                    class="text-slate-600 text-sm">Análisis del <strong>Bytecode</strong> (Opcodes y
-                                    Stack Machine).</span></div>
+                                    class="text-slate-600 text-sm">Mecanismo de <strong>Classloading
+                                        Delegation</strong>:
+                                    Bootstrap, Platform y App Loaders.</span></div>
                             <div class="flex items-start gap-3"><i
                                     class="fas fa-check-circle text-green-500 mt-1"></i><span
-                                    class="text-slate-600 text-sm">Gestión avanzada de memoria: <strong>Heap
-                                        Generations</strong> (Young/Old) y Metaspace.</span></div>
+                                    class="text-slate-600 text-sm">Gestión avanzada de memoria: <strong>Weak
+                                        Generational
+                                        Hypothesis</strong>, TLABs y regiones de Heap.</span></div>
                             <div class="flex items-start gap-3"><i
                                     class="fas fa-check-circle text-green-500 mt-1"></i><span
-                                    class="text-slate-600 text-sm">Entender "Write Once, Run Anywhere" a nivel de
-                                    CPU.</span></div>
+                                    class="text-slate-600 text-sm">Bytecode Internals: Operaciones de una
+                                    <strong>Stack-based VM</strong> vs Register-based (x86).</span></div>
                         </div>
                     </div>
 
                     <h2>1. Más allá de la compilación: El ciclo de vida HotSpot</h2>
-                    <p>La afirmación "Java es interpretado" es una simplificación excesiva. La realidad en entornos
-                        empresariales es el uso de la <strong>Oracle HotSpot JVM</strong>. Según la <em>Java Virtual
-                            Machine Specification (JVMS)</em>, Java opera bajo un modelo de ejecución híbrida altamente
-                        sofisticado.</p>
+                    <p>En entornos críticos, entender la JVM no es opcional. Java utiliza un modelo de ejecución híbrido
+                        para balancear <strong>Startup Time</strong> vs <strong>Peak Throughput</strong>. El código
+                        fuente no se traduce a lenguaje máquina directamente, sino a un set de instrucciones intermedio
+                        (Bytecode) que garantiza portabilidad, pero exige una VM sofisticada.</p>
 
-                    <p>El comando <code>javac</code> no produce código máquina para tu CPU (x86/ARM). Produce
-                        <strong>Bytecode</strong>, un conjunto de instrucciones agnóstico a la arquitectura, definido en
-                        el archivo <code>.class</code>. La verdadera ingeniería ocurre en tiempo de ejecución (Runtime):
-                    </p>
+                    <p>El proceso de ejecución en <strong>Oracle HotSpot</strong> sigue una estrategia de "Tiered
+                        Compilation":</p>
 
                     <ol class="list-decimal list-inside space-y-2 ml-4 text-slate-600 mb-6">
-                        <li><strong>Interpreter (Tier 0):</strong> Al iniciar, la JVM interpreta el bytecode instrucción
-                            por instrucción. Es lento, pero garantiza un inicio de aplicación inmediato ("fast
-                            startup").</li>
-                        <li><strong>Profiling (Instrumentación):</strong> Mientras el código corre, la JVM inyecta
-                            contadores en los métodos. Identifica "Hot Spots": bloques de código ejecutados miles de
-                            veces.</li>
-                        <li><strong>C1 Compiler (Client Compiler):</strong> Cuando un método se vuelve "tibio", el
-                            compilador C1 lo compila a código nativo rápido, con optimizaciones simples (inlining
-                            básico).</li>
-                        <li><strong>C2 Compiler (Server Compiler):</strong> Si el método se vuelve "hirviendo" (muy
-                            frecuente), el compilador C2 toma el control. Realiza optimizaciones agresivas basadas en el
-                            perfil de ejecución (Branch Prediction, Loop Unrolling, Dead Code Elimination) generando
-                            código Assembly más eficiente que C++.</li>
+                        <li><strong>Interpreter (Tier 0):</strong> Ejecuta bytecode opcode por opcode. Es lento
+                            (relativo a código nativo), pero permite un arranque inmediato y comienza la recolección de
+                            metadatos de ejecución (profiling).</li>
+                        <li><strong>Profiling (C0):</strong> La JVM inserta contadores en métodos y bucles. Detecta "Hot
+                            Spots" (código ejecutado frecuentemente) y patrones de tipos dinámicos.</li>
+                        <li><strong>C1 Compiler (Client - Tier 3):</strong> Compila métodos "tibios" a código nativo
+                            rápido, con optimizaciones ligeras (inlining básico) para no saturar la CPU durante el
+                            arranque.</li>
+                        <li><strong>C2 Compiler (Server - Tier 4):</strong> El optimizador agresivo. Usa el perfilado
+                            para realizar asunciones audaces (Speculative Optimizations). Aplica <strong>Dead Code
+                                Elimination</strong>, <strong>Loop Unrolling</strong> y <strong>Escape
+                                Analysis</strong>. Genera instrucciones AVX/SSE específicas del procesador.</li>
                     </ol>
 
                     <div class="bg-amber-50 border-l-4 border-amber-500 p-6 rounded-r-xl mb-8">
                         <div class="flex gap-4">
                             <div class="text-amber-500 text-2xl"><i class="fas fa-lightbulb"></i></div>
                             <div>
-                                <h4 class="font-bold text-amber-900 mb-1">Analogía Técnica: El Chef y la Brigada</h4>
+                                <h4 class="font-bold text-amber-900 mb-1">Deoptimization: El precio de la especulación
+                                </h4>
                                 <p class="text-amber-800 text-sm">
-                                    El <strong>Bytecode</strong> es la receta estándar. La <strong>CPU</strong> es el
-                                    comensal que solo come comida cocinada (código máquina).
-                                    El <strong>Intérprete</strong> es un cocinero novato que lee la receta línea por
-                                    línea mientras cocina (lento).
-                                    El <strong>JIT C2</strong> es un Chef con estrellas Michelin: observa qué platos
-                                    piden más (profiling), prepara la <em>Mise en place</em> con antelación y optimiza
-                                    movimientos para sacar platos a velocidad industrial. Si el menú cambia
-                                    drásticamente, el Chef descarta su preparación (<strong>Deoptimization</strong>) y
-                                    vuelve a leer la receta.
+                                    El compilador C2 es optimista. Puede asumir que "este método nunca devuelve null"
+                                    basado en el histórico. Si el entorno cambia (ej. carga dinámica de clases) y la
+                                    asunción falla, ocurre una <strong>Deoptimization</strong>: la JVM descarta el
+                                    código nativo compilado (On-Stack Replacement) y regresa al Intérprete ("Zombie
+                                    Code"). Esto causa un pico de latencia temporal.
                                 </p>
                             </div>
                         </div>
                     </div>
 
                     <h2>2. Arquitectura de Memoria Runtime</h2>
-                    <p>La especificación de la JVM divide la memoria en áreas de datos con propósitos y ciclos de vida
-                        estrictos. Comprender esto es vital para evitar <code>Memory Leaks</code> y optimizar el
-                        <code>Garbage Collection</code>.</p>
+                    <p>La gestión automática de memoria es la característica definitoria de Java. Se basa en la
+                        <strong>Weak Generational Hypothesis</strong>: "La mayoría de los objetos mueren jóvenes".
+                    </p>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                         <div
                             class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm relative overflow-hidden">
                             <div class="absolute top-0 right-0 w-20 h-20 bg-purple-100 rounded-bl-full -mr-10 -mt-10">
                             </div>
-                            <h4 class="font-bold text-lg text-slate-800 mb-2 relative z-10">JVM Stack (La Pila)</h4>
+                            <h4 class="font-bold text-lg text-slate-800 mb-2 relative z-10">JVM Stack (Thread Local)
+                            </h4>
                             <p class="text-sm text-slate-500 mb-3 relative z-10">
-                                Memoria estática y segura por hilo (<strong>Thread-Safe</strong>). Cada hilo tiene su
-                                propio Stack. Almacena <strong>Stack Frames</strong>, variables primitivas locales y
-                                referencias a objetos. Es una estructura LIFO (Last-In, First-Out) extremadamente
-                                rápida. La gestión de memoria es determinista: se libera automáticamente al terminar el
-                                bloque de ejecución.
+                                Memoria privada por hilo. Estructura LIFO. Almacena <strong>Stack Frames</strong> (cada
+                                llamada a método). Contiene variables primitivas y referencias a objetos, pero NUNCA
+                                objetos completos.
+                                <br><strong>Error Crítico:</strong> <code>StackOverflowError</code> (Recursividad
+                                infinita agota los frames). No requiere Garbage Collection (limpieza automática al
+                                cerrar scope).
                             </p>
                         </div>
                         <div
                             class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm relative overflow-hidden">
                             <div class="absolute top-0 right-0 w-20 h-20 bg-emerald-100 rounded-bl-full -mr-10 -mt-10">
                             </div>
-                            <h4 class="font-bold text-lg text-slate-800 mb-2 relative z-10">The Heap (El Montículo)</h4>
+                            <h4 class="font-bold text-lg text-slate-800 mb-2 relative z-10">The Heap (Shared)</h4>
                             <p class="text-sm text-slate-500 mb-3 relative z-10">
-                                Área de memoria compartida para <strong>Objetos dinámicos</strong>. Aquí reside todo lo
-                                creado con <code>new</code>. Se divide en <strong>Young Generation</strong> (Eden Space
-                                + Survivor Spaces) para objetos de vida corta, y <strong>Old Generation</strong> para
-                                objetos persistentes. El <strong>Garbage Collector (GC)</strong> es el proceso demonio
-                                encargado de reclamar memoria aquí, lo que puede causar pausas "Stop-The-World".
+                                Área compartida global.
+                                <br><strong>Young Gen (Eden + Survivor):</strong> Donde nacen los objetos. Limpieza
+                                frecuente y rápida (Minor GC).
+                                <br><strong>Old Gen (Tenured):</strong> Objetos que sobrevivieron múltiples GCs.
+                                Limpieza costosa (Major GC).
+                                <br><strong>Metaspace (Non-Heap):</strong> Almacena metadatos de clases (antes PermGen).
+                                Reside en memoria nativa del OS.
                             </p>
                         </div>
                     </div>
@@ -251,113 +240,80 @@
 
                     <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-green-500">
                         <span class="text-xs font-bold text-green-600 uppercase mb-2 block">🟢 Nivel Básico</span>
-                        <p class="font-medium text-slate-800 mb-2">Compilación y Ejecución Manual</p>
-                        <p class="text-sm text-slate-600 mb-4">Evita el IDE. Comprende la cadena de herramientas
-                            (Toolchain). Crea <code>Hola.java</code>. Compílalo a bytecode y ejecútalo manualmente
-                            interactuando con el JDK.</p>
+                        <p class="font-medium text-slate-800 mb-2">Compilación y Trazabilidad de Classloading</p>
+                        <p class="text-sm text-slate-600 mb-4">Comprende la jerarquía de carga. El <strong>Application
+                                ClassLoader</strong> no puede cargar clases del núcleo. Verifica el orden de carga y
+                            bloqueo.</p>
                         <details class="group">
                             <summary
                                 class="flex cursor-pointer items-center text-sm font-medium text-green-600 hover:text-green-700">
                                 <i class="fas fa-lightbulb mr-2"></i>Ver Procedimiento Técnico
                             </summary>
-                            <p class="mt-2 text-sm text-slate-600 pl-6 border-l-2 border-slate-300">
-                                1. <code>javac Hola.java</code>: Invoca el compilador Java, verifica sintaxis según JLS
-                                y genera <code>Hola.class</code> (Bytecode).<br>
-                                2. <code>java Hola</code>: Invoca la JVM, carga la clase mediante el
-                                <code>Bootstrap ClassLoader</code>, busca <code>public static void main</code> e inicia
-                                el intérprete.
-                            </p>
+                            <div class="mt-2 text-sm text-slate-600 pl-6 border-l-2 border-slate-300 space-y-2">
+                                <p>1. Crea <code>App.java</code> sin package.</p>
+                                <p>2. Compila: <code>javac App.java</code>.</p>
+                                <p>3. Ejecuta con flag de trazabilidad: <code>java -verbose:class App</code>.</p>
+                                <p><strong>Análisis:</strong> Observa cómo <code>java.lang.Object</code> es cargado por
+                                    el Bootstrap Loader (mostrado como null o interno) antes que tu clase. Identifica el
+                                    punto exacto donde el JIT empieza a cargar clases auxiliares como
+                                    <code>LambdaMetafactory</code>.
+                                </p>
+                            </div>
                         </details>
                     </div>
 
                     <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-yellow-500">
                         <span class="text-xs font-bold text-yellow-600 uppercase mb-2 block">🟡 Nivel Intermedio</span>
                         <p class="font-medium text-slate-800 mb-2">Ingeniería Inversa del Bytecode</p>
-                        <p class="text-sm text-slate-600 mb-4">Utiliza el Java Class File Disassembler para inspeccionar
-                            los Opcodes generados. Entenderás que Java es una <strong>Stack-based Machine</strong>.</p>
+                        <p class="text-sm text-slate-600 mb-4">Usa <code>javap</code> para desensamblar la clase.
+                            Entiende que Java es una <strong>Stack Machine</strong>: las operaciones no usan registros
+                            (eax, ebx) como en x86, sino que empujan y sacan valores de una pila de operandos.</p>
                         <details class="group">
                             <summary
                                 class="flex cursor-pointer items-center text-sm font-medium text-yellow-600 hover:text-yellow-700">
-                                <i class="fas fa-lightbulb mr-2"></i>Ver Pista Técnica
+                                <i class="fas fa-lightbulb mr-2"></i>Ver Comando & Análisis
                             </summary>
                             <p class="mt-2 text-sm text-slate-600 pl-6 border-l-2 border-slate-300">
-                                Ejecuta <code>javap -c -v Hola.class</code>. Observa instrucciones como
-                                <code>aload_0</code> (cargar referencia al stack), <code>invokespecial</code> (llamar
-                                constructor) y el <strong>Constant Pool</strong>.
+                                Ejecuta: <code>javap -c -p -v App.class</code>.
+                                <br>Busca el método <code>main</code>. Observa instrucciones como:
+                                <br><code>iconst_1</code> (Push int 1 al stack).
+                                <br><code>istore_1</code> (Pop del stack y guardar en variable local 1).
+                                <br>Esto demuestra la independencia del hardware de la JVM.
                             </p>
                         </details>
                     </div>
 
                     <div class="mb-10 p-6 bg-slate-100 rounded-xl border-l-4 border-red-500">
-                        <span class="text-xs font-bold text-red-600 uppercase mb-2 block">🔴 Nivel Avanzado (Caso
-                            Real)</span>
-                        <p class="font-medium text-slate-800 mb-2">Simulación de Fallos de Memoria (OOM & SOE)</p>
-                        <p class="text-sm text-slate-600 mb-4">
-                            Demuestra los límites físicos de la JVM provocando deliberadamente un
-                            <code>StackOverflowError</code> (agotamiento de Stack Frames) y un
-                            <code>OutOfMemoryError: Java heap space</code>. Esto te enseñará a distinguir problemas de
-                            recursividad vs fugas de memoria.
+                        <span class="text-xs font-bold text-red-600 uppercase mb-2 block">🔴 Nivel Avanzado</span>
+                        <p class="font-medium text-slate-800 mb-2">Simulación de Fallos Críticos (OOM & StackOverflow)
                         </p>
-
+                        <p class="text-sm text-slate-600 mb-4">
+                            Demuestra los límites físicos. Provoca deliberadamente un <code>StackOverflowError</code>
+                            y un <code>OutOfMemoryError</code>. Analiza el comportamiento del GC antes del crash usando
+                            flags como <code>-Xlog:gc*</code> (Java 9+).
+                        </p>
                         <div class="mt-4">
                             <button onclick="toggleSolution('sol-l1-adv')"
                                 class="text-xs font-bold text-white bg-slate-800 px-4 py-2 rounded hover:bg-slate-700 transition-colors">
                                 <i class="fas fa-code mr-2"></i>Ver Código de Prueba
                             </button>
                             <div id="sol-l1-adv" class="hidden mt-4">
-                                <pre><code class="language-java">// 1. StackOverflowError:
-// Causa: Recursividad infinita. Cada llamada añade un Frame al Stack.
-// El tamaño del stack es limitado (ej. -Xss1m).
-public void romperStack() {
-    romperStack(); 
+                                <pre><code class="language-java">// Caso 1: StackOverflowError
+// Límite default: -Xss1m (1MB por hilo).
+// Cada llamada añade un Frame (~100 bytes + locals) al Stack.
+public void recursiveDeath(long counter) {
+    // long ocupa 2 slots en Local Variable Array, acelerando el crash
+    recursiveDeath(counter + 1); 
 }
 
-// 2. OutOfMemoryError (Heap):
-// Causa: Retention de objetos. El GC no puede liberar objetos referenciados.
-// Simulamos un "Memory Leak" llenando el Heap.
-List<byte[]> agujeroNegro = new ArrayList<>();
+// Caso 2: OutOfMemoryError (Heap Space)
+// Heap Dump Analysis: Esencial para post-mortem.
+// Ejecutar con: -Xmx64m -XX:+HeapDumpOnOutOfMemoryError
+List<byte[]> leak = new ArrayList<>();
 while(true) {
-    // Asigna bloques de 1MB en el Heap hasta saturar el Old Generation
-    agujeroNegro.add(new byte[1024 * 1024]); 
+    // Asigna arrays de 1MB. Sobreviven a Young Gen y saturan Old Gen.
+    leak.add(new byte[1024 * 1024]); 
 }</code></pre>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="bg-white rounded-2xl p-8 border border-slate-200 shadow-sm">
-                        <h3 class="!mt-0 mb-6 text-slate-800">Quiz de Validación Técnica</h3>
-                        <div class="space-y-4">
-                            <div class="pb-4 border-b border-slate-100">
-                                <p class="text-sm font-semibold text-slate-700 mb-2">1. ¿Qué componente de la JVM
-                                    traduce Bytecode a código máquina nativo optimizado en tiempo de ejecución?</p>
-                                <div class="grid grid-cols-1 gap-2 text-sm">
-                                    <button
-                                        class="quiz-option text-left px-4 py-2 rounded border border-slate-200 text-slate-600 transition-all"
-                                        onclick="this.style.borderColor='#ef4444'; this.style.color='#ef4444'">A)
-                                        ClassLoader</button>
-                                    <button
-                                        class="quiz-option text-left px-4 py-2 rounded border border-slate-200 text-slate-600 transition-all"
-                                        onclick="this.style.borderColor='#22c55e'; this.style.color='#22c55e'; this.style.fontWeight='bold'">B)
-                                        JIT Compiler (C1/C2)</button>
-                                    <button
-                                        class="quiz-option text-left px-4 py-2 rounded border border-slate-200 text-slate-600 transition-all"
-                                        onclick="this.style.borderColor='#ef4444'; this.style.color='#ef4444'">C)
-                                        Garbage Collector</button>
-                                </div>
-                            </div>
-                            <div>
-                                <p class="text-sm font-semibold text-slate-700 mb-2">2. ¿Dónde se almacenan las
-                                    variables locales primitivas (int, boolean) dentro de un método?</p>
-                                <div class="grid grid-cols-1 gap-2 text-sm">
-                                    <button
-                                        class="quiz-option text-left px-4 py-2 rounded border border-slate-200 text-slate-600 transition-all"
-                                        onclick="this.style.borderColor='#22c55e'; this.style.color='#22c55e'; this.style.fontWeight='bold'">A)
-                                        Stack Frame</button>
-                                    <button
-                                        class="quiz-option text-left px-4 py-2 rounded border border-slate-200 text-slate-600 transition-all"
-                                        onclick="this.style.borderColor='#ef4444'; this.style.color='#ef4444'">B) Heap
-                                        Space</button>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -371,7 +327,7 @@ while(true) {
                                 02</span>
                         </div>
                         <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">Dominando el IDE:
-                            Análisis Estático y Depuración</h1>
+                            Análisis Estático & Debugging Remoto</h1>
                     </div>
 
                     <div class="bg-white rounded-2xl p-8 shadow-lg shadow-blue-900/5 border-l-4 border-blue-600 mb-10">
@@ -379,70 +335,77 @@ while(true) {
                             <i class="fas fa-crosshairs text-blue-600"></i> Objetivos de Ingeniería
                         </h3>
                         <ul class="list-disc list-inside text-gray-600 space-y-2 text-sm">
-                            <li>Comprender el <strong>AST (Abstract Syntax Tree)</strong>: Cómo el IDE "ve" tu código.
+                            <li>Comprender el <strong>AST (Abstract Syntax Tree)</strong>: Cómo el IDE indexa
+                                semánticamente tu código, superando a la búsqueda textual.</li>
+                            <li>Debugging Protocol (JDWP): Arquitectura Cliente-Servidor del Debugger.
+                                <strong>Conditional Breakpoints</strong> para problemas de concurrencia.
                             </li>
-                            <li>Técnicas avanzadas de depuración: <strong>Conditional Breakpoints</strong> y Evaluación
-                                de Expresiones.</li>
-                            <li>Refactorización automatizada segura: Rename, Extract Method y Change Signature.</li>
-                            <li><strong>Local History</strong>: Versionamiento granular interno del IDE (recuperación de
-                                desastres).</li>
+                            <li>Refactorización Estructural: Rename, Extract Method y garantías de consistencia lógica.
+                            </li>
+                            <li><strong>Bytecode Injection:</strong> Cómo funcionan los HotSwaps y los agentes de
+                                instrumentación.</li>
                         </ul>
                     </div>
 
                     <h2>1. Tu IDE es un Motor de Análisis Estático</h2>
-                    <p>Un editor de texto (como Notepad++) ve una secuencia plana de caracteres. Un IDE como
-                        <strong>IntelliJ IDEA</strong> o Eclipse, construye en tiempo real un <strong>AST (Abstract
-                            Syntax Tree)</strong>. El IDE analiza sintácticamente tu código, creando una estructura de
-                        datos en árbol que representa la jerarquía lógica de tu programa.</p>
+                    <p>Un editor de texto ve una secuencia plana de caracteres. IntelliJ o Eclipse construyen un
+                        <strong>AST (Abstract Syntax Tree)</strong> en tiempo real. Esta estructura de datos arbórea
+                        representa la estructura sintáctica del código.
+                    </p>
 
-                    <p>Gracias al indexado del AST, el IDE no realiza "búsquedas de texto" (Ctrl+F), sino búsquedas
-                        semánticas estructurales:</p>
                     <ul class="list-disc list-inside text-slate-600 mb-6 ml-4">
-                        <li><strong>Find Usages (Alt+F7):</strong> Rastrea referencias exactas a un símbolo específico
-                            (variable, método) en todo el grafo del proyecto, discriminando entre variables con el mismo
-                            nombre pero diferente ámbito (scope).</li>
-                        <li><strong>Refactorización Segura:</strong> Al renombrar una clase, el IDE recorre el AST y
-                            actualiza declaraciones, importaciones, XMLs de configuración y JavaDocs. No es un "Search &
-                            Replace", es una reescritura estructural.</li>
+                        <li><strong>Semantic Awareness:</strong> "Find Usages" no busca el string "id". Busca el nodo en
+                            el árbol que representa esa variable específica en ese scope, ignorando variables con el
+                            mismo nombre en otros métodos.</li>
+                        <li><strong>Refactorización Atómica:</strong> Al renombrar, el IDE recorre el grafo del AST.
+                            Esto garantiza que referencias en Javadocs, archivos XML de configuración y Strings
+                            literales (si se selecciona) se actualicen consistentemente.</li>
+                        <li><strong>Data Flow Analysis:</strong> El IDE simula la ejecución para detectar <em>Code
+                                Smells</em>: "Condition is always true", "Value might be null", o "Unreachable code"
+                            antes de siquiera compilar.</li>
                     </ul>
 
-                    <h2>2. Debugging de Nivel Senior</h2>
-                    <p>El uso excesivo de <code>System.out.println</code> para depurar es una práctica ineficiente que
-                        requiere recompilación. El protocolo <strong>JDWP (Java Debug Wire Protocol)</strong> permite a
-                        la JVM comunicarse con el IDE para inspeccionar el estado en tiempo de ejecución.</p>
+                    <h2>2. Debugging de Nivel Senior: JDWP</h2>
+                    <p>El debugging profesional utiliza el <strong>Java Debug Wire Protocol (JDWP)</strong>. La JVM
+                        actúa como servidor, pausando hilos específicos y comunicando el estado de memoria al IDE
+                        (cliente).</p>
 
                     <div class="rounded-xl overflow-hidden shadow-2xl bg-[#2d2d2d] border border-slate-700 mb-8">
                         <div class="bg-[#1e1e1e] px-4 py-2 flex items-center gap-2 border-b border-slate-700">
-                            <span class="text-xs text-slate-400 font-mono">Debugging.java</span>
+                            <span class="text-xs text-slate-400 font-mono">ComplexLogic.java</span>
                         </div>
-                        <pre><code class="language-java">for (int i = 0; i < 10000; i++) {
-    process(i); // ¿Cómo detenerse SOLO cuando i es 5678?
+                        <pre><code class="language-java">for (int i = 0; i < 1000000; i++) {
+    Transaction t = transactions.get(i);
+    process(t); // Fallo aleatorio solo cuando t.getId() es "TX-99" y el estado es PENDING
 }</code></pre>
                     </div>
-                    <p><strong>Conditional Breakpoint:</strong> En lugar de detener el programa 5678 veces (Step Over),
-                        puedes configurar el Breakpoint con una condición lógica (ej: <code>i == 5678</code>). El IDE
-                        inyecta una evaluación en ese punto de ejecución y solo suspende el hilo (Thread.suspend) cuando
-                        la condición es <code>true</code>. Esto es vital para depurar bucles masivos o condiciones de
-                        carrera (Race Conditions).</p>
+                    <p><strong>Conditional Breakpoint:</strong> Detenerse paso a paso en bucles masivos es inviable. Un
+                        breakpoint condicional inyecta una comprobación en tiempo de ejecución. El debugger evalúa la
+                        expresión Java en el contexto del Stack Frame actual y solo suspende el hilo (SUSPEND_EVENT) si
+                        el resultado es true.</p>
+                    <p><strong>Overhead Warning:</strong> Evaluar condiciones en breakpoints es costoso (context switch
+                        constante entre JVM y Debugger). Úsalos con precaución en entornos sensibles al tiempo.</p>
 
                     <h2 class="text-slate-900 border-none mb-6"><i
                             class="fas fa-dumbbell text-blue-600 mr-2"></i>Training Ground</h2>
 
                     <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-green-500">
                         <span class="text-xs font-bold text-green-600 uppercase mb-2 block">🟢 Nivel Básico</span>
-                        <p class="font-medium text-slate-800 mb-2">Productividad con Live Templates</p>
-                        <p class="text-sm text-slate-600 mb-4">Utiliza las plantillas predefinidas del IDE para generar
-                            estructuras de código repetitivas (Boilerplate) instantáneamente.</p>
+                        <p class="font-medium text-slate-800 mb-2">Live Templates & Cognitive Load</p>
+                        <p class="text-sm text-slate-600 mb-4">Reduce la carga cognitiva delegando el "boilerplate" al
+                            IDE. No memorices sintaxis repetitiva, memoriza atajos.</p>
                         <details class="group">
                             <summary
                                 class="flex cursor-pointer items-center text-sm font-medium text-green-600 hover:text-green-700">
-                                Ver Atajos
+                                Atajos Esenciales
                             </summary>
                             <p class="mt-2 text-sm text-slate-600 pl-4 border-l-2 border-slate-300">
-                                - <code>psvm</code> + Tab: Genera
-                                <code>public static void main(String[] args)</code>.<br>
-                                - <code>sout</code> + Tab: Genera <code>System.out.println()</code>.<br>
-                                - <code>soutv</code> + Tab: Imprime la última variable con su nombre.
+                                - <code>psvm</code>: <code>public static void main...</code><br>
+                                - <code>soutv</code>: Imprime variable con etiqueta (análisis rápido).<br>
+                                - <code>iter</code>: Genera bucle for-each inteligente basado en el tipo de colección
+                                cercana.
+                                - <code>Ctrl+W</code> (Extend Selection): Selección semántica incremental (palabra ->
+                                expresión -> sentencia -> bloque).
                             </p>
                         </details>
                     </div>
@@ -450,37 +413,27 @@ while(true) {
                     <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-yellow-500">
                         <span class="text-xs font-bold text-yellow-600 uppercase mb-2 block">🟡 Nivel Intermedio</span>
                         <p class="font-medium text-slate-800 mb-2">Refactorización: Extract Method</p>
-                        <p class="text-sm text-slate-600 mb-4">Identifica un bloque de código monolítico (ej: cálculo
-                            complejo) dentro de un método. Extráelo automáticamente a un método privado para mejorar la
-                            legibilidad y cumplir con el <strong>Single Responsibility Principle</strong>.</p>
-                        <details class="group">
-                            <summary
-                                class="flex cursor-pointer items-center text-sm font-medium text-yellow-600 hover:text-yellow-700">
-                                Ver Comando
-                            </summary>
-                            <p class="mt-2 text-sm text-slate-600 pl-4 border-l-2 border-slate-300">Selecciona el código
-                                y presiona <code>Ctrl + Alt + M</code> (Windows) o <code>Cmd + Opt + M</code> (Mac). El
-                                IDE inferirá los parámetros necesarios y el tipo de retorno.</p>
-                        </details>
+                        <p class="text-sm text-slate-600 mb-4">Aplica el <strong>Single Responsibility
+                                Principle</strong> (SRP) a nivel de función. Selecciona un bloque de código complejo y
+                            extráelo. El IDE detectará variables de entrada/salida y creará la firma del método
+                            automáticamente.</p>
+                        <p class="text-xs font-mono bg-slate-200 inline-block px-2 rounded">Ctrl + Alt + M (Win) / Cmd +
+                            Opt + M (Mac)</p>
                     </div>
 
                     <div class="mb-10 p-6 bg-slate-100 rounded-xl border-l-4 border-red-500">
                         <span class="text-xs font-bold text-red-600 uppercase mb-2 block">🔴 Nivel Avanzado</span>
-                        <p class="font-medium text-slate-800 mb-2">Recuperación de Desastres (Local History)</p>
-                        <p class="text-sm text-slate-600 mb-4">Simula un error catastrófico: borra una clase importante
-                            y guarda cambios. Si no has hecho commit en Git, ¿cómo la recuperas? Aprende a usar el
-                            control de versiones interno del IDE.</p>
-                        <div class="mt-4">
-                            <button onclick="toggleSolution('sol-l2-adv')"
-                                class="text-xs font-bold text-white bg-slate-800 px-4 py-2 rounded hover:bg-slate-700">Solución
-                                Guía</button>
-                            <div id="sol-l2-adv" class="hidden mt-4 text-sm text-slate-300 bg-slate-900 p-4 rounded">
-                                Click derecho en la carpeta del proyecto en el explorador del IDE -> <strong>Local
-                                    History</strong> -> <strong>Show History</strong>. IntelliJ mantiene un registro de
-                                cambios (snapshots) cada vez que compilas, ejecutas tests o guardas, independiente de tu
-                                repositorio Git. Puedes revertir cambios específicos o archivos completos.
-                            </div>
-                        </div>
+                        <p class="font-medium text-slate-800 mb-2">Evaluate Expression & HotSwap</p>
+                        <p class="text-sm text-slate-600 mb-4">
+                            Durante una sesión de debug, usa "Evaluate Expression" (Alt+F8) para ejecutar código
+                            arbitrario en el contexto actual (incluso forzar cambios de estado en objetos privados
+                            mediante reflexión implícita).
+                            <br><br>
+                            <strong>HotSwap:</strong> Cambia el cuerpo de un método mientras la app corre y recompila
+                            (Ctrl+Shift+F9). La JVM reemplazará el puntero de la función en memoria.
+                            <em>Limitación:</em> No puedes cambiar firmas de métodos ni añadir campos de clase sin
+                            reiniciar (a menos que uses DCEVM).
+                        </p>
                     </div>
                 </div>
 
@@ -491,8 +444,8 @@ while(true) {
                                 class="px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-bold uppercase tracking-wider">Lección
                                 03</span>
                         </div>
-                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">Sistema de Tipos
-                            y Precisión Numérica</h1>
+                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">Sistema de Tipos,
+                            Precisión y Object Layout</h1>
                     </div>
 
                     <div class="bg-white rounded-2xl p-8 shadow-lg shadow-blue-900/5 border-l-4 border-blue-600 mb-10">
@@ -500,140 +453,131 @@ while(true) {
                             <i class="fas fa-crosshairs text-blue-600"></i> Objetivos de Ingeniería
                         </h3>
                         <ul class="list-disc list-inside text-gray-600 space-y-2 text-sm">
-                            <li>Anatomía de tipos: Representación en bits y complemento a dos.</li>
-                            <li>La norma <strong>IEEE 754</strong> y los peligros de la aritmética de punto flotante.
+                            <li>Anatomía de tipos: Representación en bits y Complemento a Dos.</li>
+                            <li><strong>IEEE 754</strong>: Representación de punto flotante y por qué
+                                <code>double</code> es peligroso en finanzas.
                             </li>
-                            <li><strong>String Pool</strong>: Gestión de memoria inmutable y patrón Flyweight.</li>
-                            <li>Inferencia de tipos local (<code>var</code>): Azúcar sintáctico vs Tipado Dinámico.</li>
+                            <li>Internals: <strong>Java Object Layout (JOL)</strong>. Mark Word, Compressed Oops y
+                                Padding.</li>
+                            <li>String Pool: Mecanismo de <code>intern()</code> y gestión de memoria Flyweight.</li>
                         </ul>
                     </div>
 
-                    <h2>1. Primitivos: Bits, Bytes y Memoria</h2>
-                    <p>Java es un lenguaje de tipado estático fuerte. Los tipos primitivos no son objetos; son valores
-                        crudos almacenados directamente en el <strong>Stack</strong> para máxima eficiencia. Comprender
-                        su tamaño en bits es crucial para la optimización de memoria y evitar desbordamientos
-                        (OverFlow).</p>
+                    <h2>1. Primitivos vs Wrappers: Coste de Memoria Real</h2>
+                    <p>La eficiencia de memoria es crítica en sistemas de alta escala. Un <code>int</code> ocupa 4 bytes
+                        crudos. Un <code>Integer</code> es un objeto completo en el Heap. La diferencia es masiva.</p>
 
                     <div class="overflow-hidden rounded-xl border border-slate-200 mb-8 shadow-sm">
                         <table class="w-full text-left bg-white text-sm">
                             <thead class="bg-slate-100 text-slate-700 font-bold uppercase text-xs">
                                 <tr>
-                                    <th class="p-4">Tipo</th>
-                                    <th class="p-4">Tamaño (Bits)</th>
-                                    <th class="p-4">Uso Profesional / Rango</th>
+                                    <th class="p-4">Componente Objeto</th>
+                                    <th class="p-4">Tamaño (64-bit JVM)</th>
+                                    <th class="p-4">Descripción Técnica</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-slate-100">
                                 <tr>
-                                    <td class="p-4 font-mono text-pink-600">int</td>
-                                    <td class="p-4">32</td>
-                                    <td class="p-4">Estándar para conteos. Rango: -2^31 a 2^31-1 (aprox ±2 mil
-                                        millones).</td>
+                                    <td class="p-4 font-mono text-pink-600">Mark Word (Header)</td>
+                                    <td class="p-4">8 bytes</td>
+                                    <td class="p-4">Almacena identidad hashcode, bits de bloqueo (monitor para
+                                        synchronized) y edad del objeto para GC (age bits).</td>
                                 </tr>
                                 <tr>
-                                    <td class="p-4 font-mono text-pink-600">long</td>
-                                    <td class="p-4">64</td>
-                                    <td class="p-4">IDs de Bases de Datos, Timestamps (ms desde 1970), métricas de alto
-                                        volumen. Requiere sufijo 'L'.</td>
+                                    <td class="p-4 font-mono text-pink-600">Class Pointer</td>
+                                    <td class="p-4">4 bytes (Compressed)</td>
+                                    <td class="p-4">Referencia comprimida (<code>-XX:+UseCompressedOops</code>)
+                                        apuntando a la definición de la clase en Metaspace. Sin compresión serían 8
+                                        bytes.</td>
                                 </tr>
                                 <tr>
-                                    <td class="p-4 font-mono text-pink-600">double</td>
-                                    <td class="p-4">64 (IEEE 754)</td>
-                                    <td class="p-4">Cálculos científicos/físicos. <strong>PROHIBIDO para cálculos
-                                            financieros.</strong></td>
+                                    <td class="p-4 font-mono text-pink-600">Instance Data</td>
+                                    <td class="p-4">Variable</td>
+                                    <td class="p-4">Los campos reales (ej: el <code>int</code> value de 4 bytes).</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-4 font-mono text-pink-600">Padding</td>
+                                    <td class="p-4">Variable (0-7 bytes)</td>
+                                    <td class="p-4">Alineamiento de memoria. La JVM exige que los objetos comiencen en
+                                        direcciones múltiplos de 8 bytes para optimizar el bus de memoria de la CPU.
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
+                    <p class="text-sm text-slate-500 italic mt-2">Conclusión: Un <code>Integer</code> ocupa ~16 bytes
+                        mínimos para guardar 4 bytes de datos. Un overhead del 300% frente a un primitivo.</p>
 
                     <h2>2. El Estándar IEEE 754 y el error financiero</h2>
-                    <p>Los tipos <code>float</code> y <code>double</code> implementan el estándar de punto flotante IEEE
-                        754. Al igual que no podemos representar 1/3 exactamente en decimal (0.333...), las computadoras
-                        (base binaria) no pueden representar fracciones exactas como 0.1.</p>
+                    <p>Las CPUs modernas implementan aritmética de punto flotante bajo IEEE 754. Los números se guardan
+                        como: Signo + Exponente + Mantisa. Fracciones simples como <code>0.1</code> tienen
+                        representaciones binarias infinitas periódicas (similar a 1/3 en decimal).</p>
 
                     <div class="bg-red-50 border-l-4 border-red-500 p-6 rounded-r-xl mb-8">
                         <h4 class="font-bold text-red-800 mb-1">Peligro Crítico: Pérdida de Precisión</h4>
                         <code
-                            class="text-red-900 block mt-2">double a = 0.1 + 0.2; // Resultado real: 0.30000000000000004</code>
+                            class="text-red-900 block mt-2 bg-red-100 p-2 rounded">double a = 0.1 + 0.2; // Resultado: 0.30000000000000004</code>
                         <p class="text-red-700 text-sm mt-2">
-                            En sistemas bancarios o de facturación, este error de redondeo acumula discrepancias
-                            monetarias. Para cualquier cálculo de dinero, <strong>SIEMPRE</strong> utiliza la clase
-                            <code>java.math.BigDecimal</code>, que maneja precisión arbitraria mediante software.
+                            Esta "basura" al final de la mantisa se acumula en cálculos sucesivos.
+                            <br><strong>Regla de Ingeniería:</strong> JAMÁS uses <code>float</code> o
+                            <code>double</code> para dinero. Usa <code>java.math.BigDecimal</code> o representa centavos
+                            usando <code>long</code> (patrón Monetary Amount).
                         </p>
                     </div>
-
-                    <h2>3. String Pool y el patrón Flyweight</h2>
-                    <p>Los objetos <code>String</code> son inmutables por diseño (seguridad, hashcode caching). Para
-                        optimizar memoria, la JVM mantiene un área especial en el Heap llamada <strong>String Constant
-                            Pool</strong>.</p>
-                    <p>Cuando creas un String literal (<code>"hola"</code>), la JVM verifica si ya existe en el Pool. Si
-                        existe, retorna una referencia a la misma instancia. Esto es una implementación interna del
-                        patrón de diseño <strong>Flyweight</strong> para compartir objetos comunes y reducir la huella
-                        de memoria.</p>
 
                     <h2 class="text-slate-900 border-none mb-6"><i
                             class="fas fa-dumbbell text-blue-600 mr-2"></i>Training Ground</h2>
 
                     <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-green-500">
                         <span class="text-xs font-bold text-green-600 uppercase mb-2 block">🟢 Nivel Básico</span>
-                        <p class="font-medium text-slate-800 mb-2">Inferencia de Tipos (Var)</p>
-                        <p class="text-sm text-slate-600 mb-4">Declara una variable con <code>var</code> (Java 10+).
-                            Intenta reasignarle un tipo diferente. Comprende que Java sigue siendo estático.</p>
-                        <details class="group">
-                            <summary
-                                class="flex cursor-pointer items-center text-sm font-medium text-green-600 hover:text-green-700">
-                                Explicación
-                            </summary>
-                            <p class="mt-2 text-sm text-slate-600 pl-4 border-l-2 border-slate-300">
-                                <code>var texto = "Hola";</code>. El compilador infiere que es String al compilar. Si
-                                luego haces <code>texto = 10;</code>, fallará. <code>var</code> es solo "azúcar
-                                sintáctico", no tipado dinámico como en JavaScript.
-                            </p>
-                        </details>
+                        <p class="font-medium text-slate-800 mb-2">Inferencia de Tipos (Local Variable Type Inference)
+                        </p>
+                        <p class="text-sm text-slate-600 mb-4"><code>var</code> (Java 10+) es azúcar sintáctico en
+                            tiempo de compilación. El bytecode generado es idéntico a declarar el tipo explícito. NO es
+                            tipado dinámico. Ayuda a reducir verbosidad en genéricos complejos.</p>
                     </div>
 
                     <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-yellow-500">
                         <span class="text-xs font-bold text-yellow-600 uppercase mb-2 block">🟡 Nivel Intermedio</span>
-                        <p class="font-medium text-slate-800 mb-2">La Trampa de la Identidad de Strings</p>
-                        <p class="text-sm text-slate-600 mb-4">Compara <code>"test" == new String("test")</code>.
-                            Explica por qué el resultado es <code>false</code> basándote en la memoria Heap.</p>
+                        <p class="font-medium text-slate-800 mb-2">Identidad vs Igualdad (String Pool)</p>
+                        <p class="text-sm text-slate-600 mb-4">Explica por qué <code>"test" == new String("test")</code>
+                            es <code>false</code>.</p>
                         <details class="group">
                             <summary
                                 class="flex cursor-pointer items-center text-sm font-medium text-yellow-600 hover:text-yellow-700">
-                                Pista Técnica
+                                Explicación de Memoria
                             </summary>
                             <p class="mt-2 text-sm text-slate-600 pl-4 border-l-2 border-slate-300">
-                                El operador <code>==</code> compara <strong>direcciones de memoria</strong>. El literal
-                                vive en el <em>String Pool</em>. El operador <code>new</code> fuerza la creación de un
-                                nuevo objeto en el Heap principal, aunque el contenido sea igual. Para comparar
-                                contenido, usa siempre <code>.equals()</code>.
+                                <code>==</code> compara direcciones de memoria.
+                                <br>1. Los literales <code>"text"</code> se internan automáticamente en el
+                                <strong>String Pool</strong> (un HashMap nativo en el Heap).
+                                <br>2. <code>new String()</code> fuerza la creación de un nuevo objeto en el Heap
+                                estándar, ignorando el Pool.
+                                <br>3. <code>intern()</code> permite mover referencias al Pool manualmente para ahorrar
+                                memoria (Patrón Flyweight).
                             </p>
                         </details>
                     </div>
 
                     <div class="mb-10 p-6 bg-slate-100 rounded-xl border-l-4 border-red-500">
                         <span class="text-xs font-bold text-red-600 uppercase mb-2 block">🔴 Nivel Avanzado</span>
-                        <p class="font-medium text-slate-800 mb-2">Cálculo Financiero Exacto</p>
-                        <p class="text-sm text-slate-600 mb-4">Implementa un cálculo de impuestos robusto usando
-                            <code>BigDecimal</code>. El error común es usar el constructor
-                            <code>new BigDecimal(0.1)</code> (que ya trae el error del double). Debes usar el
-                            constructor de String.</p>
+                        <p class="font-medium text-slate-800 mb-2">Cálculo Financiero Robusto</p>
+                        <p class="text-sm text-slate-600 mb-4">Implementa cálculo de impuestos con
+                            <code>BigDecimal</code>. Cuidado: el constructor <code>new BigDecimal(0.1)</code> es
+                            inseguro porque el double 0.1 ya ha perdido precisión antes de entrar al constructor.
+                        </p>
                         <div class="mt-4">
                             <button onclick="toggleSolution('sol-l3-adv')"
-                                class="text-xs font-bold text-white bg-slate-800 px-4 py-2 rounded hover:bg-slate-700">Solución
-                                Guía</button>
+                                class="text-xs font-bold text-white bg-slate-800 px-4 py-2 rounded hover:bg-slate-700">Solución</button>
                             <div id="sol-l3-adv" class="hidden mt-4">
-                                <pre><code class="language-java">import java.math.BigDecimal;
-import java.math.RoundingMode;
-
-// SIEMPRE usar String en el constructor para precisión exacta
+                                <pre><code class="language-java">// CORRECTO: Usar String constructor para mantener precisión exacta
 BigDecimal precio = new BigDecimal("19.90"); 
 BigDecimal tasa = new BigDecimal("0.19");
 
-BigDecimal impuesto = precio.multiply(tasa);
-
-// Redondeo obligatorio en finanzas: HALF_UP (Redondeo comercial estándar)
-BigDecimal total = impuesto.setScale(2, RoundingMode.HALF_UP);</code></pre>
+// Operaciones aritméticas son métodos inmutables
+// El RoundingMode es obligatorio en divisiones para evitar ArithmeticException
+BigDecimal impuesto = precio.multiply(tasa)
+        .setScale(2, RoundingMode.HALF_UP); // Redondeo bancario estándar</code></pre>
                             </div>
                         </div>
                     </div>
@@ -647,7 +591,7 @@ BigDecimal total = impuesto.setScale(2, RoundingMode.HALF_UP);</code></pre>
                                 04</span>
                         </div>
                         <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">Control de Flujo,
-                            Complejidad y Clean Code</h1>
+                            Complejidad y Seguridad</h1>
                     </div>
 
                     <div class="bg-white rounded-2xl p-8 shadow-lg shadow-blue-900/5 border-l-4 border-blue-600 mb-10">
@@ -655,105 +599,110 @@ BigDecimal total = impuesto.setScale(2, RoundingMode.HALF_UP);</code></pre>
                             <i class="fas fa-crosshairs text-blue-600"></i> Objetivos de Ingeniería
                         </h3>
                         <ul class="list-disc list-inside text-gray-600 space-y-2 text-sm">
-                            <li>Métricas de calidad: Reducción de la <strong>Complejidad Ciclomática</strong> (McCabe).
-                            </li>
-                            <li>Eliminación de anidamiento profundo mediante <strong>Guard Clauses</strong> y "Fail
-                                Fast".</li>
-                            <li><strong>Switch Expressions</strong> (Java 14+): Exhaustividad y Programación Funcional.
-                            </li>
-                            <li>Impacto en CPU: <strong>Branch Prediction</strong> y optimización de bucles.</li>
+                            <li>Métricas de calidad: Reducción de <strong>Complejidad Ciclomática</strong> y
+                                testeabilidad.</li>
+                            <li>Patrones de flujo: "Fail Fast", Guard Clauses y eliminación de "Arrow Code".</li>
+                            <li>Switch Expressions: Exhaustividad en el compilador y Pattern Matching.</li>
+                            <li>Hardware: <strong>Branch Prediction</strong>. El coste real de un <code>if</code> en el
+                                pipeline de la CPU.</li>
+                            <li>Seguridad: Timing attacks en comparaciones de Strings y bucles.</li>
                         </ul>
                     </div>
 
-                    <h2>1. Complejidad Ciclomática y Carga Cognitiva</h2>
-                    <p>La complejidad ciclomática es una métrica de software que mide el número de caminos
-                        independientes a través del código. Cada <code>if</code>, <code>for</code>, o <code>case</code>
-                        aumenta la complejidad. Un código altamente anidado (conocido como "Arrow Code") es difícil de
-                        testear y propenso a errores. Como regla general, un método no debería exceder una complejidad
-                        de 10.</p>
+                    <h2>1. Complejidad Ciclomática (McCabe)</h2>
+                    <p>Mide el número de caminos linealmente independientes a través del código. Matemáticamente, define
+                        el <strong>número mínimo de tests unitarios</strong> necesarios para cubrir toda la lógica.</p>
+                    <p>Un alto anidamiento (<code>if</code> dentro de <code>if</code>) aumenta la carga cognitiva
+                        exponencialmente y dificulta el mantenimiento. Un ingeniero busca "aplanar" la lógica.</p>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                         <div class="bg-red-50 p-4 rounded-xl border border-red-200">
-                            <h4 class="text-red-800 font-bold mb-2">❌ Código Anidado (Arrow Code)</h4>
-                            <pre class="text-xs bg-white p-2 rounded border border-red-100"><code class="language-java">if (usuario != null) {
-    if (usuario.isActivo()) {
+                            <h4 class="text-red-800 font-bold mb-2">❌ Arrow Code (Anidado)</h4>
+                            <pre class="text-xs bg-white p-2 rounded border border-red-100"><code class="language-java">if (user != null) {
+    if (user.isActive()) {
         if (saldo > 0) {
-            // Lógica profunda y difícil de leer
-            enviarProducto();
+            procesar();
         }
     }
-}</code></pre>
+} // Difícil de leer y debuggear</code></pre>
                         </div>
                         <div class="bg-green-50 p-4 rounded-xl border border-green-200">
                             <h4 class="text-green-800 font-bold mb-2">✅ Guard Clauses (Fail Fast)</h4>
-                            <pre class="text-xs bg-white p-2 rounded border border-green-100"><code class="language-java">// Validaciones al inicio (Guards)
-if (usuario == null) return;
-if (!usuario.isActivo()) return;
+                            <pre class="text-xs bg-white p-2 rounded border border-green-100"><code class="language-java">// Validación defensiva primero
+if (user == null) throw new IllegalArgumentException();
+if (!user.isActive()) return;
 if (saldo <= 0) return;
 
-// Camino feliz (Happy Path) al nivel principal
-enviarProducto();</code></pre>
+procesar(); // Lógica principal limpia</code></pre>
                         </div>
                     </div>
 
-                    <h2>2. Switch Expressions y Pattern Matching</h2>
-                    <p>Las versiones modernas de Java han evolucionado el <code>switch</code> de una sentencia de
-                        control propensa a errores (el infame "fall-through" si olvidas el <code>break</code>) a una
-                        expresión funcional poderosa.</p>
-                    <p>Las <strong>Switch Expressions</strong> (Java 14+) son inmutables, deben ser exhaustivas (cubrir
-                        todos los casos posibles de un Enum) y pueden retornar valores directamente, facilitando un
-                        estilo más declarativo.</p>
+                    <h2>2. Implicaciones de Hardware: Branch Prediction</h2>
+                    <p>La CPU moderna no ejecuta instrucciones una a una; usa un <em>pipeline</em> profundo. Cuando
+                        encuentra un salto condicional (<code>if</code>), intenta "adivinar" el camino (True/False) para
+                        pre-cargar instrucciones (Speculative Execution).</p>
+
+                    <p><strong>Branch Misprediction:</strong> Si la CPU falla en su predicción, debe "vaciar" el
+                        pipeline (flush), descartar el trabajo especulativo y recargar las instrucciones correctas. Esto
+                        cuesta docenas de ciclos de reloj.
+                        <br><em>Ejemplo:</em> Procesar un array ordenado (`sorted`) es drásticamente más rápido que uno
+                        desordenado en un bucle con condicionales, porque el predictor de saltos puede acertar el patrón
+                        (TTTTTFFFFF vs TFTFTTFF).
+                    </p>
 
                     <h2 class="text-slate-900 border-none mb-6"><i
                             class="fas fa-dumbbell text-blue-600 mr-2"></i>Training Ground</h2>
 
                     <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-green-500">
                         <span class="text-xs font-bold text-green-600 uppercase mb-2 block">🟢 Nivel Básico</span>
-                        <p class="font-medium text-slate-800 mb-2">Switch Moderno con Yield</p>
-                        <p class="text-sm text-slate-600 mb-4">Transforma un switch clásico de días de la semana a una
-                            expresión moderna. Usa la sintaxis de flecha <code>-></code>.</p>
-                        <details class="group">
-                            <summary
-                                class="flex cursor-pointer items-center text-sm font-medium text-green-600 hover:text-green-700">
-                                Pista de Sintaxis
-                            </summary>
-                            <p class="mt-2 text-sm text-slate-600 pl-4 border-l-2 border-slate-300">
-                                <code>var tipo = switch(dia) { case LUNES, MARTES -> "Laboral"; case SABADO -> "Descanso"; default -> "N/A"; };</code>.
-                                Nota que no se usa <code>break</code> y la expresión retorna un valor asignable.
-                            </p>
-                        </details>
+                        <p class="font-medium text-slate-800 mb-2">Switch Expressions (Java 14+)</p>
+                        <p class="text-sm text-slate-600 mb-4">Usa la sintaxis de flecha <code>-></code>. Convierte un
+                            switch imperativo en una expresión funcional que retorna valor, garantizando inmutabilidad y
+                            obligando a cubrir todos los casos (Exhaustiveness) si se usa con Enums o Sealed Classes.
+                        </p>
+                        <pre class="text-xs"><code class="language-java">var tipo = switch(dia) {
+    case SAT, SUN -> "FinDeSemana";
+    default -> "Laboral"; // Si falta default o un caso, no compila.
+};</code></pre>
                     </div>
 
                     <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-yellow-500">
                         <span class="text-xs font-bold text-yellow-600 uppercase mb-2 block">🟡 Nivel Intermedio</span>
-                        <p class="font-medium text-slate-800 mb-2">Branch Prediction de la CPU</p>
-                        <p class="text-sm text-slate-600 mb-4">Investigación: ¿Por qué iterar y filtrar un Array
-                            <strong>ordenado</strong> es computacionalmente más rápido que uno desordenado, aunque la
-                            lógica del código sea la misma?</p>
-                        <p class="text-xs text-slate-500 mt-2"><em>Clave: Pipeline del procesador y predicción de
-                                saltos.</em></p>
+                        <p class="font-medium text-slate-800 mb-2">Bytecode: Tableswitch vs Lookupswitch</p>
+                        <p class="text-sm text-slate-600 mb-4">No todos los switches son iguales. Si los casos son
+                            contiguos (1, 2, 3), el compilador genera un <code>tableswitch</code> (acceso O(1) directo
+                            por índice). Si son dispersos (1, 100, 5000), genera un <code>lookupswitch</code> (búsqueda
+                            binaria O(log n)). Diseña tus constantes pensando en esto.</p>
                     </div>
 
                     <div class="mb-10 p-6 bg-slate-100 rounded-xl border-l-4 border-red-500">
-                        <span class="text-xs font-bold text-red-600 uppercase mb-2 block">🔴 Nivel Avanzado</span>
-                        <p class="font-medium text-slate-800 mb-2">Refactorización Masiva con Guard Clauses</p>
-                        <p class="text-sm text-slate-600 mb-4">Toma un método legado complejo con múltiples
-                            <code>else if</code> anidados. Aplica la técnica de inversión de condicionales para
-                            "aplanar" la estructura lógica.</p>
+                        <span class="text-xs font-bold text-red-600 uppercase mb-2 block">🔴 Nivel Avanzado
+                            (Seguridad)</span>
+                        <p class="font-medium text-slate-800 mb-2">Timing Attacks en Verificación de Credenciales</p>
+                        <p class="text-sm text-slate-600 mb-4">
+                            Un <code>return false</code> prematuro (Fail Fast) es bueno para performance pero fatal para
+                            seguridad en criptografía. Al comparar hashes o tokens, <code>String.equals()</code> retorna
+                            false en el primer carácter diferente. Esto permite a un atacante medir el tiempo de
+                            respuesta (microsegundos) para adivinar el token carácter por carácter.
+                            <br><strong>Reto:</strong> Implementa una comparación de tiempo constante.
+                        </p>
                         <div class="mt-4">
                             <button onclick="toggleSolution('sol-l4-adv')"
                                 class="text-xs font-bold text-white bg-slate-800 px-4 py-2 rounded hover:bg-slate-700">Solución
-                                Guía</button>
+                                Segura</button>
                             <div id="sol-l4-adv" class="hidden mt-4">
-                                <pre><code class="language-java">// Patrón "Fail Fast"
-// Validar todas las precondiciones negativas primero
-public void registrar(User u) {
-    if (u == null) throw new IllegalArgumentException("Usuario requerido");
-    if (u.edad < 18) throw new SecurityException("Edad insuficiente");
-    if (!db.isConnected()) throw new RuntimeException("Error DB");
+                                <pre><code class="language-java">// Comparación segura contra Timing Attacks
+// Recorre SIEMPRE ambos strings completos usando XOR bit a bit
+// Evita que el tiempo de ejecución revele qué tan cerca estuvo el atacante.
 
-    // Lógica core limpia y sin indentación innecesaria
-    db.save(u);
+public boolean constantTimeEquals(String a, String b) {
+    if (a.length() != b.length()) return false; // Longitud sí se puede filtrar
+    int result = 0;
+    for (int i = 0; i < a.length(); i++) {
+        // XOR acumula diferencias sin ramificación condicional
+        result |= a.charAt(i) ^ b.charAt(i);
+    }
+    return result == 0;
 }</code></pre>
                             </div>
                         </div>
@@ -776,48 +725,50 @@ public void registrar(User u) {
                             <i class="fas fa-crosshairs text-blue-600"></i> Objetivos de Ingeniería
                         </h3>
                         <ul class="list-disc list-inside text-gray-600 space-y-2 text-sm">
-                            <li>Internals: Estructura de un <strong>Stack Frame</strong> (Local Variables Array, Operand
+                            <li>Internals: Estructura detallada del <strong>Stack Frame</strong> (LVA, Operand Stack,
+                                Dynamic Linking).</li>
+                            <li>Concepto Core: Demostración definitiva de <strong>Pass-by-Value</strong> en Java.</li>
+                            <li>Optimización JIT: <strong>Escape Analysis</strong> y Scalar Replacement (Objetos en el
                                 Stack).</li>
-                            <li>Concepto Core: Java es <strong>estrictamente Pass-by-Value</strong> (Paso por Valor).
-                            </li>
-                            <li>Diseño: <strong>Single Responsibility Principle (SRP)</strong> en métodos.</li>
-                            <li>Riesgos: Recursividad, StackOverflow y Tail Call Optimization (ausente en Java).</li>
+                            <li>Diseño: Cohesión, Acoplamiento y gestión de estado mutable.</li>
                         </ul>
                     </div>
 
                     <h2>1. Anatomía de una llamada: El Stack Frame</h2>
-                    <p>Cada vez que se invoca un método en Java, la JVM crea un nuevo bloque de memoria en el Thread
-                        Stack llamado <strong>Frame</strong>. Este es un concepto fundamental definido en la
-                        especificación de la JVM. Un Frame contiene:</p>
+                    <p>Cada vez que invocas un método, la JVM empuja un nuevo <strong>Frame</strong> en el Java Stack
+                        del hilo actual. Cuando el método termina, el Frame se destruye (pop). Esto hace que las
+                        variables locales sean inherentemente "Thread Safe" (no compartidas).</p>
+                    <p>Componentes internos del Frame:</p>
                     <ul class="list-disc list-inside text-slate-600 ml-4 mb-4">
-                        <li><strong>Local Variable Array:</strong> Almacena <code>this</code> (en métodos de instancia),
-                            parámetros del método y variables locales definidas dentro.</li>
-                        <li><strong>Operand Stack:</strong> Pila de trabajo temporal para operaciones matemáticas y
-                            lógica intermedia.</li>
-                        <li><strong>Frame Data:</strong> Referencias al Constant Pool y punteros de retorno (Return
-                            Address) para saber a dónde volver en el código cuando el método termine.</li>
+                        <li><strong>Local Variable Array (LVA):</strong> Un arreglo indexado. <code>this</code> (si no
+                            es estático) va en index 0. Argumentos y variables locales siguen. Tipos como
+                            <code>long/double</code> ocupan 2 slots consecutivos.
+                        </li>
+                        <li><strong>Operand Stack:</strong> Pila LIFO de profundidad fija usada para ejecutar
+                            instrucciones bytecode (suma, carga de referencias).</li>
+                        <li><strong>Reference to Constant Pool:</strong> Permite el enlazado dinámico (resolver
+                            referencias a otros métodos/campos).</li>
                     </ul>
-                    <p>Cuando el método finaliza (encuentra <code>return</code> o excepción), el Frame es destruido
-                        (popped) y la memoria se libera instantáneamente. Por esto, las variables locales tienen un
-                        ciclo de vida atado a la ejecución del método.</p>
 
-                    <h2>2. Java es siempre Pass-By-Value</h2>
-                    <p>Existe una confusión común: "Java pasa primitivos por valor y objetos por referencia".
-                        <strong>Esto es técnicamente incorrecto.</strong></p>
-                    <p>Java <strong>SIEMPRE</strong> pasa parámetros por valor. Lo que se pasa "por valor" cuando usamos
-                        objetos es <strong>la copia de la referencia (la dirección de memoria)</strong>, no el objeto en
-                        sí mismo.</p>
-
-                    <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-xl mb-8">
-                        <h4 class="font-bold text-blue-900 mb-1">La Prueba Definitiva</h4>
-                        <p class="text-blue-800 text-sm">
-                            Si Java fuera "Pass-by-Reference" (como C++ con punteros), podrías escribir un método que
-                            intercambie dos objetos y que el cambio persista fuera del método. En Java esto es
-                            imposible. Puedes modificar el <em>estado interno</em> del objeto (porque tienes una copia
-                            de la llave de la casa), pero no puedes cambiar <em>a qué objeto apunta</em> la variable
-                            original del llamante (no puedes cambiar la cerradura de la casa original).
+                    <div class="bg-amber-50 border-l-4 border-amber-500 p-6 rounded-r-xl mb-8">
+                        <h4 class="font-bold text-amber-900 mb-1">JIT Magic: Scalar Replacement</h4>
+                        <p class="text-amber-800 text-sm">
+                            ¿Java siempre crea objetos en el Heap? <strong>No.</strong> Si el <strong>Escape
+                                Analysis</strong> determina que un objeto no escapa del método (ej: no se retorna ni se
+                            asigna a estáticos), el compilador C2 puede "explotar" el objeto. En lugar de alocar memoria
+                            en el Heap, coloca sus campos primitivos directamente en los registros de la CPU o el Stack.
+                            Esto elimina la presión sobre el GC completamente.
                         </p>
                     </div>
+
+                    <h2>2. Java es siempre Pass-By-Value</h2>
+                    <p>Mito persistente: "Java pasa primitivos por valor y objetos por referencia".
+                        <strong>Falso</strong>. Java pasa <strong>el valor de la referencia</strong>.
+                    </p>
+                    <p>Imagina la referencia como un control remoto. Cuando pasas un objeto a un método, la JVM
+                        fotocopia el control remoto. Tienes dos controles apuntando a la misma TV. Puedes cambiar el
+                        canal (estado interno del objeto), pero si cambias las pilas al control copia o lo apuntas a
+                        otra TV, el control original del llamante no se entera.</p>
 
                     <h2 class="text-slate-900 border-none mb-6"><i
                             class="fas fa-dumbbell text-blue-600 mr-2"></i>Training Ground</h2>
@@ -825,54 +776,37 @@ public void registrar(User u) {
                     <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-green-500">
                         <span class="text-xs font-bold text-green-600 uppercase mb-2 block">🟢 Nivel Básico</span>
                         <p class="font-medium text-slate-800 mb-2">Scope y Shadowing</p>
-                        <p class="text-sm text-slate-600 mb-4">Analiza el ámbito de las variables. Intenta acceder a una
-                            variable definida dentro de un bloque <code>if</code> desde fuera de él. Entiende por qué el
-                            compilador lo prohíbe (Variable fuera de su Frame o bloque léxico).</p>
-                    </div>
-
-                    <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-yellow-500">
-                        <span class="text-xs font-bold text-yellow-600 uppercase mb-2 block">🟡 Nivel Intermedio</span>
-                        <p class="font-medium text-slate-800 mb-2">Diseño Clean: SRP</p>
-                        <p class="text-sm text-slate-600 mb-4">Tienes un método "Dios" <code>procesarPedido()</code> que
-                            calcula impuestos, envía correos y guarda en BD. Refactoriza dividiéndolo en métodos
-                            atómicos que hagan una sola cosa.</p>
-                        <details class="group">
-                            <summary
-                                class="flex cursor-pointer items-center text-sm font-medium text-yellow-600 hover:text-yellow-700">
-                                Guía de Estilo
-                            </summary>
-                            <p class="mt-2 text-sm text-slate-600 pl-4 border-l-2 border-slate-300">Un método debe tener
-                                un nombre que sea un verbo (acción) y su contenido debe coincidir exclusivamente con esa
-                                acción. Si usas "y" en el nombre (ej: <code>calcularYGuardar</code>), probablemente
-                                violas el SRP.</p>
-                        </details>
+                        <p class="text-sm text-slate-600 mb-4">Analiza el ciclo de vida de las variables en el LVA.
+                            Entiende que al salir de un bloque <code>if/for</code>, los slots del LVA se marcan como
+                            reutilizables para nuevas variables, optimizando el tamaño del frame.</p>
                     </div>
 
                     <div class="mb-10 p-6 bg-slate-100 rounded-xl border-l-4 border-red-500">
                         <span class="text-xs font-bold text-red-600 uppercase mb-2 block">🔴 Nivel Avanzado</span>
-                        <p class="font-medium text-slate-800 mb-2">Demostración Empírica de Pass-by-Value</p>
-                        <p class="text-sm text-slate-600 mb-4">Escribe un método <code>swap</code> que intente
-                            intercambiar dos Strings. Demuestra que, al retornar al método <code>main</code>, las
-                            variables originales NO han cambiado.</p>
+                        <p class="font-medium text-slate-800 mb-2">Prueba de Fuego: The Swap Paradox</p>
+                        <p class="text-sm text-slate-600 mb-4">Implementa un método que intente intercambiar dos objetos
+                            Strings. Demuestra empíricamente que, a diferencia de C++ (que permite paso por referencia
+                            `&`), en Java es imposible reasignar la referencia original desde el callee.</p>
                         <div class="mt-4">
                             <button onclick="toggleSolution('sol-l5-adv')"
-                                class="text-xs font-bold text-white bg-slate-800 px-4 py-2 rounded hover:bg-slate-700">Solución
-                                Guía</button>
+                                class="text-xs font-bold text-white bg-slate-800 px-4 py-2 rounded hover:bg-slate-700">Ver
+                                Demostración</button>
                             <div id="sol-l5-adv" class="hidden mt-4">
-                                <pre><code class="language-java">public void test() {
-    String s1 = "A";
-    String s2 = "B";
-    swap(s1, s2);
-    // Imprime "A". Si fuera pass-by-reference imprimiría "B"
-    System.out.println(s1); 
+                                <pre><code class="language-java">public void demo() {
+    String x = "A";
+    String y = "B";
+    swap(x, y);
+    // x sigue siendo "A". El intercambio falló externamente.
+    System.out.println(x); 
 }
 
-public void swap(String x, String y) {
-    // x e y son COPIAS de las referencias originales.
-    // Intercambiarlas aquí solo afecta a las variables locales del Frame 'swap'.
-    String temp = x;
-    x = y; 
-    y = temp;
+public void swap(String a, String b) {
+    // a y b son COPIAS de los bits de dirección de memoria.
+    // Intercambiarlas aquí solo afecta a las variables locales del Stack Frame de 'swap'.
+    // No hay enlace con 'x' e 'y' del método 'demo'.
+    String temp = a;
+    a = b;
+    b = temp;
 }</code></pre>
                             </div>
                         </div>
@@ -887,58 +821,9 @@ public void swap(String x, String y) {
         </main>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
-    <script>
-        function showLesson(id) {
-            // Ocultar todas las lecciones
-            document.querySelectorAll('.lesson-section').forEach(el => {
-                el.classList.add('hidden');
-                el.classList.remove('active');
-            });
-
-            // Mostrar lección seleccionada
-            const selected = document.getElementById('lesson-' + id);
-            selected.classList.remove('hidden');
-            setTimeout(() => selected.classList.add('active'), 10);
-
-            // Resetear estilos de botones
-            document.querySelectorAll('.nav-btn').forEach(btn => {
-                btn.classList.remove('active', 'bg-blue-50', 'border-blue-100');
-                btn.querySelector('.btn-indicator').classList.remove('opacity-100');
-                btn.querySelector('.btn-indicator').classList.add('opacity-0');
-
-                const icon = btn.querySelector('.btn-icon');
-                icon.classList.remove('bg-blue-600', 'text-white');
-                icon.classList.add('bg-slate-100', 'text-slate-500');
-
-                btn.querySelector('.btn-text').classList.remove('text-blue-700', 'font-bold');
-            });
-
-            // Activar botón seleccionado
-            const activeBtn = document.getElementById('btn-' + id);
-            activeBtn.classList.add('active', 'bg-blue-50', 'border-blue-100');
-            activeBtn.querySelector('.btn-indicator').classList.add('opacity-100');
-            activeBtn.querySelector('.btn-indicator').classList.remove('opacity-0');
-
-            const activeIcon = activeBtn.querySelector('.btn-icon');
-            activeIcon.classList.remove('bg-slate-100', 'text-slate-500');
-            activeIcon.classList.add('bg-blue-600', 'text-white');
-
-            activeBtn.querySelector('.btn-text').classList.add('text-blue-700', 'font-bold');
-
-            // Scroll top
-            document.querySelector('main').scrollTop = 0;
-        }
-
-        function toggleSolution(id) {
-            const el = document.getElementById(id);
-            el.classList.toggle('hidden');
-        }
-
-        // Init
-        showLesson(1);
-    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/components/prism-java.min.js"></script>
+    <script src="../assets/scriptFooter.js"></script>
 </body>
 
 </html>

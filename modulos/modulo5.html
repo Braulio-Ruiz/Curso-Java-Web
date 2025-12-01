@@ -8,20 +8,9 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
-
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: { sans: ['Inter', 'sans-serif'], },
-                    animation: { 'fade-in-up': 'fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards', },
-                    keyframes: { fadeInUp: { '0%': { opacity: '0', transform: 'translateY(20px)' }, '100%': { opacity: '1', transform: 'translateY(0)' }, }, }
-                }
-            }
-        }
-    </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" rel="stylesheet" />
+    <script src="../assets/scriptHead.js"></script>
 </head>
 
 <body
@@ -153,14 +142,16 @@
                     <h2>1. NIO.2 (New I/O 2): Abstracción sobre el OS</h2>
                     <p class="text-slate-600 mb-6">El paquete <code>java.nio.file</code> (Java 7+) reemplaza al obsoleto
                         <code>java.io.File</code>. La clase <code>Path</code> es una representación abstracta, inmutable
-                        y segura de una ruta en el sistema de archivos, independiente del SO (Windows/Linux).</p>
+                        y segura de una ruta en el sistema de archivos, independiente del SO (Windows/Linux).
+                    </p>
 
                     <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-r-xl mb-8">
                         <h4 class="font-bold text-yellow-800 mb-1">¡Peligro Crítico: RAM Overflow!</h4>
                         <p class="text-yellow-800 text-sm">El error más común en producción es usar
                             <code>Files.readAllLines()</code> en archivos que no controlas (logs, CSVs externos). Este
                             método carga <strong>TODO</strong> el contenido en el Heap. Si el archivo pesa 2GB y tu JVM
-                            tiene 1GB, la aplicación colapsa.</p>
+                            tiene 1GB, la aplicación colapsa.
+                        </p>
                         <p class="text-yellow-800 text-sm font-bold mt-2">Solución: Usa Streams (Files.lines).</p>
                     </div>
 
@@ -193,7 +184,8 @@ try (Stream&lt;String&gt; lines = Files.lines(logFile)) {
                         <h4 class="font-bold text-slate-800">Atomicidad en I/O</h4>
                         <p class="text-sm text-slate-600 mb-4">Investiga <code>Files.move()</code> con la opción
                             <code>StandardCopyOption.ATOMIC_MOVE</code>. Esto garantiza que el renombrado de un archivo
-                            sea una operación "todo o nada" a nivel de sistema operativo.</p>
+                            sea una operación "todo o nada" a nivel de sistema operativo.
+                        </p>
                     </div>
 
                     <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-yellow-500">
@@ -253,7 +245,8 @@ try (FileChannel channel = FileChannel.open(path, StandardOpenOption.READ)) {
                     <div class="bg-white rounded-2xl p-8 shadow-lg shadow-red-900/5 border-l-4 border-red-600 mb-10">
                         <p class="text-slate-600">La concurrencia introduce indeterminismo. Si dos hilos modifican una
                             variable compartida sin sincronización, el resultado es impredecible (Race Condition). El
-                            <strong>Java Memory Model (JMM)</strong> define las reglas de visibilidad entre hilos.</p>
+                            <strong>Java Memory Model (JMM)</strong> define las reglas de visibilidad entre hilos.
+                        </p>
                     </div>
 
                     <h2>1. El Problema del Estado Compartido (Race Condition)</h2>
@@ -265,7 +258,8 @@ try (FileChannel channel = FileChannel.open(path, StandardOpenOption.READ)) {
                     <p class="text-slate-600 mb-4"><code>synchronized</code> es un bloqueo intrínseco (Monitor Lock) que
                         fuerza exclusión mutua. Es seguro pero puede ser lento (Context Switch). Las clases en
                         <code>java.util.concurrent.atomic</code> (como <code>AtomicInteger</code>) usan instrucciones de
-                        CPU de bajo nivel (CAS - Compare And Swap) para lograr thread-safety sin bloqueos pesados.</p>
+                        CPU de bajo nivel (CAS - Compare And Swap) para lograr thread-safety sin bloqueos pesados.
+                    </p>
 
                     <h2 class="text-slate-900 mt-12 mb-6 border-none"><i
                             class="fas fa-dumbbell text-red-600 mr-2"></i>Training Ground</h2>
@@ -290,7 +284,8 @@ try (FileChannel channel = FileChannel.open(path, StandardOpenOption.READ)) {
                         <h4 class="font-bold text-white">Corrección con Atomics</h4>
                         <p class="text-sm text-slate-400 mb-4">Refactoriza el contador usando
                             <code>AtomicInteger</code>. Explica por qué esto es más rápido que usar
-                            <code>synchronized</code> en el método incrementar.</p>
+                            <code>synchronized</code> en el método incrementar.
+                        </p>
                         <button onclick="toggleSolution('sol-21')"
                             class="text-xs bg-red-600 hover:bg-red-500 text-white px-3 py-1 rounded transition">Ver
                             Solución</button>
@@ -427,7 +422,8 @@ try (var executor = Executors.newVirtualThreadPerTaskExecutor()) {
                         <h4 class="font-bold text-white">Tests Parametrizados</h4>
                         <p class="text-sm text-slate-400 mb-4">Evita duplicar código de test. Usa
                             <code>@ParameterizedTest</code> con <code>@CsvSource</code> para ejecutar la misma lógica de
-                            prueba con múltiples sets de datos.</p>
+                            prueba con múltiples sets de datos.
+                        </p>
                         <button onclick="toggleSolution('sol-23')"
                             class="text-xs bg-red-600 hover:bg-red-500 text-white px-3 py-1 rounded transition">Ver
                             Solución</button>
@@ -507,61 +503,9 @@ void testSuma(int a, int b, int esperado) {
         </main>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
-    <script>
-        function showLesson(id) {
-            document.querySelectorAll('.lesson-section').forEach(el => {
-                el.classList.add('hidden');
-                el.classList.remove('active');
-            });
-
-            const selected = document.getElementById('lesson-' + id);
-            selected.classList.remove('hidden');
-            setTimeout(() => selected.classList.add('active'), 10);
-
-            document.querySelectorAll('.nav-btn').forEach(btn => {
-                btn.classList.remove('active', 'bg-red-50', 'border-red-100');
-                btn.querySelector('.btn-indicator').classList.remove('opacity-100');
-                btn.querySelector('.btn-indicator').classList.add('opacity-0');
-                const icon = btn.querySelector('.btn-icon');
-                icon.classList.remove('bg-red-600', 'text-white');
-                icon.classList.add('bg-slate-100', 'text-slate-500');
-                btn.querySelector('.btn-text').classList.remove('text-red-700', 'font-bold');
-            });
-
-            const activeBtn = document.getElementById('btn-' + id);
-            activeBtn.classList.add('active', 'bg-red-50', 'border-red-100');
-            activeBtn.querySelector('.btn-indicator').classList.add('opacity-100');
-            activeBtn.querySelector('.btn-indicator').classList.remove('opacity-0');
-            const activeIcon = activeBtn.querySelector('.btn-icon');
-            activeIcon.classList.remove('bg-slate-100', 'text-slate-500');
-            activeIcon.classList.add('bg-red-600', 'text-white');
-            activeBtn.querySelector('.btn-text').classList.add('text-red-700', 'font-bold');
-
-            document.querySelector('main').scrollTop = 0;
-        }
-
-        function toggleSolution(id) {
-            const el = document.getElementById(id);
-            el.classList.toggle('hidden');
-        }
-
-        function checkQuiz(btn, isCorrect) {
-            const parent = btn.parentElement;
-            parent.querySelectorAll('.quiz-btn').forEach(b => {
-                b.classList.remove('correct', 'wrong');
-            });
-            if (isCorrect) {
-                btn.classList.add('correct');
-            } else {
-                btn.classList.add('wrong');
-            }
-        }
-
-        // Init
-        showLesson(20);
-    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/components/prism-java.min.js"></script>
+    <script src="../assets/scriptFooter.js"></script>
 </body>
 
 </html>
