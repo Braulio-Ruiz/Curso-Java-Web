@@ -124,8 +124,8 @@
                             <span class="text-slate-400 text-sm font-medium"><i class="far fa-clock mr-1"></i> 30
                                 min</span>
                         </div>
-                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">Comportamiento
-                            como Parámetro</h1>
+                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">Internals de
+                            Lambdas: Bytecode & Invokedynamic</h1>
                     </div>
 
                     <div
@@ -133,49 +133,51 @@
                         <h3 class="!mt-0 text-xl font-bold text-slate-800 mb-4 flex items-center gap-2"><i
                                 class="fas fa-bullseye text-orange-600"></i> Objetivos Senior</h3>
                         <ul class="list-disc list-inside text-slate-600 text-sm space-y-2">
-                            <li>Dejar de pasar datos y empezar a pasar <strong>comportamiento</strong>.</li>
-                            <li>Entender <code>invokedynamic</code> vs Clases Anónimas (Memoria).</li>
-                            <li>Dominar <code>Predicate</code>, <code>Consumer</code>, <code>Function</code> y
-                                <code>Supplier</code>.
-                            </li>
+                            <li>Diferencia crítica entre Clases Anónimas y Lambdas (Memoria/Disco).</li>
+                            <li>La instrucción <code>invokedynamic</code> y el <code>LambdaMetafactory</code>.</li>
+                            <li>Interfaces Funcionales (JLS §9.8): <code>Predicate</code>, <code>Function</code>,
+                                <code>Consumer</code>.</li>
                         </ul>
                     </div>
 
-                    <h2>1. El Código es un Dato</h2>
-                    <p class="text-slate-600 mb-6">Antes de Java 8, si querías ordenar una lista de formas distintas,
-                        creabas múltiples clases <code>Comparator</code>. Ahora, pasas el código de ordenamiento
-                        directamente.</p>
+                    <h2>1. No es "Syntactic Sugar": La instrucción Invokedynamic</h2>
+                    <p class="text-slate-600 mb-6">Muchos desarrolladores creen que las Lambdas son simplemente una
+                        forma corta de escribir Clases Anónimas. <strong>Incorrecto.</strong></p>
 
+                    <p class="text-slate-600 mb-6">Una Clase Anónima (ej: <code>new Runnable...</code>) genera un
+                        archivo físico <code>.class</code> en disco (ej: <code>Main$1.class</code>) y carga una clase
+                        completa en el Metaspace. Las Lambdas, en cambio, utilizan la instrucción de bytecode
+                        <strong><code>invokedynamic</code></strong> (introducida en Java 7, explotada en Java 8).</p>
 
-
-                    <p class="text-slate-600 mb-6"><strong>Nota de Ingeniería:</strong> Las Clases Anónimas generan un
-                        archivo <code>.class</code> extra en disco. Las Lambdas NO. Usan la instrucción
-                        <code>invokedynamic</code> de la JVM, lo que las hace más ligeras en memoria y más rápidas al
-                        arrancar.
-                    </p>
+                    <p class="text-slate-600 mb-6">En tiempo de ejecución, la JVM llama al
+                        <strong>LambdaMetafactory</strong>, que genera la implementación de la interfaz funcional "al
+                        vuelo", optimizando el uso de memoria y evitando la carga de clases innecesarias.</p>
 
                     <h3 class="text-xl font-bold text-slate-800 mt-8 mb-4">2. El Kit de Herramientas
                         (java.util.function)</h3>
+                    <p class="text-slate-600 mb-4">La JLS define una <strong>Functional Interface</strong> como una
+                        interfaz con <strong>exactamente un método abstracto</strong>. El paquete
+                        <code>java.util.function</code> cubre el 90% de los casos de uso:</p>
+
                     <div class="grid grid-cols-2 gap-4 mb-8">
                         <div class="bg-blue-50 p-4 rounded-xl border border-blue-100">
                             <code class="font-bold text-blue-700">Predicate&lt;T&gt;</code>
-                            <p class="text-xs mt-1 text-slate-600">Recibe T, devuelve <strong>boolean</strong>. Para
-                                filtros.</p>
+                            <p class="text-xs mt-1 text-slate-600"><code>boolean test(T t)</code>. Evalúa condiciones.
+                            </p>
                         </div>
                         <div class="bg-green-50 p-4 rounded-xl border border-green-100">
                             <code class="font-bold text-green-700">Function&lt;T, R&gt;</code>
-                            <p class="text-xs mt-1 text-slate-600">Recibe T, devuelve <strong>R</strong>. Para
-                                transformar.</p>
+                            <p class="text-xs mt-1 text-slate-600"><code>R apply(T t)</code>. Transforma datos.</p>
                         </div>
                         <div class="bg-purple-50 p-4 rounded-xl border border-purple-100">
                             <code class="font-bold text-purple-700">Consumer&lt;T&gt;</code>
-                            <p class="text-xs mt-1 text-slate-600">Recibe T, devuelve <strong>void</strong>. Efectos
-                                secundarios.</p>
+                            <p class="text-xs mt-1 text-slate-600"><code>void accept(T t)</code>. Ejecuta efectos
+                                secundarios (side-effects).</p>
                         </div>
                         <div class="bg-yellow-50 p-4 rounded-xl border border-yellow-100">
                             <code class="font-bold text-yellow-700">Supplier&lt;T&gt;</code>
-                            <p class="text-xs mt-1 text-slate-600">Sin input, devuelve <strong>T</strong>. Lazy loading.
-                            </p>
+                            <p class="text-xs mt-1 text-slate-600"><code>T get()</code>. Generación perezosa (Lazy
+                                loading).</p>
                         </div>
                     </div>
 
@@ -184,42 +186,42 @@
 
                     <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-green-500">
                         <span class="text-xs font-bold text-green-600 uppercase mb-2 block">🟢 Nivel Básico</span>
-                        <h4 class="font-bold text-slate-800">Sintaxis Lambda</h4>
-                        <p class="text-sm text-slate-600 mb-4">Convierte esta clase anónima a Lambda:
-                            <code>new Runnable() { public void run() { System.out.println("Run"); } }</code>.
-                        </p>
+                        <h4 class="font-bold text-slate-800">Refactorización a Lambda</h4>
+                        <p class="text-sm text-slate-600 mb-4">Toma el siguiente código legacy y conviértelo a una
+                            expresión Lambda. Observa cómo el IDE sugiere automáticamente la reducción.</p>
+                        <code
+                            class="text-xs block bg-white p-2 rounded mb-2">Runnable r = new Runnable() { public void run() { System.out.println("Run"); } };</code>
                         <details class="text-xs text-slate-500 cursor-pointer">
-                            <summary>Ver Pista</summary>Elimina el nombre de la interfaz y el método. Usa
-                            <code>() -> {}</code>.
+                            <summary>Ver Solución</summary><code>Runnable r = () -> System.out.println("Run");</code>
                         </details>
                     </div>
 
                     <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-yellow-500">
                         <span class="text-xs font-bold text-yellow-600 uppercase mb-2 block">🟡 Nivel Intermedio</span>
-                        <h4 class="font-bold text-slate-800">Ordenamiento Personalizado</h4>
-                        <p class="text-sm text-slate-600 mb-4">Ordena una lista de Strings por longitud (de menor a
-                            mayor) usando <code>List.sort()</code> y una lambda.</p>
+                        <h4 class="font-bold text-slate-800">Method References (::)</h4>
+                        <p class="text-sm text-slate-600 mb-4">Utiliza la referencia a métodos para simplificar una
+                            lambda. Ordena una lista de Strings ignorando mayúsculas/minúsculas usando
+                            <code>String::compareToIgnoreCase</code>.</p>
                     </div>
 
                     <div class="mb-8 p-6 bg-slate-900 rounded-xl border border-slate-700 text-white">
                         <span class="text-xs font-bold text-red-500 uppercase mb-2 block">🔴 Nivel Avanzado</span>
-                        <h4 class="font-bold text-white">Interfaz Funcional Genérica</h4>
-                        <p class="text-sm text-slate-400 mb-4">Crea tu propia interfaz funcional
-                            <code>TriFunction&lt;A,B,C,R&gt;</code> que acepte 3 argumentos y retorne un resultado.
-                            Úsala para sumar 3 números.
-                        </p>
+                        <h4 class="font-bold text-white">Diseño de APIs Funcionales</h4>
+                        <p class="text-sm text-slate-400 mb-4">Crea tu propia Interfaz Funcional
+                            <code>TriFunction&lt;A,B,C,R&gt;</code> que acepte 3 argumentos. Implementa un método que la
+                            use para componer lógica de negocio compleja.</p>
                         <button onclick="toggleSolution('sol-16')"
                             class="text-xs bg-orange-600 hover:bg-orange-500 text-white px-3 py-1 rounded transition">Ver
                             Solución</button>
                         <div id="sol-16" class="hidden mt-4 pt-4 border-t border-slate-700">
-                            <pre><code class="language-java">@FunctionalInterface
+                            <pre><code class="language-java">@FunctionalInterface // Asegura que solo tenga 1 método abstracto
 interface TriFunction&lt;A, B, C, R&gt; {
     R apply(A a, B b, C c);
 }
 
 // Uso
-TriFunction&lt;Integer, Integer, Integer, Integer&gt; suma3 = (x, y, z) -> x + y + z;
-int resultado = suma3.apply(1, 2, 3); // 6</code></pre>
+TriFunction&lt;Integer, Integer, Integer, Integer&gt; suma = (x, y, z) -> x + y + z;
+int total = suma.apply(10, 20, 30); // 60</code></pre>
                         </div>
                     </div>
 
@@ -227,13 +229,13 @@ int resultado = suma3.apply(1, 2, 3); // 6</code></pre>
                         <h3 class="font-bold text-slate-800 mb-6">Quiz de Validación</h3>
                         <div class="space-y-4">
                             <div>
-                                <p class="text-sm font-semibold mb-2">1. ¿Qué anotación asegura que una interfaz es
-                                    válida para Lambdas?</p>
+                                <p class="text-sm font-semibold mb-2">1. ¿Qué instrucción de bytecode utilizan
+                                    principalmente las Lambdas?</p>
                                 <div class="grid grid-cols-2 gap-2">
                                     <button class="quiz-btn border p-2 rounded text-sm hover:bg-slate-50"
-                                        onclick="checkQuiz(this, true)">@FunctionalInterface</button>
+                                        onclick="checkQuiz(this, true)">invokedynamic</button>
                                     <button class="quiz-btn border p-2 rounded text-sm hover:bg-slate-50"
-                                        onclick="checkQuiz(this, false)">@LambdaTarget</button>
+                                        onclick="checkQuiz(this, false)">invokevirtual</button>
                                 </div>
                             </div>
                         </div>
@@ -248,28 +250,39 @@ int resultado = suma3.apply(1, 2, 3); // 6</code></pre>
                                 17</span>
                         </div>
                         <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">Stream API:
-                            Pipelines de Datos</h1>
+                            Pipelines y Evaluación Perezosa</h1>
                     </div>
 
                     <div
                         class="bg-white rounded-2xl p-8 shadow-lg shadow-orange-900/5 border-l-4 border-orange-500 mb-10">
-                        <p class="text-slate-600">Olvida los bucles <code>for</code>. Los Streams permiten procesar
-                            colecciones de manera declarativa, paralela y con evaluación perezosa.</p>
+                        <p class="text-slate-600">Un Stream <strong>NO es una estructura de datos</strong>. Es una
+                            abstracción de un flujo de datos que permite procesamiento declarativo. No almacena
+                            elementos; los transporta.</p>
                     </div>
 
-                    <h2>1. Anatomía de un Stream</h2>
-                    <p class="text-slate-600 mb-6">Un Stream no es una estructura de datos. No almacena elementos. Es
-                        una cinta transportadora que mueve datos desde una Fuente hasta un Destino.</p>
 
 
+                    <h2>1. Arquitectura del Pipeline</h2>
+                    <p class="text-slate-600 mb-6">Un Stream se compone de tres partes:</p>
+                    <ol class="list-decimal list-inside text-slate-600 ml-4 mb-4">
+                        <li><strong>Fuente (Source):</strong> Colección, Array, I/O Channel.</li>
+                        <li><strong>Operaciones Intermedias:</strong> <code>filter</code>, <code>map</code>,
+                            <code>sorted</code>. Son <strong>Lazy</strong> (perezosas). Retornan un nuevo Stream.</li>
+                        <li><strong>Operación Terminal:</strong> <code>collect</code>, <code>forEach</code>,
+                            <code>reduce</code>. Desencadenan el procesamiento y cierran el Stream.</li>
+                    </ol>
 
-                    <h3 class="text-xl font-bold text-slate-800 mt-8 mb-4">2. Lazy Evaluation (Evaluación Perezosa)</h3>
-                    <p class="text-slate-600 mb-4">Esta es la clave del rendimiento. Las operaciones intermedias
-                        (<code>filter</code>, <code>map</code>) <strong>NO SE EJECUTAN</strong> hasta que llamas a una
-                        operación terminal (<code>collect</code>, <code>count</code>).</p>
+                    <h3 class="text-xl font-bold text-slate-800 mt-8 mb-4">2. Lazy Evaluation & Loop Fusion</h3>
+                    <p class="text-slate-600 mb-4">Esta es la clave del rendimiento en Java 8+. Cuando encadenas
+                        <code>.filter().map().sorted()</code>, la JVM no itera la lista 3 veces. Utiliza una técnica
+                        llamada <strong>Loop Fusion</strong> para combinar operaciones en una sola pasada (cuando es
+                        posible) y solo procesa los elementos necesarios (Short-circuiting).</p>
+
                     <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-xl text-sm text-blue-800 mb-6">
-                        <strong>Analogía:</strong> Si pides una pizza (Stream), el pizzero no empieza a amasar (filter)
-                        ni a poner queso (map) hasta que realmente pagas el pedido (collect).
+                        <strong>Analogía Industrial:</strong> Una línea de montaje de coches. El chasis (Stream) se
+                        mueve. El robot de pintura (map) y el control de calidad (filter) están en la misma línea. No
+                        pintas todos los coches, los guardas en un almacén y luego los sacas para el control de calidad.
+                        Todo ocurre en flujo continuo hasta la entrega (Terminal Operation).
                     </div>
 
                     <h2 class="text-slate-900 mt-12 mb-6 border-none"><i
@@ -277,34 +290,33 @@ int resultado = suma3.apply(1, 2, 3); // 6</code></pre>
 
                     <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-green-500">
                         <span class="text-xs font-bold text-green-600 uppercase mb-2 block">🟢 Nivel Básico</span>
-                        <h4 class="font-bold text-slate-800">Filtrado Simple</h4>
-                        <p class="text-sm text-slate-600 mb-4">Dada una lista de números, filtra los pares,
-                            multiplícalos por 2 y guárdalos en una nueva lista.</p>
+                        <h4 class="font-bold text-slate-800">Filtrado y Transformación</h4>
+                        <p class="text-sm text-slate-600 mb-4">Dada una lista de números, usa Streams para filtrar los
+                            números pares, elevarlos al cuadrado y recogerlos en una nueva lista.</p>
                     </div>
 
                     <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-yellow-500">
                         <span class="text-xs font-bold text-yellow-600 uppercase mb-2 block">🟡 Nivel Intermedio</span>
-                        <h4 class="font-bold text-slate-800">Map-Reduce</h4>
-                        <p class="text-sm text-slate-600 mb-4">Dada una lista de precios (Double), calcula el total
-                            sumando todos los valores usando <code>reduce()</code> o <code>mapToDouble().sum()</code>.
-                        </p>
+                        <h4 class="font-bold text-slate-800">Reducción (Map-Reduce)</h4>
+                        <p class="text-sm text-slate-600 mb-4">Calcula el precio total de un carrito de compras. Mapea
+                            los productos a sus precios (Double) y usa <code>reduce</code> o <code>sum()</code> para
+                            obtener el total.</p>
                     </div>
 
                     <div class="mb-8 p-6 bg-slate-900 rounded-xl border border-slate-700 text-white">
                         <span class="text-xs font-bold text-red-500 uppercase mb-2 block">🔴 Nivel Avanzado</span>
-                        <h4 class="font-bold text-white">Agrupación Compleja</h4>
-                        <p class="text-sm text-slate-400 mb-4">Dada una lista de
-                            <code>Empleado(departamento, salario)</code>, agrupa por departamento y calcula el salario
-                            promedio de cada uno usando <code>Collectors.groupingBy</code>.
-                        </p>
+                        <h4 class="font-bold text-white">Collectors Complejos (GroupingBy)</h4>
+                        <p class="text-sm text-slate-400 mb-4">Tienes una lista de transacciones. Agrúpalas por moneda
+                            (Currency) y calcula la suma total de montos para cada moneda en un solo paso usando
+                            <code>Collectors.groupingBy</code> y <code>Collectors.summingDouble</code>.</p>
                         <button onclick="toggleSolution('sol-17')"
                             class="text-xs bg-orange-600 hover:bg-orange-500 text-white px-3 py-1 rounded transition">Ver
                             Solución</button>
                         <div id="sol-17" class="hidden mt-4 pt-4 border-t border-slate-700">
-                            <pre><code class="language-java">Map&lt;String, Double&gt; promedioPorDepto = empleados.stream()
+                            <pre><code class="language-java">Map&lt;Currency, Double&gt; totalPorMoneda = transactions.stream()
     .collect(Collectors.groupingBy(
-        Empleado::getDepartamento,
-        Collectors.averagingDouble(Empleado::getSalario)
+        Transaction::getCurrency,
+        Collectors.summingDouble(Transaction::getAmount)
     ));</code></pre>
                         </div>
                     </div>
@@ -317,25 +329,26 @@ int resultado = suma3.apply(1, 2, 3); // 6</code></pre>
                                 class="px-3 py-1 rounded-full bg-orange-100 text-orange-700 text-xs font-bold uppercase tracking-wider">Lección
                                 18</span>
                         </div>
-                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">Optional: El fin
-                            del NullPointerException</h1>
+                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">Optional &
+                            Monads: Semántica de Nulidad</h1>
                     </div>
 
-                    <p class="text-slate-600 mb-6"><code>null</code> es el "error del billón de dólares".
-                        <code>Optional&lt;T&gt;</code> es una "caja" (Mónada) que puede estar vacía o llena. Te obliga a
-                        pensar en el caso vacío en tiempo de compilación.
-                    </p>
+                    <p class="text-slate-600 mb-6">El <code>null</code> es conocido como "el error del billón de
+                        dólares". <code>Optional&lt;T&gt;</code> es una implementación del patrón
+                        <strong>Mónada</strong>. Es un contenedor que puede o no contener un valor no nulo. Su objetivo
+                        no es eliminar <code>null</code> por completo, sino forzar al desarrollador a pensar en el caso
+                        "ausente" a nivel de API.</p>
 
-
-
-                    <h3 class="text-xl font-bold text-slate-800 mt-8 mb-4">Buenas Prácticas de Ingeniería</h3>
+                    <h3 class="text-xl font-bold text-slate-800 mt-8 mb-4">Reglas de Ingeniería para Optional</h3>
                     <ul class="list-disc list-inside text-slate-600 space-y-2 mb-6">
-                        <li><strong>JAMÁS</strong> uses <code>Optional</code> como parámetro de método o atributo de
-                            clase (no es serializable). Úsalo solo como retorno.</li>
-                        <li><strong>EVITA</strong> usar <code>get()</code> sin comprobar <code>isPresent()</code>. Es lo
-                            mismo que un NullPointerException.</li>
-                        <li><strong>USA</strong> <code>orElse()</code> o <code>orElseThrow()</code> para desempaquetar
-                            valores de forma segura.</li>
+                        <li><strong>Retorno, no Estado:</strong> Úsalo principalmente como tipo de retorno de métodos.
+                            <strong>NO</strong> lo uses como campo de clase (no es Serializable) ni como parámetro de
+                            método (añade complejidad innecesaria).</li>
+                        <li><strong>Prohibido .get():</strong> Usar <code>get()</code> sin verificar
+                            <code>isPresent()</code> lanza <code>NoSuchElementException</code>, lo cual es esencialmente
+                            lo mismo que un <code>NullPointerException</code>. Usa <code>orElseThrow()</code>.</li>
+                        <li><strong>FlatMap es tu amigo:</strong> Evita el anidamiento de chequeos ("Arrow Code") usando
+                            la composición monádica.</li>
                     </ul>
 
                     <h2 class="text-slate-900 mt-12 mb-6 border-none"><i
@@ -343,37 +356,35 @@ int resultado = suma3.apply(1, 2, 3); // 6</code></pre>
 
                     <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-green-500">
                         <span class="text-xs font-bold text-green-600 uppercase mb-2 block">🟢 Nivel Básico</span>
-                        <h4 class="font-bold text-slate-800">Desempaquetado Seguro</h4>
-                        <p class="text-sm text-slate-600 mb-4">Crea un Optional vacío. Intenta obtener el valor usando
-                            <code>orElse("Valor por defecto")</code>.
-                        </p>
+                        <h4 class="font-bold text-slate-800">Recuperación Segura</h4>
+                        <p class="text-sm text-slate-600 mb-4">Simula una búsqueda en base de datos que puede devolver
+                            vacío. Usa <code>Optional.ofNullable()</code> y provee un valor por defecto con
+                            <code>orElse()</code>.</p>
                     </div>
 
                     <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-yellow-500">
                         <span class="text-xs font-bold text-yellow-600 uppercase mb-2 block">🟡 Nivel Intermedio</span>
-                        <h4 class="font-bold text-slate-800">Transformación Segura</h4>
-                        <p class="text-sm text-slate-600 mb-4">Tienes un <code>Optional&lt;String&gt;</code>. Si existe,
-                            conviértelo a mayúsculas usando <code>map()</code>. Si no, devuelve "VACIO". No uses
-                            <code>if</code>.
-                        </p>
+                        <h4 class="font-bold text-slate-800">Transformación Condicional (Map)</h4>
+                        <p class="text-sm text-slate-600 mb-4">Tienes un <code>Optional&lt;String&gt;</code>. Si el
+                            valor está presente, pásalo a mayúsculas y imprímelo. Si no, no hagas nada. Usa
+                            <code>map()</code> e <code>ifPresent()</code>.</p>
                     </div>
 
                     <div class="mb-8 p-6 bg-slate-900 rounded-xl border border-slate-700 text-white">
                         <span class="text-xs font-bold text-red-500 uppercase mb-2 block">🔴 Nivel Avanzado</span>
-                        <h4 class="font-bold text-white">Refactorización Legacy</h4>
-                        <p class="text-sm text-slate-400 mb-4">Refactoriza este código anidado usando
-                            <code>flatMap</code>:
+                        <h4 class="font-bold text-white">Refactorización con FlatMap</h4>
+                        <p class="text-sm text-slate-400 mb-4">Elimina la cascada de nulos. Tienes
+                            <code>User -> getAddress() -> getCity()</code>. Cada método puede devolver null. Refactoriza
+                            usando <code>Optional</code> y <code>flatMap</code> para obtener la ciudad de forma segura.
                         </p>
-                        <pre
-                            class="text-xs bg-slate-800 p-2 rounded mb-2"><code>if(user != null && user.getAddress() != null && user.getAddress().getCity() != null) { ... }</code></pre>
                         <button onclick="toggleSolution('sol-18')"
                             class="text-xs bg-orange-600 hover:bg-orange-500 text-white px-3 py-1 rounded transition">Ver
                             Solución</button>
                         <div id="sol-18" class="hidden mt-4 pt-4 border-t border-slate-700">
-                            <pre><code class="language-java">Optional.ofNullable(user)
-    .flatMap(User::getAddress) // getAddress devuelve Optional
-    .flatMap(Address::getCity)
-    .ifPresent(System.out::println);</code></pre>
+                            <pre><code class="language-java">String ciudad = Optional.ofNullable(user)
+    .flatMap(User::getAddress) // getAddress debe devolver Optional&lt;Address&gt;
+    .flatMap(Address::getCity) // getCity debe devolver Optional&lt;String&gt;
+    .orElse("Desconocida");</code></pre>
                         </div>
                     </div>
                 </div>
@@ -385,33 +396,35 @@ int resultado = suma3.apply(1, 2, 3); // 6</code></pre>
                                 class="px-3 py-1 rounded-full bg-orange-100 text-orange-700 text-xs font-bold uppercase tracking-wider">Lección
                                 19</span>
                         </div>
-                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">Date & Time API
-                            Moderno</h1>
+                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">Modern Date/Time
+                            (JSR-310): Thread-Safety</h1>
                     </div>
 
                     <div class="bg-red-50 border border-red-200 rounded-xl p-6 mb-8">
-                        <h3 class="font-bold text-red-800 mb-2">🚫 Olvida java.util.Date</h3>
-                        <p class="text-sm text-red-800">La antigua clase <code>Date</code> es mutable (no thread-safe) y
-                            sus meses empiezan en 0. Fue un error de diseño corregido en Java 8 con
-                            <code>java.time</code>.
-                        </p>
+                        <h3 class="font-bold text-red-800 mb-2">🚫 Deprecated: java.util.Date</h3>
+                        <p class="text-sm text-red-800">La antigua clase <code>Date</code> es <strong>mutable</strong>
+                            (no thread-safe), sus meses empiezan en 0 (Enero=0) y mezcla fechas con tiempos de forma
+                            confusa. Fue reemplazada en Java 8 por la API <code>java.time</code>, basada en
+                            <strong>Joda-Time</strong>.</p>
                     </div>
 
-                    <h2>1. Máquinas vs Humanos</h2>
-                    <p class="text-slate-600 mb-6">Java separa el tiempo en dos líneas temporales:</p>
-
-
+                    <h2>1. Inmutabilidad y Thread-Safety</h2>
+                    <p class="text-slate-600 mb-6">Todas las clases de <code>java.time</code> (como
+                        <code>LocalDate</code>, <code>Instant</code>) son <strong>inmutables</strong>. Esto significa
+                        que cualquier operación de modificación (ej: <code>plusDays(1)</code>) retorna una <strong>nueva
+                            instancia</strong>, dejando la original intacta. Esto garantiza seguridad total en entornos
+                        concurrentes (Multithreading).</p>
 
                     <div class="grid md:grid-cols-2 gap-6 mb-8 mt-6">
                         <div class="bg-slate-100 p-4 rounded-lg">
-                            <h4 class="font-bold text-slate-800">Instant (Máquina)</h4>
-                            <p class="text-sm">Conteo de nanosegundos desde 1970 (Epoch). Es universal. Úsalo para logs
-                                y timestamps de base de datos.</p>
+                            <h4 class="font-bold text-slate-800">Instant (Tiempo Máquina)</h4>
+                            <p class="text-sm">Representa un punto único en la línea de tiempo universal (UTC), contando
+                                nanosegundos desde el Epoch (1970-01-01). Ideal para logs y timestamps de backend.</p>
                         </div>
                         <div class="bg-slate-100 p-4 rounded-lg">
-                            <h4 class="font-bold text-slate-800">LocalDateTime (Humano)</h4>
-                            <p class="text-sm">"25 de Diciembre a las 10:00". No tiene zona horaria. No sirve para
-                                coordinar eventos globales.</p>
+                            <h4 class="font-bold text-slate-800">LocalDateTime (Tiempo Humano)</h4>
+                            <p class="text-sm">Representa una fecha/hora sin zona horaria ("Muro de calendario"). No
+                                sirve para coordinar eventos globales, solo locales.</p>
                         </div>
                     </div>
 
@@ -420,31 +433,32 @@ int resultado = suma3.apply(1, 2, 3); // 6</code></pre>
 
                     <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-green-500">
                         <span class="text-xs font-bold text-green-600 uppercase mb-2 block">🟢 Nivel Básico</span>
-                        <h4 class="font-bold text-slate-800">Manipulación de Fechas</h4>
-                        <p class="text-sm text-slate-600 mb-4">Obtén la fecha de hoy. Súmale 2 semanas y réstale 3 días.
-                            Imprime el resultado.</p>
+                        <h4 class="font-bold text-slate-800">Aritmética de Fechas</h4>
+                        <p class="text-sm text-slate-600 mb-4">Obtén la fecha actual. Usa métodos fluidos para sumarle 2
+                            semanas, restar 3 días y formatearla a ISO-8601.</p>
                     </div>
 
                     <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-yellow-500">
                         <span class="text-xs font-bold text-yellow-600 uppercase mb-2 block">🟡 Nivel Intermedio</span>
-                        <h4 class="font-bold text-slate-800">Cálculo de Duración</h4>
-                        <p class="text-sm text-slate-600 mb-4">Calcula exactamente cuántos días, horas y minutos faltan
-                            para el próximo Año Nuevo usando <code>Duration</code> o <code>Period</code>.</p>
+                        <h4 class="font-bold text-slate-800">Cálculo de Periodos</h4>
+                        <p class="text-sm text-slate-600 mb-4">Calcula la edad exacta de una persona (años, meses, días)
+                            dada su fecha de nacimiento usando la clase <code>Period.between()</code>.</p>
                     </div>
 
                     <div class="mb-8 p-6 bg-slate-900 rounded-xl border border-slate-700 text-white">
                         <span class="text-xs font-bold text-red-500 uppercase mb-2 block">🔴 Nivel Avanzado</span>
-                        <h4 class="font-bold text-white">Conversión de Zonas</h4>
-                        <p class="text-sm text-slate-400 mb-4">Un evento ocurre ahora mismo en "America/New_York". ¿Qué
-                            hora es en "Asia/Tokyo"? Usa <code>ZonedDateTime</code>.</p>
+                        <h4 class="font-bold text-white">Manejo de Zonas Horarias (ZonedDateTime)</h4>
+                        <p class="text-sm text-slate-400 mb-4">Un servidor en "UTC" recibe una petición de un usuario en
+                            "America/Santiago". Convierte el <code>Instant</code> actual a la hora local del usuario
+                            respetando el horario de verano (DST).</p>
                         <button onclick="toggleSolution('sol-19')"
                             class="text-xs bg-orange-600 hover:bg-orange-500 text-white px-3 py-1 rounded transition">Ver
                             Solución</button>
                         <div id="sol-19" class="hidden mt-4 pt-4 border-t border-slate-700">
-                            <pre><code class="language-java">ZonedDateTime ny = ZonedDateTime.now(ZoneId.of("America/New_York"));
-ZonedDateTime tokio = ny.withZoneSameInstant(ZoneId.of("Asia/Tokyo"));
-System.out.println("NY: " + ny);
-System.out.println("Tokio: " + tokio);</code></pre>
+                            <pre><code class="language-java">Instant ahora = Instant.now();
+ZonedDateTime horaChile = ahora.atZone(ZoneId.of("America/Santiago"));
+System.out.println("UTC: " + ahora);
+System.out.println("Santiago: " + horaChile); // Maneja DST automáticamente</code></pre>
                         </div>
                     </div>
                 </div>
@@ -452,7 +466,7 @@ System.out.println("Tokio: " + tokio);</code></pre>
             </div>
 
             <footer class="mt-20 py-8 text-center text-slate-400 text-sm border-t border-slate-200">
-                <p>&copy; 2025 Java Elite Bootcamp. Programación Funcional.</p>
+                <p>&copy; 2025 Java Elite Bootcamp. Programación Funcional & APIs Modernas.</p>
             </footer>
         </main>
     </div>

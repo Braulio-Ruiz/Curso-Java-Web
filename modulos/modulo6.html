@@ -123,19 +123,23 @@
                         <h3 class="!mt-0 text-xl font-bold text-slate-800 mb-4 flex items-center gap-2"><i
                                 class="fas fa-bullseye text-emerald-600"></i> Objetivos Senior</h3>
                         <ul class="list-disc list-inside text-slate-600 text-sm space-y-2">
-                            <li>Entender el <strong>Connection Pool</strong> (HikariCP) vs conexiones crudas.</li>
-                            <li>Prevenir <strong>SQL Injection</strong> usando <code>PreparedStatement</code>.</li>
-                            <li>Gestionar Transacciones <strong>ACID</strong> manualmente (commit/rollback).</li>
-                            <li>El patrón <strong>DAO</strong> (Data Access Object) para desacoplar lógica.</li>
+                            <li><strong>Connection Pooling:</strong> Por qué HikariCP es superior a
+                                <code>DriverManager</code>.</li>
+                            <li><strong>SQL Injection:</strong> Anatomía de un ataque y prevención con
+                                <code>PreparedStatement</code>.</li>
+                            <li><strong>Transacciones ACID:</strong> Commit, Rollback y niveles de aislamiento.</li>
                         </ul>
                     </div>
 
                     <h2>1. El Puente de Datos (JDBC Driver)</h2>
-                    <p class="text-slate-600 mb-6">JDBC es el protocolo de bajo nivel. El <strong>Driver</strong> actúa
-                        como un traductor universal que convierte llamadas Java en el dialecto nativo de la base de
-                        datos (PostgreSQL, MySQL, Oracle).</p>
-
-
+                    <p class="text-slate-600 mb-6">JDBC (Java Database Connectivity) es la especificación de bajo nivel.
+                        El <strong>Driver</strong> actúa como un traductor universal que convierte llamadas Java en el
+                        protocolo binario nativo de la base de datos (PostgreSQL Wire Protocol, MySQL Protocol, etc.).
+                    </p>
+                    <p class="text-slate-600 mb-6">Abrir una conexión TCP es costoso (3-way handshake). En producción,
+                        NUNCA uses <code>DriverManager.getConnection()</code> directamente para cada petición. Usa un
+                        <strong>Pool de Conexiones</strong> (como HikariCP) que mantiene conexiones vivas listas para
+                        reusar.</p>
 
                     <h3 class="text-xl font-bold text-slate-800 mt-8 mb-4">2. SQL Injection: El Enemigo #1</h3>
                     <div class="bg-red-50 border-l-4 border-red-500 p-6 rounded-r-xl mb-8">
@@ -143,11 +147,11 @@
                             Crítica</h4>
                         <p class="text-red-700 text-sm mb-2">Si concatenas Strings:
                             <code>"SELECT * FROM users WHERE name = '" + name + "'"</code>, un atacante puede ingresar
-                            <code>' OR '1'='1</code> y borrar tu base de datos.
-                        </p>
+                            <code>' OR '1'='1</code> y acceder a todos los registros o borrar la tabla
+                            (<code>DROP TABLE</code>).</p>
                         <p class="text-red-800 font-bold text-sm">Solución: SIEMPRE usa <code>PreparedStatement</code>.
-                            Esto pre-compila la consulta y trata los parámetros como datos puros, no como código
-                            ejecutable.</p>
+                            Esto envía la plantilla SQL y los datos por separado al motor de base de datos, tratando los
+                            inputs como literales puros, nunca como código ejecutable.</p>
                     </div>
 
                     <div class="code-window bg-[#1e1e1e] mb-8">
@@ -155,15 +159,15 @@
                             <span class="text-xs text-slate-400 font-mono ml-2">SecureDAO.java</span>
                         </div>
                         <pre><code class="language-java">public class UsuarioDAO {
-    // Consulta parametrizada (?)
+    // 1. Consulta parametrizada (Placeholders '?')
     private static final String SQL_INSERT = "INSERT INTO usuarios (nombre, email) VALUES (?, ?)";
 
     public void guardar(Usuario u) {
-        // Try-with-resources cierra la conexión automáticamente
+        // 2. Try-with-resources cierra Connection y Statement automáticamente
         try (Connection conn = DataSource.getConnection();
              PreparedStatement stmt = conn.prepareStatement(SQL_INSERT)) {
             
-            // Asignación segura de tipos
+            // 3. Asignación segura de tipos (Setters)
             stmt.setString(1, u.getNombre());
             stmt.setString(2, u.getEmail());
             
@@ -187,7 +191,7 @@
 
                     <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-yellow-500">
                         <span class="text-xs font-bold text-yellow-600 uppercase mb-2 block">🟡 Nivel Intermedio</span>
-                        <h4 class="font-bold text-slate-800">Lectura Mapeada</h4>
+                        <h4 class="font-bold text-slate-800">Lectura Mapeada (ResultSet)</h4>
                         <p class="text-sm text-slate-600 mb-4">Ejecuta un <code>SELECT * FROM productos</code>. Itera
                             sobre el <code>ResultSet</code> y mapea cada fila a un objeto Java <code>Producto</code>.
                             Devuelve una <code>List&lt;Producto&gt;</code>.</p>
@@ -196,20 +200,19 @@
                     <div class="mb-8 p-6 bg-slate-900 rounded-xl border border-slate-700 text-white">
                         <span class="text-xs font-bold text-emerald-500 uppercase mb-2 block">🔴 Nivel Avanzado</span>
                         <h4 class="font-bold text-white">Transacción Bancaria (ACID)</h4>
-                        <p class="text-sm text-slate-400 mb-4">Implementa una transferencia de dinero entre dos cuentas.
-                            Debes restar de A y sumar a B. Si algo falla en medio, NADA debe guardarse (Rollback). Usa
-                            <code>conn.setAutoCommit(false)</code>.
-                        </p>
+                        <p class="text-sm text-slate-400 mb-4">Implementa una transferencia de dinero atómica. Debes
+                            restar de la cuenta A y sumar a la cuenta B. Si la suma falla, la resta debe revertirse
+                            (Rollback). Usa <code>conn.setAutoCommit(false)</code>.</p>
                         <button onclick="toggleSolution('sol-25')"
                             class="text-xs bg-emerald-600 hover:bg-emerald-500 text-white px-3 py-1 rounded transition">Ver
                             Solución</button>
                         <div id="sol-25" class="hidden mt-4 pt-4 border-t border-slate-700">
                             <pre><code class="language-java">try (Connection conn = ds.getConnection()) {
-    conn.setAutoCommit(false); // Inicio de Transacción
+    conn.setAutoCommit(false); // Inicio de la Transacción
     try {
         debitar(conn, idOrigen, monto);
         acreditar(conn, idDestino, monto);
-        conn.commit(); // Todo o nada
+        conn.commit(); // Confirmar cambios (Todo o nada)
     } catch (Exception e) {
         conn.rollback(); // Deshacer cambios si hay error
         throw e;
@@ -222,7 +225,7 @@
                         <h3 class="font-bold text-slate-800 mb-6">Quiz de Validación</h3>
                         <div class="space-y-4">
                             <div>
-                                <p class="text-sm font-semibold mb-2">1. ¿Qué objeto previene la Inyección SQL?</p>
+                                <p class="text-sm font-semibold mb-2">1. ¿Qué objeto JDBC previene la Inyección SQL?</p>
                                 <div class="grid grid-cols-2 gap-2">
                                     <button class="quiz-btn border p-2 rounded text-sm hover:bg-slate-50"
                                         onclick="checkQuiz(this, false)">Statement</button>
@@ -241,27 +244,36 @@
                                 class="px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 text-xs font-bold uppercase tracking-wider">Lección
                                 26</span>
                         </div>
-                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">JPA y ORM:
-                            Automatización de Datos</h1>
+                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">JPA y Hibernate:
+                            ORM Avanzado</h1>
                     </div>
 
                     <div
                         class="bg-white rounded-2xl p-8 shadow-lg shadow-emerald-900/5 border-l-4 border-emerald-600 mb-10">
-                        <p class="text-slate-600">Escribir SQL a mano es tedioso y propenso a errores. <strong>JPA (Java
-                                Persistence API)</strong> es el estándar para mapear objetos Java a tablas relacionales
-                            automáticamente. Hibernate es la implementación más famosa.</p>
+                        <p class="text-slate-600">Escribir SQL a mano es tedioso. <strong>JPA (Java Persistence
+                                API)</strong> es el estándar para mapear objetos Java a tablas relacionales. Hibernate
+                            es el motor (provider) más robusto. Entender el "Entity Lifecycle" es crucial para evitar
+                            bugs de persistencia.</p>
                     </div>
 
+
+
                     <h2>1. Ciclo de Vida de una Entidad</h2>
-                    <p class="text-slate-600 mb-6">Los objetos en JPA no son simples POJOs. Tienen estados gestionados
-                        por el <strong>EntityManager</strong> (Contexto de Persistencia).</p>
+                    <p class="text-slate-600 mb-6">Una entidad JPA no es un simple objeto. Puede estar en 4 estados
+                        gestionados por el <code>EntityManager</code> (Persistence Context):</p>
+                    <ul class="list-disc list-inside text-slate-600 ml-4 mb-4">
+                        <li><strong>Transient:</strong> Objeto nuevo, no asociado a DB.</li>
+                        <li><strong>Managed:</strong> Asociado a la sesión actual. Cambios se sincronizan
+                            automáticamente.</li>
+                        <li><strong>Detached:</strong> Sesión cerrada. Cambios no se guardan.</li>
+                        <li><strong>Removed:</strong> Marcado para eliminar.</li>
+                    </ul>
 
-
-
-                    <h3 class="text-xl font-bold text-slate-800 mt-8 mb-4">2. Dirty Checking</h3>
-                    <p class="text-slate-600 mb-4">Si un objeto está en estado <strong>Managed</strong>, no necesitas
-                        llamar a <code>save()</code> para actualizarlo. JPA detecta automáticamente si cambiaste algún
-                        atributo y lanza el <code>UPDATE</code> al hacer commit.</p>
+                    <h3 class="text-xl font-bold text-slate-800 mt-8 mb-4">2. Dirty Checking (Optimización)</h3>
+                    <p class="text-slate-600 mb-4">Si una entidad está en estado <strong>Managed</strong>, no necesitas
+                        llamar a <code>save()</code> o <code>update()</code> explícitamente. Hibernate detecta
+                        automáticamente si modificaste algún atributo al hacer commit de la transacción y lanza el
+                        <code>UPDATE</code> SQL necesario. Esto minimiza las consultas innecesarias.</p>
 
                     <h2 class="text-slate-900 mt-12 mb-6 border-none"><i
                             class="fas fa-dumbbell text-emerald-600 mr-2"></i>Training Ground</h2>
@@ -269,38 +281,39 @@
                     <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-green-500">
                         <span class="text-xs font-bold text-green-600 uppercase mb-2 block">🟢 Nivel Básico</span>
                         <h4 class="font-bold text-slate-800">Mapeo de Entidad</h4>
-                        <p class="text-sm text-slate-600 mb-4">Crea una clase <code>Estudiante</code> y anótala con
-                            <code>@Entity</code>, <code>@Id</code> y <code>@GeneratedValue</code>. Mapea un campo
-                            <code>nombre</code>.
-                        </p>
+                        <p class="text-sm text-slate-600 mb-4">Crea una clase <code>Estudiante</code>. Anótala con
+                            <code>@Entity</code>, define una clave primaria con <code>@Id</code> y
+                            <code>@GeneratedValue(strategy = GenerationType.IDENTITY)</code>.</p>
                     </div>
 
                     <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-yellow-500">
                         <span class="text-xs font-bold text-yellow-600 uppercase mb-2 block">🟡 Nivel Intermedio</span>
-                        <h4 class="font-bold text-slate-800">Relaciones (1:N)</h4>
-                        <p class="text-sm text-slate-600 mb-4">Modelar la relación: Un <code>Autor</code> tiene muchos
-                            <code>Libros</code>. Usa <code>@OneToMany(mappedBy="...")</code> y <code>@ManyToOne</code>.
-                            Asegúrate de usar <code>FetchType.LAZY</code> para rendimiento.
-                        </p>
+                        <h4 class="font-bold text-slate-800">Relaciones 1:N</h4>
+                        <p class="text-sm text-slate-600 mb-4">Modela la relación: Un <code>Autor</code> tiene muchos
+                            <code>Libros</code>. Usa <code>@OneToMany(mappedBy="autor")</code> en el lado del Autor y
+                            <code>@ManyToOne</code> en el lado del Libro. Configura <code>FetchType.LAZY</code> para
+                            evitar cargar toda la base de datos en memoria.</p>
                     </div>
 
                     <div class="mb-8 p-6 bg-slate-900 rounded-xl border border-slate-700 text-white">
                         <span class="text-xs font-bold text-emerald-500 uppercase mb-2 block">🔴 Nivel Avanzado</span>
-                        <h4 class="font-bold text-white">LazyInitializationException</h4>
-                        <p class="text-sm text-slate-400 mb-4">Simula el error clásico: Carga una entidad Lazy, cierra
-                            la sesión (transaction commit), e intenta acceder a la colección Lazy fuera de la
-                            transacción. Explica por qué falla y cómo arreglarlo (JOIN FETCH).</p>
+                        <h4 class="font-bold text-white">Solución al LazyInitializationException</h4>
+                        <p class="text-sm text-slate-400 mb-4">El error más común en JPA: intentar acceder a una
+                            colección LAZY fuera de la transacción. Soluciónalo usando una consulta <strong>JOIN
+                                FETCH</strong> en JPQL para cargar los datos en una sola query optimizada.</p>
                         <button onclick="toggleSolution('sol-26')"
                             class="text-xs bg-emerald-600 hover:bg-emerald-500 text-white px-3 py-1 rounded transition">Ver
                             Solución</button>
                         <div id="sol-26" class="hidden mt-4 pt-4 border-t border-slate-700">
-                            <pre><code class="language-java">// Solución: Traer los datos ANTES de cerrar la sesión
-// JPQL con JOIN FETCH
+                            <pre><code class="language-java">// JPQL Optimizado: Trae el Autor Y sus Libros en una sola query
 String jpql = "SELECT a FROM Autor a JOIN FETCH a.libros WHERE a.id = :id";
-Autor autor = em.createQuery(jpql, Autor.class)
-                .setParameter("id", 1L)
-                .getSingleResult();
-// Ahora puedes usar autor.getLibros() fuera de la transacción</code></pre>
+
+Autor autor = entityManager.createQuery(jpql, Autor.class)
+    .setParameter("id", 1L)
+    .getSingleResult();
+
+// Ahora es seguro acceder a .getLibros() incluso si se cierra el EntityManager
+System.out.println(autor.getLibros().size());</code></pre>
                         </div>
                     </div>
                 </div>
@@ -312,62 +325,66 @@ Autor autor = em.createQuery(jpql, Autor.class)
                                 class="px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 text-xs font-bold uppercase tracking-wider">Lección
                                 27</span>
                         </div>
-                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">JSON y
-                            Arquitectura REST</h1>
+                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">Arquitectura REST
+                            & Serialización JSON</h1>
                     </div>
 
-                    <p class="text-slate-600 mb-6">Tus objetos Java viven en la memoria RAM. Para enviarlos por internet
-                        a una App móvil o Web, deben serializarse a texto. El estándar mundial es <strong>JSON</strong>
-                        y la librería reina es <strong>Jackson</strong>.</p>
+                    <p class="text-slate-600 mb-6">En la arquitectura moderna, el backend expone datos, no HTML. El
+                        formato de intercambio universal es <strong>JSON</strong>. En Java, la librería estándar de
+                        facto para esto es <strong>Jackson</strong>.</p>
 
                     <h3 class="text-xl font-bold text-slate-800 mt-8 mb-4">El Patrón DTO (Data Transfer Object)</h3>
                     <div class="bg-red-50 border border-red-200 rounded-xl p-6 mb-8">
                         <h4 class="font-bold text-red-800 mb-2">🛑 Anti-Patrón: Exponer Entidades</h4>
                         <p class="text-sm text-red-800">Nunca devuelvas tus entidades JPA (<code>@Entity</code>)
-                            directamente en un controlador REST. Podrías exponer contraseñas, crear bucles infinitos
-                            JSON o romper el contrato si cambias la base de datos. Usa DTOs (Records).</p>
+                            directamente en un controlador REST. Esto acopla tu API a tu base de datos (Security Leak),
+                            puede exponer datos sensibles (password) y causar errores de recursión infinita en JSON. Usa
+                            siempre <strong>DTOs</strong> (preferiblemente Java Records) para definir el contrato de la
+                            API.</p>
                     </div>
-
-
 
                     <h2 class="text-slate-900 mt-12 mb-6 border-none"><i
                             class="fas fa-dumbbell text-emerald-600 mr-2"></i>Training Ground</h2>
 
                     <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-green-500">
                         <span class="text-xs font-bold text-green-600 uppercase mb-2 block">🟢 Nivel Básico</span>
-                        <h4 class="font-bold text-slate-800">Serialización Simple</h4>
-                        <p class="text-sm text-slate-600 mb-4">Crea un Record <code>UsuarioDTO</code>. Usa
-                            <code>ObjectMapper</code> de Jackson para convertirlo a un String JSON.
-                        </p>
+                        <h4 class="font-bold text-slate-800">Serialización Simple con Jackson</h4>
+                        <p class="text-sm text-slate-600 mb-4">Crea un Record
+                            <code>UsuarioDTO(String nombre, String email)</code>. Usa la clase <code>ObjectMapper</code>
+                            para convertir una instancia a un String JSON.</p>
                     </div>
 
                     <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-yellow-500">
                         <span class="text-xs font-bold text-yellow-600 uppercase mb-2 block">🟡 Nivel Intermedio</span>
-                        <h4 class="font-bold text-slate-800">Ignorar Campos Sensibles</h4>
-                        <p class="text-sm text-slate-600 mb-4">Añade un campo <code>password</code> a tu DTO. Configura
-                            Jackson para que ese campo NUNCA se envíe en el JSON (usando <code>@JsonIgnore</code>).</p>
+                        <h4 class="font-bold text-slate-800">Control de Visibilidad</h4>
+                        <p class="text-sm text-slate-600 mb-4">Añade un campo <code>password</code> a tu clase. Usa la
+                            anotación <code>@JsonIgnore</code> para asegurar que Jackson nunca incluya este campo en el
+                            JSON generado.</p>
                     </div>
 
                     <div class="mb-8 p-6 bg-slate-900 rounded-xl border border-slate-700 text-white">
                         <span class="text-xs font-bold text-emerald-500 uppercase mb-2 block">🔴 Nivel Avanzado</span>
-                        <h4 class="font-bold text-white">Deserialización Polimórfica</h4>
-                        <p class="text-sm text-slate-400 mb-4">Tienes un JSON que puede representar un
-                            <code>Perro</code> o un <code>Gato</code> (ambos <code>Animal</code>). Configura Jackson con
-                            <code>@JsonTypeInfo</code> y <code>@JsonSubTypes</code> para que cree la instancia correcta
-                            automáticamente según un campo "tipo".
-                        </p>
+                        <h4 class="font-bold text-white">Polimorfismo en JSON</h4>
+                        <p class="text-sm text-slate-400 mb-4">Tienes una lista heterogénea de <code>Animal</code>
+                            (Perro, Gato). Configura Jackson con <code>@JsonTypeInfo</code> y <code>@JsonSubTypes</code>
+                            para que al recibir un JSON, sepa instanciar automáticamente la subclase correcta basándose
+                            en un campo discriminador "tipo".</p>
                         <button onclick="toggleSolution('sol-27')"
                             class="text-xs bg-emerald-600 hover:bg-emerald-500 text-white px-3 py-1 rounded transition">Ver
                             Solución</button>
                         <div id="sol-27" class="hidden mt-4 pt-4 border-t border-slate-700">
-                            <pre><code class="language-java">@JsonTypeInfo(use = Id.NAME, property = "tipo")
+                            <pre><code class="language-java">@JsonTypeInfo(
+  use = JsonTypeInfo.Id.NAME, 
+  include = JsonTypeInfo.As.PROPERTY, 
+  property = "tipo"
+)
 @JsonSubTypes({
-    @Type(value = Perro.class, name = "dog"),
-    @Type(value = Gato.class, name = "cat")
+  @Type(value = Perro.class, name = "dog"),
+  @Type(value = Gato.class, name = "cat")
 })
-abstract class Animal {}
+public abstract class Animal { ... }
 
-// JSON: { "tipo": "dog", "ladrido": "guau" } -> Crea objeto Perro</code></pre>
+// Un JSON { "tipo": "dog", "raza": "Labrador" } creará un objeto Perro.</code></pre>
                         </div>
                     </div>
                 </div>
@@ -375,7 +392,7 @@ abstract class Animal {}
             </div>
 
             <footer class="mt-20 py-8 text-center text-slate-400 text-sm border-t border-slate-200">
-                <p>&copy; 2025 Java Elite Bootcamp. Persistencia y Backend.</p>
+                <p>&copy; 2025 Java Elite Bootcamp. Arquitectura de Datos y Backend.</p>
             </footer>
         </main>
     </div>

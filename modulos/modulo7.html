@@ -113,8 +113,8 @@
                             <span class="text-slate-400 text-sm font-medium"><i class="far fa-clock mr-1"></i> 35
                                 min</span>
                         </div>
-                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">El Cliente HTTP:
-                            Hablando con el Mundo</h1>
+                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">Integración de
+                            Servicios: HTTP Client Moderno</h1>
                     </div>
 
                     <div
@@ -122,48 +122,47 @@
                         <h3 class="!mt-0 text-xl font-bold text-slate-800 mb-4 flex items-center gap-2"><i
                                 class="fas fa-bullseye text-indigo-600"></i> Objetivos Senior</h3>
                         <ul class="list-disc list-inside text-slate-600 text-sm space-y-2">
-                            <li>Dejar atrás <code>HttpURLConnection</code> (Legacy) y abrazar <code>HttpClient</code>
-                                (Java 11+).</li>
-                            <li>Entender las peticiones asíncronas (Non-blocking I/O).</li>
-                            <li>Consumo de APIs REST JSON.</li>
+                            <li>Deprecación de <code>HttpURLConnection</code>: El legado bloqueante.</li>
+                            <li><strong>Asincronía Real:</strong> Non-blocking I/O con <code>CompletableFuture</code>.
+                            </li>
+                            <li>Patrones de Resiliencia: Timeouts y Backpressure.</li>
                         </ul>
                     </div>
 
-                    <h2>1. El Idioma de Internet</h2>
-                    <p class="text-slate-600 mb-6">Tu aplicación Java no vive aislada. Necesita conectarse a servicios
-                        de terceros (Stripe, Google Maps, Microservicios internos). El protocolo estándar es
-                        <strong>HTTP/REST</strong>.
-                    </p>
+                    <h2>1. El Estándar Moderno: java.net.http.HttpClient</h2>
+                    <p class="text-slate-600 mb-6">Desde Java 11, tenemos un cliente HTTP nativo que soporta
+                        <strong>HTTP/2</strong> (multiplexación de streams) y <strong>WebSocket</strong>. A diferencia
+                        de las librerías externas (Apache HttpClient, OkHttp), este viene integrado en el JDK y es
+                        altamente eficiente.</p>
 
-
-
-                    <h3 class="text-xl font-bold text-slate-800 mt-8 mb-4">2. java.net.http.HttpClient</h3>
-                    <p class="text-slate-600 mb-4">Introducido en Java 11, es moderno, fluido y soporta HTTP/2
-                        (multiplexación). Permite enviar peticiones de forma síncrona (bloqueante) o asíncrona (usando
-                        <code>CompletableFuture</code>).
-                    </p>
+                    <h3 class="text-xl font-bold text-slate-800 mt-8 mb-4">2. Programación Reactiva y Asíncrona</h3>
+                    <p class="text-slate-600 mb-4">Las llamadas a APIs externas son lentas (latencia de red). Bloquear
+                        el hilo principal esperando una respuesta es un error de diseño. El método
+                        <code>sendAsync()</code> devuelve un <code>CompletableFuture</code>, permitiendo encadenar
+                        operaciones sin bloquear el hilo actual.</p>
 
                     <div class="code-window bg-[#1e1e1e] mb-8">
                         <div class="flex items-center gap-2 px-4 py-2 border-b border-slate-700 bg-slate-800/50">
-                            <span class="text-xs text-slate-400 font-mono ml-2">RestClient.java</span>
+                            <span class="text-xs text-slate-400 font-mono ml-2">AsyncClient.java</span>
                         </div>
-                        <pre><code class="language-java">// 1. Construir el Cliente
+                        <pre><code class="language-java">// 1. Construcción Inmutable del Cliente
 HttpClient client = HttpClient.newBuilder()
     .version(HttpClient.Version.HTTP_2)
-    .connectTimeout(Duration.ofSeconds(10))
+    .connectTimeout(Duration.ofSeconds(5)) // Fail Fast
     .build();
 
-// 2. Crear la Petición
+// 2. Definición de la Petición
 HttpRequest request = HttpRequest.newBuilder()
-    .uri(URI.create("https://api.github.com/users/octocat"))
-    .GET() // O .POST(BodyPublishers.ofString(json))
+    .uri(URI.create("https://api.github.com/zen"))
+    .header("Accept", "text/plain")
+    .GET()
     .build();
 
-// 3. Enviar (Asíncrono)
+// 3. Ejecución Asíncrona (Non-Blocking)
 client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
     .thenApply(HttpResponse::body)
-    .thenAccept(System.out::println)
-    .join(); // Esperar para ver el resultado</code></pre>
+    .thenAccept(System.out::println) // Callback
+    .join(); // Solo para demo, en producción no bloquees</code></pre>
                     </div>
 
                     <h2 class="text-slate-900 mt-12 mb-6 border-none"><i
@@ -171,26 +170,26 @@ client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
 
                     <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-green-500">
                         <span class="text-xs font-bold text-green-600 uppercase mb-2 block">🟢 Nivel Básico</span>
-                        <h4 class="font-bold text-slate-800">GET Simple</h4>
-                        <p class="text-sm text-slate-600 mb-4">Haz una petición GET síncrona a
-                            <code>https://jsonplaceholder.typicode.com/posts/1</code> e imprime el cuerpo de la
-                            respuesta.
-                        </p>
+                        <h4 class="font-bold text-slate-800">Consumo REST Básico</h4>
+                        <p class="text-sm text-slate-600 mb-4">Realiza una petición GET síncrona a
+                            <code>https://jsonplaceholder.typicode.com/posts/1</code>. Parsea el JSON manualmente (o con
+                            regex simple) para extraer el título.</p>
                     </div>
 
                     <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-yellow-500">
                         <span class="text-xs font-bold text-yellow-600 uppercase mb-2 block">🟡 Nivel Intermedio</span>
-                        <h4 class="font-bold text-slate-800">Manejo de Errores</h4>
-                        <p class="text-sm text-slate-600 mb-4">Intenta conectar a una URL que no existe. Captura la
-                            excepción y verifica si el status code es 404 antes de procesar el cuerpo.</p>
+                        <h4 class="font-bold text-slate-800">Manejo de Errores HTTP</h4>
+                        <p class="text-sm text-slate-600 mb-4">Intenta acceder a una URL inexistente (404). Inspecciona
+                            el <code>statusCode()</code> de la respuesta antes de intentar leer el cuerpo. Lanza una
+                            excepción personalizada si el código no es 200 OK.</p>
                     </div>
 
                     <div class="mb-8 p-6 bg-slate-900 rounded-xl border border-slate-700 text-white">
                         <span class="text-xs font-bold text-indigo-500 uppercase mb-2 block">🔴 Nivel Avanzado</span>
-                        <h4 class="font-bold text-white">Race Request</h4>
-                        <p class="text-sm text-slate-400 mb-4">Lanza 3 peticiones asíncronas simultáneas a 3 URLs
-                            diferentes. Usa <code>CompletableFuture.allOf()</code> para esperar a que todas terminen y
-                            luego imprime "¡Todo listo!".</p>
+                        <h4 class="font-bold text-white">Orquestación Paralela (Scatter-Gather)</h4>
+                        <p class="text-sm text-slate-400 mb-4">Lanza 3 peticiones simultáneas a diferentes endpoints.
+                            Usa <code>CompletableFuture.allOf(...)</code> para esperar a que todas terminen y combina
+                            sus resultados en un reporte final.</p>
                         <button onclick="toggleSolution('sol-28')"
                             class="text-xs bg-indigo-600 hover:bg-indigo-500 text-white px-3 py-1 rounded transition">Ver
                             Solución</button>
@@ -199,8 +198,12 @@ client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
 var f2 = client.sendAsync(req2, BodyHandlers.ofString());
 var f3 = client.sendAsync(req3, BodyHandlers.ofString());
 
+// Esperar a todos (Barrier)
 CompletableFuture.allOf(f1, f2, f3).join();
-System.out.println("Carga masiva completada");</code></pre>
+
+// Procesar resultados
+System.out.println("Result 1: " + f1.get().body());
+System.out.println("Result 2: " + f2.get().body());</code></pre>
                         </div>
                     </div>
 
@@ -208,13 +211,13 @@ System.out.println("Carga masiva completada");</code></pre>
                         <h3 class="font-bold text-slate-800 mb-6">Quiz de Validación</h3>
                         <div class="space-y-4">
                             <div>
-                                <p class="text-sm font-semibold mb-2">1. ¿Qué clase reemplaza a la antigua
+                                <p class="text-sm font-semibold mb-2">1. ¿Qué ventaja tiene HttpClient sobre
                                     HttpURLConnection?</p>
                                 <div class="grid grid-cols-2 gap-2">
                                     <button class="quiz-btn border p-2 rounded text-sm hover:bg-slate-50"
-                                        onclick="checkQuiz(this, false)">WebClient</button>
+                                        onclick="checkQuiz(this, false)">Es más antiguo</button>
                                     <button class="quiz-btn border p-2 rounded text-sm hover:bg-slate-50"
-                                        onclick="checkQuiz(this, true)">HttpClient</button>
+                                        onclick="checkQuiz(this, true)">Soporta HTTP/2 y Asincronía</button>
                                 </div>
                             </div>
                         </div>
@@ -229,43 +232,39 @@ System.out.println("Carga masiva completada");</code></pre>
                                 29</span>
                         </div>
                         <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">Principios SOLID
-                            y Patrones</h1>
+                            y Patrones de Diseño</h1>
                     </div>
 
                     <div
                         class="bg-white rounded-2xl p-8 shadow-lg shadow-indigo-900/5 border-l-4 border-indigo-600 mb-10">
-                        <p class="text-slate-600">Escribir código que funcione es fácil. Escribir código que
-                            <strong>sobreviva al cambio</strong> es arte. SOLID son 5 reglas para evitar que tu software
-                            se pudra.
-                        </p>
+                        <p class="text-slate-600">El código "funciona" cuando compila. El código es "mantenible" cuando
+                            respeta SOLID. Estos principios son la base de la ingeniería de software escalable.</p>
                     </div>
 
-                    <h2>1. S.O.L.I.D. Explicado para Humanos</h2>
-
-
-
+                    <h2>1. S.O.L.I.D.: La Constitución del Software</h2>
                     <div class="space-y-4 mt-6">
                         <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
-                            <h4 class="font-bold text-blue-900">S - Single Responsibility</h4>
-                            <p class="text-xs text-blue-800">Una clase, un motivo para cambiar. No mezcles lógica de BD
-                                con envío de emails.</p>
+                            <h4 class="font-bold text-blue-900">S - Single Responsibility Principle (SRP)</h4>
+                            <p class="text-xs text-blue-800">Una clase debe tener una sola razón para cambiar. Separar
+                                la lógica de negocio de la lógica de presentación o persistencia.</p>
                         </div>
                         <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-500">
-                            <h4 class="font-bold text-green-900">O - Open/Closed</h4>
-                            <p class="text-xs text-green-800">Abierto a extensión, cerrado a modificación. Usa
-                                interfaces para añadir funcionalidad sin tocar código viejo.</p>
+                            <h4 class="font-bold text-green-900">O - Open/Closed Principle (OCP)</h4>
+                            <p class="text-xs text-green-800">El software debe estar abierto a extensión pero cerrado a
+                                modificación. Usa polimorfismo para evitar modificar código existente al añadir
+                                features.</p>
                         </div>
                         <div class="bg-purple-50 p-4 rounded-lg border-l-4 border-purple-500">
-                            <h4 class="font-bold text-purple-900">D - Dependency Inversion</h4>
-                            <p class="text-xs text-purple-800">Depende de abstracciones (Interfaces), no de concreciones
-                                (Clases con <code>new</code>).</p>
+                            <h4 class="font-bold text-purple-900">D - Dependency Inversion Principle (DIP)</h4>
+                            <p class="text-xs text-purple-800">Los módulos de alto nivel no deben depender de detalles
+                                de bajo nivel. Ambos deben depender de abstracciones (Interfaces).</p>
                         </div>
                     </div>
 
-                    <h3 class="text-xl font-bold text-slate-800 mt-8 mb-4">Patrón Strategy (El poder del Polimorfismo)
-                    </h3>
-                    <p class="text-slate-600 mb-4">Este patrón es la encarnación del principio Open/Closed. Permite
-                        cambiar el algoritmo de una clase en tiempo de ejecución.</p>
+                    <h3 class="text-xl font-bold text-slate-800 mt-8 mb-4">Patrón Strategy (Behavioral)</h3>
+                    <p class="text-slate-600 mb-4">El patrón Strategy permite definir una familia de algoritmos,
+                        encapsular cada uno y hacerlos intercambiables. Es la implementación directa del principio OCP.
+                    </p>
 
                     <h2 class="text-slate-900 mt-12 mb-6 border-none"><i
                             class="fas fa-dumbbell text-indigo-600 mr-2"></i>Training Ground</h2>
@@ -273,39 +272,50 @@ System.out.println("Carga masiva completada");</code></pre>
                     <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-green-500">
                         <span class="text-xs font-bold text-green-600 uppercase mb-2 block">🟢 Nivel Básico</span>
                         <h4 class="font-bold text-slate-800">Refactorización SRP</h4>
-                        <p class="text-sm text-slate-600 mb-4">Tienes una clase <code>Usuario</code> que guarda en BD y
-                            envía emails. Sepárala en <code>UsuarioRepository</code> y <code>EmailService</code>.</p>
+                        <p class="text-sm text-slate-600 mb-4">Tienes una clase <code>Usuario</code> que guarda en BD,
+                            valida emails y genera reportes PDF. Separa estas responsabilidades en clases dedicadas:
+                            <code>UsuarioRepository</code>, <code>EmailValidator</code> y <code>ReportGenerator</code>.
+                        </p>
                     </div>
 
                     <div class="mb-6 p-6 bg-slate-100 rounded-xl border-l-4 border-yellow-500">
                         <span class="text-xs font-bold text-yellow-600 uppercase mb-2 block">🟡 Nivel Intermedio</span>
-                        <h4 class="font-bold text-slate-800">Inyección de Dependencias</h4>
-                        <p class="text-sm text-slate-600 mb-4">Crea una clase <code>Motor</code> (interfaz) y dos
-                            implementaciones (<code>Gasolina</code>, <code>Electrico</code>). Inyecta el motor en el
-                            constructor de <code>Coche</code>.</p>
+                        <h4 class="font-bold text-slate-800">Inyección de Dependencias (DI)</h4>
+                        <p class="text-sm text-slate-600 mb-4">Crea una interfaz <code>Motor</code> y dos
+                            implementaciones: <code>Gasolina</code> y <code>Electrico</code>. Modifica la clase
+                            <code>Coche</code> para que reciba el <code>Motor</code> en el constructor, en lugar de
+                            instanciarlo dentro (Hardcoding).</p>
                     </div>
 
                     <div class="mb-8 p-6 bg-slate-900 rounded-xl border border-slate-700 text-white">
                         <span class="text-xs font-bold text-indigo-500 uppercase mb-2 block">🔴 Nivel Avanzado</span>
-                        <h4 class="font-bold text-white">Patrón Strategy Real</h4>
-                        <p class="text-sm text-slate-400 mb-4">Implementa un sistema de descuentos. La clase
-                            <code>Venta</code> debe aceptar una estrategia de descuento (VIP, BlackFriday, SinDescuento)
-                            y calcular el total sin usar <code>if/else</code>.
-                        </p>
+                        <h4 class="font-bold text-white">Sistema de Descuentos (Strategy)</h4>
+                        <p class="text-sm text-slate-400 mb-4">Implementa un sistema de precios flexible. La clase
+                            <code>CalculadoraPrecios</code> debe aceptar una estrategia de descuento (<code>VIP</code>,
+                            <code>BlackFriday</code>, <code>SinDescuento</code>) en tiempo de ejecución para calcular el
+                            total sin usar condicionales <code>if/else</code>.</p>
                         <button onclick="toggleSolution('sol-29')"
                             class="text-xs bg-indigo-600 hover:bg-indigo-500 text-white px-3 py-1 rounded transition">Ver
                             Solución</button>
                         <div id="sol-29" class="hidden mt-4 pt-4 border-t border-slate-700">
-                            <pre><code class="language-java">interface Descuento { double aplicar(double total); }
+                            <pre><code class="language-java">interface EstrategiaDescuento {
+    double aplicar(double precio);
+}
+
+class DescuentoVIP implements EstrategiaDescuento {
+    public double aplicar(double precio) { return precio * 0.80; } // 20% OFF
+}
 
 class Venta {
-    private Descuento estrategia;
-    public Venta(Descuento d) { this.estrategia = d; }
-    public double getTotal(double precio) {
-        return estrategia.aplicar(precio);
+    private EstrategiaDescuento estrategia;
+    
+    // Inyección de la estrategia
+    public Venta(EstrategiaDescuento e) { this.estrategia = e; }
+    
+    public double total(double precioBase) {
+        return estrategia.aplicar(precioBase);
     }
-}
-// Uso: new Venta(new DescuentoVIP());</code></pre>
+}</code></pre>
                         </div>
                     </div>
                 </div>
@@ -317,40 +327,42 @@ class Venta {
                                 class="px-3 py-1 rounded-full bg-indigo-100 text-indigo-700 text-xs font-bold uppercase tracking-wider">Lección
                                 30</span>
                         </div>
-                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">Arquitectura
-                            Limpia: El Proyecto Final</h1>
+                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">Clean
+                            Architecture: El Proyecto Final</h1>
                     </div>
 
                     <div
                         class="bg-white rounded-2xl p-8 shadow-lg shadow-indigo-900/5 border-l-4 border-indigo-600 mb-10">
-                        <p class="text-slate-600">Has llegado al final. Ahora ensamblaremos todo lo aprendido en una
-                            arquitectura profesional por capas.</p>
+                        <p class="text-slate-600">La arquitectura de software no se trata de frameworks, se trata de
+                            <strong>independencia</strong>. Tu lógica de negocio no debe saber que existe una base de
+                            datos o una web.</p>
                     </div>
 
-                    <h2>1. Separación de Responsabilidades</h2>
-                    <p class="text-slate-600 mb-6">Una aplicación Enterprise no es un archivo gigante. Se divide en
-                        capas horizontales para mantener el orden.</p>
-
-
+                    <h2>1. Separación por Capas (Layered Architecture)</h2>
+                    <p class="text-slate-600 mb-6">El estándar en la industria Enterprise es la separación de intereses
+                        en capas horizontales:</p>
 
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8 mt-6">
                         <div class="bg-slate-50 p-4 rounded-xl text-center border border-slate-200">
-                            <div class="font-bold text-indigo-600 mb-1">1. Controller</div>
-                            <p class="text-xs text-slate-500">Recibe HTTP, valida entrada y delega.</p>
+                            <div class="font-bold text-indigo-600 mb-1">1. Controller (Web)</div>
+                            <p class="text-xs text-slate-500">Maneja HTTP, JSON y validación de entrada. Delega al
+                                Service.</p>
                         </div>
                         <div class="bg-slate-50 p-4 rounded-xl text-center border border-slate-200">
-                            <div class="font-bold text-indigo-600 mb-1">2. Service</div>
-                            <p class="text-xs text-slate-500">Lógica de negocio pura. Aquí viven las reglas.</p>
+                            <div class="font-bold text-indigo-600 mb-1">2. Service (Domain)</div>
+                            <p class="text-xs text-slate-500">El corazón. Contiene la lógica de negocio pura y casos de
+                                uso.</p>
                         </div>
                         <div class="bg-slate-50 p-4 rounded-xl text-center border border-slate-200">
-                            <div class="font-bold text-indigo-600 mb-1">3. Repository</div>
-                            <p class="text-xs text-slate-500">Habla con la BD (SQL/JPA).</p>
+                            <div class="font-bold text-indigo-600 mb-1">3. Repository (Data)</div>
+                            <p class="text-xs text-slate-500">Abstracción de la base de datos. Habla SQL/JPA.</p>
                         </div>
                     </div>
 
                     <div class="bg-slate-900 rounded-xl p-6 text-white font-mono text-sm border border-slate-700">
-                        <p class="text-green-400 mb-2">// Flujo de Ejecución</p>
-                        <p>UserController -> UserService -> UserRepository -> Base de Datos</p>
+                        <p class="text-green-400 mb-2">// Flujo de Dependencia Unidireccional</p>
+                        <p>Controller -> Service -> Repository</p>
+                        <p class="text-slate-500 mt-2">// El Repositorio NO debe conocer al Controller.</p>
                     </div>
 
                     <div class="mt-16 pt-10 border-t border-slate-200">
@@ -358,30 +370,30 @@ class Venta {
                         <div class="bg-white p-8 rounded-2xl shadow-xl border border-indigo-100">
                             <div class="space-y-6">
                                 <div>
-                                    <p class="font-bold text-slate-800 mb-2">1. ¿Qué capa debe contener las reglas de
-                                        negocio (ej: validaciones complejas)?</p>
+                                    <p class="font-bold text-slate-800 mb-2">1. ¿Dónde debe residir la lógica de
+                                        validación de negocio compleja?</p>
                                     <select
                                         class="w-full p-3 rounded-lg border border-slate-300 bg-white text-slate-600">
                                         <option>Seleccionar...</option>
                                         <option value="a">Controller</option>
-                                        <option value="b">Service</option>
+                                        <option value="b">Service (Correcto)</option>
                                         <option value="c">Repository</option>
                                     </select>
                                 </div>
                                 <div>
-                                    <p class="font-bold text-slate-800 mb-2">2. ¿Por qué usamos DTOs en lugar de
-                                        Entidades en el Controller?</p>
+                                    <p class="font-bold text-slate-800 mb-2">2. ¿Qué patrón se usa para transferir datos
+                                        entre capas sin exponer entidades?</p>
                                     <select
                                         class="w-full p-3 rounded-lg border border-slate-300 bg-white text-slate-600">
                                         <option>Seleccionar...</option>
-                                        <option value="a">Para exponer la estructura de la base de datos.</option>
-                                        <option value="b">Para desacoplar la API de la BD y por seguridad.</option>
-                                        <option value="c">Porque es obligatorio por Java.</option>
+                                        <option value="a">Singleton</option>
+                                        <option value="b">DTO (Data Transfer Object)</option>
+                                        <option value="c">Factory</option>
                                     </select>
                                 </div>
                                 <button onclick="graduar()"
                                     class="w-full py-4 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl font-bold shadow-lg shadow-indigo-600/30 transition-all active:scale-95 flex justify-center items-center gap-2">
-                                    <i class="fas fa-graduation-cap"></i> Graduarse
+                                    <i class="fas fa-graduation-cap"></i> Graduarse como Ingeniero de Software
                                 </button>
                             </div>
                         </div>

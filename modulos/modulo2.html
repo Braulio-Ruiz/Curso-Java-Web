@@ -133,8 +133,8 @@
                                 class="px-3 py-1 rounded-full bg-purple-100 text-purple-700 text-xs font-bold uppercase tracking-wider">Lección
                                 06</span>
                         </div>
-                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">Clases, Objetos y
-                            Gestión de Memoria</h1>
+                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">Object Layout:
+                            Metaspace, Heap y Headers</h1>
                     </div>
 
                     <div
@@ -142,37 +142,46 @@
                         <h3 class="!mt-0 text-xl font-bold text-slate-800 mb-4 flex items-center gap-2">
                             <i class="fas fa-microchip text-purple-600"></i> Ingeniería Interna
                         </h3>
-                        <p class="text-slate-600 mb-4">No estás aquí para aprender sintaxis, estás aquí para entender la
-                            memoria. La distinción entre Clase y Objeto es la distinción entre un plano arquitectónico y
-                            el edificio físico.</p>
+                        <p class="text-slate-600 mb-4">Más allá de la sintaxis, un Ingeniero de Software debe entender
+                            cómo la JVM estructura los objetos en la memoria física para optimizar el acceso y la
+                            recolección de basura.</p>
                         <div class="grid md:grid-cols-2 gap-4 text-sm">
                             <div class="flex items-start gap-3"><i
-                                    class="fas fa-check text-green-500 mt-1"></i><span><strong>Heap vs Stack:</strong>
-                                    Dónde viven tus datos realmente.</span></div>
+                                    class="fas fa-check text-green-500 mt-1"></i><span><strong>Object Overhead:</strong>
+                                    Mark Word y Klass Pointer (64-bit architecture).</span></div>
                             <div class="flex items-start gap-3"><i
-                                    class="fas fa-check text-green-500 mt-1"></i><span><strong>Aliasing:</strong> El
-                                    peligro de las referencias compartidas.</span></div>
+                                    class="fas fa-check text-green-500 mt-1"></i><span><strong>Reference
+                                        Aliasing:</strong> Peligros de mutabilidad compartida en el Stack.</span></div>
                         </div>
                     </div>
 
-                    <h2>1. El Ciclo de Vida en el Heap</h2>
-                    <p>Cuando escribes <code>new Usuario()</code>, ocurre una coreografía compleja en la JVM. La clase
-                        (el molde) se carga en el <strong>Metaspace</strong>. Pero el objeto real se "infla" en el
-                        <strong>Heap</strong>.
-                    </p>
+                    <h2>1. El Ciclo de Vida: Metaspace vs Heap</h2>
+                    <p>Al ejecutar <code>new Usuario()</code>, la JVM realiza una operación compleja descrita en la JLS
+                        §12.5. Primero, verifica si la clase <code>Usuario</code> está cargada en el
+                        <strong>Metaspace</strong> (memoria nativa fuera del Heap donde residen los metadatos de las
+                        clases). Si no, el <em>ClassLoader</em> la carga.</p>
 
+                    <p>Posteriormente, se reserva espacio en el <strong>Heap</strong>. Un objeto Java no son solo sus
+                        datos. Cada objeto tiene una cabecera (Header) de 12-16 bytes que contiene:</p>
+                    <ul class="list-disc list-inside text-slate-600 ml-4 mb-4">
+                        <li><strong>Mark Word:</strong> Contiene el hashcode, bits de bloqueo (para
+                            <code>synchronized</code>) y bits para el Garbage Collector (GC Age).</li>
+                        <li><strong>Klass Pointer:</strong> Un puntero comprimido que indica a qué clase pertenece este
+                            objeto en el Metaspace.</li>
+                    </ul>
 
-
-                    <p>La variable que declaras (ej: <code>Usuario u</code>) es solo un control remoto (referencia) que
-                        vive en el Stack y apunta a la dirección de memoria en el Heap. Entender esto es vital para
-                        evitar <code>NullPointerException</code> y fugas de memoria.</p>
+                    <p>La variable <code>Usuario u</code> es un puntero de 64 bits en el <strong>Stack Frame</strong>
+                        que referencia esa dirección de memoria. Entender que <code>u</code> no <em>es</em> el objeto,
+                        sino su <em>dirección</em>, es clave para entender el Aliasing.</p>
 
                     <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-r-xl mb-8">
                         <h4 class="font-bold text-yellow-800 mb-1">Concepto Clave: Constructor Chaining</h4>
-                        <p class="text-yellow-800 text-sm">Un constructor no crea el objeto (eso lo hace
-                            <code>new</code>). El constructor <strong>inicializa</strong> el estado. Usar
-                            <code>this()</code> permite reutilizar lógica entre múltiples constructores, evitando
-                            duplicidad de código (DRY).
+                        <p class="text-yellow-800 text-sm">
+                            El comando <code>new</code> reserva y limpia la memoria (pone ceros binarios). Luego, la JVM
+                            invoca el constructor <code>&lt;init&gt;</code>. El encadenamiento mediante
+                            <code>this()</code> o <code>super()</code> garantiza que la jerarquía de herencia se
+                            inicialice desde <code>Object</code> hacia abajo, asegurando un estado consistente antes de
+                            usar la instancia.
                         </p>
                     </div>
 
@@ -184,14 +193,13 @@
                         <div
                             class="absolute top-0 right-0 bg-green-100 text-green-700 text-xs font-bold px-3 py-1 rounded-bl-xl">
                             BÁSICO</div>
-                        <h4 class="font-bold text-slate-800 mb-2">Instanciación Simple</h4>
-                        <p class="text-sm text-slate-600 mb-4">Crea una clase <code>Vehiculo</code> con atributos
-                            <code>marca</code> y <code>modelo</code>. Crea un constructor que obligue a pasar estos
-                            datos. Instancia dos vehículos diferentes.
-                        </p>
+                        <h4 class="font-bold text-slate-800 mb-2">Inicialización Estricta</h4>
+                        <p class="text-sm text-slate-600 mb-4">Crea una clase <code>Vehiculo</code>. Implementa un
+                            constructor que obligue a inicializar todos los campos <code>final</code>. Intenta compilar
+                            sin inicializar uno de ellos y analiza el error de la JLS.</p>
                         <details class="text-sm text-slate-500 cursor-pointer">
-                            <summary>Ver Pista</summary>Usa <code>this.marca = marca</code> para diferenciar el atributo
-                            del parámetro.
+                            <summary>Ver Pista</summary>Los campos <code>final</code> deben ser asignados exactamente
+                            una vez antes de que termine el constructor.
                         </details>
                     </div>
 
@@ -200,10 +208,10 @@
                         <div
                             class="absolute top-0 right-0 bg-yellow-100 text-yellow-700 text-xs font-bold px-3 py-1 rounded-bl-xl">
                             INTERMEDIO</div>
-                        <h4 class="font-bold text-slate-800 mb-2">Constructor Overloading</h4>
-                        <p class="text-sm text-slate-600 mb-4">Añade un constructor secundario que solo reciba
-                            <code>marca</code> y asigne "Desconocido" al modelo usando <code>this(...)</code>.
-                        </p>
+                        <h4 class="font-bold text-slate-800 mb-2">Constructor Overloading (DRY)</h4>
+                        <p class="text-sm text-slate-600 mb-4">Usa <code>this(...)</code> para redirigir constructores
+                            secundarios al constructor principal (Canonical Constructor). Esto centraliza la lógica de
+                            validación en un solo punto.</p>
                     </div>
 
                     <div
@@ -211,35 +219,39 @@
                         <div
                             class="absolute top-0 right-0 bg-red-600 text-white text-xs font-bold px-3 py-1 rounded-bl-xl">
                             AVANZADO</div>
-                        <h4 class="font-bold text-white mb-2">Reference Aliasing (Caso Real)</h4>
-                        <p class="text-sm text-slate-400 mb-4">Crea <code>v1</code>. Asigna <code>v2 = v1</code>.
-                            Modifica la marca en <code>v2</code>. Imprime la marca de <code>v1</code>. Explica por qué
-                            cambió.</p>
+                        <h4 class="font-bold text-white mb-2">Reference Aliasing y Mutabilidad</h4>
+                        <p class="text-sm text-slate-400 mb-4">Demuestra el peligro de compartir referencias. Crea
+                            <code>v1</code>. Asigna <code>v2 = v1</code>. Modifica el estado interno de <code>v2</code>
+                            y demuestra que <code>v1</code> ha sido "corrompido" sin tocarlo directamente.</p>
                         <button onclick="toggleSolution('sol-6')"
                             class="text-xs bg-purple-600 hover:bg-purple-500 text-white px-3 py-1 rounded transition">Ver
                             Solución</button>
                         <div id="sol-6" class="hidden mt-4 pt-4 border-t border-slate-700">
-                            <pre><code class="language-java">Vehiculo v1 = new Vehiculo("Toyota", "Corolla");
-Vehiculo v2 = v1; // ¡No copias el objeto, copias la referencia!
-v2.marca = "Mazda";
-System.out.println(v1.marca); // Imprime "Mazda"
-// Ambos controles remotos apuntan a la misma TV.</code></pre>
+                            <pre><code class="language-java">Vehiculo v1 = new Vehiculo("Toyota");
+Vehiculo v2 = v1; // Copia de la dirección de memoria (Pointer), no del objeto.
+
+v2.setMarca("Mazda"); 
+// v1.getMarca() ahora retorna "Mazda".
+// Esto es la causa raíz de muchos bugs de concurrencia.</code></pre>
                         </div>
                     </div>
 
                     <div class="mt-10 pt-8 border-t border-slate-200">
                         <h3 class="font-bold text-slate-800 mb-4">Quiz de Validación</h3>
                         <div class="space-y-3 text-sm">
-                            <p><strong>1. ¿Dónde se almacena un objeto creado con 'new'?</strong></p>
+                            <p><strong>1. ¿Dónde se almacena la cabecera (Mark Word) de un objeto?</strong></p>
                             <div class="grid grid-cols-2 gap-2">
-                                <div class="quiz-option border rounded p-2 text-center">Stack</div>
+                                <div class="quiz-option border rounded p-2 text-center">Stack Frame</div>
                                 <div class="quiz-option border rounded p-2 text-center"
-                                    onclick="alert('¡Correcto! El Heap es para objetos.')">Heap</div>
+                                    onclick="alert('¡Correcto! Junto con los datos del objeto en el Heap.')">Heap
+                                    (Cabecera del Objeto)</div>
                             </div>
-                            <p class="mt-4"><strong>2. ¿Qué hace 'this()' dentro de un constructor?</strong></p>
-                            <div class="quiz-option border rounded p-2" onclick="alert('¡Correcto!')">Llama a otro
-                                constructor de la misma clase.</div>
-                            <div class="quiz-option border rounded p-2">Crea una nueva instancia.</div>
+                            <p class="mt-4"><strong>2. ¿Qué ocurre si un campo final no es inicializado en el
+                                    constructor?</strong></p>
+                            <div class="quiz-option border rounded p-2"
+                                onclick="alert('¡Correcto! Error en tiempo de compilación.')">Error de compilación.
+                            </div>
+                            <div class="quiz-option border rounded p-2">Se inicializa a null/0 por defecto.</div>
                         </div>
                     </div>
                 </div>
@@ -251,31 +263,41 @@ System.out.println(v1.marca); // Imprime "Mazda"
                                 class="px-3 py-1 rounded-full bg-purple-100 text-purple-700 text-xs font-bold uppercase tracking-wider">Lección
                                 07</span>
                         </div>
-                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">Encapsulamiento y
-                            Diseño Defensivo</h1>
+                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">Encapsulamiento
+                            Real: Invariantes y Diseño Defensivo</h1>
                     </div>
 
-                    <p class="text-slate-600 mb-6">El encapsulamiento no es solo poner variables <code>private</code> y
-                        crear Getters/Setters automáticos (eso es un antipatrón llamado "Anemic Domain Model"). El
-                        verdadero encapsulamiento es <strong>proteger los invariantes</strong> del objeto.</p>
+                    <p class="text-slate-600 mb-6">El encapsulamiento es el pilar de la seguridad en POO. No se trata
+                        simplemente de ocultar datos, sino de <strong>proteger invariantes</strong>. Un invariante es
+                        una regla de negocio que debe ser verdadera durante todo el ciclo de vida del objeto (ej: "El
+                        saldo nunca puede ser negativo").</p>
 
-
-
-                    <h3 class="text-xl font-bold text-slate-800 mt-8 mb-4">Principio "Tell, Don't Ask"</h3>
-                    <p class="text-slate-600 mb-4">En lugar de pedirle datos a un objeto para tomar una decisión fuera,
-                        dile al objeto qué hacer. Él conoce su estado mejor que nadie.</p>
+                    <h3 class="text-xl font-bold text-slate-800 mt-8 mb-4">Principio "Tell, Don't Ask" y Anemic Models
+                    </h3>
+                    <p class="text-slate-600 mb-4">Un objeto lleno de Getters y Setters sin lógica es un anti-patrón
+                        conocido como <strong>Anemic Domain Model</strong>. Rompe el encapsulamiento porque delega la
+                        validación de sus datos a clases externas.</p>
+                    <p>En lugar de pedir datos (<code>Ask</code>) para operarlos fuera, ordena al objeto que ejecute una
+                        acción (<code>Tell</code>). El objeto es el único responsable de mantener su estado consistente.
+                    </p>
 
                     <div class="grid md:grid-cols-2 gap-6 mb-8">
                         <div class="bg-red-50 p-4 rounded-xl border border-red-200">
-                            <h4 class="text-red-800 font-bold mb-2">❌ Procedural (Malo)</h4>
-                            <pre class="text-xs bg-white p-2 rounded"><code class="language-java">if (cuenta.getSaldo() > 100) {
+                            <h4 class="text-red-800 font-bold mb-2">❌ Procedural (Anemic)</h4>
+                            <pre class="text-xs bg-white p-2 rounded"><code class="language-java">// La lógica de negocio se fuga fuera de la clase
+if (cuenta.getSaldo() >= 100) {
     cuenta.setSaldo(cuenta.getSaldo() - 100);
-}</code></pre>
+}
+// Peligro: Alguien más podría hacer setSaldo(-500)</code></pre>
                         </div>
                         <div class="bg-green-50 p-4 rounded-xl border border-green-200">
-                            <h4 class="text-green-800 font-bold mb-2">✅ Orientado a Objetos</h4>
-                            <pre class="text-xs bg-white p-2 rounded"><code class="language-java">// La lógica vive DENTRO de la clase
-cuenta.retirar(100);</code></pre>
+                            <h4 class="text-green-800 font-bold mb-2">✅ OO Puro (Rich Model)</h4>
+                            <pre class="text-xs bg-white p-2 rounded"><code class="language-java">// La clase Cuenta protege su invariante
+try {
+    cuenta.retirar(100); 
+} catch (SaldoInsuficienteException e) {
+    // Manejo de error
+}</code></pre>
                         </div>
                     </div>
 
@@ -287,9 +309,10 @@ cuenta.retirar(100);</code></pre>
                         <div
                             class="absolute top-0 right-0 bg-green-100 text-green-700 text-xs font-bold px-3 py-1 rounded-bl-xl">
                             BÁSICO</div>
-                        <h4 class="font-bold text-slate-800 mb-2">Protección Básica</h4>
-                        <p class="text-sm text-slate-600 mb-4">Crea una clase <code>CuentaBancaria</code> con saldo
-                            privado. Permite leer el saldo, pero no modificarlo directamente.</p>
+                        <h4 class="font-bold text-slate-800 mb-2">Visibilidad de Paquete</h4>
+                        <p class="text-sm text-slate-600 mb-4">Utiliza el modificador <code>package-private</code> (sin
+                            keyword) para ocultar clases de implementación que no deben ser vistas fuera del
+                            módulo/paquete. Esto reduce la superficie de ataque de tu API.</p>
                     </div>
 
                     <div
@@ -297,10 +320,10 @@ cuenta.retirar(100);</code></pre>
                         <div
                             class="absolute top-0 right-0 bg-yellow-100 text-yellow-700 text-xs font-bold px-3 py-1 rounded-bl-xl">
                             INTERMEDIO</div>
-                        <h4 class="font-bold text-slate-800 mb-2">Invariantes en Setter</h4>
-                        <p class="text-sm text-slate-600 mb-4">Crea un método <code>depositar(monto)</code>. Si el monto
-                            es negativo, lanza una <code>IllegalArgumentException</code>. Esto protege la integridad del
-                            objeto.</p>
+                        <h4 class="font-bold text-slate-800 mb-2">Invariantes en Mutadores</h4>
+                        <p class="text-sm text-slate-600 mb-4">Implementa un método <code>setEdad(int edad)</code>.
+                            Lanza <code>IllegalArgumentException</code> si la edad es negativa. Esto asegura que el
+                            objeto nunca entre en un estado inválido ("Fail Fast").</p>
                     </div>
 
                     <div
@@ -308,23 +331,24 @@ cuenta.retirar(100);</code></pre>
                         <div
                             class="absolute top-0 right-0 bg-red-600 text-white text-xs font-bold px-3 py-1 rounded-bl-xl">
                             AVANZADO</div>
-                        <h4 class="font-bold text-white mb-2">Inmutabilidad</h4>
-                        <p class="text-sm text-slate-400 mb-4">Diseña una clase <code>PuntoGPS</code> inmutable. Sus
-                            atributos se asignan en el constructor y no pueden cambiar jamás (sin setters, atributos
-                            final).</p>
+                        <h4 class="font-bold text-white mb-2">Inmutabilidad y JMM (Java Memory Model)</h4>
+                        <p class="text-sm text-slate-400 mb-4">Diseña una clase <code>PuntoGPS</code> inmutable. Usa
+                            <code>final</code> en todos los campos. Según la JLS §17.5, los campos finales tienen una
+                            semántica de memoria especial (Freeze Action) que garantiza que otros hilos vean los valores
+                            correctamente inicializados sin necesidad de sincronización explícita.</p>
                         <button onclick="toggleSolution('sol-7')"
                             class="text-xs bg-purple-600 hover:bg-purple-500 text-white px-3 py-1 rounded transition">Ver
                             Solución</button>
                         <div id="sol-7" class="hidden mt-4 pt-4 border-t border-slate-700">
-                            <pre><code class="language-java">public final class PuntoGPS {
-    private final double lat; // 'final' es clave
+                            <pre><code class="language-java">public final class PuntoGPS { // Clase final evita herencia maligna
+    private final double lat; 
     private final double lon;
 
     public PuntoGPS(double lat, double lon) {
         this.lat = lat;
         this.lon = lon;
     }
-    // Solo Getters, 0 Setters. Thread-safe por defecto.
+    // No existen setters. Thread-safe por diseño.
 }</code></pre>
                         </div>
                     </div>
@@ -332,12 +356,12 @@ cuenta.retirar(100);</code></pre>
                     <div class="mt-10 pt-8 border-t border-slate-200">
                         <h3 class="font-bold text-slate-800 mb-4">Quiz de Validación</h3>
                         <div class="space-y-3 text-sm">
-                            <p><strong>1. ¿Qué modificador permite acceso solo dentro del mismo paquete y
-                                    subclases?</strong></p>
+                            <p><strong>1. ¿Por qué es preferible la inmutabilidad en entornos concurrentes?</strong></p>
                             <div class="grid grid-cols-2 gap-2">
-                                <div class="quiz-option border rounded p-2 text-center" onclick="alert('¡Correcto!')">
-                                    protected</div>
-                                <div class="quiz-option border rounded p-2 text-center">private</div>
+                                <div class="quiz-option border rounded p-2 text-center"
+                                    onclick="alert('¡Correcto! No hay race conditions si nada cambia.')">Elimina
+                                    condiciones de carrera.</div>
+                                <div class="quiz-option border rounded p-2 text-center">Consume menos memoria.</div>
                             </div>
                         </div>
                     </div>
@@ -350,8 +374,8 @@ cuenta.retirar(100);</code></pre>
                                 class="px-3 py-1 rounded-full bg-purple-100 text-purple-700 text-xs font-bold uppercase tracking-wider">Lección
                                 08</span>
                         </div>
-                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">Polimorfismo: La
-                            Magia del Runtime</h1>
+                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">Polimorfismo:
+                            vTables y Dynamic Dispatch</h1>
                     </div>
 
                     <div
@@ -359,17 +383,22 @@ cuenta.retirar(100);</code></pre>
                         <h3 class="!mt-0 text-xl font-bold text-slate-800 mb-4">
                             El Secreto Senior: Virtual Method Table (vtable)
                         </h3>
-                        <p class="text-slate-600 mb-4">Cuando llamas a <code>animal.hacerSonido()</code>, Java no sabe
-                            qué método ejecutar en tiempo de compilación. En <strong>tiempo de ejecución</strong>, la
-                            JVM mira el objeto real en el Heap, consulta su "vtable" (una tabla de búsqueda interna) y
-                            salta al código de la subclase correcta. Esto es <strong>Dynamic Dispatch</strong>.</p>
+                        <p class="text-slate-600 mb-4">El polimorfismo no es magia; es una estructura de datos. Cuando
+                            llamas a <code>animal.hacerSonido()</code>, el compilador emite la instrucción de bytecode
+                            <code>invokevirtual</code>.</p>
+                        <p class="text-slate-600">En <strong>Runtime</strong>, la JVM no sabe qué método ejecutar hasta
+                            que mira la cabecera del objeto en el Heap. Allí encuentra un puntero a la
+                            <strong>vtable</strong> de la clase concreta, busca el índice del método y salta a la
+                            dirección de memoria del código ejecutable. Esto se llama <strong>Late Binding</strong> o
+                            Despacho Dinámico.</p>
+
                     </div>
 
-
-
-                    <h2>1. IS-A Relationship</h2>
-                    <p>La herencia establece una relación "Es-Un". Un <code>Perro</code> ES-UN <code>Animal</code>. Esto
-                        permite tratar a objetos diferentes de manera uniforme.</p>
+                    <h2>1. IS-A Relationship y el Principio de Sustitución de Liskov</h2>
+                    <p>La herencia establece una relación fuerte. Según el principio de Liskov (SOLID), una subclase
+                        debe poder sustituir a su clase base sin romper el programa. El polimorfismo permite escribir
+                        código genérico que funciona con implementaciones futuras desconocidas en tiempo de compilación.
+                    </p>
 
                     <h2 class="text-slate-900 border-none mb-6 mt-12"><i
                             class="fas fa-dumbbell text-purple-600 mr-2"></i>Training Ground</h2>
@@ -379,11 +408,10 @@ cuenta.retirar(100);</code></pre>
                         <div
                             class="absolute top-0 right-0 bg-green-100 text-green-700 text-xs font-bold px-3 py-1 rounded-bl-xl">
                             BÁSICO</div>
-                        <h4 class="font-bold text-slate-800 mb-2">Herencia Simple</h4>
-                        <p class="text-sm text-slate-600 mb-4">Crea clase <code>Empleado</code> con método
-                            <code>trabajar()</code>. Crea subclase <code>Programador</code> que sobrescriba
-                            <code>trabajar()</code> imprimiendo "Escribiendo código".
-                        </p>
+                        <h4 class="font-bold text-slate-800 mb-2">Sobrescritura Correcta</h4>
+                        <p class="text-sm text-slate-600 mb-4">Usa siempre <code>@Override</code>. Si cometes un error
+                            en el nombre o firma del método, el compilador te avisará. Sin la anotación, podrías estar
+                            creando una sobrecarga (Overload) accidental en lugar de una sobrescritura (Override).</p>
                     </div>
 
                     <div
@@ -391,11 +419,10 @@ cuenta.retirar(100);</code></pre>
                         <div
                             class="absolute top-0 right-0 bg-yellow-100 text-yellow-700 text-xs font-bold px-3 py-1 rounded-bl-xl">
                             INTERMEDIO</div>
-                        <h4 class="font-bold text-slate-800 mb-2">Uso de 'super'</h4>
-                        <p class="text-sm text-slate-600 mb-4">En <code>Programador</code>, dentro de
-                            <code>trabajar()</code>, llama primero al método del padre usando
-                            <code>super.trabajar()</code> y luego añade la lógica nueva.
-                        </p>
+                        <h4 class="font-bold text-slate-800 mb-2">La palabra clave 'super'</h4>
+                        <p class="text-sm text-slate-600 mb-4">Entiende la cadena de invocación. En un método
+                            sobrescrito, usa <code>super.metodo()</code> para aprovechar la lógica base y extenderla, en
+                            lugar de reemplazarla completamente. Es un patrón Decorator implícito.</p>
                     </div>
 
                     <div
@@ -403,18 +430,20 @@ cuenta.retirar(100);</code></pre>
                         <div
                             class="absolute top-0 right-0 bg-red-600 text-white text-xs font-bold px-3 py-1 rounded-bl-xl">
                             AVANZADO</div>
-                        <h4 class="font-bold text-white mb-2">Polimorfismo en Arrays</h4>
-                        <p class="text-sm text-slate-400 mb-4">Crea un Array de tipo <code>Empleado[]</code>. Guarda
-                            dentro un Empleado, un Programador y un Gerente. Recorre el array con un <code>for</code> y
-                            llama a <code>trabajar()</code>. Observa la magia.</p>
+                        <h4 class="font-bold text-white mb-2">Polimorfismo Heterogéneo</h4>
+                        <p class="text-sm text-slate-400 mb-4">Crea un Array <code>Empleado[]</code>. Almacena
+                            instancias de <code>Gerente</code>, <code>Ingeniero</code> y <code>Becario</code>. Itera el
+                            array e invoca <code>trabajar()</code>. Observa cómo la JVM resuelve diferentes
+                            comportamientos en tiempo real sin condicionales <code>if/else</code>.</p>
                         <button onclick="toggleSolution('sol-8')"
                             class="text-xs bg-purple-600 hover:bg-purple-500 text-white px-3 py-1 rounded transition">Ver
                             Solución</button>
                         <div id="sol-8" class="hidden mt-4 pt-4 border-t border-slate-700">
-                            <pre><code class="language-java">Empleado[] plantilla = { new Empleado(), new Programador(), new Gerente() };
+                            <pre><code class="language-java">Empleado[] nomina = { new Gerente(), new Ingeniero(), new Becario() };
 
-for (Empleado e : plantilla) {
-    // Dynamic Binding: Java decide qué método usar en tiempo real
+// Bytecode: invokevirtual #Method Empleado.trabajar
+// CPU Runtime: Busca en la vtable de cada objeto real.
+for (Empleado e : nomina) {
     e.trabajar(); 
 }</code></pre>
                         </div>
@@ -423,12 +452,12 @@ for (Empleado e : plantilla) {
                     <div class="mt-10 pt-8 border-t border-slate-200">
                         <h3 class="font-bold text-slate-800 mb-4">Quiz de Validación</h3>
                         <div class="space-y-3 text-sm">
-                            <p><strong>1. ¿Qué anotación asegura que estás sobrescribiendo correctamente un
-                                    método?</strong></p>
+                            <p><strong>1. ¿Qué instrucción de bytecode gestiona el polimorfismo de métodos de
+                                    instancia?</strong></p>
                             <div class="grid grid-cols-2 gap-2">
+                                <div class="quiz-option border rounded p-2 text-center">invokestatic</div>
                                 <div class="quiz-option border rounded p-2 text-center"
-                                    onclick="alert('¡Correcto! Evita errores de tipografía.')">@Override</div>
-                                <div class="quiz-option border rounded p-2 text-center">@Overload</div>
+                                    onclick="alert('¡Correcto! Resuelve en tiempo de ejecución.')">invokevirtual</div>
                             </div>
                         </div>
                     </div>
@@ -441,24 +470,26 @@ for (Empleado e : plantilla) {
                                 class="px-3 py-1 rounded-full bg-purple-100 text-purple-700 text-xs font-bold uppercase tracking-wider">Lección
                                 09</span>
                         </div>
-                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">Interfaces y
-                            Desacoplamiento</h1>
+                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">Interfaces:
+                            Contratos y Desacoplamiento (ISP)</h1>
                     </div>
 
-                    <p class="text-slate-600 mb-6">La herencia (clases abstractas) es rígida. Las interfaces son
-                        flexibles. Definen un <strong>contrato de comportamiento</strong> ("CAN-DO") sin importar la
-                        jerarquía ("IS-A"). Es como un enchufe USB: no importa si conectas un ratón o un teclado, si
-                        cumple la interfaz USB, funciona.</p>
+                    <p class="text-slate-600 mb-6">En arquitectura moderna, se prefiere la composición y las interfaces
+                        sobre la herencia de clases ("Composition over Inheritance"). Las interfaces definen capacidades
+                        (<strong>CAN-DO</strong>) independientemente de la jerarquía (<strong>IS-A</strong>). Esto
+                        permite sistemas modulares y testables.</p>
 
 
 
                     [Image of UML class diagram implementing interfaces]
 
 
-                    <h3 class="text-xl font-bold text-slate-800 mt-8 mb-4">Default Methods (Java 8+)</h3>
-                    <p class="text-slate-600 mb-4">Antiguamente, si añadías un método a una interfaz, rompías todas las
-                        clases que la implementaban. Los métodos <code>default</code> permiten evolución de APIs sin
-                        romper compatibilidad.</p>
+                    <h3 class="text-xl font-bold text-slate-800 mt-8 mb-4">Evolución de APIs: Default Methods</h3>
+                    <p class="text-slate-600 mb-4">Java 8 introdujo métodos <code>default</code>. Esto permite añadir
+                        funcionalidad a una interfaz sin romper la compatibilidad binaria con las clases que ya la
+                        implementan. Internamente, la JVM usa <code>invokeinterface</code>, que es ligeramente más lento
+                        que <code>invokevirtual</code> debido a la búsqueda en tablas de interfaces (iTable), aunque
+                        altamente optimizado en HotSpot.</p>
 
                     <h2 class="text-slate-900 border-none mb-6 mt-12"><i
                             class="fas fa-dumbbell text-purple-600 mr-2"></i>Training Ground</h2>
@@ -468,11 +499,10 @@ for (Empleado e : plantilla) {
                         <div
                             class="absolute top-0 right-0 bg-green-100 text-green-700 text-xs font-bold px-3 py-1 rounded-bl-xl">
                             BÁSICO</div>
-                        <h4 class="font-bold text-slate-800 mb-2">Contrato Simple</h4>
-                        <p class="text-sm text-slate-600 mb-4">Define interfaz <code>Volador</code> con método
-                            <code>volar()</code>. Haz que las clases <code>Pajaro</code> y <code>Avion</code> la
-                            implementen. Nota que no tienen relación familiar, solo de capacidad.
-                        </p>
+                        <h4 class="font-bold text-slate-800 mb-2">Interface Segregation Principle (ISP)</h4>
+                        <p class="text-sm text-slate-600 mb-4">En lugar de una interfaz gigante <code>Trabajador</code>,
+                            crea interfaces pequeñas <code>Codificador</code> y <code>Entrevistador</code>. Haz que las
+                            clases implementen solo lo que necesitan. Evita interfaces "Dios".</p>
                     </div>
 
                     <div
@@ -480,9 +510,11 @@ for (Empleado e : plantilla) {
                         <div
                             class="absolute top-0 right-0 bg-yellow-100 text-yellow-700 text-xs font-bold px-3 py-1 rounded-bl-xl">
                             INTERMEDIO</div>
-                        <h4 class="font-bold text-slate-800 mb-2">Default Methods</h4>
-                        <p class="text-sm text-slate-600 mb-4">Añade un método <code>default void aterrizar()</code> en
-                            la interfaz con un comportamiento base. Sobrescríbelo solo en <code>Avion</code>.</p>
+                        <h4 class="font-bold text-slate-800 mb-2">Herencia Múltiple de Comportamiento</h4>
+                        <p class="text-sm text-slate-600 mb-4">Implementa dos interfaces que tengan un método
+                            <code>default</code> con el mismo nombre. Resuelve el conflicto del "Diamond Problem"
+                            sobrescribiendo el método en la clase concreta y eligiendo cuál llamar
+                            (<code>InterfazA.super.metodo()</code>).</p>
                     </div>
 
                     <div
@@ -490,34 +522,38 @@ for (Empleado e : plantilla) {
                         <div
                             class="absolute top-0 right-0 bg-red-600 text-white text-xs font-bold px-3 py-1 rounded-bl-xl">
                             AVANZADO</div>
-                        <h4 class="font-bold text-white mb-2">Desacoplamiento (Dependency Injection)</h4>
-                        <p class="text-sm text-slate-400 mb-4">Crea una clase <code>Juego</code> que reciba un
-                            <code>Volador</code> en su constructor. Demuestra que el juego funciona igual pasándole un
-                            Pájaro o un Avión. Esto es la base de la arquitectura limpia.
-                        </p>
+                        <h4 class="font-bold text-white mb-2">Inyección de Dependencias (DI) Manual</h4>
+                        <p class="text-sm text-slate-400 mb-4">Aplica el Principio de Inversión de Dependencias (DIP).
+                            Crea una clase de alto nivel <code>Juego</code> que no dependa de clases concretas (Avion,
+                            Pajaro), sino de una abstracción <code>Volador</code>. Inyecta la dependencia concreta vía
+                            constructor.</p>
                         <button onclick="toggleSolution('sol-9')"
                             class="text-xs bg-purple-600 hover:bg-purple-500 text-white px-3 py-1 rounded transition">Ver
                             Solución</button>
                         <div id="sol-9" class="hidden mt-4 pt-4 border-t border-slate-700">
-                            <pre><code class="language-java">class Juego {
-    private Volador unidad; // Referencia a la interfaz, no a la clase concreta
+                            <pre><code class="language-java">// Desacoplamiento total: Juego no conoce a Avion ni a Pajaro
+class Juego {
+    private final Volador unidad; // Programar contra interfaz
 
-    public Juego(Volador v) { this.unidad = v; } // Inyección de dependencia
+    // Constructor Injection
+    public Juego(Volador v) { 
+        this.unidad = v; 
+    } 
 
-    public void iniciar() { unidad.volar(); }
-}
-// Uso: new Juego(new Avion()); o new Juego(new Pajaro());</code></pre>
+    public void jugar() { unidad.volar(); }
+}</code></pre>
                         </div>
                     </div>
 
                     <div class="mt-10 pt-8 border-t border-slate-200">
                         <h3 class="font-bold text-slate-800 mb-4">Quiz de Validación</h3>
                         <div class="space-y-3 text-sm">
-                            <p><strong>1. ¿Cuántas interfaces puede implementar una clase en Java?</strong></p>
+                            <p><strong>1. ¿Qué principio SOLID promueve el uso de interfaces pequeñas y
+                                    específicas?</strong></p>
                             <div class="grid grid-cols-2 gap-2">
+                                <div class="quiz-option border rounded p-2 text-center">Open/Closed</div>
                                 <div class="quiz-option border rounded p-2 text-center"
-                                    onclick="alert('¡Correcto! Herencia múltiple de tipos.')">Múltiples</div>
-                                <div class="quiz-option border rounded p-2 text-center">Solo una</div>
+                                    onclick="alert('¡Correcto! Interface Segregation Principle.')">ISP</div>
                             </div>
                         </div>
                     </div>
@@ -535,17 +571,18 @@ for (Empleado e : plantilla) {
                     </div>
 
                     <div class="bg-purple-50 p-6 rounded-xl border border-purple-100 mb-8">
-                        <h3 class="font-bold text-purple-900 mb-2">Adiós al Boilerplate</h3>
-                        <p class="text-sm text-purple-800">Java 14 introdujo <strong>Records</strong>. Antes, para crear
-                            un simple DTO (Data Transfer Object) necesitabas 50 líneas de código (Constructor, Getters,
-                            Equals, HashCode, ToString). Ahora necesitas 1 sola línea.</p>
+                        <h3 class="font-bold text-purple-900 mb-2">Semántica de Datos Pura</h3>
+                        <p class="text-sm text-purple-800">Java 14 introdujo los <strong>Records</strong>. No son solo
+                            "clases cortas". Son portadores transparentes de datos inmutables. A nivel de JVM, extienden
+                            de <code>java.lang.Record</code>. Su semántica de igualdad (<code>equals/hashCode</code>)
+                            está basada en el contenido de todos sus componentes, ideal para claves de Mapas o DTOs.</p>
                     </div>
 
-
-
-                    <h3 class="text-xl font-bold text-slate-800 mt-8 mb-4">Enums: Más que constantes</h3>
-                    <p class="text-slate-600 mb-4">En Java, los Enums son clases completas. Pueden tener atributos,
-                        constructores y métodos abstractos. Son Singletons por definición y thread-safe.</p>
+                    <h3 class="text-xl font-bold text-slate-800 mt-8 mb-4">Enums: Singleton Pattern por Excelencia</h3>
+                    <p class="text-slate-600 mb-4">En Java, los <code>enum</code> son mucho más que constantes enteras
+                        (como en C). Son clases completas que heredan de <code>java.lang.Enum</code>. Garantizan, por
+                        especificación de la JVM, que solo existe una instancia por constante (Singleton Pattern
+                        Thread-Safe y resistente a la serialización).</p>
 
                     <h2 class="text-slate-900 border-none mb-6 mt-12"><i
                             class="fas fa-dumbbell text-purple-600 mr-2"></i>Training Ground</h2>
@@ -555,11 +592,10 @@ for (Empleado e : plantilla) {
                         <div
                             class="absolute top-0 right-0 bg-green-100 text-green-700 text-xs font-bold px-3 py-1 rounded-bl-xl">
                             BÁSICO</div>
-                        <h4 class="font-bold text-slate-800 mb-2">Tu primer Record</h4>
-                        <p class="text-sm text-slate-600 mb-4">Define un record
-                            <code>Coordenada(double x, double y)</code>. Instáncialo e imprime su valor usando
-                            <code>toString()</code> (que ya viene gratis).
-                        </p>
+                        <h4 class="font-bold text-slate-800 mb-2">Canonical Constructor en Records</h4>
+                        <p class="text-sm text-slate-600 mb-4">Define un record <code>Rango(int min, int max)</code>.
+                            Usa el constructor compacto (sin paréntesis) para validar que <code>min &lt; max</code>. Si
+                            no, lanza excepción. Esto garantiza que es imposible crear un Rango inválido.</p>
                     </div>
 
                     <div
@@ -567,10 +603,10 @@ for (Empleado e : plantilla) {
                         <div
                             class="absolute top-0 right-0 bg-yellow-100 text-yellow-700 text-xs font-bold px-3 py-1 rounded-bl-xl">
                             INTERMEDIO</div>
-                        <h4 class="font-bold text-slate-800 mb-2">Validación en Record</h4>
-                        <p class="text-sm text-slate-600 mb-4">Usa el "Compact Constructor" del Record para validar que
-                            <code>x</code> no sea negativo. Si lo es, lanza excepción.
-                        </p>
+                        <h4 class="font-bold text-slate-800 mb-2">Enums con Estado y Comportamiento</h4>
+                        <p class="text-sm text-slate-600 mb-4">Crea un enum <code>Planeta</code> con atributos
+                            <code>masa</code> y <code>radio</code>. Implementa un método <code>gravedad()</code> que
+                            calcule la física real para cada constante.</p>
                     </div>
 
                     <div
@@ -578,36 +614,38 @@ for (Empleado e : plantilla) {
                         <div
                             class="absolute top-0 right-0 bg-red-600 text-white text-xs font-bold px-3 py-1 rounded-bl-xl">
                             AVANZADO</div>
-                        <h4 class="font-bold text-white mb-2">Enum Strategy Pattern</h4>
-                        <p class="text-sm text-slate-400 mb-4">Crea un Enum <code>Operacion</code> con valores SUMA y
-                            RESTA. Define un método abstracto <code>aplicar(int a, int b)</code> y que cada constante lo
-                            implemente de forma distinta.</p>
+                        <h4 class="font-bold text-white mb-2">Strategy Pattern con Enums</h4>
+                        <p class="text-sm text-slate-400 mb-4">Utiliza el polimorfismo de constantes (Constant-specific
+                            class bodies). Crea un Enum <code>Operacion</code> donde cada constante (SUMA, RESTA)
+                            implemente su propia versión de un método abstracto <code>aplicar</code>. Esto elimina los
+                            <code>switch</code> y sigue el principio Open/Closed.</p>
                         <button onclick="toggleSolution('sol-10')"
                             class="text-xs bg-purple-600 hover:bg-purple-500 text-white px-3 py-1 rounded transition">Ver
                             Solución</button>
                         <div id="sol-10" class="hidden mt-4 pt-4 border-t border-slate-700">
                             <pre><code class="language-java">enum Operacion {
     SUMA { 
-        public int aplicar(int a, int b) { return a + b; } 
+        @Override public int aplicar(int x, int y) { return x + y; } 
     },
-    RESTA { 
-        public int aplicar(int a, int b) { return a - b; } 
+    MULTIPLICACION { 
+        @Override public int aplicar(int x, int y) { return x * y; } 
     };
 
-    public abstract int aplicar(int a, int b);
+    public abstract int aplicar(int x, int y);
 }
-// Uso: Operacion.SUMA.aplicar(10, 5);</code></pre>
+// Bytecode genera clases anónimas internas para cada constante: Operacion$1, Operacion$2</code></pre>
                         </div>
                     </div>
 
                     <div class="mt-10 pt-8 border-t border-slate-200">
                         <h3 class="font-bold text-slate-800 mb-4">Quiz de Validación</h3>
                         <div class="space-y-3 text-sm">
-                            <p><strong>1. ¿Son inmutables los Records en Java?</strong></p>
+                            <p><strong>1. ¿Son mutables los componentes de un Record?</strong></p>
                             <div class="grid grid-cols-2 gap-2">
                                 <div class="quiz-option border rounded p-2 text-center"
-                                    onclick="alert('¡Correcto! Todos sus campos son final.')">Sí, siempre</div>
-                                <div class="quiz-option border rounded p-2 text-center">No, son mutables</div>
+                                    onclick="alert('¡Correcto! Son private final implícitamente.')">No, son inmutables.
+                                </div>
+                                <div class="quiz-option border rounded p-2 text-center">Sí, tienen setters.</div>
                             </div>
                         </div>
                     </div>
@@ -616,7 +654,7 @@ for (Empleado e : plantilla) {
             </div>
 
             <footer class="mt-20 py-8 text-center text-slate-400 text-sm border-t border-slate-200">
-                <p>&copy; 2025 Java Masterclass. Módulo 2 completado.</p>
+                <p>&copy; 2025 Java Masterclass. Arquitectura Orientada a Objetos.</p>
             </footer>
         </main>
     </div>
